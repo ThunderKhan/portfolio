@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
+import { ProjectPreview } from "@/components/ProjectPreview";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -41,11 +41,14 @@ export const ProjectCard = ({
 
   const statusColor =
     project.status === "research" ? "bg-sky-500"
+    : project.status === "prototype" ? "bg-amber-500"
     : project.status === "building" ? "bg-red-500"
     : project.status === "archived" ? "bg-zinc-400 dark:bg-zinc-500"
     : "bg-emerald-500";
   const statusLabel =
     project.status === "research" ? "Research"
+    : project.status === "completed" ? "Completed"
+    : project.status === "prototype" ? "Prototype"
     : project.status === "building" ? "Building"
     : project.status === "archived" ? "Archived"
     : "Live";
@@ -96,7 +99,8 @@ export const ProjectCard = ({
           {/* The panel is sized to 1.6 to match the screenshots, so cover fills
               it exactly - at 1.53 it clipped the left edge of every 16:10 shot. */}
           <div className="size-full overflow-hidden rounded-t-[9px]">
-            <Image
+            <ProjectPreview
+              projectTitle={project.title}
               src={imageSrc}
               alt={`${project.title} preview`}
               width={600}

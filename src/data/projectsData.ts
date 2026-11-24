@@ -44,7 +44,7 @@ export type TechKey =
 
 export type TechItem = TechKey | { label: string; tooltip?: string; };
 
-export type ProjectStatus = "live" | "building" | "research" | "archived";
+export type ProjectStatus = "live" | "building" | "research" | "archived" | "completed" | "prototype";
 
 export interface Project {
   slug: string;
@@ -53,6 +53,10 @@ export interface Project {
   src: string;
   lightModeSrc?: string;
   description: string;
+  problem?: string;
+  highlights?: string[];
+  caseStudy?: string;
+  statusDetail?: string;
   tech: TechItem[];
   github: string;
   /** Omit when there is nothing working to link to. */
@@ -94,79 +98,175 @@ export const techNames: Record<TechKey, string> = {
 
 export const projectsData: Project[] = [
   {
-    slug: "cp-mac",
-    title: "cp-mac",
-    imageTitle: "Same code. Now it runs.",
-    src: "/project-image/cp-mac.png",
-    description: "On macOS, g++ is really Apple Clang, so competitive programming code that passes every judge fails locally. cp-mac makes bits/stdc++.h, pb_ds, rope and __gcd work under Apple Clang - plus a judge-size stack for deep recursion - in one install, with no GCC and no editor reconfiguration.",
-    tech: ["cpp", "macos", "homebrew", "shell"],
-    video: "/project-video/cp-mac.mp4",
-    github: "https://github.com/Paras-ydv/cp-mac",
-    status: "live",
-    hasPin: true,
+    "slug": "diff2test",
+    "title": "diff2test",
+    "status": "completed",
+    "imageTitle": "CLI output",
+    "tech": [
+      "cpp",
+      {
+        "label": "CMake"
+      },
+      {
+        "label": "CTest"
+      },
+      {
+        "label": "ASan/UBSan"
+      }
+    ],
+    "hasPin": true,
+    "src": "/project-image/diff2test.png",
+    "description": "A zero-runtime-dependency C++20 test-impact analyzer that consumes existing CMake, compiler dependency, and CTest metadata to select only tests justified by build evidence, then widens conservatively when that evidence is incomplete.",
+    "problem": "Large C++ repositories either run the entire test suite after every change or rely on heuristics that can silently miss affected tests.",
+    "highlights": [
+      "Builds an explainable changed-file → translation-unit → target → test graph from pre-generated toolchain metadata",
+      "Uses explicit safety states so missing, stale, malformed, ambiguous, or unsupported evidence widens to the known full suite instead of guessing",
+      "Ships as a single runtime source file with no runtime process spawning, public verification, sanitizers, reproducibility checks, and deterministic output"
+    ],
+    "github": "https://github.com/ThunderKhan/diff2test",
+    "caseStudy": "https://ayankhan.me/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies",
+    "statusDetail": "Completed · C++20 CLI"
   },
   {
-    slug: "testpilot-ai",
-    title: "TestPilot AI",
-    imageTitle: "Agent Dashboard",
-    src: "/project-image/testpilot-ui.png",
-    description: "An autonomous agent that explores a running web app, decides what to do next from live runtime behaviour, and reports what broke — with no pre-written test scripts.",
-    tech: ["ts", "langgraph", "playwright", "qdrant", "node"],
-    github: "https://github.com/Paras-ydv/TestPilot_AI",
-    live: "",
-    status: "live",
-    backgroundImage: "/project-hover-testpilot-ai.webp",
-    hasPin: true,
+    "slug": "webclerk",
+    "title": "webclerk",
+    "status": "live",
+    "imageTitle": "WebMCP application interface",
+    "tech": [
+      "ts",
+      "react",
+      {
+        "label": "WebMCP"
+      },
+      {
+        "label": "Vite"
+      },
+      {
+        "label": "Vitest"
+      }
+    ],
+    "hasPin": true,
+    "src": "/project-image/webclerk.png",
+    "description": "A trust-first WebMCP layer for consequential web forms where agents operate through semantic site tools, apply only evidence-backed edits, preserve conflicts and stale evidence, and leave declarations and final submission under human control.",
+    "problem": "Browser agents can fill consequential forms quickly, but ordinary automation makes it too easy to guess unsupported facts, hide uncertainty, or cross human-only decision boundaries.",
+    "highlights": [
+      "Registers nine semantic WebMCP tools directly through document.modelContext and routes writes through the same deterministic domain rules as the human UI",
+      "Verified an end-to-end agent flow that moves a fictional application from 70% to 96% completion using six evidence-backed edits while leaving blockers visible",
+      "Includes provenance, reversible agent changes, consistency checks, stale-evidence handling, deterministic preflight, and an explicit no-submit boundary"
+    ],
+    "github": "https://github.com/ThunderKhan/webclerk",
+    "live": "https://webclerk.vercel.app/",
+    "statusDetail": "WebMCP Challenge · live"
   },
   {
-    slug: "campusquest",
-    title: "CampusQuest",
-    imageTitle: "Campus Engine",
-    src: "/project-image/campusquest-ui.png",
-    description: "Databricks Hackathon finalist. A campus career engine with a what-if skill simulator, quests and XP, gap-based people matching, and Ask Genie over campus data. The Databricks workspace was decommissioned after the event, so the demo is offline and the code is the record.",
-    tech: ["next", "supabase", "databricks", "ts", "postgres"],
-    github: "https://github.com/Paras-ydv/CampusQuest",
-    status: "archived",
-    backgroundImage: "/project-hover-campusquest.webp",
-    hasPin: true,
+    "slug": "frame",
+    "title": "FRAME",
+    "status": "research",
+    "imageTitle": "Fraud investigation interface",
+    "tech": [
+      "python",
+      "fastapi",
+      "sklearn",
+      "react",
+      "ts",
+      {
+        "label": "NetworkX"
+      }
+    ],
+    "hasPin": false,
+    "src": "/project-image/frame.png",
+    "description": "Fraud Ring Analysis & Mapping Engine: a graph-aware fraud-analysis system combining online relational features, short-window temporal signals, calibrated risk scoring, deterministic policy, analyst evidence, and a live investigation interface.",
+    "problem": "Coordinated payment abuse can remain invisible when transactions are scored independently even though relationships between customers, devices, cards, IPs, and merchants reveal the pattern.",
+    "highlights": [
+      "Maintains an evolving payment graph and computes graph + temporal features before every transaction decision",
+      "Separates calibrated model risk from deterministic ALLOW / REVIEW / BLOCK policy and observed analyst evidence",
+      "Includes a locked synthetic hard-negative benchmark and a live ring-formation demo, with results explicitly scoped as synthetic rather than real-world performance"
+    ],
+    "github": "https://github.com/ThunderKhan/frame",
+    "statusDetail": "Completed · research prototype"
   },
   {
-    slug: "ventureiq",
-    title: "VentureIQ",
-    imageTitle: "Investment Intelligence",
-    src: "/project-image/ventureiq-ui.png",
-    description: "An agentic-AI and RAG startup investment platform that verifies what founders self-report and gives investors an explainable score before they commit money.",
-    tech: ["next", "ts", "python", "rag", "langchain", "fastapi"],
-    github: "https://github.com/Paras-ydv/VentureIQ",
-    live: "https://venture-iq-mocha.vercel.app",
-    status: "building",
-    backgroundImage: "/project-hover-ventureiq.webp",
-    hasPin: false,
+    "slug": "oasis",
+    "title": "O.A.S.I.S.",
+    "status": "prototype",
+    "imageTitle": "Screening and referral interface",
+    "tech": [
+      "next",
+      "ts",
+      "fastapi",
+      "sklearn",
+      {
+        "label": "SQLite"
+      }
+    ],
+    "hasPin": false,
+    "src": "/project-image/oasis.png",
+    "description": "Oncology Assessment & Screening Information System, an explainable clinician-facing prototype for screening and referral prioritisation across oral, breast, and cervical cancer pathways.",
+    "problem": "Cancer-screening workflows need to prioritize referral urgency while keeping red flags, eligibility rules, model outputs, and clinical uncertainty legible to the people making decisions.",
+    "highlights": [
+      "Combines red-flag safety rules, screening-program eligibility, optional statistical support, and explainable referral-priority recommendations",
+      "Keeps the Screening Priority Index distinct from cancer probability and explicitly prevents low model output from overriding symptoms or abnormal examination findings",
+      "Built as a Next.js frontend with a FastAPI backend, persisted assessment history, dashboard views, referral workflow, and evidence/model documentation"
+    ],
+    "github": "https://github.com/ThunderKhan/oasis",
+    "statusDetail": "Hackathon prototype · completed phase"
   },
   {
-    slug: "wifi-rtt",
-    title: "Wi-Fi RTT Ranging",
-    imageTitle: "Ranging App",
-    src: "/project-image/wifirtt-devices.png",
-    description: "The Samsung PRISM research app behind 600+ labelled measurements — Wi-Fi Aware and IEEE 802.11mc ranging, feeding a model that hit MAE 0.443 m and 87% within 1 m.",
-    tech: ["kotlin", "compose", "python", "sklearn", "fastapi"],
-    github: "https://github.com/Paras-ydv/wifi_rtt_measurement",
-    live: "",
-    status: "research",
-    backgroundImage: "/project-hover-wifi-rtt.webp",
-    hasPin: false,
+    "slug": "llm-social-selection",
+    "title": "LLM Social Selection",
+    "status": "research",
+    "imageTitle": "Multi-agent experiment results",
+    "tech": [
+      "python",
+      {
+        "label": "SQLite"
+      },
+      {
+        "label": "Ollama"
+      },
+      {
+        "label": "pytest"
+      }
+    ],
+    "hasPin": false,
+    "src": "/project-image/llm-social-selection.png",
+    "description": "A model-independent experimentation framework for repeated multi-agent answer, voting, elimination, and evaluation trials with deterministic orchestration, resumable runs, structured ballots, diagnostics, and SQLite provenance.",
+    "problem": "Multi-agent LLM experiments are easy to make entertaining and surprisingly hard to make reproducible, diagnosable, and useful for studying emergent social behavior.",
+    "highlights": [
+      "Separates orchestration, providers, task generation, ballots, persistence, and diagnostics so experiments can be rerun across different local or remote model backends",
+      "Supports checkpoint/resume, canonicalized events, hashing, structured outputs, deterministic controls, and multiple voting conditions",
+      "Used calibration and diagnostic runs to surface positional concentration and degenerate agent behavior before larger experiments"
+    ],
+    "github": "https://github.com/ThunderKhan/llm-social-selection",
+    "statusDetail": "Research experiment · active"
   },
   {
-    slug: "unslop",
-    title: "Unslop",
-    imageTitle: "Feed Scoring",
-    src: "/project-image/unslop-card.png",
-    description: "A Chrome extension that flags low-value and AI-slop posts in your LinkedIn feed in real time, scored on-device. No post ever leaves the browser.",
-    tech: ["ts", "chrome", "node"],
-    github: "https://github.com/Paras-ydv/Unslop",
-    live: "",
-    status: "building",
-    backgroundImage: "/project-hover-unslop.webp",
-    hasPin: false,
-  },
+    "slug": "heatops",
+    "title": "HeatOps",
+    "status": "prototype",
+    "imageTitle": "Heat-risk and resource allocation map",
+    "tech": [
+      "python",
+      "fastapi",
+      "react",
+      "ts",
+      {
+        "label": "GeoJSON"
+      },
+      {
+        "label": "FortyGuard API"
+      }
+    ],
+    "hasPin": false,
+    "src": "/project-image/heatops.png",
+    "description": "An explainable decision-support system that enriches heat data with vulnerability signals, generates candidate resource sites, optimizes intervention placement, and produces an operational brief from a canonical evidence bundle.",
+    "problem": "Heat maps show where conditions are dangerous, but emergency-response teams still need to decide where limited cooling and drinking-water resources should actually go.",
+    "highlights": [
+      "Supports live FortyGuard and synthetic providers with explicit provenance so mock values are never presented as observations",
+      "Keeps site selection deterministic: the optimizer chooses locations while an optional LLM only narrates already-verified evidence",
+      "Produces interactive risk maps, optimized placement plans, evidence fingerprints, downloadable action briefs, and end-to-end tests"
+    ],
+    "github": "https://github.com/ThunderKhan/heatops",
+    "statusDetail": "Hackathon prototype · milestone 5"
+  }
 ];

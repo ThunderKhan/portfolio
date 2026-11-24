@@ -5,7 +5,7 @@ import { RightNavbar } from "@/components/RightNavbar";
 import { FooterBackground } from "@/components/FooterBackground";
 import { projectsData, iconMap, techNames, TechItem, TechKey } from "@/data/projectsData";
 import Link from "next/link";
-import Image from "next/image";
+import { ProjectPreview } from "@/components/ProjectPreview";
 import { notFound } from "next/navigation";
 import { ExternalLink, ArrowLeft } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -22,16 +22,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const statusDot =
     project?.status === "research" ? "bg-sky-500"
+    : project?.status === "prototype" ? "bg-amber-500"
     : project?.status === "building" ? "bg-red-500"
     : project?.status === "archived" ? "bg-zinc-400 dark:bg-zinc-500"
     : "bg-emerald-500";
   const statusText =
     project?.status === "research" ? "text-sky-600 dark:text-sky-400"
+    : project?.status === "prototype" ? "text-amber-700 dark:text-amber-400"
     : project?.status === "building" ? "text-red-600 dark:text-red-400"
     : project?.status === "archived" ? "text-zinc-500 dark:text-zinc-400"
     : "text-emerald-600 dark:text-emerald-400";
   const statusLabel =
     project?.status === "research" ? "Research"
+    : project?.status === "completed" ? "Completed"
+    : project?.status === "prototype" ? "Prototype"
     : project?.status === "building" ? "Building"
     : project?.status === "archived" ? "Archived"
     : "Live";
@@ -125,7 +129,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               className="absolute inset-0 h-full w-full object-contain bg-black"
             />
           ) : (
-            <Image
+            <ProjectPreview
+              projectTitle={project.title}
               src={project.src}
               alt={project.imageTitle}
               fill
@@ -190,6 +195,29 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="text-[14px] sm:text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
           {project.description}
         </p>
+
+        {project.statusDetail && (
+          <p className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">{project.statusDetail}</p>
+        )}
+        {project.problem && (
+          <section className="mt-6">
+            <h2 className="mb-2 text-[16px] font-bold text-zinc-900 dark:text-zinc-50">Problem</h2>
+            <p className="text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-300">{project.problem}</p>
+          </section>
+        )}
+        {project.highlights?.length ? (
+          <section className="mt-6">
+            <h2 className="mb-2 text-[16px] font-bold text-zinc-900 dark:text-zinc-50">Technical highlights</h2>
+            <ul className="list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-300">
+              {project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
+            </ul>
+          </section>
+        ) : null}
+        {project.caseStudy && (
+          <a href={project.caseStudy} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-fit items-center gap-1.5 text-[13px] font-medium text-zinc-700 underline-offset-4 hover:underline dark:text-zinc-200">
+            Read the case study <ExternalLink className="size-3.5" aria-hidden="true" />
+          </a>
+        )}
 
         {/* Dashed Divider before Stack */}
         <div className="relative mt-8 mb-6">
