@@ -28,7 +28,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || !portfolio.contactFormEnabled) return;
     setIsSubmitting(true);
 
     const form = e.currentTarget;
@@ -164,7 +164,7 @@ export default function ContactPage() {
       {/* Content Section */}
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-8 md:px-4 flex flex-col z-10 relative">
         {/* Form */}
-        <form onSubmit={handleSubmit} className="mt-12 -mx-8 space-y-10 md:-mx-4">
+        {portfolio.contactFormEnabled ? <form onSubmit={handleSubmit} className="mt-12 -mx-8 space-y-10 md:-mx-4">
           {/* FormSubmit Configuration */}
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
@@ -232,7 +232,12 @@ export default function ContactPage() {
               />
             </div>
           </div>
-        </form>
+        </form> : (
+          <div className="py-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p>For now, please contact me directly by email.</p>
+            <a className="mt-3 inline-block break-all font-medium underline underline-offset-4" href={`mailto:${portfolio.email}`}>{portfolio.email}</a>
+          </div>
+        )}
 
         {/* Separator */}
         <div className="relative mt-16 mb-0">
@@ -255,14 +260,14 @@ export default function ContactPage() {
                   GitHub
                 </a>
               </SocialHoverCard>
-              <SocialHoverCard socialName="Twitter">
+              {portfolio.handles.x && <SocialHoverCard socialName="Twitter">
                 <a href={`https://x.com/${portfolio.handles.x}`} target="_blank" className="flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-100 dark:bg-zinc-800/40 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md text-[12px] font-medium text-zinc-600 dark:text-zinc-300 transition-colors border border-zinc-200/50 dark:border-zinc-700/50">
                   <svg viewBox="0 0 24 24" className="w-3.5 h-3.5">
                     <path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768" stroke="currentColor" strokeWidth="2" fill="none" />
                   </svg>
                   Twitter
                 </a>
-              </SocialHoverCard>
+              </SocialHoverCard>}
               <SocialHoverCard socialName="LinkedIn">
                 <a href={`https://www.linkedin.com/in/${portfolio.handles.linkedin}/`} target="_blank" className="flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-100 dark:bg-zinc-800/40 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md text-[12px] font-medium text-zinc-600 dark:text-zinc-300 transition-colors border border-zinc-200/50 dark:border-zinc-700/50">
                   <svg viewBox="0 0 24 24" className="w-3.5 h-3.5">
@@ -276,7 +281,7 @@ export default function ContactPage() {
 
           <div className="flex-grow h-[160px] relative flex items-center justify-end -mr-56 mt-2">
             <DisplacementText
-              text="PARAS"
+              text={portfolio.name.toUpperCase()}
               fontSize={300}
               className="h-full w-full"
               lightColor="#171717"

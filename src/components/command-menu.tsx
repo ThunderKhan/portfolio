@@ -236,7 +236,7 @@ export function CommandMenu() {
                     <CommandSeparator className="my-2" />
 
                     <CommandGroup heading="Profiles">
-                        {PROFILES.map((p) => {
+                        {PROFILES.filter(p => Boolean(p.handle) && p.handle !== "@").map((p) => {
                             const Icon = p.icon
                             return (
                                 <CommandItem
@@ -267,10 +267,10 @@ export function CommandMenu() {
                             <Mail className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Send an email</span>
                         </CommandItem>
-                        <CommandItem value="action book a call meeting cal" onSelect={() => runCommand(() => openExternal(bookingLink))} className={itemClass}>
+                        {bookingLink && <CommandItem value="action book a call meeting cal" onSelect={() => runCommand(() => openExternal(bookingLink))} className={itemClass}>
                             <CalendarDays className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Book an intro call</span>
-                        </CommandItem>
+                        </CommandItem>}
                         <CommandItem value="action resume cv download" onSelect={() => runCommand(() => openExternal(resume))} className={itemClass}>
                             <Download className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Download résumé</span>

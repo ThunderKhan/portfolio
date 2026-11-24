@@ -14,7 +14,7 @@ export type SocialProfileData = {
   stale: boolean;
 };
 
-const AVATAR = `https://github.com/${handles.github}.png`;
+const AVATAR = portfolio.avatar;
 const LOCATION = `${portfolio.location} (${portfolio.utcOffset})`;
 
 /**
@@ -96,18 +96,18 @@ function getXProfile() {
 
 async function getLeetCodeProfile(): Promise<SocialProfileData> {
   const lc = await getLeetCode();
+  const matching = lc.username.toLowerCase() === handles.leetcode.toLowerCase();
   return {
     name: portfolio.name,
-    handle: `u/${lc.username}`,
+    handle: `u/${handles.leetcode}`,
     avatar: AVATAR,
-    bio: `Knight · ${lc.solved.all.toLocaleString()} solved · ${lc.contests} contests`,
+    bio: matching ? `${lc.solved.all.toLocaleString()} problems solved` : "Algorithms and problem solving",
     location: LOCATION,
     banner: true,
-    stats: [
-      { value: lc.solved.all.toLocaleString(), label: "Solved" },
-      { value: `#${lc.globalRanking.toLocaleString()}`, label: "Contest rank" },
-    ],
-    stale: lc.stale,
+    stats: matching
+      ? [{ value: lc.solved.all.toLocaleString(), label: lc.stale ? "Last known solved" : "Solved" }]
+      : [{ value: portfolio.publishedLeetCodeSolved, label: "Last published solved" }],
+    stale: !matching || lc.stale,
   };
 }
 
@@ -133,8 +133,8 @@ function getLinkedInProfile(): SocialProfileData {
 export async function getSocialProfiles(): Promise<Record<string, SocialProfileData>> {
   const [github, x, leetcode] = await Promise.all([
     getGithubProfile(),
-    getXProfile(),
+    handles.x ? getXProfile() : Promise.resolve(null),
     getLeetCodeProfile(),
   ]);
-  return { GitHub: github, Twitter: x, LeetCode: leetcode, LinkedIn: getLinkedInProfile() };
+  return { GitHub: github, ...(x ? { Twitter: x } : {}), LeetCode: leetcode, LinkedIn: getLinkedInProfile() };
 }

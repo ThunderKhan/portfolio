@@ -7,7 +7,6 @@ import { BlogList } from "@/components/BlogList";
 import { Highlights } from "@/components/Highlights";
 import { AnimeMusic } from "@/components/AnimeMusic";
 import { Hackathons } from "@/components/Hackathons";
-import { DsaStats } from "@/components/DsaStats";
 import { Education } from "@/components/Education";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
@@ -83,25 +82,25 @@ export default async function Home() {
       <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-[22vh] h-[112px] flex items-center px-4 z-50">
         <div className="flex w-full items-center justify-between">
 
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-5">
             <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-black/30 dark:border-white/[0.15] shrink-0">
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
-                  src="/avatar.png"
-                  alt="Profile"
+                  src={portfolio.avatar}
+                  alt=""
                   width={240}
                   height={240}
                   quality={90}
                   preload
                   fetchPriority="high"
                   sizes="(min-width: 640px) 120px, 96px"
-                  className="h-full w-full origin-center translate-y-1 scale-[1.1] object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                  className="h-full w-full object-cover"
                 />
               </div>
             </div>
 
-            <div className="flex flex-col justify-center pt-8">
+            <div className="flex min-w-0 flex-col justify-center pt-8">
               <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
                 {portfolio.name}
               </h1>
@@ -109,7 +108,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex items-start justify-end gap-2 sm:gap-3 h-20 sm:h-24 py-1">
+          <div className="absolute right-4 top-2 flex items-start justify-end gap-2 sm:gap-3">
             <CommandMenu />
             <ThemeToggle className="dark:text-zinc-400 hover:dark:text-zinc-300" />
           </div>
@@ -120,22 +119,20 @@ export default async function Home() {
       {/* Flowing Content Section */}
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
         <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
-          Software engineer. I build concurrent systems, backend services, and production AI/ML.
+          {portfolio.intro}
         </p>
 
-        <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
-          <li className="flex gap-1.5"><span>•</span><span>Systems, open source, and applied AI/ML are what pull me in.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Shipped thread-safe MQTT networking into an Android app with <span className="font-semibold text-zinc-900 dark:text-white">1M+ installs</span> at GSoC 2026, and ML-driven Wi-Fi RTT localization at Samsung that cut ranging error by <span className="font-semibold text-zinc-900 dark:text-white">31%</span>.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Currently an <span className="font-semibold text-zinc-900 dark:text-white">SDE Intern at GoCredit AI</span>, and building <span className="font-semibold text-zinc-900 dark:text-white">VentureIQ</span>, <span className="font-semibold text-zinc-900 dark:text-white">CampusSync</span> and <span className="font-semibold text-zinc-900 dark:text-white">Unslop</span> on the side.</span></li>
+        <ul className="list-disc space-y-1 text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-5">
+          {portfolio.about.map((line) => <li key={line}>{line}</li>)}
         </ul>
 
         {/* Buttons */}
         <div className="flex flex-wrap items-center gap-2 mt-4">
-          <FlipCoverButton href={bookingLink} label="Book an intro call" />
+          {bookingLink && <FlipCoverButton href={bookingLink} label="Book an intro call" />}
           <Link href="/contact">
             <SoftPillButton
               as="span"
-              variant="secondary"
+              variant="primary"
               className="px-3 py-1.5 !text-[12px]"
             >
               <div className="flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
@@ -155,10 +152,10 @@ export default async function Home() {
           <div className="flex flex-wrap gap-1.5">
             {[
               { name: 'GitHub', href: `https://github.com/${portfolio.handles.github}`, icon: <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" strokeWidth="2" fill="none"></path> },
-              { name: 'Twitter', href: `https://x.com/${portfolio.handles.x}`, icon: <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M20 4l-6.768 6.768" stroke="currentColor" strokeWidth="2" fill="none" /> },
+              { name: 'Twitter', configured: Boolean(portfolio.handles.x), href: `https://x.com/${portfolio.handles.x}`, icon: <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M20 4l-6.768 6.768" stroke="currentColor" strokeWidth="2" fill="none" /> },
               { name: 'LinkedIn', href: `https://www.linkedin.com/in/${portfolio.handles.linkedin}/`, icon: <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="2" fill="none"></path> },
               { name: 'LeetCode', href: `https://leetcode.com/u/${portfolio.handles.leetcode}` },
-            ].map((social, i) => (
+            ].filter(social => social.configured !== false).map((social, i) => (
               <SocialHoverCard key={i} socialName={social.name} profile={socialProfiles[social.name]}>
                 <SoftPillButton
                   as="a"
@@ -202,6 +199,12 @@ export default async function Home() {
             </SoftPillButton>
           </div>
         </div>
+
+        {portfolio.referencePreview && (
+          <p className="mt-5 border-l-2 border-[#B97D10] pl-3 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+            Development preview: the sections below retain reference content from the original portfolio and are not my achievements yet.
+          </p>
+        )}
 
         {/* Experiences */}
         <div id="experience" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
@@ -350,7 +353,10 @@ export default async function Home() {
             <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
           </div>
 
-          <DsaStats />
+          <div className="py-4 text-sm text-zinc-600 dark:text-zinc-300">
+            <p><span className="font-semibold text-zinc-900 dark:text-zinc-100">{portfolio.publishedLeetCodeSolved}</span> LeetCode problems solved (last published count).</p>
+            <p className="mt-1 text-xs text-zinc-500">Live statistics and contest history will be added during the DSA migration.</p>
+          </div>
         </div>
 
 

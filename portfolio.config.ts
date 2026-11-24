@@ -8,32 +8,44 @@
 
 export const portfolio = {
   /** Shown in the hero, page titles and social cards. */
-  name: "Paras",
+  name: "Ayan Khan",
   /** One line under the name. Keep it short - it is also the meta description. */
-  tagline: "Software engineer building concurrent systems, backend services, and production AI/ML.",
+  tagline: "Software developer building systems, developer tools and applied AI.",
   /** Longer form, used for Open Graph and the social hover cards. */
   description:
-    "Software engineer building concurrent systems, backend services, and production AI/ML across C++, Python, Java, and Kotlin.",
-  location: "Bengaluru, India",
+    "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments with an emphasis on deterministic behavior, explainability, testing, and public proof of work.",
+  location: "India",
+  avatar: "/profile/ayan-monogram.svg",
+  initials: "AK",
+  // Inherited sections are still visible for local design reference. Never deploy yet.
+  referencePreview: true,
+  contactFormEnabled: false,
+  intro: "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments.",
+  about: [
+    "Second-year BCA student at Deen Dayal Upadhyaya Gorakhpur University, specializing in Machine Learning and Data Science.",
+    "I care about deterministic behavior, explainability, testing and public proof of work.",
+    "I contribute upstream when I can, including fixes and regression coverage in CLI11, Manim and OpenTrace.",
+  ],
+  publishedLeetCodeSolved: "220+",
   /** IANA zone for the live clock in the banner. */
   timeZone: "Asia/Kolkata",
   /** UTC offset label shown on the social hover cards. */
   utcOffset: "UTC +05:30",
 
   /** Canonical origin. NEXT_PUBLIC_SITE_URL overrides this at build time. */
-  url: "https://parascodes.is-a.dev",
+  url: "https://ayankhan.me",
 
   /**
    * Usernames only, never full URLs - the code builds the links and the stats
    * fetchers query these directly. Leave a value empty to hide that profile.
    */
   handles: {
-    github: "Paras-ydv",
-    linkedin: "parascodes",
-    x: "parascodes",
-    leetcode: "parascodes",
-    codeforces: "Paras_ydv",
-    codechef: "paras_ydv",
+    github: "ThunderKhan",
+    linkedin: "the-ayan-khan",
+    x: "",
+    leetcode: "ThunderKhan",
+    codeforces: "",
+    codechef: "",
   },
 
   /**
@@ -43,20 +55,20 @@ export const portfolio = {
    * giscus app on the repo. Leave `repoId` empty to hide the guestbook.
    */
   giscus: {
-    repo: "Paras-ydv/portfolio" as `${string}/${string}`,
-    repoId: "R_kgDOVMzxpg",
+    repo: "ThunderKhan/portfolio" as `${string}/${string}`,
+    repoId: "",
     category: "Announcements",
-    categoryId: "DIC_kwDOVMzxps4DI0RB",
+    categoryId: "",
   },
 
   /** This site's own source, linked in the footer. Set to "" to hide the link. */
-  repo: "https://github.com/Paras-ydv/portfolio",
+  repo: "https://github.com/ThunderKhan/portfolio",
 
-  email: "parasydv77@gmail.com",
+  email: "AyanKhanOffiiciall@gmail.com",
   /** Path under /public. Swap the file and this string together. */
-  resume: "/Paras_Resume.pdf",
+  resume: "/Ayan_Khan_Resume.pdf",
   /** "Book an intro call" button. Set to "" to hide it. */
-  bookingLink: "https://cal.com/parascodes/30min",
+  bookingLink: "",
 
   /**
    * Search Console verification. Paste the `content` value from Google's
@@ -80,9 +92,9 @@ export const portfolio = {
    * X and LinkedIn block unauthenticated requests.
    */
   bios: {
-    github: "Concurrent systems, backend services, and production AI/ML",
-    x: "GSoC'26 Catrobat | SDE Intern @GoCreditAI | Ex-NatWest, Samsung R&D, Carver Agents",
-    linkedin: "GSoC'26 Catrobat | SDE Intern at GoCredit AI | Ex-NatWest, Samsung R&D, Carver Agents",
+    github: "Systems, developer tools and applied AI.",
+    x: "",
+    linkedin: "Software developer and BCA student specializing in Machine Learning and Data Science.",
   },
 
   /**
@@ -90,8 +102,8 @@ export const portfolio = {
    * Put real numbers here to show them, or leave null to show no stat row.
    */
   followers: {
-    x: "1K+" as string | null,
-    linkedin: "5K+" as string | null,
+    x: null as string | null,
+    linkedin: null as string | null,
   },
 } as const;
 

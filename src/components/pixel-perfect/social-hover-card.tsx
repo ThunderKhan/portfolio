@@ -7,12 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { portfolio } from "~/portfolio.config";
 import Image, { getImageProps } from "next/image";
-import lightBannerImage from "../../../public/banner-light.jpg";
-import darkBannerImage from "../../../public/banner-dark.jpg";
+import bannerImage from "../../../public/banner/starry-night.png";
 
 const bannerImageProps = { width: 250, height: 64, quality: 70, sizes: "250px" } as const;
-const lightBannerPreload = getImageProps({ ...bannerImageProps, alt: "", src: lightBannerImage }).props;
-const darkBannerPreload = getImageProps({ ...bannerImageProps, alt: "", src: darkBannerImage }).props;
+const bannerPreload = getImageProps({ ...bannerImageProps, alt: "", src: bannerImage }).props;
 
 interface SocialProfile {
   name: string;
@@ -34,7 +32,7 @@ interface SocialProfile {
  * carrying no stat numbers - hardcoded counts go stale and this file used to
  * claim 52 repositories and 19 followers long after both had moved.
  */
-const avatar = `https://github.com/${portfolio.handles.github}.png`;
+const avatar = portfolio.avatar;
 const where = `${portfolio.location} (${portfolio.utcOffset})`;
 
 const socialProfiles: Record<string, SocialProfile> = {
@@ -83,15 +81,10 @@ export default function SocialHoverCard({ socialName, children, profile: live }:
   }
 
   if (profile.banner) {
-    ReactDOM.preload(lightBannerPreload.src, {
+    ReactDOM.preload(bannerPreload.src, {
       as: "image",
-      imageSrcSet: lightBannerPreload.srcSet,
-      imageSizes: lightBannerPreload.sizes,
-    });
-    ReactDOM.preload(darkBannerPreload.src, {
-      as: "image",
-      imageSrcSet: darkBannerPreload.srcSet,
-      imageSizes: darkBannerPreload.sizes,
+      imageSrcSet: bannerPreload.srcSet,
+      imageSizes: bannerPreload.sizes,
     });
   }
 
@@ -144,7 +137,7 @@ export default function SocialHoverCard({ socialName, children, profile: live }:
                             decoding="async"
                             quality={75}
                             sizes="48px"
-                            className="w-full h-full object-cover grayscale opacity-90 contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         {/* Discord active green dot indicator */}
@@ -232,19 +225,10 @@ export default function SocialHoverCard({ socialName, children, profile: live }:
                       <div className="relative w-full h-[64px] overflow-hidden bg-[#d9e5e7] dark:bg-[#071329]">
                         <Image
                           {...bannerImageProps}
-                          src={lightBannerImage}
+                          src={bannerImage}
                           alt=""
-                          placeholder="blur"
                           loading="eager"
-                          className="h-full w-full object-cover object-center dark:hidden"
-                        />
-                        <Image
-                          {...bannerImageProps}
-                          src={darkBannerImage}
-                          alt=""
-                          placeholder="blur"
-                          loading="eager"
-                          className="hidden h-full w-full object-cover object-center dark:block"
+                          className="h-full w-full object-cover object-[75%_50%]"
                         />
                       </div>
                     ) : (
@@ -271,7 +255,7 @@ export default function SocialHoverCard({ socialName, children, profile: live }:
                             decoding="async"
                             quality={75}
                             sizes="56px"
-                            className="w-full h-full object-cover grayscale opacity-90 contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       </div>

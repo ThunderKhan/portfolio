@@ -2,8 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 import { portfolio } from "~/portfolio.config";
-import { experiences } from "@/data/experienceData";
-import snapshot from "@/data/stats-snapshot.json";
 
 export const alt = `${portfolio.name} - ${portfolio.tagline}`;
 export const size = { width: 1200, height: 630 };
@@ -49,7 +47,6 @@ function embed(file: string): string | null {
 }
 
 const banner = embed("banner/starry-night.png");
-const avatar = embed("avatar.png");
 
 /**
  * The mosaic is 4:1. Scale it to the card height and align the bright
@@ -57,15 +54,7 @@ const avatar = embed("avatar.png");
  */
 const ART = { w: 2520, h: 630, left: -950 };
 
-const n = (v: number) => v.toLocaleString("en-US");
-
-/** One restrained line of proof - the artwork does the attracting. */
-const PROOF = [
-  "GSoC '26",
-  `${experiences.length} roles`,
-  `${n(snapshot.leetcode.maxRating)} LeetCode`,
-  `${n(snapshot.codeforces.maxRating)} Codeforces`,
-].join("   ·   ");
+const PROOF = "C++   ·   Python   ·   TypeScript   ·   Systems   ·   Applied AI";
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -134,16 +123,9 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-            {avatar && (
-              // eslint-disable-next-line @next/next/no-img-element -- Satori consumes the inlined image directly.
-              <img
-                alt=""
-                src={avatar}
-                width={84}
-                height={84}
-                style={{ borderRadius: 42, border: "2px solid rgba(255,255,255,0.22)" }}
-              />
-            )}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 84, height: 84, borderRadius: 8, background: "#6A0C0B", border: "2px solid #B97D10", color: "#F4FBFF", fontSize: 36, fontWeight: 700 }}>
+              {portfolio.initials}
+            </div>
             <div
               style={{
                 fontSize: 19,
@@ -193,7 +175,7 @@ export default function OpengraphImage() {
               {PROOF}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 22 }}>
-              <div style={{ height: 4, width: 52, background: "#d6242b", borderRadius: 2 }} />
+              <div style={{ height: 4, width: 52, background: "#AA0505", borderRadius: 2 }} />
               <div style={{ fontSize: 26, color: "#ffffff" }}>
                 {portfolio.url.replace(/^https?:\/\//, "")}
               </div>

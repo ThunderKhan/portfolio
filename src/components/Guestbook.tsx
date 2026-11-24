@@ -18,7 +18,7 @@ export function Guestbook() {
 
   useEffect(() => {
     const host = ref.current;
-    if (!host || host.querySelector("iframe, script")) return;
+    if (!portfolio.giscus.repoId || !portfolio.giscus.categoryId || !host || host.querySelector("iframe, script")) return;
 
     const script = document.createElement("script");
     script.src = `${GISCUS_ORIGIN}/client.js`;
@@ -78,5 +78,8 @@ export function Guestbook() {
     frame?.contentWindow?.postMessage({ giscus: { setConfig: { theme } } }, GISCUS_ORIGIN);
   }, [theme]);
 
+  if (!portfolio.giscus.repoId || !portfolio.giscus.categoryId) {
+    return <p className="py-6 text-sm text-zinc-500">Guestbook is not configured yet.</p>;
+  }
   return <div ref={ref} className="giscus min-h-[220px]" />;
 }

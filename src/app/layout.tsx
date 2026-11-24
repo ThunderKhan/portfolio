@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: portfolio.name,
   description: portfolio.description,
+  ...(portfolio.referencePreview ? { robots: { index: false, follow: false } } : {}),
   openGraph: {
     title: portfolio.name,
     description: portfolio.tagline,
@@ -42,8 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: portfolio.name,
     description: portfolio.tagline,
-    site: `@${portfolio.handles.x}`,
-    creator: `@${portfolio.handles.x}`,
+    ...(portfolio.handles.x ? { site: `@${portfolio.handles.x}`, creator: `@${portfolio.handles.x}` } : {}),
   },
 };
 
