@@ -17,53 +17,136 @@ export type Hackathon = {
 
 export const hackathonsData: Hackathon[] = [
   {
-    id: "databricks-hackathon",
-    event: "Databricks Hackathon",
-    organizer: "HackCulture x Databricks, with BMSCE and RVCE, at Bengaluru Tech Week",
-    placement: "Finalist",
-    scale: "700+ teams",
-    dates: "2026",
-    project: "CampusQuest",
-    problem:
-      "Opportunities are everywhere - a hackathon here, a course there, an internship opening. Working out which one makes sense for you right now is the hard part.",
-    built: [
-      "Time Machine - click a skill you do not have yet and watch your role alignment change, along with the jobs that just opened up.",
-      "Gap-based people matching - if you already do frontend you do not need another frontend dev, so we matched on what is missing rather than what is the same.",
-      "Ask Genie - Databricks' chatbot over our campus data: ask in plain English, get the answer plus the SQL behind it.",
+    "id": "build-with-ai-devops-2026",
+    "event": "Build With AI: DevOps — Season 1",
+    "organizer": "GDG On Campus, DDUGU",
+    "placement": "Second Runner-Up",
+    "scale": "Campus hackathon",
+    "dates": "Nov 2026",
+    "project": "IET Grid",
+    "problem": "Campus scheduling needs a consistent view of classroom availability, academic commitments and booking approvals.",
+    "built": [
+      "Built a campus scheduling and classroom management prototype as team leader of std::zero.",
+      "Combined selectable floor maps and original plan views with availability, bookings and role-scoped dashboards.",
+      "Implemented authenticated FastAPI and Supabase/PostgreSQL workflows with conflict-safe booking constraints and academic notices. Official timetable imports and independent live-user acceptance remain outstanding."
     ],
-    principle:
-      "If a number shows up in the app, an LLM did not make it. Genie writes the explanation, never the number.",
-    team: ["Abhinav Kumar Singh", "Shivansh Bhageria", "Kartikeya Gupta"],
-    tech: ["Next.js", "Supabase", "Databricks", "Genie", "TypeScript"],
-    metrics: [
-      { label: "Teams", value: "700+" },
-      { label: "Placement", value: "Top 10" },
-      { label: "Rounds", value: "3" },
-      { label: "Team Size", value: "4" },
+    "team": [
+      "Vivek Shukla",
+      "Shreydhar Dubey"
     ],
-    links: [
-      { label: "Repository", href: "https://github.com/Paras-ydv/CampusQuest" },
+    "tech": [
+      "React",
+      "TypeScript",
+      "FastAPI",
+      "Supabase",
+      "PostgreSQL"
     ],
+    "metrics": [
+      {
+        "label": "Placement",
+        "value": "3rd"
+      },
+      {
+        "label": "Team size",
+        "value": "3"
+      },
+      {
+        "label": "Floor plans",
+        "value": "5"
+      },
+      {
+        "label": "Role",
+        "value": "Lead"
+      }
+    ],
+    "links": [
+      {
+        "label": "Repository",
+        "href": "https://github.com/ThunderKhan/iet-grid"
+      },
+      {
+        "label": "Project details",
+        "href": "/projects/iet-grid"
+      }
+    ]
   },
   {
-    id: "sih-2025",
-    event: "Smart India Hackathon 2025",
-    organizer: "Ministry of Education, Government of India",
-    placement: "Finalist",
-    scale: "200+ teams nationwide",
-    dates: "2025",
-    project: "NBCFDC credit-risk model",
-    problem:
-      "Rural borrowers under the National Backward Classes Finance and Development Corporation are hard to credit-score, because their income is largely informal and undocumented.",
-    built: [
-      "A credit-risk model with income verification built for rural populations, where salary-slip and bureau signals are mostly absent.",
+    "id": "hackblox-2026",
+    "event": "HACKBLOX 2026",
+    "organizer": "Hackers Cult",
+    "placement": "Final-round qualifier",
+    "scale": "Online final round",
+    "dates": "Sep 2026",
+    "project": "Corsair — Ably integration",
+    "problem": "Agent integration platforms need controlled access to real-time messaging services.",
+    "built": [
+      "Contributed an Ably integration to the open-source Corsair project during Stage 1.",
+      "The contribution was reviewed and merged upstream.",
+      "Qualified for the online final round scheduled for 5 September 2026. No final ranked placement is claimed."
     ],
-    tech: ["Python", "Machine Learning", "Feature Engineering"],
-    metrics: [
-      { label: "Teams", value: "200+" },
-      { label: "Placement", value: "Top 5" },
-      { label: "Level", value: "National" },
-      { label: "Year", value: "2025" },
+    "tech": [
+      "Open Source",
+      "TypeScript",
+      "Ably",
+      "GitHub"
     ],
+    "metrics": [
+      {
+        "label": "Selection",
+        "value": "Final round"
+      },
+      {
+        "label": "Contribution",
+        "value": "Merged"
+      }
+    ],
+    "links": [
+      {
+        "label": "Contribution fork",
+        "href": "https://github.com/ThunderKhan/corsair"
+      }
+    ]
   },
+  {
+    "id": "sih-2026-internal",
+    "event": "Smart India Hackathon 2026",
+    "organizer": "SOCC, Institute of Engineering & Technology, DDUGU — internal screening",
+    "placement": "Internal nomination",
+    "scale": "University internal screening",
+    "dates": "Aug 2026",
+    "project": "O.A.S.I.S.",
+    "problem": "Screening and referral workflows need to make red flags, eligibility and clinical uncertainty legible.",
+    "built": [
+      "Led team Syntax6 during the university internal screening held 12–14 August 2026.",
+      "Developed and presented an explainable clinician-facing screening and referral-prioritisation prototype.",
+      "The internal results notice dated 15 August recorded the team as nominated (top 60%). This is not a national-final qualification or ranked award."
+    ],
+    "tech": [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "Python",
+      "scikit-learn"
+    ],
+    "metrics": [
+      {
+        "label": "Internal selection",
+        "value": "Top 60%"
+      },
+      {
+        "label": "Role",
+        "value": "Lead"
+      }
+    ],
+    "links": [
+      {
+        "label": "Repository",
+        "href": "https://github.com/ThunderKhan/oasis"
+      },
+      {
+        "label": "Project details",
+        "href": "/projects/oasis"
+      }
+    ]
+  }
 ];
