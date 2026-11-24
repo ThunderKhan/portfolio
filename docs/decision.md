@@ -2,7 +2,7 @@
 
 Date: 2026-11-25 (IST)  
 Owner: Ayan Khan  
-Status: Core stack and Docker accepted; production hosting pending.
+Status: Core stack, Docker and visual direction accepted; exact armor palette and production hosting pending.
 
 ## D-001 — Retain the existing application stack
 
@@ -86,3 +86,14 @@ Stop the npm development server before using the same port. Open http://localhos
 - [Docker build best practices](https://docs.docker.com/build/building/best-practices/)
 
 Record future decisions here with their status and rationale; supersede accepted decisions explicitly rather than silently changing them.
+
+
+## D-004 — MARK I visual direction
+
+**Status:** Accepted by owner, 2026-11-25 (IST); exact armor palette pending.
+
+**Decision:** Use Iron Man Mark III (2008) as the cinematic visual reference, while MARK I remains the internal project codename. Combine Workshop, Armor and Reactor; use Barlow Semi Condensed, Geist Sans and Geist Mono; preserve Carbon dark and Titanium light themes, mechanical precision motion and the existing layout/architecture. Use Google's DESIGN.md format for the design contract.
+
+**Rationale:** Distinctive industrial character without compromising professional content, accessibility or existing functionality.
+
+**Consequences:** [DESIGN.md](../DESIGN.md) records the approved direction, implementation defaults and visual checks. Candidate color hexes are not approved brand tokens. Resolve the production reference and obtain palette approval before applying the final theme. Individual signature features require separate scope decisions. No application redesign or production deployment is implied by this documentation change.

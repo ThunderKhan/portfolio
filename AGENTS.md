@@ -38,6 +38,7 @@ No test script exists in package.json at this baseline. Add focused regression c
 - Next.js 16, React 19, TypeScript, Tailwind CSS 4, npm, Docker. Exact versions: package.json and lockfile.
 - Read [docs/decision.md](docs/decision.md) for accepted stack, container commands and pending production hosting decisions.
 - Before planning, implementing, debugging or reviewing changes, read [ENGINEERING.md](ENGINEERING.md) for the risk-based workflow, coding standards, verification gates and handoff requirements. Use only sections relevant to the task.
+- Before proposing, implementing or reviewing visual changes, read [DESIGN.md](DESIGN.md). Preserve the approved identity, layout, typography, themes and motion; exact armor colors remain pending and must not be implemented as final tokens until approved.
 
 ## Skill selection and execution
 
