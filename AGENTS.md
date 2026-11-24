@@ -35,7 +35,8 @@ No test script exists in package.json at this baseline. Add focused regression c
 - Routes, metadata and global styles: `src/app/`; UI: `src/components/`; hooks: `src/hooks/`.
 - Integrations: `src/lib/stats/`, `src/app/api/`; refresh scripts: `scripts/`; assets: `public/`.
 - Read [SETUP.md](SETUP.md) for content migration and [README.md](README.md) for setup.
-- Next.js 16, React 19, TypeScript, Tailwind CSS 4, npm. Exact versions: package.json and lockfile.
+- Next.js 16, React 19, TypeScript, Tailwind CSS 4, npm, Docker. Exact versions: package.json and lockfile.
+- Read [docs/decision.md](docs/decision.md) for accepted stack, container commands and pending production hosting decisions.
 
 ## Skill selection and execution
 
