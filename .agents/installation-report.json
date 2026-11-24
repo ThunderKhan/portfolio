@@ -1,0 +1,1757 @@
+{
+  "skills": [
+    {
+      "repository": "anthropics/skills",
+      "category": "01-design",
+      "skill": "frontend-design",
+      "source_path": "skills/frontend-design",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "01-design",
+      "skill": "brand-guidelines",
+      "source_path": "skills/brand-guidelines",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "01-design",
+      "skill": "theme-factory",
+      "source_path": "skills/theme-factory",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "01-design",
+      "skill": "canvas-design",
+      "source_path": "skills/canvas-design",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "10-testing",
+      "skill": "webapp-testing",
+      "source_path": "skills/webapp-testing",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "20-documentation",
+      "skill": "doc-coauthoring",
+      "source_path": "skills/doc-coauthoring",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "22-agent-workflows",
+      "skill": "skill-creator",
+      "source_path": "skills/skill-creator",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "anthropics/skills",
+      "category": "22-agent-workflows",
+      "skill": "mcp-builder",
+      "source_path": "skills/mcp-builder",
+      "commit": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+      "status": "installed"
+    },
+    {
+      "repository": "elayadesign/ai-design-skills",
+      "category": "01-design",
+      "skill": "figma-designer",
+      "source_path": "skills/figma-designer",
+      "commit": "456d9e0d3e2d84c748bb143c6ca3d90c45e16213",
+      "status": "installed"
+    },
+    {
+      "repository": "elayadesign/ai-design-skills",
+      "category": "01-design",
+      "skill": "landing-page-design",
+      "source_path": "skills/landing-page-design",
+      "commit": "456d9e0d3e2d84c748bb143c6ca3d90c45e16213",
+      "status": "installed"
+    },
+    {
+      "repository": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "01-design",
+      "skill": "ui-ux-pro-max",
+      "source_path": ".claude/skills/ui-ux-pro-max",
+      "commit": "cc7b20d85d64d8fa022292cfad731995d3cd4eeb",
+      "status": "installed"
+    },
+    {
+      "repository": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "01-design",
+      "skill": "design-system",
+      "source_path": ".claude/skills/design-system",
+      "commit": "cc7b20d85d64d8fa022292cfad731995d3cd4eeb",
+      "status": "installed"
+    },
+    {
+      "repository": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "01-design",
+      "skill": "design",
+      "source_path": ".claude/skills/design",
+      "commit": "cc7b20d85d64d8fa022292cfad731995d3cd4eeb",
+      "status": "installed"
+    },
+    {
+      "repository": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "01-design",
+      "skill": "brand",
+      "source_path": ".claude/skills/brand",
+      "commit": "cc7b20d85d64d8fa022292cfad731995d3cd4eeb",
+      "status": "installed"
+    },
+    {
+      "repository": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "01-design",
+      "skill": "ui-styling",
+      "source_path": ".claude/skills/ui-styling",
+      "commit": "cc7b20d85d64d8fa022292cfad731995d3cd4eeb",
+      "status": "installed"
+    },
+    {
+      "repository": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "01-design",
+      "skill": "banner-design",
+      "source_path": ".claude/skills/banner-design",
+      "commit": "cc7b20d85d64d8fa022292cfad731995d3cd4eeb",
+      "status": "installed"
+    },
+    {
+      "repository": "dominikmartn/hue",
+      "category": "01-design",
+      "skill": "hue",
+      "source_path": ".",
+      "commit": "6bdb9379166177db818a78f1e7a9688751600ecc",
+      "status": "installed"
+    },
+    {
+      "repository": "google-labs-code/stitch-skills",
+      "category": "01-design",
+      "skill": "extract-design-md",
+      "source_path": "plugins/stitch-design/skills/extract-design-md",
+      "commit": "9f4e828e77634e230978be45fec5501554dbe4b2",
+      "status": "installed"
+    },
+    {
+      "repository": "google-labs-code/stitch-skills",
+      "category": "01-design",
+      "skill": "design-md",
+      "source_path": "plugins/stitch-utilities/skills/design-md",
+      "commit": "9f4e828e77634e230978be45fec5501554dbe4b2",
+      "status": "installed"
+    },
+    {
+      "repository": "google-labs-code/stitch-skills",
+      "category": "01-design",
+      "skill": "code-to-design",
+      "source_path": "plugins/stitch-design/skills/code-to-design",
+      "commit": "9f4e828e77634e230978be45fec5501554dbe4b2",
+      "status": "installed"
+    },
+    {
+      "repository": "google-labs-code/stitch-skills",
+      "category": "01-design",
+      "skill": "generate-design",
+      "source_path": "plugins/stitch-design/skills/generate-design",
+      "commit": "9f4e828e77634e230978be45fec5501554dbe4b2",
+      "status": "installed"
+    },
+    {
+      "repository": "google-labs-code/stitch-skills",
+      "category": "01-design",
+      "skill": "manage-design-system",
+      "source_path": "plugins/stitch-design/skills/manage-design-system",
+      "commit": "9f4e828e77634e230978be45fec5501554dbe4b2",
+      "status": "installed"
+    },
+    {
+      "repository": "google-labs-code/stitch-skills",
+      "category": "01-design",
+      "skill": "enhance-prompt",
+      "source_path": "plugins/stitch-utilities/skills/enhance-prompt",
+      "commit": "9f4e828e77634e230978be45fec5501554dbe4b2",
+      "status": "installed"
+    },
+    {
+      "repository": "pbakaus/impeccable",
+      "category": "02-anti-slop",
+      "skill": "impeccable",
+      "source_path": ".agents/skills/impeccable",
+      "commit": "b49177d32788f2dc585c42831d845dacf1ebed2c",
+      "status": "installed"
+    },
+    {
+      "repository": "Leonxlnx/taste-skill",
+      "category": "02-anti-slop",
+      "skill": "taste-skill",
+      "source_path": "skills/taste-skill",
+      "commit": "6c0b5c78f5d31776e2210305abaa210cdc0030bf",
+      "status": "installed"
+    },
+    {
+      "repository": "nutlope/hallmark",
+      "category": "02-anti-slop",
+      "skill": "hallmark",
+      "source_path": "skills/hallmark",
+      "commit": "04977e15f3dfd6ee4b74c887dac3eb52665d6c92",
+      "status": "installed"
+    },
+    {
+      "repository": "heydamir/unslop",
+      "category": "02-anti-slop",
+      "skill": "unslop",
+      "source_path": "skills/unslop",
+      "commit": "620163eedb3529d9cd23a3994ed8d287d06f760d",
+      "status": "installed"
+    },
+    {
+      "repository": "uizze/uizze",
+      "category": "02-anti-slop",
+      "skill": "anti-ui-slop",
+      "source_path": "skills/anti-ui-slop",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "status": "installed"
+    },
+    {
+      "repository": "uizze/uizze",
+      "category": "05-ui-ux",
+      "skill": "ui-design",
+      "source_path": "skills/ui-design",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "status": "installed"
+    },
+    {
+      "repository": "uizze/uizze",
+      "category": "05-ui-ux",
+      "skill": "ui-radar",
+      "source_path": "skills/ui-radar",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "02-anti-slop",
+      "skill": "charles-unslop",
+      "source_path": "skills/design/charles-unslop",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "02-anti-slop",
+      "skill": "charles-polish",
+      "source_path": "skills/design/charles-polish",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "02-anti-slop",
+      "skill": "charles-unreasonable-craft",
+      "source_path": "skills/design/charles-unreasonable-craft",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "03-typography-color",
+      "skill": "charles-color-analysis",
+      "source_path": "skills/design/charles-color-analysis",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "04-motion",
+      "skill": "charles-ux-animation",
+      "source_path": "skills/drops/charles-ux-animation",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "05-ui-ux",
+      "skill": "charles-design-laws",
+      "source_path": "skills/drops/charles-design-laws",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "05-ui-ux",
+      "skill": "charles-design-tips",
+      "source_path": "skills/drops/charles-design-tips",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "LemonFace0309/charles-skills",
+      "category": "05-ui-ux",
+      "skill": "charles-hero-mockups",
+      "source_path": "skills/drops/charles-hero-mockups",
+      "commit": "57c7e3eaea74081cc0ec53e9dd13c1cbb4b7b908",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "03-typography-color",
+      "skill": "better-typography",
+      "source_path": "skills/better-typography",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "03-typography-color",
+      "skill": "better-colors",
+      "source_path": "skills/better-colors",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "03-typography-color",
+      "skill": "better-layout",
+      "source_path": "skills/better-layout",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "04-motion",
+      "skill": "better-motion",
+      "source_path": "skills/better-motion",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "better-interface",
+      "source_path": "skills/better-interface",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "better-ui",
+      "source_path": "skills/better-ui",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "interface-review",
+      "source_path": "skills/interface-review",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "explain-interface",
+      "source_path": "skills/explain-interface",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "build-design",
+      "source_path": "skills/build-design",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "variant",
+      "source_path": "skills/variant",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "05-ui-ux",
+      "skill": "state-machine",
+      "source_path": "skills/state-machine",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "16-accessibility",
+      "skill": "better-accessibility",
+      "source_path": "skills/better-accessibility",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "jakubkrehel/skills",
+      "category": "21-product",
+      "skill": "better-writing",
+      "source_path": "skills/better-writing",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "emil-design-eng",
+      "source_path": "skills/emil-design-eng",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "animate",
+      "source_path": "skills/animate",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "animation-performance",
+      "source_path": "skills/animation-performance",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "animation-vocabulary",
+      "source_path": "skills/animation-vocabulary",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "choreograph",
+      "source_path": "skills/choreograph",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "find-animation-opportunities",
+      "source_path": "skills/find-animation-opportunities",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "gestures",
+      "source_path": "skills/gestures",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "improve-animations",
+      "source_path": "skills/improve-animations",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "remove-animations",
+      "source_path": "skills/remove-animations",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "emilkowalski/skills",
+      "category": "04-motion",
+      "skill": "review-animations",
+      "source_path": "skills/review-animations",
+      "commit": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c",
+      "status": "installed"
+    },
+    {
+      "repository": "nateherkai/scroll-craft",
+      "category": "04-motion",
+      "skill": "scroll-craft",
+      "source_path": "plugins/nateherk-design/skills/scroll-craft",
+      "commit": "75d81f74e83692add18cd7a8a8e078b8a887a579",
+      "status": "installed"
+    },
+    {
+      "repository": "feitangyuan/motion-web",
+      "category": "04-motion",
+      "skill": "motion-web",
+      "source_path": ".",
+      "commit": "536ef6551530ff0c6b091e2b7786d3ecc21f26fa",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "04-motion",
+      "skill": "react-view-transitions",
+      "source_path": "skills/react-view-transitions",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "05-ui-ux",
+      "skill": "web-design-guidelines",
+      "source_path": "skills/web-design-guidelines",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "06-frontend",
+      "skill": "react-best-practices",
+      "source_path": "skills/react-best-practices",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "06-frontend",
+      "skill": "composition-patterns",
+      "source_path": "skills/composition-patterns",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "15-performance",
+      "skill": "vercel-optimize",
+      "source_path": "skills/vercel-optimize",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "18-devops",
+      "skill": "deploy-to-vercel",
+      "source_path": "skills/deploy-to-vercel",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "vercel-labs/agent-skills",
+      "category": "20-documentation",
+      "skill": "writing-guidelines",
+      "source_path": "skills/writing-guidelines",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "status": "installed"
+    },
+    {
+      "repository": "Dammyjay93/interface-design",
+      "category": "05-ui-ux",
+      "skill": "interface-design",
+      "source_path": ".claude/skills/interface-design",
+      "commit": "2f9be3206855bcb2d1d0af262c8bae25cba6658d",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "05-ui-ux",
+      "skill": "design-system-patterns",
+      "source_path": "plugins/ui-design/skills/design-system-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "06-frontend",
+      "skill": "typescript-advanced-types",
+      "source_path": "plugins/javascript-typescript/skills/typescript-advanced-types",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "06-frontend",
+      "skill": "modern-javascript-patterns",
+      "source_path": "plugins/javascript-typescript/skills/modern-javascript-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "06-frontend",
+      "skill": "nextjs-app-router-patterns",
+      "source_path": "plugins/frontend-mobile-development/skills/nextjs-app-router-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "06-frontend",
+      "skill": "react-state-management",
+      "source_path": "plugins/frontend-mobile-development/skills/react-state-management",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "06-frontend",
+      "skill": "tailwind-design-system",
+      "source_path": "plugins/frontend-mobile-development/skills/tailwind-design-system",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "06-frontend",
+      "skill": "react-modernization",
+      "source_path": "plugins/framework-migration/skills/react-modernization",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "api-design-principles",
+      "source_path": "plugins/backend-development/skills/api-design-principles",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "nodejs-backend-patterns",
+      "source_path": "plugins/javascript-typescript/skills/nodejs-backend-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "error-handling-patterns",
+      "source_path": "plugins/developer-essentials/skills/error-handling-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "async-python-patterns",
+      "source_path": "plugins/python-development/skills/async-python-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-design-patterns",
+      "source_path": "plugins/python-development/skills/python-design-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-code-style",
+      "source_path": "plugins/python-development/skills/python-code-style",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-type-safety",
+      "source_path": "plugins/python-development/skills/python-type-safety",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-error-handling",
+      "source_path": "plugins/python-development/skills/python-error-handling",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-anti-patterns",
+      "source_path": "plugins/python-development/skills/python-anti-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-configuration",
+      "source_path": "plugins/python-development/skills/python-configuration",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-resilience",
+      "source_path": "plugins/python-development/skills/python-resilience",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-background-jobs",
+      "source_path": "plugins/python-development/skills/python-background-jobs",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-resource-management",
+      "source_path": "plugins/python-development/skills/python-resource-management",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-packaging",
+      "source_path": "plugins/python-development/skills/python-packaging",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "python-project-structure",
+      "source_path": "plugins/python-development/skills/python-project-structure",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "07-backend",
+      "skill": "uv-package-manager",
+      "source_path": "plugins/python-development/skills/uv-package-manager",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "08-architecture",
+      "skill": "architecture-patterns",
+      "source_path": "plugins/backend-development/skills/architecture-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "08-architecture",
+      "skill": "monorepo-management",
+      "source_path": "plugins/developer-essentials/skills/monorepo-management",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "08-architecture",
+      "skill": "dependency-upgrade",
+      "source_path": "plugins/framework-migration/skills/dependency-upgrade",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "10-testing",
+      "skill": "javascript-testing-patterns",
+      "source_path": "plugins/javascript-typescript/skills/javascript-testing-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "10-testing",
+      "skill": "e2e-testing-patterns",
+      "source_path": "plugins/developer-essentials/skills/e2e-testing-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "10-testing",
+      "skill": "python-testing-patterns",
+      "source_path": "plugins/python-development/skills/python-testing-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "11-debugging",
+      "skill": "debugging-strategies",
+      "source_path": "plugins/developer-essentials/skills/debugging-strategies",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "11-debugging",
+      "skill": "parallel-debugging",
+      "source_path": "plugins/agent-teams/skills/parallel-debugging",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "12-code-review",
+      "skill": "code-review-excellence",
+      "source_path": "plugins/developer-essentials/skills/code-review-excellence",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "13-security",
+      "skill": "sast-configuration",
+      "source_path": "plugins/security-scanning/skills/sast-configuration",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "13-security",
+      "skill": "security-requirement-extraction",
+      "source_path": "plugins/security-scanning/skills/security-requirement-extraction",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "13-security",
+      "skill": "stride-analysis-patterns",
+      "source_path": "plugins/security-scanning/skills/stride-analysis-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "13-security",
+      "skill": "threat-mitigation-mapping",
+      "source_path": "plugins/security-scanning/skills/threat-mitigation-mapping",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "13-security",
+      "skill": "attack-tree-construction",
+      "source_path": "plugins/security-scanning/skills/attack-tree-construction",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "14-database",
+      "skill": "postgresql-table-design",
+      "source_path": "plugins/database-design/skills/postgresql-table-design",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "14-database",
+      "skill": "database-migration",
+      "source_path": "plugins/framework-migration/skills/database-migration",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "15-performance",
+      "skill": "python-performance-optimization",
+      "source_path": "plugins/python-development/skills/python-performance-optimization",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "16-accessibility",
+      "skill": "accessibility-compliance",
+      "source_path": "plugins/ui-design/skills/accessibility-compliance",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "16-accessibility",
+      "skill": "wcag-audit-patterns",
+      "source_path": "plugins/accessibility-compliance/skills/wcag-audit-patterns",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "16-accessibility",
+      "skill": "screen-reader-testing",
+      "source_path": "plugins/accessibility-compliance/skills/screen-reader-testing",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "18-devops",
+      "skill": "github-actions-templates",
+      "source_path": "plugins/cicd-automation/skills/github-actions-templates",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "18-devops",
+      "skill": "deployment-pipeline-design",
+      "source_path": "plugins/cicd-automation/skills/deployment-pipeline-design",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "18-devops",
+      "skill": "git-advanced-workflows",
+      "source_path": "plugins/developer-essentials/skills/git-advanced-workflows",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "19-observability",
+      "skill": "distributed-tracing",
+      "source_path": "plugins/observability-monitoring/skills/distributed-tracing",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "19-observability",
+      "skill": "grafana-dashboards",
+      "source_path": "plugins/observability-monitoring/skills/grafana-dashboards",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "19-observability",
+      "skill": "prometheus-configuration",
+      "source_path": "plugins/observability-monitoring/skills/prometheus-configuration",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "19-observability",
+      "skill": "slo-implementation",
+      "source_path": "plugins/observability-monitoring/skills/slo-implementation",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "19-observability",
+      "skill": "python-observability",
+      "source_path": "plugins/python-development/skills/python-observability",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "20-documentation",
+      "skill": "architecture-decision-records",
+      "source_path": "plugins/documentation-generation/skills/architecture-decision-records",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "20-documentation",
+      "skill": "openapi-spec-generation",
+      "source_path": "plugins/documentation-generation/skills/openapi-spec-generation",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "wshobson/agents",
+      "category": "20-documentation",
+      "skill": "changelog-automation",
+      "source_path": "plugins/documentation-generation/skills/changelog-automation",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "status": "installed"
+    },
+    {
+      "repository": "shadcn-ui/ui",
+      "category": "06-frontend",
+      "skill": "shadcn",
+      "source_path": "skills/shadcn",
+      "commit": "055aa6b7837b1808456a24beb4c97a677864aa82",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "06-frontend",
+      "skill": "narrow-react-prop-types",
+      "source_path": "plugins/narrow-react-prop-types/skills/narrow-react-prop-types",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "09-engineering",
+      "skill": "rpi",
+      "source_path": "plugins/rpi/skills/rpi",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "12-code-review",
+      "skill": "visual-pr",
+      "source_path": "plugins/visual-pr/skills/visual-pr",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "12-code-review",
+      "skill": "show-me",
+      "source_path": "plugins/show-me/skills/show-me",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "22-agent-workflows",
+      "skill": "build-iterated-agentic-loop",
+      "source_path": "plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "22-agent-workflows",
+      "skill": "design-control-loop",
+      "source_path": "plugins/design-control-loop/skills/design-control-loop",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "humanlayer/skills",
+      "category": "22-agent-workflows",
+      "skill": "improve-claude-md",
+      "source_path": "plugins/improve-claude-md/skills/improve-claude-md",
+      "commit": "4d69d20f6e9b57b4fcf0d501ccfb1be961f0f329",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "08-architecture",
+      "skill": "improve-codebase-architecture",
+      "source_path": "skills/engineering/improve-codebase-architecture",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "08-architecture",
+      "skill": "codebase-design",
+      "source_path": "skills/engineering/codebase-design",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "08-architecture",
+      "skill": "domain-modeling",
+      "source_path": "skills/engineering/domain-modeling",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "grill-with-docs",
+      "source_path": "skills/engineering/grill-with-docs",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "implement",
+      "source_path": "skills/engineering/implement",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "implement-spec",
+      "source_path": "skills/engineering/implement-spec",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "setup-matt-pocock-skills",
+      "source_path": "skills/engineering/setup-matt-pocock-skills",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "ask-matt",
+      "source_path": "skills/engineering/ask-matt",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "to-spec",
+      "source_path": "skills/engineering/to-spec",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "to-tickets",
+      "source_path": "skills/engineering/to-tickets",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "wayfinder",
+      "source_path": "skills/engineering/wayfinder",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "grill-me",
+      "source_path": "skills/productivity/grill-me",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "09-engineering",
+      "skill": "grilling",
+      "source_path": "skills/productivity/grilling",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "10-testing",
+      "skill": "tdd",
+      "source_path": "skills/engineering/tdd",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "11-debugging",
+      "skill": "diagnosing-bugs",
+      "source_path": "skills/engineering/diagnosing-bugs",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "12-code-review",
+      "skill": "code-review",
+      "source_path": "skills/engineering/code-review",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "20-documentation",
+      "skill": "writing-for-agents",
+      "source_path": "skills/productivity/writing-for-agents",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "category": "22-agent-workflows",
+      "skill": "handoff",
+      "source_path": "skills/productivity/handoff",
+      "commit": "d65391149dbb5fe76478e76fa8d5122b2aa5a70e",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "09-engineering",
+      "skill": "brainstorming",
+      "source_path": "skills/brainstorming",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "09-engineering",
+      "skill": "writing-plans",
+      "source_path": "skills/writing-plans",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "09-engineering",
+      "skill": "executing-plans",
+      "source_path": "skills/executing-plans",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "09-engineering",
+      "skill": "verification-before-completion",
+      "source_path": "skills/verification-before-completion",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "10-testing",
+      "skill": "test-driven-development",
+      "source_path": "skills/test-driven-development",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "11-debugging",
+      "skill": "systematic-debugging",
+      "source_path": "skills/systematic-debugging",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "12-code-review",
+      "skill": "requesting-code-review",
+      "source_path": "skills/requesting-code-review",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "12-code-review",
+      "skill": "receiving-code-review",
+      "source_path": "skills/receiving-code-review",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "18-devops",
+      "skill": "using-git-worktrees",
+      "source_path": "skills/using-git-worktrees",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "18-devops",
+      "skill": "finishing-a-development-branch",
+      "source_path": "skills/finishing-a-development-branch",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "22-agent-workflows",
+      "skill": "dispatching-parallel-agents",
+      "source_path": "skills/dispatching-parallel-agents",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "22-agent-workflows",
+      "skill": "subagent-driven-development",
+      "source_path": "skills/subagent-driven-development",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "22-agent-workflows",
+      "skill": "using-superpowers",
+      "source_path": "skills/using-superpowers",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "obra/superpowers",
+      "category": "22-agent-workflows",
+      "skill": "writing-skills",
+      "source_path": "skills/writing-skills",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "10-testing",
+      "skill": "playwright",
+      "source_path": "skills/.curated/playwright",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "10-testing",
+      "skill": "playwright-interactive",
+      "source_path": "skills/.curated/playwright-interactive",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "10-testing",
+      "skill": "screenshot",
+      "source_path": "skills/.curated/screenshot",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "12-code-review",
+      "skill": "gh-address-comments",
+      "source_path": "skills/.curated/gh-address-comments",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "13-security",
+      "skill": "security-best-practices",
+      "source_path": "skills/.curated/security-best-practices",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "13-security",
+      "skill": "security-threat-model",
+      "source_path": "skills/.curated/security-threat-model",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "13-security",
+      "skill": "security-ownership-map",
+      "source_path": "skills/.curated/security-ownership-map",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "18-devops",
+      "skill": "gh-fix-ci",
+      "source_path": "skills/.curated/gh-fix-ci",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "18-devops",
+      "skill": "vercel-deploy",
+      "source_path": "skills/.curated/vercel-deploy",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "18-devops",
+      "skill": "cloudflare-deploy",
+      "source_path": "skills/.curated/cloudflare-deploy",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "18-devops",
+      "skill": "render-deploy",
+      "source_path": "skills/.curated/render-deploy",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "18-devops",
+      "skill": "netlify-deploy",
+      "source_path": "skills/.curated/netlify-deploy",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "19-observability",
+      "skill": "sentry",
+      "source_path": "skills/.curated/sentry",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "openai/skills",
+      "category": "22-agent-workflows",
+      "skill": "define-goal",
+      "source_path": "skills/.curated/define-goal",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "10-testing",
+      "skill": "property-based-testing",
+      "source_path": "plugins/property-based-testing/skills/property-based-testing",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "10-testing",
+      "skill": "mutation-testing",
+      "source_path": "plugins/mutation-testing/skills/mutation-testing",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "10-testing",
+      "skill": "coverage-analysis",
+      "source_path": "plugins/testing-handbook-skills/skills/coverage-analysis",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "11-debugging",
+      "skill": "reproduce-bug",
+      "source_path": "plugins/patching-bugs/skills/reproduce-bug",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "11-debugging",
+      "skill": "post-patch-validation",
+      "source_path": "plugins/post-patch-validation/skills/post-patch-validation",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "11-debugging",
+      "skill": "regression-hunt",
+      "source_path": "plugins/regression-hunt/skills/regression-hunt",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "12-code-review",
+      "skill": "differential-review",
+      "source_path": "plugins/differential-review/skills/differential-review",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "12-code-review",
+      "skill": "spec-to-code-compliance",
+      "source_path": "plugins/spec-to-code-compliance/skills/spec-to-code-compliance",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "12-code-review",
+      "skill": "review-walkthrough",
+      "source_path": "plugins/review-walkthrough/skills/review-walkthrough",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "12-code-review",
+      "skill": "code-improver",
+      "source_path": "plugins/code-improver/skills/code-improver",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "13-security",
+      "skill": "audit-context-building",
+      "source_path": "plugins/audit-context-building/skills/audit-context-building",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "13-security",
+      "skill": "entry-point-analyzer",
+      "source_path": "plugins/entry-point-analyzer/skills/entry-point-analyzer",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "13-security",
+      "skill": "sharp-edges",
+      "source_path": "plugins/sharp-edges/skills/sharp-edges",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "13-security",
+      "skill": "supply-chain-risk-auditor",
+      "source_path": "plugins/supply-chain-risk-auditor/skills/supply-chain-risk-auditor",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "13-security",
+      "skill": "agentic-actions-auditor",
+      "source_path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "trailofbits/skills",
+      "category": "18-devops",
+      "skill": "devcontainer-setup",
+      "source_path": "plugins/devcontainer-setup/skills/devcontainer-setup",
+      "commit": "149d7b21f4067765b82e67029730b42d228ef4b4",
+      "status": "installed"
+    },
+    {
+      "repository": "supabase/agent-skills",
+      "category": "14-database",
+      "skill": "supabase",
+      "source_path": "skills/supabase",
+      "commit": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "status": "installed"
+    },
+    {
+      "repository": "supabase/agent-skills",
+      "category": "14-database",
+      "skill": "supabase-postgres-best-practices",
+      "source_path": "skills/supabase-postgres-best-practices",
+      "commit": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "status": "installed"
+    },
+    {
+      "repository": "prisma/orm",
+      "category": "14-database",
+      "skill": "prisma-8",
+      "source_path": "skills/prisma-8",
+      "commit": "d5e1e4f5a81080eac5ba350087ba80aef81e76fe",
+      "status": "installed"
+    },
+    {
+      "repository": "addyosmani/web-quality-skills",
+      "category": "15-performance",
+      "skill": "performance",
+      "source_path": "skills/performance",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "status": "installed"
+    },
+    {
+      "repository": "addyosmani/web-quality-skills",
+      "category": "15-performance",
+      "skill": "core-web-vitals",
+      "source_path": "skills/core-web-vitals",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "status": "installed"
+    },
+    {
+      "repository": "addyosmani/web-quality-skills",
+      "category": "15-performance",
+      "skill": "web-quality-audit",
+      "source_path": "skills/web-quality-audit",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "status": "installed"
+    },
+    {
+      "repository": "addyosmani/web-quality-skills",
+      "category": "15-performance",
+      "skill": "best-practices",
+      "source_path": "skills/best-practices",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "status": "installed"
+    },
+    {
+      "repository": "addyosmani/web-quality-skills",
+      "category": "16-accessibility",
+      "skill": "accessibility",
+      "source_path": "skills/accessibility",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "status": "installed"
+    },
+    {
+      "repository": "addyosmani/web-quality-skills",
+      "category": "17-seo",
+      "skill": "seo",
+      "source_path": "skills/seo",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "17-seo",
+      "skill": "seo-audit",
+      "source_path": "skills/seo-audit",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "17-seo",
+      "skill": "site-architecture",
+      "source_path": "skills/site-architecture",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "17-seo",
+      "skill": "schema",
+      "source_path": "skills/schema",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "17-seo",
+      "skill": "programmatic-seo",
+      "source_path": "skills/programmatic-seo",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "17-seo",
+      "skill": "ai-seo",
+      "source_path": "skills/ai-seo",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "copywriting",
+      "source_path": "skills/copywriting",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "copy-editing",
+      "source_path": "skills/copy-editing",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "cro",
+      "source_path": "skills/cro",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "onboarding",
+      "source_path": "skills/onboarding",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "signup",
+      "source_path": "skills/signup",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "analytics",
+      "source_path": "skills/analytics",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "ab-testing",
+      "source_path": "skills/ab-testing",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "conversion-tracking",
+      "source_path": "skills/conversion-tracking",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "product-marketing",
+      "source_path": "skills/product-marketing",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    },
+    {
+      "repository": "coreyhaines31/marketingskills",
+      "category": "21-product",
+      "skill": "customer-research",
+      "source_path": "skills/customer-research",
+      "commit": "8fd2fcade2fd6629026e9dfe6d133b55b36968b9",
+      "status": "installed"
+    }
+  ],
+  "warnings_and_failures": []
+}

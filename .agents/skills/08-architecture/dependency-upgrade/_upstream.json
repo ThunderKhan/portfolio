@@ -1,0 +1,6 @@
+{
+  "repository": "https://github.com/wshobson/agents",
+  "commit": "c96b5f6552dba32e4492307493ee613581430715",
+  "source_path": "plugins/framework-migration/skills/dependency-upgrade",
+  "category": "08-architecture"
+}

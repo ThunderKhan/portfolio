@@ -1,0 +1,6 @@
+{
+  "repository": "https://github.com/openai/skills",
+  "commit": "49f948faa9258a0c61caceaf225e179651397431",
+  "source_path": "skills/.curated/security-best-practices",
+  "category": "13-security"
+}
