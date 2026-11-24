@@ -83,7 +83,9 @@ export default function OpengraphImage() {
         }}
       >
         {banner && (
+          // eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders a raster via Satori, not a browser document.
           <img
+            alt=""
             src={banner}
             width={ART.w}
             height={ART.h}
@@ -135,7 +137,9 @@ export default function OpengraphImage() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
             {avatar && (
+              // eslint-disable-next-line @next/next/no-img-element -- Satori consumes the inlined image directly.
               <img
+                alt=""
                 src={avatar}
                 width={84}
                 height={84}
