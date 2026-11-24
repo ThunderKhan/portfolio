@@ -35,7 +35,7 @@ Exact dependency ranges and resolutions remain in package.json and package-lock.
 
 ## D-002 — Containerize the application with Docker
 
-**Status:** Accepted; initial configuration committed, runtime verification pending.
+**Status:** Accepted; owner verified Docker image build and server startup at ee2bb62. HTTP/browser smoke tests and non-root runtime identity check remain pending.
 
 **Context:** Reproducible local production previews and a portable deployment artifact are useful. Docker is a packaging choice, not a hosting provider.
 
@@ -59,7 +59,7 @@ docker run --rm --name mark-i -p 127.0.0.1:3000:3000 mark-i:local
 
 Stop the npm development server before using the same port. Open http://localhost:3000. If optional integration credentials are needed, use an existing private .env.local file with the run command's --env-file option before the image name. Never supply credentials via Dockerfile ARG or commit the file.
 
-**Acceptance checks:** Docker build exits 0; container starts as non-root; homepage and representative project/blog routes return successful responses; images/CSS load; missing integration credentials do not crash the site. These checks have not been executed in the current environment, which lacks Docker. The image still contains the inherited reference content until identity migration; do not publicly deploy it.
+**Acceptance checks:** Docker build exits 0; container starts as non-root; homepage and representative project/blog routes return successful responses; images/CSS load; missing integration credentials do not crash the site. The owner verified image build and server startup on Docker Desktop at ee2bb62; the remaining checks have not been demonstrated. See [baseline evidence](plans/01-baseline.md). The image still contains the inherited reference content until identity migration; do not publicly deploy it.
 
 **Consequences:** Portable runtime, reproducible npm dependency graph, additional build time and image maintenance. Use native npm for normal Windows development and Docker for production-like verification. The vendored .agents skill library is excluded from the container build context. Its example TypeScript files may also need explicit exclusion from local application typecheck/lint in a separate baseline fix.
 

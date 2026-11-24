@@ -33,3 +33,12 @@ Lockfile review at 3b00965: all affected resolved packages are marked dev:true. 
 The follow-up changes add decorative alt attributes and two locally justified Next.js image lint exceptions in the Satori-based Open Graph image renderer. The actual rendering path remains unchanged. Re-run lint and production build on the new revision; the owner's earlier results do not prove these new changes pass.
 
 Dependency remediation: run npm audit fix --dry-run, inspect the proposed compatible resolution, then apply npm audit fix without --force. Review the lockfile/manifest diff and re-run tests, typecheck, lint, build, full audit and production-only audit. The forced proposal would downgrade shadcn to 1.0.0; do not accept it. Triage any residual minimatch paths individually. Do not invent or manually edit integrity hashes. No lockfile changes have been made by the agent.
+
+
+## Owner verification — dependency remediation and Docker
+
+Revision ee2bb62 (owner's lockfile-only commit) passed the owner's native npm test (3/3), typecheck, lint (zero diagnostics) and production build (22/22 pages) on the remediated dependency tree. The full npm audit fell from 18 findings to four moderate findings, with zero high-severity findings. npm audit --omit=dev reported zero vulnerabilities after remediation. The remaining advisory is GHSA-g3hv-75wg-m249 through shadcn -> ts-morph -> @ts-morph/common -> minimatch; the four reported findings include dependent packages. Do not force-downgrade shadcn to 1.0.0. Revisit compatible remediation before release; temporary risk acceptance is recommended, not a claim of zero total risk.
+
+Owner's Docker Desktop Linux output: docker build -t mark-i:local . PASS (21/21 steps, 111.2 seconds); docker run --rm --name mark-i -p 127.0.0.1:3000:3000 mark-i:local PASS for process startup (Next.js Ready). HTTP routes, asset loading, browser rendering, non-root identity and live integration cases were not demonstrated in the supplied output and remain pending. Production-only npm audit is not an OS/container vulnerability scan.
+
+Next: verify the running container using HTTP requests, then migrate identity in a distinct slice. Do not publish inherited personal content. No changes to the live Pages site or domain.
