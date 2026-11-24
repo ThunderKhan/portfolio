@@ -83,7 +83,7 @@ export default async function Home() {
         <div className="flex w-full items-center justify-between">
 
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-            <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-black/30 dark:border-white/[0.15] shrink-0">
+            <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-[#B97D10] shrink-0 motion-safe:transition-colors motion-safe:duration-150 hover:border-[#67C7EB]">
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
@@ -92,9 +92,7 @@ export default async function Home() {
                   width={240}
                   height={240}
                   quality={90}
-                  preload
-                  fetchPriority="high"
-                  sizes="(min-width: 640px) 120px, 96px"
+                  sizes="(min-width: 640px) 80px, 64px"
                   className="h-full w-full object-cover"
                 />
               </div>

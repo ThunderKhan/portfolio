@@ -14,3 +14,9 @@ Source: ThunderKhan/ThunderKhan.github.io at a7b674d6fb028ed2d9de173f7a4f9dc32e2
 - [ ] Repeat Docker/browser checks before release, remove preview notice and noindex only after all identity content is verified and release approved.
 
 Full application dependencies and installed Next docs are not available in the connector execution environment. No application tests have been executed in this slice. Static diff and remote tree verification only. Original MIT license, historical data and banner artwork retained. No new dependencies.
+
+## Profile photograph — owner selection
+
+Owner supplied and committed public/profile/avatar.jpg at ec85d78. Local attachment bytes match the committed Git blob 86ecfeb6b0e28e22529720ab55108f5ba5e36a4e (400 × 400 JPEG, 27,460 bytes). Config now uses this photograph for the homepage and both social-card paths. Keep natural colors and square crop; use a thin approved metallic-gold border with arc-blue hover accent on the homepage. Open Graph embeds the same photograph with monogram fallback. The avatar is decorative beside the owner's visible name. Adjust responsive image sizes to the actual 64/80 CSS px box and remove competing priority hints from the small portrait; banner remains unchanged. Retain the temporary monogram and inherited assets for reference until cleanup.
+
+Source inspection and remote tree verification only; full app tests, responsive rendering, optimized image delivery and Open Graph generation remain to be checked locally. Favicon design, experience migration, and broader typography/theme work are separate pending slices. No new dependencies or deployment.

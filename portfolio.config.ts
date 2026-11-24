@@ -15,7 +15,7 @@ export const portfolio = {
   description:
     "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments with an emphasis on deterministic behavior, explainability, testing, and public proof of work.",
   location: "India",
-  avatar: "/profile/ayan-monogram.svg",
+  avatar: "/profile/avatar.jpg",
   initials: "AK",
   // Inherited sections are still visible for local design reference. Never deploy yet.
   referencePreview: true,

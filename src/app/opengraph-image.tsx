@@ -22,9 +22,7 @@ export const contentType = "image/png";
  */
 
 /**
- * The media type read from the file's magic bytes, not its extension.
- * `public/avatar.png` is in fact a JPEG - browsers sniff and render it anyway,
- * but Satori trusts the data URI's declared type and silently draws nothing.
+ * Read the media type from magic bytes so Satori receives a valid data URI.
  */
 function sniff(buf: Buffer): string | null {
   if (buf.subarray(0, 8).toString("hex") === "89504e470d0a1a0a") return "image/png";
@@ -47,6 +45,7 @@ function embed(file: string): string | null {
 }
 
 const banner = embed("banner/starry-night.png");
+const avatar = embed(portfolio.avatar.replace(/^\//, ""));
 
 /**
  * The mosaic is 4:1. Scale it to the card height and align the bright
@@ -123,9 +122,14 @@ export default function OpengraphImage() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 84, height: 84, borderRadius: 8, background: "#6A0C0B", border: "2px solid #B97D10", color: "#F4FBFF", fontSize: 36, fontWeight: 700 }}>
+            {avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element -- ImageResponse consumes the embedded image directly.
+              <img alt="" src={avatar} width={84} height={84} style={{ borderRadius: 8, border: "2px solid #B97D10", objectFit: "cover" }} />
+            ) : (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 84, height: 84, borderRadius: 8, background: "#6A0C0B", border: "2px solid #B97D10", color: "#F4FBFF", fontSize: 36, fontWeight: 700 }}>
               {portfolio.initials}
             </div>
+            )}
             <div
               style={{
                 fontSize: 19,
