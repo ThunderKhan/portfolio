@@ -48,15 +48,14 @@ function embed(file: string): string | null {
   }
 }
 
-const banner = embed("banner-dark.jpg");
+const banner = embed("banner/starry-night.png");
 const avatar = embed("avatar.png");
 
 /**
- * The artwork is 3:1 and the card is 1.9:1, so it is scaled to the card's
- * height and slid left - keeping the figure on the right and clearing the
- * left side for type.
+ * The mosaic is 4:1. Scale it to the card height and align the bright
+ * right-hand vortex on the right of the card, behind the existing text scrim.
  */
-const ART = { w: 1887, h: 630, left: -546 };
+const ART = { w: 2520, h: 630, left: -950 };
 
 const n = (v: number) => v.toLocaleString("en-US");
 
@@ -107,8 +106,7 @@ export default function OpengraphImage() {
               "linear-gradient(90deg, rgba(4,7,14,0.90) 0%, rgba(4,7,14,0.72) 34%, rgba(4,7,14,0.26) 66%, rgba(4,7,14,0.00) 100%)",
           }}
         />
-        {/* a second pass down the frame: the flower field at the bottom is the
-            brightest part of the art and the url sits on top of it. */}
+        {/* a second pass down the frame: keep the URL readable over the mosaic. */}
         <div
           style={{
             position: "absolute",

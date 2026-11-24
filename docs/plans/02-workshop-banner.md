@@ -1,5 +1,7 @@
 # Workshop Banner Implementation Plan
 
+> **SUPERSEDED:** Do not implement this historical video plan. See [Starry Night banner](03-starry-night-banner.md) and D-007.
+
 > **For agentic workers:** Read AGENTS.md, ENGINEERING.md and DESIGN.md first. Use the installed writing-plans / executing-plans guidance, relevant motion and accessibility skills, and verification-before-completion. Checkboxes are evidence-based; do not mark them done based on code alone.
 
 **Status:** Planned, not implemented. Base: 58d999c. Owner approved the Workshop concept and requested its design specification and implementation plan. Owner selected a square workshop visual reference; panoramic adaptation, source-rights verification, final art approval and media creation remain pending.

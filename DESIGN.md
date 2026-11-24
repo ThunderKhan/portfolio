@@ -292,7 +292,7 @@ or no animation when frequency, input modality or performance makes motion distr
 
 Honor prefers-reduced-motion with no unnecessary transform, scroll animation, particle motion,
 or long transition. Ensure content and focus remain available immediately. Avoid persistent
-background animations except the explicitly bounded Workshop banner loop below; avoid scroll hijacking, flashing, and default sound effects. Use CSS for simple
+background animations except the explicitly bounded Starry Night mosaic loop below; avoid scroll hijacking, flashing, and default sound effects. Use CSS for simple
 effects; justify existing Framer Motion, GSAP and Three.js usage with real interaction value.
 Clean up effects and GPU resources; avoid layout-thrashing and excessive client JavaScript.
 
@@ -318,7 +318,7 @@ a global recolor is sufficient.
 
 | Component | Design intent |
 | --- | --- |
-| Banner/identity | Original Workshop scene; restrained ambient motion; readable real identity; see Workshop banner specification below |
+| Banner/identity | Original Starry Night mosaic; restrained tile illumination; readable real identity; see Starry Night mosaic specification below |
 | Buttons | One clear primary action; restrained filled or outlined states; accessible focus and disabled feedback |
 | Section headers | Barlow display hierarchy; optional subtle seam accent, no redundant fictional section numbers |
 | Project cards | Preserve real images, grid, aspect ratio, links and project details; consistent boundaries |
@@ -331,36 +331,17 @@ a global recolor is sufficient.
 | Theme toggle | Clearly named control, visible state, preserve system preference |
 | Guestbook/footer | Keep genuine interactions, attribution and useful navigation; no fake status |
 
-### Workshop banner — approved direction
+### Starry Night mosaic banner — approved direction
 
-**Status:** Workshop concept approved; this specification and the [implementation plan](docs/plans/02-workshop-banner.md) are accepted planning scope. The owner selected a supplied square workshop image as the visual reference on 2026-11-25. Final panoramic artwork, rights verification and motion preview remain pending.
+**Status:** Owner approved the generated Starry Night–inspired MARK I mosaic and committed it in 7b767a8. This supersedes the Workshop scene/video direction (D-006); see [current implementation plan](docs/plans/03-starry-night-banner.md).
 
-**Selected visual reference.** Owner-supplied `image(3).png` (1920 × 1920 RGBA PNG; SHA-256 `79e1282cefc5abc02031e79fa56256e702cf836c1a9fa5b8c7ee1bc043ef4414`). Preserve its stationary red-and-gold armor at right, circular luminous chest core, nighttime city windows, warm amber workbench lighting, cyan technical monitors and engineering drawings. These are artwork reference details, not additional UI color tokens. The source creator and usage rights have not been established; do not publish the supplied asset or assume derivative rights. Adapt the composition into a rights-cleared panoramic master, preferably by extending the workshop horizontally rather than stretching the square image. A direct 1920 × 500 crop would retain only 26% of its original height. Review the actual header crops and quiet clock/control zones. The file itself has not been added to Git.
+**Asset:** `public/banner/starry-night.png`, 2508 × 627 (4:1), 1,733,427 bytes, Git blob a88420b77704129d2ce5826508a52ad88893b4a6. Generated in ChatGPT from a public-domain Starry Night concept and a supplied square-tile reference; no character, logos or text. The binary matches the selected generated image. Record the supplied mosaic reference's provenance if known; no claim that its separate pattern is public domain.
 
-**Intent.** A quiet late-night industrial laboratory that conveys craftsmanship, focused experimentation and solitude. The scene is original environmental artwork, not a Marvel poster, gaming header, or reproduction of a movie frame. Make the owner's profile and work—not the suit—the primary functional content.
+**Visual contract:** Stationary mosaic with dark crimson, gold flowing curves, blue-white stellar highlights and the bright right-hand vortex. Preserve the square grid, silhouette, and approved artwork without stretching or global hue changes. Use one image in both themes with existing edge scrims; no changes to the approved six brand primitives or provisional theme neutrals. Keep the 22vh banner and 40vw desktop/full-width mobile geometry, profile row, navigation and clock. Use a 75% horizontal focal crop as a starting point; review mobile and desktop crops. Keep the clock and pause button legible over the art.
 
-**Composition.** Fixed panoramic camera, single clear focal object on the right/right-center; calmer left and middle, with a workbench, metal structure, tools and understated blueprint-like monitors receding into depth. Leave the lower-right clock region and lower-left controls legible. The inherited profile row is immediately below the banner, not overlaid; preserve its current position, command palette, theme toggle, content column and navigation. Keep the existing banner height (22vh) and desktop 40vw / mobile full-width container unless a separate layout change is approved. Review crops, not just the master artwork: the focal object should remain recognizable at narrow widths without depending on tiny details.
+**Motion:** Replace the inherited petal Canvas and planned video with a single transparent Canvas overlay. Slowly illuminate selected real mosaic tile interiors with bounded, ten-second periodic gold and blue-white glints. The source stays stationary and tile borders remain visible. No camera travel, fast flashing, global color shifts, added libraries, sound or video. The continuous decorative loop is a narrow exception to the general motion rules and the 800ms hero entrance token. No separate particle system; shooting stars and more complex flow paths are deferred until the first visual review.
 
-**Material and light.** Low-key, directional light, mostly neutral workshop surfaces. Use the six approved brand primitives exactly in UI tokens: Hot Rod Red #AA0505 and Deep Armor Red #6A0C0B for armor, Metallic Gold #B97D10 and rare Bright Gold #FBCA03 for craftsmanship, Arc Reactor Blue #67C7EB for localized energy, Reactor White #F4FBFF for the luminous core. Cinematic shading/reflection naturally varies around these references; do not treat every media pixel as a UI token. No full-scene red/cyan flooding, lens-flare spectacle, official franchise logos, text baked into imagery or fake diagnostics. No new supporting theme colors are approved by this spec.
-
-**Motion.** Stationary camera and stationary armor; only slow airborne dust, faint haze, small monitor luminance changes, subtle reflected-light movement and a gentle reactor pulse. A few tiny sparks are optional, never distracting. No camera travel, fast flashing, aggressive rotation, combat, abrupt cuts, scroll-linked motion or audio. The 8–12 second loop is a deliberate, narrowly scoped decorative exception to the 800ms hero entrance token and general ban on persistent background animation; it must never block content or run unnecessarily offscreen. No separate continuous particle engine on top of the video.
-
-**Media contract.**
-
-| Property | Target |
-| --- | --- |
-| Master composition | Approximately 3.5:1–4:1; 1920 × 500 px target |
-| Loop | 8–12 seconds, seamless, 24 fps preferred, no audio track |
-| Delivery | Local WebM (VP9), MP4 (H.264) fallback, matching static WebP poster |
-| Budget | Prefer <=2 MB per video rendition; 3 MB ceiling per rendition; poster target <=150 KB, review exceptions |
-| Rendering | Poster first, fixed geometry, object-fit cover, tested focal alignment |
-| Themes | Carbon / Titanium; one shared original scene in v1, theme-aware edge blending and control contrast; optional daylight asset later only if justified |
-
-**Accessibility and resource behavior.** Muted inline autoplay only when motion is allowed and playback succeeds. No native control bar by default, but provide a visible, keyboard-accessible Pause/Play banner button with an accessible name and visible focus; a continuous loop beside content requires a stop mechanism (WCAG 2.2 SC 2.2.2). Pause when outside the viewport or the page is hidden; do not override a user's explicit pause when returning. Honor live prefers-reduced-motion changes, start with a static poster under reduced motion, and avoid requesting video in that mode. Autoplay denial, disabled JavaScript, unsupported codecs, failed media or constrained connection must leave a legible, stable static banner and usable profile. No layout shifts, audio or flashing. The artwork is decorative; keep it out of the accessibility tree while the actual control remains accessible.
-
-**Art brief.** Original cinematic panoramic industrial lab after midnight. A distinctive red-and-gold engineering exosuit on a service stand at right, a small circular blue-white energy core, blueprint-like monitors without text, tools and quiet mechanical depth. Calmer left side; restrained highlights, stationary camera. Animate only faint dust, haze, soft monitor luminance and slow reactor glow. No logos, copied film frames, violent action or excessive neon.
-
-**Acceptance.** Owner approves the original static scene and motion preview; verify media provenance and rights, the loop seam and encoded budgets; preserve the exact header hierarchy; verify both themes and responsive crops (320, 360, 768, 1440 CSS px), clock/control contrast, keyboard pause/resume, reduced motion, offscreen/hidden-tab pause, fallback and no header layout shift. Compare network/CPU and LCP/CLS with the existing banner. Reuse the static artwork for Open Graph with an appropriate social-card crop, not a video. Follow the plan's independent verification gates before release.
+**Performance/accessibility:** Serve a static Next Image poster first, with responsive automatic image optimization (no separate WebP binary required for v1). No JS or failed Canvas leaves the poster intact. Cap drawing at approximately 30fps and bounded backing resolution; no per-frame React state. Stop/clear when paused, offscreen, hidden, unmounted or reduced motion is enabled; preserve explicit pause across visibility changes. Native visible keyboard-accessible pause/play control, 44px target and visible focus; hide animation/control under reduced motion. Verify both themes, responsiveness, crop alignment, clock contrast, performance and OG static art. No layout shift or new dependencies.
 
 ### Candidate signature features (not separately approved)
 
