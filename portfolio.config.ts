@@ -45,7 +45,7 @@ export const portfolio = {
   handles: {
     github: "ThunderKhan",
     linkedin: "the-ayan-khan",
-    x: "",
+    x: "ThunderBorneK",
     leetcode: "ThunderKhan",
     codeforces: "",
     codechef: "",

@@ -266,12 +266,6 @@ export default function SocialHoverCard({ socialName, children, profile: live }:
                           <h3 className="text-[13.5px] font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 truncate leading-none">
                             {profile.name}
                           </h3>
-                          {/* verified blue badge for Twitter */}
-                          {socialName === "Twitter" && (
-                            <svg viewBox="0 0 24 24" className="w-[13.5px] h-[13.5px] text-[#1d9bf0] fill-current shrink-0 select-none">
-                              <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.99-3.818-3.99-.48 0-.94.1-1.348.27C14.825 2.515 13.512 1.5 12 1.5s-2.825 1.015-3.422 2.28c-.408-.17-.867-.27-1.348-.27-2.108 0-3.818 1.78-3.818 3.99 0 .495.084.965.238 1.4-1.273.65-2.148 2.02-2.148 3.6 0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.21 1.71 3.99 3.818 3.99.48 0 .94-.1 1.348-.27.597 1.265 1.91 2.28 3.422 2.28s2.825-1.015 3.422-2.28c.408.17.867.27 1.348.27 2.108 0 3.818-1.78 3.818-3.99 0-.495-.084-.965-.238-1.4 1.273-.65 2.148-2.02 2.148-3.6zm-12.72 3.28L6.47 12.5c-.39-.39-.39-1.03 0-1.42s1.02-.39 1.41 0l2.2 2.2 5.09-5.09c.39-.39 1.03-.39 1.42 0s.39 1.03 0 1.42l-5.8 5.8c-.2.2-.46.3-.71.3s-.51-.1-.71-.3z" />
-                            </svg>
-                          )}
                         </div>
                         <span className="text-[10.5px] text-zinc-400 dark:text-zinc-500 font-mono mt-0.5 leading-none">
                           {profile.handle}
