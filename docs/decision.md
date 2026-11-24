@@ -108,3 +108,12 @@ Record future decisions here with their status and rationale; supersede accepted
 **Provenance:** The first five hex values match [SchemeColor's Iron Man palette](https://www.schemecolor.com/iron-man.php), rechecked directly on 2026-11-25. Reactor White is an owner-approved project addition. These are a digital interpretation, not official film paint codes or image-derived measurements. Previous production-image download attempts failed; numerical sampling was not performed and is no longer required to approve this palette.
 
 **Consequences:** [DESIGN.md](../DESIGN.md) contains structured color tokens, roles, source names, and calculated contrast checks. Carbon/Titanium supporting neutrals are still provisional; validate and approve them separately before freezing the full theme. Do not alter the six approved values to compensate for contrast; use accessible semantic combinations. No CSS, font, component, or hosting change is authorized by this documentation commit.
+
+
+## D-006 — Workshop banner direction
+
+**Status:** Owner approved the Workshop concept and requested its design specification and implementation plan, 2026-11-25 (IST). Art approval and implementation pending.
+
+**Decision:** Use an original panoramic industrial workshop scene with subtle environmental motion; preserve the existing banner/profile/header geometry. Default focal object is a suit on a service stand, subject to art review. Prefer a local silent 8–12 second WebM/MP4 loop with a matching static poster, an accessible pause control, reduced-motion and visibility-aware playback. Use a single shared loop in v1 with theme-aware treatment rather than two video sets. This is a scoped decorative-motion exception, not a general relaxation of motion or performance rules.
+
+**Consequences:** [DESIGN.md](../DESIGN.md#workshop-banner--approved-direction) defines the visual contract; [implementation plan](plans/02-workshop-banner.md) defines the media, component and verification tasks. Existing art is retained as a reference until deliberate replacement. No media has been generated or approved, no new dependencies, no application source changes, no hosting changes.
