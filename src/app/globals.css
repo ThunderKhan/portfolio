@@ -4,6 +4,9 @@
 @import "../../node_modules/tw-animate-css/dist/tw-animate.css";
 @import "shadcn/tailwind.css";
 
+/* Keep vendored skill examples out of the portfolio utility CSS. */
+@source not "../../.agents";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {

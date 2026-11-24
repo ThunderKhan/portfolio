@@ -31,5 +31,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "chanhdai.com"]
+  "exclude": ["node_modules", "chanhdai.com", ".agents"]
 }

@@ -595,7 +595,7 @@ export default async function Home() {
           </div>
 
           <div className="pt-5 pb-2">
-            <GuestbookNotes notes={guestbook.notes} total={guestbook.total} />
+            <GuestbookNotes notes={guestbook.notes} total={guestbook.total} stale={guestbook.stale} />
           </div>
         </div>
 
@@ -636,10 +636,9 @@ export default async function Home() {
               Source on GitHub
             </a>
           )}
-          {/* Not a link: the same pill shape, minus the hover affordance. Hidden
-              entirely at zero, so an unconfigured fork shows nothing rather
-              than boasting of no visitors. */}
-          {visitors.visitors > 0 && (
+          {/* Not a link: the same pill shape, minus the hover affordance. Hidden when unavailable or zero, so an unconfigured fork does not
+              claim the inherited baseline as current traffic. */}
+          {!visitors.stale && visitors.visitors > 0 && (
             <span
               title={`${visitors.pageviews.toLocaleString("en-US")} page views`}
               className="inline-flex cursor-default items-center gap-2 rounded-[6px] border border-black/5 bg-zinc-50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400 dark:border-white/5 dark:bg-[#09090b] dark:text-zinc-600"

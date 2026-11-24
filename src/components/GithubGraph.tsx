@@ -32,72 +32,32 @@ export function GithubGraph() {
   const [months, setMonths] = useState<ContributionMonth[]>([]);
   const [totalContributions, setTotalContributions] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [snapshotDate, setSnapshotDate] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
-  const emptyWeeks = useMemo<ContributionWeek[]>(() => {
-    const today = new Date();
-    const start = new Date(today);
-    start.setDate(today.getDate() - 370);
-
-    return Array.from({ length: 53 }, (_, weekIndex) => ({
-      contributionDays: Array.from({ length: 7 }, (_, dayIndex) => {
-        const date = new Date(start);
-        date.setDate(start.getDate() + weekIndex * 7 + dayIndex);
-
-        return {
-          contributionCount: 0,
-          date: date.toISOString().slice(0, 10),
-        };
-      }),
-    }));
-  }, []);
-
   useEffect(() => {
+    const controller = new AbortController();
     const fetchContributions = async () => {
-      const cacheKey = "github_contributions";
-      const cachedData = typeof window !== "undefined" ? localStorage.getItem(cacheKey) : null;
-      
-      if (cachedData) {
-        try {
-          const parsed = JSON.parse(cachedData);
-          setWeeks(parsed.weeks);
-          setMonths(parsed.months || []);
-          setTotalContributions(parsed.totalContributions);
-          setLoading(false);
-        } catch {
-          setLoading(true);
-        }
-      }
-
       try {
-        // No body: the route owns the query. It used to be built here and
-        // forwarded to GitHub verbatim under the server's token, which let any
-        // caller run anything they liked as the token's owner.
-        const response = await fetch("/api/github", { method: "POST" });
-
+        // The server owns the fixed query; callers never send GraphQL.
+        const response = await fetch("/api/github", { method: "POST", signal: controller.signal });
+        if (!response.ok) return;
         const data = await response.json();
         const calendar = data?.calendar;
-        
-        if (calendar) {
-          setWeeks(calendar.weeks);
-          setMonths(calendar.months);
-          setTotalContributions(calendar.totalContributions);
-          if (typeof window !== "undefined") {
-            localStorage.setItem(cacheKey, JSON.stringify({
-              weeks: calendar.weeks,
-              months: calendar.months,
-              totalContributions: calendar.totalContributions
-            }));
-          }
-        }
+        if (controller.signal.aborted || !calendar || !Array.isArray(calendar.weeks) || !calendar.weeks.length) return;
+        setWeeks(calendar.weeks);
+        setMonths(calendar.months || []);
+        setTotalContributions(calendar.totalContributions);
+        setSnapshotDate(data.stale ? (data.asOf || "unknown date") : null);
       } catch (error) {
-        console.error("Failed to fetch GitHub contributions", error);
+        if (!controller.signal.aborted) console.error("Failed to fetch GitHub contributions", error);
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     };
 
-    fetchContributions();
+    void fetchContributions();
+    return () => controller.abort();
   }, []);
 
   const contributionLevels = useMemo<ContributionLevel[]>(
@@ -154,11 +114,14 @@ export function GithubGraph() {
 
   const defaultMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const displayMonths = months.length > 0 ? months.map(m => m.name.substring(0, 3)) : defaultMonths;
-  const graphWeeks = weeks.length > 0 ? weeks : emptyWeeks;
-  const graphStatus =
-    loading && totalContributions === 0
-      ? "Loading GitHub contribution activity"
-      : `${totalContributions} GitHub activities in the last year`;
+  const graphWeeks = weeks;
+  const graphStatus = loading
+    ? "Loading GitHub contribution activity"
+    : weeks.length === 0
+      ? "GitHub activity unavailable"
+      : snapshotDate
+        ? `${totalContributions} activities · snapshot ending ${snapshotDate}`
+        : `${totalContributions} GitHub activities in the last year`;
   const dashedLineMask = {
     maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
     WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
@@ -199,7 +162,7 @@ export function GithubGraph() {
       </div>
 
       <p id="github-activity-summary" className="sr-only">
-        Calendar heatmap showing daily GitHub contribution counts for {portfolio.handles.github} over the last year. Scroll horizontally to inspect all weeks.
+        Calendar heatmap for {portfolio.handles.github}. {graphStatus}.
       </p>
 
       {/* Graph content — sits directly on the page background */}
@@ -213,13 +176,13 @@ export function GithubGraph() {
             </div>
 
             <div className="grid grid-cols-[repeat(53,minmax(0,1fr))] gap-x-[2px]" role="img" aria-label={graphStatus}>
-              {loading && weeks.length === 0
+              {weeks.length === 0
                 ? Array.from({ length: 53 }).map((_, colIndex) => (
                     <div key={colIndex} className="flex flex-col gap-[2px]">
                       {Array.from({ length: 7 }).map((__, rowIndex) => (
                         <div
                           key={rowIndex}
-                          className="aspect-square w-full animate-pulse rounded-[2px] bg-zinc-100 dark:bg-zinc-800"
+                          className={`aspect-square w-full rounded-[2px] bg-zinc-100 dark:bg-zinc-800 ${loading ? "motion-safe:animate-pulse" : ""}`}
                         />
                       ))}
                     </div>

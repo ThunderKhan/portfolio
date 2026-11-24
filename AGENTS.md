@@ -19,6 +19,7 @@ Ayan Khan's portfolio redesign, forked from Paras-ydv/portfolio (MIT). Preserve 
 | `npm ci` | Install from lockfile |
 | `npm run dev` | Local development |
 | `npm run typecheck` | TypeScript checks |
+| `npm test` | Dependency-free regression tests (Node 22) |
 | `npm run lint` | ESLint |
 | `npm run build` | Production build |
 | `npm run start` | Serve production build |
@@ -27,7 +28,7 @@ Ayan Khan's portfolio redesign, forked from Paras-ydv/portfolio (MIT). Preserve 
 | `npm run refresh-music` | Refresh configured music metadata |
 | `npm run refresh-visitors` | Update visitor baseline with authorized credentials |
 
-No test script exists in package.json at this baseline. Add focused regression coverage when appropriate; never invent a passing suite.
+Run the focused Node regression suite with npm test; add coverage as behavior changes. This is not a substitute for build and browser checks.
 
 ## Project map
 

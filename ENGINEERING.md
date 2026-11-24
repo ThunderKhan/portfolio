@@ -135,9 +135,9 @@ without modifying generated files by hand. For a production-like browser check, 
 `npm run build` followed by `npm run start` (or the Docker preview) rather than treating
 a successful dev server as production verification.
 
-At this baseline there is **no configured automated test script, Playwright suite or new-repo CI**.
-Do not claim those exist. Add a focused harness only when the task requires it and the owner
-has authorized the dependency/scope. The old portfolio's quality gates are a useful reference,
+The baseline now includes a dependency-free Node 22 regression suite (`npm test`). There is
+**no configured Playwright suite or new-repo CI**. Do not claim those exist. Expand coverage
+as needed without introducing unapproved dependencies. The old portfolio's quality gates are a useful reference,
 not proof that this fork passes them.
 
 Record each required check as PASS, FAIL, BLOCKED or NOT RUN, with command/observation and reason.

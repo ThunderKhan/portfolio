@@ -51,12 +51,13 @@ type Node = {
  * a comment count this cache has not seen.
  */
 export function getGuestbook(discussionNumber = 1): Promise<GuestbookData> {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token || !portfolio.giscus.repoId || !portfolio.giscus.categoryId) {
+    return Promise.resolve({ notes: [], total: 0, stale: true });
+  }
   return withFallback<GuestbookData>(
     "guestbook",
     async () => {
-      const token = process.env.GITHUB_TOKEN;
-      if (!token) throw new Error("GITHUB_TOKEN is not set");
-
       const [owner, name] = portfolio.giscus.repo.split("/");
       const res = await fetch("https://api.github.com/graphql", {
         method: "POST",

@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { portfolio } from "~/portfolio.config";
+import snapshot from "@/data/stats-snapshot.json";
+import { snapshotCalendar } from "@/lib/stats/github-calendar";
+import { requestTimeout } from "@/lib/stats/shared";
 
 /**
  * Contribution calendar for the homepage graph.
@@ -32,10 +35,17 @@ const CONTRIBUTIONS_QUERY = `
 /** The graph moves at most once a day; an hour is plenty and keeps us far from the rate limit. */
 const REVALIDATE = 3600;
 
+function fallback(status: number, error: string) {
+  const calendar = snapshotCalendar(snapshot.github, portfolio.handles.github);
+  return calendar
+    ? NextResponse.json({ calendar, stale: true, asOf: snapshot.github.calendar.at(-1)?.date })
+    : NextResponse.json({ error }, { status });
+}
+
 export async function POST() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
-    return NextResponse.json({ error: "GitHub is not configured" }, { status: 503 });
+    return fallback(503, "GitHub is not configured");
   }
 
   try {
@@ -50,6 +60,7 @@ export async function POST() {
         variables: { login: portfolio.handles.github },
       }),
       next: { revalidate: REVALIDATE },
+      signal: requestTimeout(),
     });
 
     if (!response.ok) throw new Error(`github http ${response.status}`);
@@ -60,9 +71,9 @@ export async function POST() {
 
     // Only the calendar goes back to the browser. Returning the raw payload
     // would hand GitHub's error objects - and whatever they mention - to callers.
-    return NextResponse.json({ calendar });
+    return NextResponse.json({ calendar, stale: false });
   } catch (error) {
     console.error("[github] contribution fetch failed:", error);
-    return NextResponse.json({ error: "Failed to fetch from GitHub" }, { status: 502 });
+    return fallback(502, "Failed to fetch from GitHub");
   }
 }

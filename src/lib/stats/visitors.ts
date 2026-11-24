@@ -82,6 +82,9 @@ async function liveCounts(): Promise<Omit<VisitorMetrics, "stale">> {
 }
 
 export function getVisitors(): Promise<VisitorMetrics> {
+  if (!process.env.VERCEL_ANALYTICS_TOKEN || !process.env.VERCEL_PROJECT_ID) {
+    return Promise.resolve({ visitors: baseline.visitors, pageviews: baseline.pageviews, stale: true });
+  }
   return withFallback<VisitorMetrics>("visitors", liveCounts, {
     visitors: baseline.visitors,
     pageviews: baseline.pageviews,

@@ -44,7 +44,7 @@ the live contribution graph:
 GITHUB_TOKEN=github_pat_...   # needs read:user
 ```
 
-Without it the graph renders from the committed snapshot.
+Without it the graph renders from the committed snapshot when the account matches, with the historical window labeled. If no matching snapshot exists, activity is shown as unavailable.
 
 ## Making it yours
 
@@ -68,6 +68,7 @@ That guide is written to be handed to a coding agent along with your resume.
 | `npm run build` | Production build |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | `tsc --noEmit` |
+| `npm test` | Focused regression tests (Node 22) |
 | `npm run refresh-stats` | Re-snapshot LeetCode/Codeforces/CodeChef/GitHub |
 | `npm run refresh-music` | Resolve album titles and covers from Spotify oEmbed |
 

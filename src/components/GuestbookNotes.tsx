@@ -31,7 +31,7 @@ function timeAgo(iso: string) {
   );
 }
 
-export function GuestbookNotes({ notes, total }: { notes: GuestbookNote[]; total: number }) {
+export function GuestbookNotes({ notes, total, stale }: { notes: GuestbookNote[]; total: number; stale: boolean }) {
   if (notes.length === 0) {
     return (
       <Link
@@ -40,7 +40,7 @@ export function GuestbookNotes({ notes, total }: { notes: GuestbookNote[]; total
       >
         <MessageSquare className="h-4 w-4 text-zinc-400 dark:text-zinc-600" aria-hidden="true" />
         <p className="text-[13px] text-zinc-500 dark:text-zinc-400">
-          No notes yet &mdash; be the first to sign.
+          {stale ? "Notes unavailable — visit the guestbook." : "No notes yet — be the first to sign."}
         </p>
       </Link>
     );
