@@ -268,5 +268,250 @@ export const projectsData: Project[] = [
     ],
     "github": "https://github.com/ThunderKhan/heatops",
     "statusDetail": "Hackathon prototype · milestone 5"
+  },
+  {
+    "slug": "pareto",
+    "title": "Pareto",
+    "status": "live",
+    "statusDetail": "Trustume AI Hackathon 2026 · team project · fictional candidate demo",
+    "imageTitle": "Pareto project preview",
+    "src": "/project-image/pareto.png",
+    "description": "Evidence-grounded recruitment intelligence: converts hiring briefs into reviewable criteria, then searches and explains candidate matches using deterministic rules.",
+    "problem": "Keyword search loses hiring intent, while unconstrained language-model ranking can introduce unsupported claims.",
+    "highlights": [
+      "Recruiter confirmation before executing model-generated criteria; explicit MATCH, FAIL and UNKNOWN evidence.",
+      "Pareto frontier, near matches, what-if analysis and versioned conversational refinements.",
+      "48 fictional demo candidates; resume ingestion requires configured private storage and a running worker."
+    ],
+    "tech": [
+      "next",
+      "ts",
+      "react",
+      "tailwind",
+      "postgres",
+      "supabase",
+      {
+        "label": "Prisma"
+      },
+      {
+        "label": "Gemini / Groq"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/pareto",
+    "live": "https://try-pareto.vercel.app",
+    "hasPin": false
+  },
+  {
+    "slug": "refute",
+    "title": "refute",
+    "status": "completed",
+    "statusDetail": "Frontier Engineering Challenge 2026 · benchmarked developer tool",
+    "imageTitle": "refute project preview",
+    "src": "/project-image/refute.png",
+    "description": "Evidence-backed Python patch verification that treats proposed fixes as hypotheses and tries to falsify them with executable probes.",
+    "problem": "A patch that passes a narrow test can still fail nearby boundaries or regress the public contract.",
+    "highlights": [
+      "Runs original and patched code, checks the reported trigger and challenges nearby behavior.",
+      "Constrained five-way verdicts based on deterministic observations; zero core runtime dependencies.",
+      "Supports real GitHub PR workflows and stdio MCP integration."
+    ],
+    "tech": [
+      "python",
+      {
+        "label": "MCP"
+      },
+      {
+        "label": "Testing"
+      },
+      {
+        "label": "CLI"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/refute",
+    "hasPin": false
+  },
+  {
+    "slug": "iet-grid",
+    "title": "IET Grid",
+    "status": "prototype",
+    "statusDetail": "Campus scheduling hackathon · team project",
+    "imageTitle": "IET Grid project preview",
+    "src": "/project-image/iet-grid.png",
+    "description": "Campus room scheduling and classroom management with floor plans, role-scoped access, conflict-safe booking and academic notices.",
+    "problem": "Campus room availability, faculty schedules and academic commitments need a shared, consistent scheduling workflow.",
+    "highlights": [
+      "Selectable schematic floor maps and original plan views for five floors.",
+      "FastAPI endpoints and PostgreSQL constraints for booking, availability, approvals and rescheduling.",
+      "Official student and timetable imports and independent live-user acceptance remain outstanding."
+    ],
+    "tech": [
+      "react",
+      "ts",
+      "fastapi",
+      "supabase",
+      "postgres"
+    ],
+    "github": "https://github.com/ThunderKhan/iet-grid",
+    "live": "https://iet-grid.vercel.app",
+    "hasPin": false
+  },
+  {
+    "slug": "grantly",
+    "title": "GRANTLY",
+    "status": "prototype",
+    "statusDetail": "Frontend Arena THE OUTPOST 2026 · frontend-only prototype",
+    "imageTitle": "GRANTLY project preview",
+    "src": "/project-image/grantly.png",
+    "description": "A scholarship discovery and application workspace for students, with explainable eligibility, document preparation, comparison and application tracking.",
+    "problem": "Students need to understand eligibility and organize applications rather than simply browse disconnected opportunity listings.",
+    "highlights": [
+      "Searchable opportunities, profile-based matching and explicit matched/unknown/mismatch explanations.",
+      "Persistent document readiness, application stages, comparison and calendar export.",
+      "Source-linked programs alongside explicitly illustrative records; local workspace backup and restore."
+    ],
+    "tech": [
+      "react",
+      "ts",
+      "tailwind",
+      {
+        "label": "Vite"
+      },
+      {
+        "label": "Playwright"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/grantly",
+    "hasPin": false
+  },
+  {
+    "slug": "axiom",
+    "title": "Axiom",
+    "status": "building",
+    "statusDetail": "Active development · production readiness not established",
+    "imageTitle": "Axiom project preview",
+    "src": "/project-image/axiom.png",
+    "description": "An evidence-grounded startup intelligence product in development, intended to help founders investigate demand signals, competitors and opportunities.",
+    "problem": "Founders need to distinguish source-backed market evidence from plausible but unsupported AI research.",
+    "highlights": [
+      "Next.js web and FastAPI service foundations.",
+      "Product and architecture specifications define evidence, research and workspace boundaries.",
+      "Hosted database and human acceptance remain subject to verification; planned capabilities are not presented as delivered."
+    ],
+    "tech": [
+      "next",
+      "ts",
+      "python",
+      "fastapi",
+      "docker"
+    ],
+    "github": "https://github.com/ThunderKhan/axiom",
+    "hasPin": false
+  },
+  {
+    "slug": "feynman-in-a-loop",
+    "title": "Feynman-in-a-Loop",
+    "status": "building",
+    "statusDetail": "Build With AI: Basics · work in progress",
+    "imageTitle": "Feynman-in-a-Loop project preview",
+    "src": "/project-image/feynman-in-a-loop.png",
+    "description": "A learning prototype that reverses the tutoring relationship: the learner teaches an AI student that challenges misconceptions and tests transfer.",
+    "problem": "Learners can mistake a fluent AI explanation for actual understanding.",
+    "highlights": [
+      "Designed around teaching, misconception repair, transfer questions and evidence-based mastery.",
+      "Verified authentication/session shell; text-learning kernel documented as ready for end-to-end verification.",
+      "Voice-first interaction is a target capability, not a completed claim."
+    ],
+    "tech": [
+      "next",
+      "ts",
+      "react",
+      "supabase",
+      {
+        "label": "Groq"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/feynman-in-a-loop",
+    "hasPin": false
+  },
+  {
+    "slug": "vani",
+    "title": "VĀṆI / MeshVoice",
+    "status": "building",
+    "statusDetail": "SIH 2026 · offline communication research and feasibility work",
+    "imageTitle": "VĀṆI / MeshVoice project preview",
+    "src": "/project-image/vani.png",
+    "description": "An offline multilingual voice communication project exploring on-device speech processing and direct local transport for infrastructure-denied environments.",
+    "problem": "Speech communication can fail when network infrastructure is unavailable.",
+    "highlights": [
+      "Designed pipeline covers offline STT, critical-information validation, authenticated semantic bundles and offline TTS.",
+      "Roadmap defines individual evidence gates for language coverage, transport and device performance.",
+      "Complete two-phone multilingual operation is a research target, not a verified capability."
+    ],
+    "tech": [
+      "android",
+      {
+        "label": "Offline STT/TTS"
+      },
+      {
+        "label": "Local networking"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/vani",
+    "hasPin": false
+  },
+  {
+    "slug": "prometheus-compiler",
+    "title": "Prometheus Compiler",
+    "status": "completed",
+    "statusDetail": "Educational systems project · experimental compiler",
+    "imageTitle": "Prometheus Compiler project preview",
+    "src": "/project-image/prometheus-compiler.png",
+    "description": "A minimal C++23 compiler exploring lexing, recursive-descent parsing, AST construction, semantic validation and deterministic code generation.",
+    "problem": "A small language implementation makes the translation pipeline explicit and inspectable.",
+    "highlights": [
+      "Explicit AST node hierarchy and recursive-descent parser.",
+      "Semantic validation of symbol usage and deterministic code generation.",
+      "CMake build and line-numbered error reporting."
+    ],
+    "tech": [
+      "cpp",
+      {
+        "label": "C++23"
+      },
+      {
+        "label": "CMake"
+      },
+      {
+        "label": "Compiler design"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/prometheus-compiler",
+    "hasPin": false
+  },
+  {
+    "slug": "tab-jumper",
+    "title": "Tab Jumper",
+    "status": "completed",
+    "statusDetail": "Chrome Manifest V3 · unpacked extension",
+    "imageTitle": "Tab Jumper project preview",
+    "src": "/project-image/tab-jumper.png",
+    "description": "A dependency-free browser extension for navigating visited tabs or switching between the two most recent tabs.",
+    "problem": "Tab-strip order is different from the order a user actually visits tabs.",
+    "highlights": [
+      "Backward and forward visit-order history across Chrome windows.",
+      "Two-tab toggle, persistent mode selection and stale-history pruning.",
+      "No network requests, analytics, page content access or conventional browser history access."
+    ],
+    "tech": [
+      "chrome",
+      {
+        "label": "Manifest V3"
+      },
+      {
+        "label": "JavaScript"
+      }
+    ],
+    "github": "https://github.com/ThunderKhan/tab-jumper",
+    "hasPin": false
   }
 ];
