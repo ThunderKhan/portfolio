@@ -2,7 +2,7 @@
 
 Date: 2026-11-25 (IST)  
 Owner: Ayan Khan  
-Status: Core stack, Docker and visual direction accepted; exact armor palette and production hosting pending.
+Status: Core stack, Docker, visual direction and six-color digital brand palette accepted; supporting theme colors and production hosting pending.
 
 ## D-001 — Retain the existing application stack
 
@@ -90,10 +90,21 @@ Record future decisions here with their status and rationale; supersede accepted
 
 ## D-004 — MARK I visual direction
 
-**Status:** Accepted by owner, 2026-11-25 (IST); exact armor palette pending.
+**Status:** Accepted by owner, 2026-11-25 (IST). The brand palette question is resolved by D-005.
 
 **Decision:** Use Iron Man Mark III (2008) as the cinematic visual reference, while MARK I remains the internal project codename. Combine Workshop, Armor and Reactor; use Barlow Semi Condensed, Geist Sans and Geist Mono; preserve Carbon dark and Titanium light themes, mechanical precision motion and the existing layout/architecture. Use Google's DESIGN.md format for the design contract.
 
 **Rationale:** Distinctive industrial character without compromising professional content, accessibility or existing functionality.
 
-**Consequences:** [DESIGN.md](../DESIGN.md) records the approved direction, implementation defaults and visual checks. Candidate color hexes are not approved brand tokens. Resolve the production reference and obtain palette approval before applying the final theme. Individual signature features require separate scope decisions. No application redesign or production deployment is implied by this documentation change.
+**Consequences:** [DESIGN.md](../DESIGN.md) records the approved direction, implementation defaults and visual checks. The earlier production-reference palette gate is superseded by D-005; supporting theme colors still require validation and approval. Individual signature features require separate scope decisions. No application redesign or production deployment is implied by this documentation change.
+
+
+## D-005 — Freeze the Mark III-inspired digital brand palette
+
+**Status:** Accepted by owner, 2026-11-25 (IST). Resolves D-004's pending brand color decision without claiming production paint accuracy.
+
+**Decision:** Freeze Hot Rod Red (#AA0505), Deep Armor Red (#6A0C0B), Metallic Gold (#B97D10), Bright Gold (#FBCA03), Arc Reactor Blue (#67C7EB) and Reactor White (#F4FBFF) as the six normative MARK I brand primitives.
+
+**Provenance:** The first five hex values match [SchemeColor's Iron Man palette](https://www.schemecolor.com/iron-man.php), rechecked directly on 2026-11-25. Reactor White is an owner-approved project addition. These are a digital interpretation, not official film paint codes or image-derived measurements. Previous production-image download attempts failed; numerical sampling was not performed and is no longer required to approve this palette.
+
+**Consequences:** [DESIGN.md](../DESIGN.md) contains structured color tokens, roles, source names, and calculated contrast checks. Carbon/Titanium supporting neutrals are still provisional; validate and approve them separately before freezing the full theme. Do not alter the six approved values to compensate for contrast; use accessible semantic combinations. No CSS, font, component, or hosting change is authorized by this documentation commit.

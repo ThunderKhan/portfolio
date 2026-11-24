@@ -2,9 +2,15 @@
 version: alpha
 name: MARK I
 description: A personal engineering portfolio with a restrained industrial identity inspired by the 2008 Mark III armor.
-omitted:
-  - section: colors
-    reason: Exact production-reference armor colors are pending owner approval; candidate hex values in prose are not normative tokens.
+colors:
+  armor:
+    hot-rod-red: "#AA0505"
+    deep-armor-red: "#6A0C0B"
+    metallic-gold: "#B97D10"
+    bright-gold: "#FBCA03"
+  reactor:
+    arc-blue: "#67C7EB"
+    reactor-white: "#F4FBFF"
 typography:
   display:
     fontFamily: Barlow Semi Condensed
@@ -108,7 +114,7 @@ components:
 
 ## Overview
 
-**Status:** Direction approved by the owner on 2026-11-25 (IST). Exact armor colors pending.
+**Status:** Visual direction and six-color Mark III-inspired digital brand palette approved by the owner on 2026-11-25 (IST). Supporting theme neutrals remain provisional; implementation and visual validation are pending.
 No UI implementation or new feature is authorized merely by this document.
 
 MARK I is the internal codename; the cinematic reference is Iron Man Mark III (2008),
@@ -127,66 +133,88 @@ The design should reward a closer look without delaying ordinary tasks.
 
 [AGENTS.md](AGENTS.md) governs scope and skill routing; [ENGINEERING.md](ENGINEERING.md)
 governs execution and verification; [docs/decision.md](docs/decision.md) records decisions.
-The YAML above specifies proposed implementation defaults for the approved typography and
-motion direction, with supporting spacing and geometry defaults to validate against the existing
-layout. It does not assert that these values are already implemented. Preserve approved structure;
+The YAML above defines the approved six-color brand palette and proposed implementation defaults
+for the approved typography and motion direction, with supporting spacing and geometry defaults
+to validate against the existing layout. It does not assert that these values are already implemented. Preserve approved structure;
 do not alter section order, routes or layout geometry simply to fit a token.
 
 ## Colors
 
-**Release gate: pending.** No canonical sRGB hex values for the original production paint
-have been verified. A physical metallic finish and a light-emitting reactor have no unique
-appearance in sRGB independent of lighting, camera exposure, color management and reflections.
-Do not describe a fan palette or image sample as official Marvel paint specifications.
+**Brand palette: approved.** The owner accepted the six exact digital hex values below
+as a Mark III-inspired interpretation for MARK I. No canonical sRGB hex values for original
+production paint have been verified. Metallic paint and an illuminated reactor depend on
+lighting, exposure, color management and reflections. Do not represent our chosen colors
+as official Marvel, ILM or Stan Winston Studios paint specifications.
 
-### Reference evidence
+### Reference evidence and provenance
 
-- [2008 production paint-study maquette](https://propstore.com/product/iron-man-2008/lot-229-mark-iii-armor-paint-study-maquette/): physical production reference for red and gold finishes and white reactor core.
+- [2008 production paint-study maquette](https://propstore.com/product/iron-man-2008/lot-229-mark-iii-armor-paint-study-maquette/): physical reference for armor finishes and white reactor core, not the source of our numerical hex values.
 - [Production notes](https://www.scifijapan.com/news/iron-man-production-notes): cinematic design context.
 - [Original HUD team oral history](https://beforesandafters.com/2019/03/18/heads-up-the-oral-history-of-iron-mans-original-hud/): restrained white information graphics and selective colored accents for Mark III.
-- [SchemeColor Iron Man](https://www.schemecolor.com/iron-man.php): secondary community palette, not production evidence.
+- [SchemeColor Iron Man](https://www.schemecolor.com/iron-man.php): published third-party digital palette. Its five hex values were rechecked directly on 2026-11-25. The source's color names are included below; our semantic names are project-specific.
+- Reactor White is a project-selected supporting brand color, not a swatch published by SchemeColor or a measurement of the film's reactor.
 
-### Candidate palette — not approved, not exportable
+The earlier production-image download attempts failed, so no pixel sampling, image color
+profile analysis or physical paint measurement was performed. Approval of this digital palette
+supersedes the earlier pending production-reference sampling requirement. Authentic material
+references remain visual inspiration, not numerical provenance. A future palette revision
+would require a new documented owner decision.
 
-| Candidate | Hex | Intended role | Provenance |
-| --- | --- | --- | --- |
-| Hot Rod Red | #AA0505 | Primary action fill | SchemeColor |
-| Deep Armor Red | #6A0C0B | Recessed and pressed accents | SchemeColor |
-| Metallic Gold | #B97D10 | Selective seams and accents | SchemeColor |
-| Bright Gold | #FBCA03 | Rare decorative highlights | SchemeColor |
-| Arc Blue | #67C7EB | Localized energy and active feedback | SchemeColor |
-| Reactor White | #F4FBFF | Primary dark-mode information | Proposed UI neutral |
-| Carbon | #0B0D10 | Dark background | Proposed UI neutral |
-| Gunmetal | #14171B | Dark surface | Proposed UI neutral |
-| Seam | #2A3038 | Decorative divider | Proposed UI neutral |
-| Steel | #A6ADB7 | Secondary dark-mode text | Proposed UI neutral |
-| Titanium | #F4F3EF | Light background | Proposed UI neutral |
-| Light surface | #FFFFFF | Light card | Proposed UI neutral |
-| Light ink | #171A20 | Light foreground | Proposed UI neutral |
-| Light muted | #575D65 | Secondary light text | Proposed UI neutral |
-| Light seam | #C9CBD0 | Decorative light border | Proposed UI neutral |
-| Light arc ink | #12536B | Candidate readable light-theme link | Proposed UI adaptation |
+### Approved brand colors — normative sRGB tokens
 
-No candidate color is final. Do not apply this table across the application, export it as
-the canonical theme, or silently substitute other hues. Existing functional and brand-logo
-colors may remain until the owner approves the full palette.
+| Name | YAML token path | Hex | Intended role | Provenance |
+| --- | --- | --- | --- | --- |
+| Hot Rod Red | `colors.armor.hot-rod-red` | `#AA0505` | Primary armor/action fill | SchemeColor (Classic Rose) |
+| Deep Armor Red | `colors.armor.deep-armor-red` | `#6A0C0B` | Recessed surfaces and pressed accents | SchemeColor (Sanguine) |
+| Metallic Gold | `colors.armor.metallic-gold` | `#B97D10` | Selective seams and detailing | SchemeColor (Rusty Gold) |
+| Bright Gold | `colors.armor.bright-gold` | `#FBCA03` | Rare decorative highlights | SchemeColor (Orange Juice) |
+| Arc Reactor Blue | `colors.reactor.arc-blue` | `#67C7EB` | Localized energy and interaction | SchemeColor (Waterfall) |
+| Reactor White | `colors.reactor.reactor-white` | `#F4FBFF` | Readable information and luminous core | Owner-approved MARK I UI color |
 
-### Resolution procedure
+These six values are fixed brand primitives. Preserve them exactly in the eventual CSS token
+implementation; use semantic aliases and accessible foreground/background combinations instead
+of silently changing brand hexes. Additional semantic supporting colors do not replace them.
+No app-wide recolor is authorized by this documentation-only update.
 
-1. Prefer an authentic documented digital swatch or production paint specification if one can
-   be verified. Record its source, medium, color space and limitations.
-2. Otherwise select an attributable high-resolution production photo/render. Record the URL,
-   asset identity, file hash, dimensions, ICC profile or assumed sRGB and chosen regions.
-3. Convert to sRGB using the embedded profile if available. Sample several diffuse midtone
-   patches from red and gold panels, avoiding specular reflections, deep shadows and edges.
-   Record patch coordinates, robust median RGB, variation and candidate alternatives.
-4. Sample a separate illuminated reactor reference for the luminous core and blue halo; the
-   unlit maquette's white core does not establish its lit blue appearance. Keep these source
-   distinctions explicit. Report exact sampled hex values as image-derived approximations,
-   not canonical material specifications.
-5. Present swatches and accessible component pairings to the owner. Record approved values
-   and provenance; replace the omitted colors declaration with a structured colors token
-   group only after approval. Update the decision record and CSS together during implementation.
+### Supporting theme colors — provisional, not normative
+
+| Candidate | Hex | Intended role |
+| --- | --- | --- |
+| Carbon | #0B0D10 | Dark background |
+| Gunmetal | #14171B | Dark surface |
+| Seam | #2A3038 | Decorative divider |
+| Steel | #A6ADB7 | Secondary dark-mode text |
+| Titanium | #F4F3EF | Light background |
+| Light surface | #FFFFFF | Light card |
+| Light ink | #171A20 | Light foreground |
+| Light muted | #575D65 | Secondary light text |
+| Light seam | #C9CBD0 | Decorative light border |
+| Light arc ink | #12536B | Readable light-theme link candidate |
+
+These supporting colors are prior project proposals, not sampled production colors or newly
+approved values. Validate them in both themes and obtain approval of the supporting palette
+before freezing/exporting theme tokens. The six brand colors are approved independently.
+
+### Contrast checks — solid sRGB colors
+
+Computed using WCAG relative luminance, without rounding the pass threshold. Normal-text AA
+requires 4.5:1. These are numerical pairing checks, not a rendered UI accessibility audit.
+
+| Foreground | Background | Contrast | Normal text AA |
+| --- | --- | ---: | --- |
+| Reactor White | Hot Rod Red | 7.35:1 | Pass |
+| Reactor White | Deep Armor Red | 12.03:1 | Pass |
+| Reactor White | candidate Carbon | 18.61:1 | Pass |
+| Metallic Gold | candidate Carbon | 5.56:1 | Pass |
+| Bright Gold | candidate Carbon | 12.56:1 | Pass |
+| Arc Reactor Blue | candidate Carbon | 10.14:1 | Pass |
+| Hot Rod Red | candidate Carbon | 2.53:1 | Fail |
+| Metallic Gold | Reactor White | 3.35:1 | Fail |
+| Arc Reactor Blue | Reactor White | 1.84:1 | Fail |
+
+Use Hot Rod Red as a fill with Reactor White text rather than as small text on Carbon.
+Gold and arc blue work as readable accents on candidate Carbon, but not as ordinary
+text on Reactor White. Recheck actual composed states, alpha, borders and focus before release.
 
 ### Theme and semantic usage
 
@@ -283,7 +311,7 @@ Refer to the content rules in ENGINEERING.md before migration.
 ## Components
 
 These rules apply to existing components; additions require their own scope approval.
-Use semantic tokens rather than ad hoc zinc classes or hardcoded values once colors are frozen.
+Use approved brand primitives through semantic tokens rather than ad hoc zinc classes or hardcoded values; freeze supporting theme tokens only after validation and approval.
 `@src/app/globals.css` is the existing theme implementation; reconcile both the shadcn CSS
 variables and direct Tailwind utilities, then verify all existing surfaces rather than assuming
 a global recolor is sufficient.
@@ -325,7 +353,7 @@ route require a separate implementation decision. Do not use official franchise 
 
 ### Visual acceptance criteria
 
-Before implementing the final color system, obtain explicit palette approval. For all UI work,
+The six brand colors are approved; validate and obtain approval of supporting theme tokens before freezing the complete color system. For all UI work,
 follow ENGINEERING.md and load the relevant design, anti-slop, motion, accessibility and
 verification skills selectively. Capture actual before/after renders on affected routes; check
 layout, hierarchy, contrast, legibility, keyboard/focus behavior, reduced motion, loading/error
