@@ -42,3 +42,10 @@ Revision ee2bb62 (owner's lockfile-only commit) passed the owner's native npm te
 Owner's Docker Desktop Linux output: docker build -t mark-i:local . PASS (21/21 steps, 111.2 seconds); docker run --rm --name mark-i -p 127.0.0.1:3000:3000 mark-i:local PASS for process startup (Next.js Ready). HTTP routes, asset loading, browser rendering, non-root identity and live integration cases were not demonstrated in the supplied output and remain pending. Production-only npm audit is not an OS/container vulnerability scan.
 
 Next: verify the running container using HTTP requests, then migrate identity in a distinct slice. Do not publish inherited personal content. No changes to the live Pages site or domain.
+
+
+## Owner verification — Docker HTTP and browser smoke test
+
+Owner supplied PowerShell HEAD responses for /, /projects, /experience and /opengraph-image: all HTTP 200. The Open Graph endpoint returned image/png. docker exec mark-i id returned uid=1000(node) gid=1000(node), confirming the container process environment uses a non-root account. The full-page screenshot shows the inherited layout, banner, identity, project cards, stats and remaining sections rendering. Some below-the-fold anime/highlight imagery appears blank in that capture; lazy loading versus asset failure is not established. Verify actual GET/image decoding after scrolling during asset migration and final browser QA.
+
+Baseline build and container smoke milestone accepted for continued local implementation. This is not production release approval: full interaction/asset checks, live credentialed integrations, both themes/responsive review and the residual moderate dev-tooling advisory remain outstanding. Preserve the existing live site and original reference content until its deliberate replacement.
