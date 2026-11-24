@@ -118,7 +118,7 @@ Paths use category/skill shorthand; append `/SKILL.md` under `.agents/skills/`.
 | [21-product](.agents/skills-catalog.md#21-product) | 11 | Copy, product decisions | ab-testing, analytics, better-writing, conversion-tracking, copy-editing, copywriting, cro, customer-research, onboarding, product-marketing, signup |
 | [22-agent-workflows](.agents/skills-catalog.md#22-agent-workflows) | 11 | Delegation, handoff, skill maintenance | build-iterated-agentic-loop, define-goal, design-control-loop, dispatching-parallel-agents, handoff, improve-claude-md, mcp-builder, skill-creator, subagent-driven-development, using-superpowers, writing-skills |
 
-Keep index and catalog synchronized with actual files and installation report. Add standing rules in response to demonstrated recurring failures rather than generic advice. Keep CLAUDE.md importing this file.
+Keep index and catalog synchronized with actual files and installation report. Add standing rules in response to demonstrated recurring failures rather than generic advice. AGENTS.md is the canonical project instruction file; do not add tool-specific wrappers unless the owner requests them.
 
 ## Maintenance references
 
