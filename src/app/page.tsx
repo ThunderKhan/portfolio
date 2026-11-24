@@ -78,12 +78,12 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Cell 2: Profile Section - 112px height to wrap the framed image (13px gap top/bottom) */}
+      {/* Cell 2: Profile Section - 112px height with preserved avatar spacing */}
       <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-[22vh] h-[112px] flex items-center px-4 z-50">
         <div className="flex w-full items-center justify-between">
 
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-            <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-[#B97D10] shrink-0 motion-safe:transition-colors motion-safe:duration-150 hover:border-[#67C7EB]">
+            <div className="relative p-[3px] border-[1.5px] border-transparent shrink-0">
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
@@ -93,7 +93,7 @@ export default async function Home() {
                   height={240}
                   quality={90}
                   sizes="(min-width: 640px) 80px, 64px"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover grayscale"
                 />
               </div>
             </div>
