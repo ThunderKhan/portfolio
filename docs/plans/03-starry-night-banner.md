@@ -32,3 +32,10 @@ npm run dev
 ```
 
 Stop any prior container/dev server before restarting. Use the actual header screenshot and motion preview to decide whether refinements are needed.
+
+
+## Owner feedback and motion refinement
+
+The owner confirmed the new banner renders, but reported no visible animation. A screenshot shows the Pause control, establishing that the image and observer initialized; it does not prove live playback. Inspection found the initial 24% opacity, narrow 12×6 source-pixel glints were likely too subtle at the displayed size. Increase glint opacity to 58%, use 16×9 inset rectangles and add four actual moving, tile-traced light trails with an eight-tile falloff and a white leading edge. The source image, crop, header and pause/visibility behavior remain unchanged.
+
+Verification: five focused banner tests passed in Node 22.16.0, standalone strict TypeScript compilation of the helper passed. Isolated Chromium rendered the actual artwork at 736×184 using the compiled flow renderer: 570 displayed pixels changed by more than 35 in at least one RGB channel across a half-second interval, including 296 pixels changing by more than 80. This verifies actual moving output of the renderer, not the full React lifecycle, visual approval or production performance. Full Next.js build, lint, integration checks and owner review remain pending. Tested helper blob 223ad24ef4a356c99abe0f1ad2009dc837955d09; tested test blob a02fbc75fac954936133063dec897b4a0ad369c1. No additional dependency or asset.

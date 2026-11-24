@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { ART_WIDTH, canAnimateBanner, coverArtwork, tilePulse } from "@/lib/banner-animation";
+import { ART_WIDTH, canAnimateBanner, coverArtwork, tilePulse, drawFlowTrails } from "@/lib/banner-animation";
 
 // Sampled from the committed 2508 × 627 master. Coordinates are source-image
 // tile centers; the inset rectangles preserve the original dark grid seams.
@@ -78,9 +78,10 @@ export function StarryNightBanner() {
           const phase = tx / ART_WIDTH + (blue ? 0.15 + ty / 1800 : ty / 3000);
           context!.globalAlpha = tilePulse(elapsedRef.current, phase);
           context!.fillStyle = blue ? "#F4FBFF" : "#FBCA03";
-          context!.fillRect(tx - 6, ty - 3, 12, 6);
+          context!.fillRect(tx - 8, ty - 4.5, 16, 9);
         }
         context!.globalAlpha = 1;
+        drawFlowTrails(context!, elapsedRef.current);
       }
       frame = requestAnimationFrame(draw);
     }
