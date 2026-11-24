@@ -87,7 +87,7 @@ export default async function Home() {
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
-                  src={portfolio.avatar}
+                  src={portfolio.heroAvatar}
                   alt=""
                   width={240}
                   height={240}
