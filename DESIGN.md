@@ -333,7 +333,9 @@ a global recolor is sufficient.
 
 ### Workshop banner — approved direction
 
-**Status:** Workshop concept approved; this specification and the [implementation plan](docs/plans/02-workshop-banner.md) are accepted planning scope. No finished artwork or media asset exists yet. Default focal object: an original red-and-gold engineering suit on a service stand (proposed execution, subject to artwork review).
+**Status:** Workshop concept approved; this specification and the [implementation plan](docs/plans/02-workshop-banner.md) are accepted planning scope. The owner selected a supplied square workshop image as the visual reference on 2026-11-25. Final panoramic artwork, rights verification and motion preview remain pending.
+
+**Selected visual reference.** Owner-supplied `image(3).png` (1920 × 1920 RGBA PNG; SHA-256 `79e1282cefc5abc02031e79fa56256e702cf836c1a9fa5b8c7ee1bc043ef4414`). Preserve its stationary red-and-gold armor at right, circular luminous chest core, nighttime city windows, warm amber workbench lighting, cyan technical monitors and engineering drawings. These are artwork reference details, not additional UI color tokens. The source creator and usage rights have not been established; do not publish the supplied asset or assume derivative rights. Adapt the composition into a rights-cleared panoramic master, preferably by extending the workshop horizontally rather than stretching the square image. A direct 1920 × 500 crop would retain only 26% of its original height. Review the actual header crops and quiet clock/control zones. The file itself has not been added to Git.
 
 **Intent.** A quiet late-night industrial laboratory that conveys craftsmanship, focused experimentation and solitude. The scene is original environmental artwork, not a Marvel poster, gaming header, or reproduction of a movie frame. Make the owner's profile and work—not the suit—the primary functional content.
 

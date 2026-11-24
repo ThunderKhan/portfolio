@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Read AGENTS.md, ENGINEERING.md and DESIGN.md first. Use the installed writing-plans / executing-plans guidance, relevant motion and accessibility skills, and verification-before-completion. Checkboxes are evidence-based; do not mark them done based on code alone.
 
-**Status:** Planned, not implemented. Base: 58d999c. Owner approved the Workshop concept and requested its design specification and implementation plan. Original art approval and media creation remain pending.
+**Status:** Planned, not implemented. Base: 58d999c. Owner approved the Workshop concept and requested its design specification and implementation plan. Owner selected a square workshop visual reference; panoramic adaptation, source-rights verification, final art approval and media creation remain pending.
 
 **Goal:** Replace the inherited animated flower-field atmosphere with an original, quiet industrial workshop banner while preserving the existing header geometry and functionality.
 
@@ -34,7 +34,8 @@ Keep BannerParticles and inherited images until references have been checked and
 ## 2. Task A — Produce and approve original media
 
 - [ ] Capture the inherited header at 360, 768 and 1440 CSS px in both themes and record dimensions plus baseline performance under repeatable throttling. Include 320px reflow.
-- [ ] Create an original static scene using the DESIGN.md art brief. Default: suit on stand, right/right-center. Keep an editable master outside runtime assets if available. Obtain owner approval of the crop and image before generating the final loop.
+- [x] Owner selected the supplied 1920 × 1920 workshop reference: red-and-gold armor on the right, amber workbench, cyan displays, nighttime city backdrop. Source fingerprint is recorded in DESIGN.md; no binary committed.
+- [ ] Establish source/usage rights, then prepare a rights-cleared panoramic master faithful to the selected visual direction. Prefer horizontal scene extension over distortion or a severe center crop. Keep the armor and reactor recognizable, calm the left side, and preserve amber/cyan lighting. Review the 1920 × 500 master and responsive crops with the owner before animation.
 - [ ] Animate only dust/haze, subtle monitor luminance and energy glow with a fixed camera. The first/last frames must join without a cut or global brightness jump. Review two consecutive loops at normal speed. No audio.
 - [ ] Export matching static poster, VP9 WebM and H.264 MP4. Record creation method, source/rights, dimensions, duration, codec, size and SHA-256 for each approved file. No unauthorized third-party wallpaper, film still, music or official logo. Keep the artwork out of production until approved.
 
@@ -101,7 +102,7 @@ Acceptance: poster is always available; exactly one playing video, no animated C
 
 High-risk failures: both codecs downloading unnecessarily; autoplay rejection leaving a blank banner; manual pause being overridden on viewport or theme change; reduced motion still downloading/playing video; Open Graph still using inherited banner. These are covered explicitly in Tasks B–D.
 
-One shared dark workshop loop is the proposed v1 cost-conscious approach, with both theme treatments; no second daylight video or new video service is required. Default suit-on-stand composition is an execution choice to validate with the owner. No new theme-neutral approvals are implied. Asset creation, owner preview and runtime evidence remain outstanding. This plan authorizes neither purchases nor public deployment.
+One shared dark workshop loop is the proposed v1 cost-conscious approach, with both theme treatments; no second daylight video or new video service is required. The owner-selected square image now governs the composition; validate the panoramic adaptation and rights before final asset use. No new theme-neutral approvals are implied. Asset creation, owner preview and runtime evidence remain outstanding. This plan authorizes neither purchases nor public deployment.
 
 ## References
 

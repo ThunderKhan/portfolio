@@ -112,8 +112,8 @@ Record future decisions here with their status and rationale; supersede accepted
 
 ## D-006 — Workshop banner direction
 
-**Status:** Owner approved the Workshop concept and requested its design specification and implementation plan, 2026-11-25 (IST). Art approval and implementation pending.
+**Status:** Owner approved the Workshop concept and requested its design specification and implementation plan, 2026-11-25 (IST). Owner selected a square workshop visual reference; final panoramic art, rights verification and implementation pending.
 
 **Decision:** Use an original panoramic industrial workshop scene with subtle environmental motion; preserve the existing banner/profile/header geometry. Default focal object is a suit on a service stand, subject to art review. Prefer a local silent 8–12 second WebM/MP4 loop with a matching static poster, an accessible pause control, reduced-motion and visibility-aware playback. Use a single shared loop in v1 with theme-aware treatment rather than two video sets. This is a scoped decorative-motion exception, not a general relaxation of motion or performance rules.
 
-**Consequences:** [DESIGN.md](../DESIGN.md#workshop-banner--approved-direction) defines the visual contract; [implementation plan](plans/02-workshop-banner.md) defines the media, component and verification tasks. Existing art is retained as a reference until deliberate replacement. No media has been generated or approved, no new dependencies, no application source changes, no hosting changes.
+**Consequences:** [DESIGN.md](../DESIGN.md#workshop-banner--approved-direction) defines the visual contract; [implementation plan](plans/02-workshop-banner.md) defines the media, component and verification tasks. Existing art is retained as a reference until deliberate replacement. The selected visual reference and its fingerprint are recorded in DESIGN.md. The supplied square artwork is not yet a production-ready asset: usage rights and panoramic adaptation remain pending. No binary has been committed, no new dependencies, no application source changes, no hosting changes.
