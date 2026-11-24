@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ExperienceLogo } from "@/components/ExperienceLogo";
 import { useEffect, useRef } from "react";
 import styles from "./ExperienceTimeline.module.css";
 import { experiences } from "@/data/experienceData";
@@ -32,6 +32,7 @@ const timelineItems = experiences.map((item, experienceIndex) => ({
   start: ((monthNumber(item.startMonth) - firstMonth) / monthCount) * 100,
   end: 100,
   icon: item.src,
+  fallbackIcon: item.fallbackSrc,
   barClassName: experienceIndex % 2 === 0
     ? "border-[#6A0C0B] bg-[#6A0C0B] text-white hover:bg-[#AA0505]"
     : "border-zinc-700 bg-zinc-700 text-white hover:bg-zinc-600",
@@ -159,8 +160,9 @@ export function ExperienceTimeline({ onSelect }: ExperienceTimelineProps) {
                         item.end >= 95 ? "ml-1" : "ml-auto mr-1"
                       }`}
                     >
-                      <Image
+                      <ExperienceLogo
                         src={item.icon}
+                        fallbackSrc={item.fallbackIcon}
                         alt=""
                         aria-hidden="true"
                         width={16}

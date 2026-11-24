@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { experiences } from "@/data/experienceData";
+import { ExperienceLogo } from "@/components/ExperienceLogo";
+import { ExperienceDescription } from "@/components/ExperienceDescription";
 
 export function ExperienceList() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
@@ -53,8 +55,9 @@ export function ExperienceList() {
               <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
                 <div className="size-10 shrink-0 rounded-[10px] border border-black/10 bg-zinc-50 p-[2px] shadow-sm shadow-black/15 dark:border-zinc-800 dark:bg-[#111111] dark:shadow-md dark:shadow-black/50">
                   <div className="w-full h-full rounded-[7px] border border-black/5 dark:border-black/20 bg-white flex items-center justify-center overflow-hidden relative">
-                    <Image
+                    <ExperienceLogo
                       src={item.src}
+                      fallbackSrc={item.fallbackSrc}
                       alt={item.title}
                       width={40}
                       height={40}
@@ -97,9 +100,7 @@ export function ExperienceList() {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </div>
-                <span className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">
-                  {item.location}
-                </span>
+                {item.location && <span className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">{item.location}</span>}
               </div>
             </div>
 
@@ -180,50 +181,7 @@ export function ExperienceList() {
                     </div>
                   )}
 
-                  <ul className="mb-4 space-y-2 text-[13px] leading-relaxed">
-                    {item.description
-                      .split("\n")
-                      .filter((line) => line.trim() !== "")
-                      .map((point, i) => {
-                        const [label, ...detail] = point.trim().split(":");
-
-                        return (
-                          <li key={i} className="flex items-start gap-1.5">
-                            <span className="text-zinc-400 dark:text-zinc-500 mt-[2px] text-[14px] leading-none">•</span>
-                            <span>
-                              {detail.length > 0 ? (
-                                <>
-                                  <strong className="font-semibold text-zinc-800 dark:text-zinc-200">
-                                    {label}:
-                                  </strong>
-                                  {detail
-                                    .join(":")
-                                    .split(
-                                      /(kgateway|FOSSology|FOSSASIA Eventyay|Extralit|React JSON Schema Form)/,
-                                    )
-                                    .map((part, partIndex) =>
-                                      /^(kgateway|FOSSology|FOSSASIA Eventyay|Extralit|React JSON Schema Form)$/.test(
-                                        part,
-                                      ) ? (
-                                        <strong
-                                          key={partIndex}
-                                          className="font-semibold text-zinc-800 dark:text-zinc-200"
-                                        >
-                                          {part}
-                                        </strong>
-                                      ) : (
-                                        part
-                                      ),
-                                    )}
-                                </>
-                              ) : (
-                                point.trim()
-                              )}
-                            </span>
-                          </li>
-                        );
-                      })}
-                  </ul>
+                  <ExperienceDescription item={item} />
 
                   {item.tech && (
                     <div className="flex flex-wrap gap-2 mt-4">
