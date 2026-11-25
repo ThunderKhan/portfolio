@@ -1,5 +1,5 @@
-import { ChevronDown, GraduationCap } from "lucide-react";
-import { education } from "@/data/educationData";
+import { ArrowUpRight, BookOpen, ChevronDown, GraduationCap } from "lucide-react";
+import { education, learningPrograms } from "@/data/educationData";
 
 const resultDate = new Intl.DateTimeFormat("en-GB", {
   day: "numeric", month: "short", year: "numeric", timeZone: "UTC",
@@ -54,6 +54,40 @@ export function Education() {
           ))}
         </div>
       </article>
+
+      <div className="mt-5">
+        <h3 className="mb-3 text-[12px] font-semibold text-zinc-600 dark:text-zinc-400">Additional learning programs</h3>
+        <div className="space-y-3">
+          {learningPrograms.map((program) => (
+            <article key={program.id} className="rounded-[6px] border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-[#09090b]">
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-start gap-3 rounded-[6px] px-4 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                    <BookOpen aria-hidden="true" className="size-5 text-[#B97D10]" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[14px] font-bold leading-snug text-zinc-900 dark:text-zinc-100">{program.provider}</span>
+                    <span className="mt-1 block text-[13px] text-zinc-700 dark:text-zinc-300">{program.name}</span>
+                    <span className="mt-1 block text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400">{program.period} · {program.format}</span>
+                    <span className="mt-1 block text-[11px] font-medium text-zinc-600 dark:text-zinc-400">{program.status}</span>
+                  </span>
+                  <ChevronDown aria-hidden="true" className="mt-1 size-4 shrink-0 text-zinc-500 motion-safe:transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="border-t border-dashed border-zinc-200 px-4 py-3 dark:border-zinc-800">
+                  <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{program.description}</p>
+                  <p className="mt-3 text-[11px] font-medium text-zinc-500 dark:text-zinc-400">Published curriculum</p>
+                  <ul className="mt-2 flex flex-wrap gap-1.5">
+                    {program.topics.map((topic) => (
+                      <li key={topic} className="rounded-[4px] border border-zinc-200 px-2 py-1 text-[12px] text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">{topic}</li>
+                    ))}
+                  </ul>
+                  <a href={program.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-300">Official curriculum <ArrowUpRight aria-hidden="true" className="size-3.5" /><span className="sr-only"> (opens in a new tab)</span></a>
+                </div>
+              </details>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

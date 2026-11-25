@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { education } from "../src/data/educationData.ts";
+import { education, learningPrograms } from "../src/data/educationData.ts";
 import { certifications } from "../src/data/certificationsData.ts";
 
 test("academic summary matches the two published university results", () => {
@@ -15,4 +15,10 @@ test("academic summary matches the two published university results", () => {
 test("certification data remains independent of academic records", () => {
   assert.ok(certifications.length >= 2);
   assert.ok(!("certifications" in education));
+});
+
+test("additional learning programs are separate from degree grades and completed credentials", () => {
+  assert.deepEqual(learningPrograms.map(p => p.id), ["gci-world-2026", "ieee-ai-caravan-2026"]);
+  assert.ok(learningPrograms.every(p => p.status === "In progress" && p.topics.length > 0 && p.url.startsWith("https://")));
+  assert.equal(education.cgpa, 8.82);
 });

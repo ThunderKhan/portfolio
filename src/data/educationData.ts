@@ -58,3 +58,64 @@ export const education: Education = {
     },
   ],
 };
+
+export type LearningProgram = {
+  id: string;
+  provider: string;
+  name: string;
+  period: string;
+  format: string;
+  status: "In progress" | "Completed";
+  description: string;
+  topics: string[];
+  url: string;
+};
+
+// Published curriculum scope, not a claim that every module has been completed.
+export const learningPrograms: LearningProgram[] = [
+  {
+    "id": "gci-world-2026",
+    "provider": "Matsuo-Iwasawa Laboratory, The University of Tokyo",
+    "name": "GCI World — Data Science Course",
+    "period": "Sep–Dec 2026",
+    "format": "Online · 14 weeks · approx. 22 teaching hours",
+    "status": "In progress",
+    "description": "Applied data science through programming exercises, homework, a competition and a final assignment focused on business applications.",
+    "topics": [
+      "Python",
+      "NumPy",
+      "pandas",
+      "Matplotlib",
+      "SQL",
+      "Supervised and unsupervised learning",
+      "Model evaluation",
+      "Feature engineering",
+      "Time series analysis",
+      "Marketing analytics"
+    ],
+    "url": "https://weblab.t.u-tokyo.ac.jp/en/lecture/gci/"
+  },
+  {
+    "id": "ieee-ai-caravan-2026",
+    "provider": "IEEE Computer Society — Region 8 AI Caravan",
+    "name": "AI Engineering Course — AI Engineer Track",
+    "period": "2026",
+    "format": "Online · 32 hours",
+    "status": "In progress",
+    "description": "Practical machine-learning development from problem definition and data preparation to model serving, monitoring, responsible AI assessment and a capstone.",
+    "topics": [
+      "Applied statistics",
+      "Data preprocessing",
+      "Regression and classification",
+      "Model validation and tuning",
+      "Ensembles and clustering",
+      "Anomaly detection",
+      "Neural networks and transfer learning",
+      "NLP, embeddings and retrieval",
+      "FastAPI and container deployment",
+      "Model monitoring and documentation",
+      "Responsible AI"
+    ],
+    "url": "https://www.aicaravan.org/activities/ai-engineer"
+  }
+];
