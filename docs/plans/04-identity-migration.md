@@ -82,3 +82,7 @@ Follow-up: owner pushed privacy-redacted replacement files. Verified both Git bl
 ## Additional learning programs
 
 Added GCI World (Matsuo-Iwasawa Laboratory, University of Tokyo) and IEEE Computer Society Region 8 AI Caravan AI Engineer track under Education, using official course pages reviewed 2026-11-25: https://weblab.t.u-tokyo.ac.jp/en/lecture/gci/ and https://www.aicaravan.org/activities/ai-engineer. Course topics summarize published curricula rather than attest to completed modules. GCI dates use the September 2026 edition; IEEE uses year-level precision. Both listed as in progress, assuming the owner's request refers to current participation; completion and individual enrollment dates are not independently verified. Keep DDUGU degree and grades unchanged and certifications independent. Native expandable cards, no new assets or dependencies. Runtime checks pending.
+
+## Education logos
+
+Owner will supply original full-color institution logos. Configured optional local PNG paths under public/education-image: ddugu.png, gci-world.png and ieee.png. Reuse existing 40px tile footprint; contain images on white for contrast and retain existing gold icons on image failure. No downloaded or generated logos, no external requests or new dependencies. Assets themselves and browser/build verification pending.

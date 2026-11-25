@@ -8,6 +8,7 @@ export type SemesterResult = {
 
 export type Education = {
   school: string;
+  logo: string;
   department: string;
   degree: string;
   cgpa: number;
@@ -20,6 +21,7 @@ export type Education = {
 // Only portfolio-relevant academic data is retained; no private identifiers or PDFs.
 export const education: Education = {
   school: "Deen Dayal Upadhyaya Gorakhpur University",
+  logo: "/education-image/ddugu.png",
   department: "Department of Computer Science & Engineering",
   degree: "Bachelor of Computer Applications in Machine Learning & Data Science",
   cgpa: 8.82,
@@ -62,6 +64,7 @@ export const education: Education = {
 export type LearningProgram = {
   id: string;
   provider: string;
+  logo: string;
   name: string;
   period: string;
   format: string;
@@ -75,6 +78,7 @@ export type LearningProgram = {
 export const learningPrograms: LearningProgram[] = [
   {
     "id": "gci-world-2026",
+    "logo": "/education-image/gci-world.png",
     "provider": "Matsuo-Iwasawa Laboratory, The University of Tokyo",
     "name": "GCI World — Data Science Course",
     "period": "Sep–Dec 2026",
@@ -97,6 +101,7 @@ export const learningPrograms: LearningProgram[] = [
   },
   {
     "id": "ieee-ai-caravan-2026",
+    "logo": "/education-image/ieee.png",
     "provider": "IEEE Computer Society — Region 8 AI Caravan",
     "name": "AI Engineering Course — AI Engineer Track",
     "period": "2026",

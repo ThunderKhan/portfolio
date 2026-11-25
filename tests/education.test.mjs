@@ -22,3 +22,8 @@ test("additional learning programs are separate from degree grades and completed
   assert.ok(learningPrograms.every(p => p.status === "In progress" && p.topics.length > 0 && p.url.startsWith("https://")));
   assert.equal(education.cgpa, 8.82);
 });
+
+test("education logo paths are stable and distinct", () => {
+  assert.equal(education.logo, "/education-image/ddugu.png");
+  assert.deepEqual(learningPrograms.map(p => p.logo), ["/education-image/gci-world.png", "/education-image/ieee.png"]);
+});

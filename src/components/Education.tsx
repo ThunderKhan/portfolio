@@ -1,5 +1,6 @@
 import { ArrowUpRight, BookOpen, ChevronDown, GraduationCap } from "lucide-react";
 import { education, learningPrograms } from "@/data/educationData";
+import { EducationLogo } from "@/components/EducationLogo";
 
 const resultDate = new Intl.DateTimeFormat("en-GB", {
   day: "numeric", month: "short", year: "numeric", timeZone: "UTC",
@@ -10,9 +11,9 @@ export function Education() {
     <div className="relative pb-2 pt-6">
       <article className="relative rounded-[6px] border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-[#09090b]">
         <div className="flex items-start gap-3 px-4 py-4">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+          <EducationLogo src={education.logo}>
             <GraduationCap aria-hidden="true" className="size-5 text-[#B97D10]" />
-          </span>
+          </EducationLogo>
           <div className="min-w-0">
             <h3 className="text-[15px] font-bold leading-snug text-zinc-900 dark:text-zinc-100">{education.school}</h3>
             <p className="mt-1 text-[13px] leading-relaxed text-zinc-700 dark:text-zinc-300">{education.degree}</p>
@@ -62,9 +63,9 @@ export function Education() {
             <article key={program.id} className="rounded-[6px] border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-[#09090b]">
               <details className="group">
                 <summary className="flex cursor-pointer list-none items-start gap-3 rounded-[6px] px-4 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                  <EducationLogo src={program.logo}>
                     <BookOpen aria-hidden="true" className="size-5 text-[#B97D10]" />
-                  </span>
+                  </EducationLogo>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[14px] font-bold leading-snug text-zinc-900 dark:text-zinc-100">{program.provider}</span>
                     <span className="mt-1 block text-[13px] text-zinc-700 dark:text-zinc-300">{program.name}</span>
