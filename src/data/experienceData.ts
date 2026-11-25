@@ -58,7 +58,7 @@ export const experiences: ExperienceData[] = [
   },
   {
     "title": "VSPH",
-    "role": "Software Engineer Intern",
+    "role": "SWE Intern",
     "dates": "Sep 2026 - Present",
     "startMonth": "2026-09",
     "location": "",
