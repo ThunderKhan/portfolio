@@ -58,3 +58,32 @@ export const highlightsData: Highlight[] = [
     "link": "/projects/oasis"
   }
 ];
+
+export type EventHighlight = {
+  id: string;
+  title: string;
+  category: string;
+  photos: { src: string; alt: string; caption?: string }[];
+};
+
+// Only owner-provided photographs belong here. Empty galleries are intentional.
+export const eventHighlights: EventHighlight[] = [
+  {
+    "id": "hacktoberfest-2026",
+    "title": "Hacktoberfest 2026",
+    "category": "Open source & community",
+    "photos": []
+  },
+  {
+    "id": "shipathon-irl",
+    "title": "Shipathon IRL",
+    "category": "In-person event",
+    "photos": []
+  },
+  {
+    "id": "sih-2026",
+    "title": "Smart India Hackathon 2026",
+    "category": "University internal hackathon",
+    "photos": []
+  }
+];

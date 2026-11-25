@@ -54,6 +54,12 @@ const allSections = [
     "label": "Engineering activity",
     "icon": "Binary",
     "key": "D"
+  },
+  {
+    "id": "highlights",
+    "label": "Highlights",
+    "icon": "Camera",
+    "key": "L"
   }
 ] as const;
 

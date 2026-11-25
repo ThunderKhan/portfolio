@@ -26,6 +26,7 @@ import {
     Mail,
     Download,
     CalendarDays,
+    Camera,
     Send,
 } from "lucide-react"
 import { SiGithub, SiX, SiLeetcode, SiCodeforces, SiCodechef } from "react-icons/si"
@@ -48,7 +49,7 @@ const itemClass = "rounded-lg py-3 cursor-pointer"
 const kbdClass =
     "font-mono text-[10px] bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700"
 
-const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Award, Binary } as const;
+const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Award, Binary, Camera } as const;
 const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionIcons[section.icon] })), { id: "contact", label: "Socials", icon: Send, key: "O" }] as const
 
 
@@ -216,7 +217,7 @@ export function CommandMenu() {
                         </CommandItem>
                         <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
                             <Sparkles className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Milestones archive</span>
+                            <span>Highlights archive</span>
                         </CommandItem>
                         <CommandItem value="page contact form" onSelect={() => runCommand(() => router.push("/contact"))} className={itemClass}>
                             <Send className="mr-2 h-4 w-4 text-zinc-500" />

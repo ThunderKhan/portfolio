@@ -5,12 +5,13 @@ import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
 import { FooterBackground } from "@/components/FooterBackground";
 import { HighlightCard } from "@/components/Highlights";
+import { EventHighlights } from "@/components/EventHighlights";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { highlightsData } from "@/data/highlightsData";
 import { portfolio } from "~/portfolio.config";
 
 export const metadata: Metadata = {
-  title: `Milestones | ${portfolio.name}`,
+  title: `Highlights | ${portfolio.name}`,
   description: `A complete archive of ${portfolio.name}'s highlights and milestones.`,
 };
 
@@ -56,15 +57,15 @@ export default function AllHighlightsPage() {
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-5">
             <Link
-              href="/#opensource"
-              aria-label="Back to open source and community"
+              href="/#highlights"
+              aria-label="Back to highlights"
               className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             >
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
             <div className="flex flex-col justify-center">
               <h1 className="mb-0.5 text-[20px] font-bold leading-none tracking-tight text-zinc-800 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:text-zinc-100 dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)] sm:text-[24px]">
-                Milestones
+                Highlights
               </h1>
               <p className="text-[12px] text-zinc-500 dark:text-zinc-400">Achievements & community</p>
             </div>
@@ -87,6 +88,11 @@ export default function AllHighlightsPage() {
           </span>
         </div>
 
+        <section aria-labelledby="event-highlights-heading" className="mb-6">
+          <h2 id="event-highlights-heading" className="mb-3 text-[16px] font-bold text-zinc-900 dark:text-zinc-100">Event highlights</h2>
+          <EventHighlights archive />
+        </section>
+        <h2 className="mb-3 text-[16px] font-bold text-zinc-900 dark:text-zinc-100">Milestones</h2>
         <section aria-label="Milestones" className="grid grid-cols-1 items-stretch gap-5 pt-2 sm:grid-cols-2 sm:gap-6">
           {highlightsData.map((item, index) => (
             <HighlightCard key={item.id} item={item} layout="archive" number={index + 1} />

@@ -8,6 +8,8 @@ import { Hackathons } from "@/components/Hackathons";
 import { OpenSourceWork } from "@/components/OpenSourceWork";
 import { Education } from "@/components/Education";
 import { Certifications } from "@/components/Certifications";
+import { EventHighlights } from "@/components/EventHighlights";
+import { SpotifyCard } from "@/components/SpotifyCard";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
@@ -501,6 +503,28 @@ export default async function Home() {
         </div>
 
 
+        <section id="highlights" aria-labelledby="highlights-heading" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
+          <div className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+          <div className="py-2 relative mt-1">
+            <h2 id="highlights-heading" className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Highlights</h2>
+            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+          </div>
+          <div className="pt-4 pb-2">
+            <EventHighlights />
+          </div>
+        </section>
+
+        <section id="music" aria-labelledby="music-heading" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
+          <div className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+          <div className="py-2 relative mt-1">
+            <h2 id="music-heading" className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Music</h2>
+            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+          </div>
+          <div className="pt-4 pb-2">
+            <SpotifyCard />
+          </div>
+        </section>
+
         {/* Minimal Quote Section */}
         <div className="mt-2 flex flex-col items-center justify-center relative py-6">
           <div className="max-w-[480px] w-full flex flex-col items-center">
@@ -519,7 +543,7 @@ export default async function Home() {
         {/* Source and contact links */}
         <div className="flex flex-wrap items-center justify-center gap-2 pb-6">
           <a href={`mailto:${portfolio.email}`} className="inline-flex items-center rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300">Get in touch</a>
-          <Link href="/highlights" className="inline-flex items-center rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300">Milestones</Link>
+          <Link href="/highlights" className="inline-flex items-center rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300">Highlights</Link>
           <a href={portfolio.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300"><SiGithub className="size-3" aria-hidden="true" /> Source on GitHub</a>
         </div>
 
