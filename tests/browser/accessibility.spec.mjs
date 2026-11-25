@@ -74,7 +74,8 @@ for (const path of routes) {
 test('command palette keyboard, search, focus and audit', async ({ page }, info) => {
   await mockCalendar(page);
   await visit(page, '/', info);
-  const trigger = page.getByRole('button', { name: 'Open command menu (⌘K)', exact: true });
+  const trigger = page.getByRole('button', { name: /Open command menu/ });
+  await expect(trigger).toHaveAccessibleName(/⌘\s*K\s*Open command menu/);
   await trigger.focus();
   await page.keyboard.press('Enter');
   const dialog = page.getByRole('dialog', { name: 'Command Palette' });

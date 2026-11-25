@@ -145,7 +145,7 @@ export function Hackathons() {
                                 // the panel is inert while closed, so a collapsed
                                 // card cannot hand focus to an invisible link
                                 tabIndex={isOpen ? undefined : -1}
-                                className="flex items-center gap-1 text-[12px] font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
+                                className="flex items-center gap-1 text-[12px] font-medium mark-muted hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors"
                               >
                                 {l.label}
                                 

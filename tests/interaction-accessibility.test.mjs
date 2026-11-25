@@ -67,7 +67,10 @@ test("education definition list groups contain only terms and descriptions", () 
   assert.ok(!list.includes("<p "), "Use dd for grading scale descriptions");
 });
 test("command shortcut is part of the accessible name and separators are decorative", () => {
-  assert.ok(read("src/components/command-menu.tsx").includes('aria-label="Open command menu (⌘K)"'));
+  const menu = read("src/components/command-menu.tsx");
+  assert.ok(menu.includes('>⌘</span>') && menu.includes('>K</span>'));
+  assert.ok(menu.includes('<span className="sr-only">Open command menu</span>'));
+  assert.ok(!menu.includes('aria-label="Open command menu'));
   const s = read("src/components/ui/command.tsx");
   assert.ok(/data-slot="command-separator"\s+aria-hidden="true"/.test(s));
 });
@@ -77,4 +80,11 @@ test("declared project screenshots exist and absent screenshots avoid image requ
   assert.ok(paths.length > 0);
   for (const path of paths) assert.ok(existsSync(new URL("../public" + path, import.meta.url)), path);
   assert.ok(read("src/components/ProjectPreview.tsx").includes("if (!src || failedSrc === src)"));
+});
+
+test("lint ignores generated browser artifacts but not browser test source", () => {
+  const config = read("eslint.config.mjs");
+  assert.ok(config.includes('"tests/browser/playwright-report/**"'));
+  assert.ok(config.includes('"tests/browser/test-results/**"'));
+  assert.ok(!config.includes('"tests/browser/**"'));
 });

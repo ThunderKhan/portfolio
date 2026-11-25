@@ -14,6 +14,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Vendored agent skills are not application source.
     ".agents/**",
+    // Generated Playwright artifacts contain bundled third-party JavaScript.
+    "tests/browser/playwright-report/**",
+    "tests/browser/test-results/**",
   ]),
 ]);
 

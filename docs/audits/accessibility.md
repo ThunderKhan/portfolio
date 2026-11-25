@@ -45,3 +45,11 @@ Owner reported successful build, exit 0 and BUILD_ID present at 7537cfc, then 11
 | aria-required-children | 4 | Make decorative cmdk list separators hidden to assistive technology; suspected cause, confirm in rerun |
 
 Seven project screenshot requests returned 404; repository tree confirms the assets are absent. Make screenshot source optional, omit those seven nonexistent paths, and render the existing pending state without a failed request. Existing screenshots, titles, routes and project data are retained. The original shader, palette primitives and layout are unchanged. Add source regressions for list semantics, shortcut label, separator and screenshot references. No rules disabled; runtime rerun and exact computed contrast/ARIA node inspection still pending. No new dependency or deployment.
+
+## Second rendered audit and Slice 6d remediation
+
+Owner's rerun after c8e9525: production build succeeded (31/31 static pages); browser suite 48 passed, 64 failed (3.1 minutes). Report occurrences: label-content-name-mismatch 64, color-contrast 2; definition-list, svg-img-alt and aria-required-children no longer reported. Total rule occurrences fell from 152 to 66. The palette's open-state audit passed in all four configurations.
+
+The closed command trigger's explicit name joined its two visible glyphs differently from the rendered label. Remove the overriding aria-label and derive the native button name from the unchanged visible shortcut plus screen-reader-only action text; retain aria-keyshortcuts, focus and keyboard behavior. Assert the accessible name in the existing browser test. The two remaining contrast reports identify expanded hackathon footer links, including IET Grid: use existing mark-muted ink instead of dark zinc-500. No axe rules suppressed.
+
+Root lint reported 2,955 problems (133 errors, 2,822 warnings), with the supplied log showing generated Playwright trace bundles. Add narrow global ignores for playwright-report and test-results, not the browser specs or application code. Browser outputs were already gitignored. Add a source regression for the lint scope. The supplied log begins mid-lint, so the source-test and typecheck results are not independently established by this excerpt. Re-run all gates on the new commit; no runtime pass or WCAG conformance claimed yet.

@@ -91,7 +91,6 @@ export function CommandMenu() {
             <button
                 type="button"
                 ref={triggerRef}
-                aria-label="Open command menu (⌘K)"
                 aria-keyshortcuts="Control+k Meta+k"
                 aria-haspopup="dialog"
                 aria-expanded={open}
@@ -104,6 +103,7 @@ export function CommandMenu() {
                 <div className="relative flex items-center gap-1.5 px-3 py-2 mark-surface mark-control rounded-[5px] text-[11px] font-medium transition-colors duration-150 border font-mono">
                     <span className="leading-none mt-[0.5px]">⌘</span>
                     <span className="leading-none mt-[0.5px]">K</span>
+                    <span className="sr-only">Open command menu</span>
                 </div>
             </button>
 
