@@ -160,6 +160,10 @@ export const hackathonsData: Hackathon[] = [
       {
         "label": "View participation certificate",
         "href": "/certificates/hackathons/hackblox-2026.pdf"
+      },
+      {
+        "label": "View finale qualification ticket",
+        "href": "/certificates/hackathons/hackblox-2026-finalist.png"
       }
     ]
   },

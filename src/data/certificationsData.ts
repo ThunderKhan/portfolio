@@ -26,7 +26,7 @@ export const certifications: Certification[] = [
     "date": "8 Sep 2026",
     "kind": "Course participation",
     "note": "10 hours · 3–14 Aug 2026",
-    "pending": "Certificate copy pending privacy redaction"
+    "file": "/certificates/training/isro-geodata-analytics.pdf"
   },
   {
     "id": "ibm-ai-fundamentals",

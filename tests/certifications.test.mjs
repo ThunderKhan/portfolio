@@ -24,3 +24,8 @@ test("linked local evidence exists", () => {
   ].filter(path => path.startsWith("/certificates/"));
   for (const file of files) assert.ok(existsSync(new URL("../public" + file, import.meta.url)), file);
 });
+
+test("redacted credentials are linked", () => {
+  assert.equal(certifications.find(c => c.id === "isro-geodata-analytics").file, "/certificates/training/isro-geodata-analytics.pdf");
+  assert.ok(hackathonsData.find(h => h.id === "hackblox-2026").links.some(l => l.href === "/certificates/hackathons/hackblox-2026-finalist.png"));
+});
