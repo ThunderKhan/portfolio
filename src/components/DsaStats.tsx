@@ -60,10 +60,7 @@ function StatCard({
             className="flex items-center gap-1 text-[12px] font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
           >
             {handle}
-            <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="7" y1="17" x2="17" y2="7" />
-              <polyline points="7 7 17 7 17 17" />
-            </svg>
+            
           </a>
         </div>
 

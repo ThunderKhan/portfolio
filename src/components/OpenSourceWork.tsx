@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+
 import { OpenSourceList } from "@/components/OpenSourceList";
 import { contributionTotals, featuredOpenSourceWork } from "@/data/openSourceData";
 
@@ -13,7 +13,7 @@ export function OpenSourceWork() {
       </div>
       <div className="relative flex justify-center border-t border-dashed border-zinc-300 py-4 dark:border-zinc-800">
         <Link href="/open-source" className="relative inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2">
-          View all contributions <ArrowUpRight aria-hidden="true" className="size-3.5" />
+          View all contributions 
         </Link>
       </div>
     </>

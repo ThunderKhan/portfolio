@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Camera } from "lucide-react";
+import { Camera } from "lucide-react";
 import { eventHighlights } from "@/data/highlightsData";
 
 export function EventHighlights({ archive = false }: { archive?: boolean }) {
@@ -30,12 +30,12 @@ export function EventHighlights({ archive = false }: { archive?: boolean }) {
                 <h3 className="text-[14px] font-semibold leading-snug text-zinc-900 dark:text-zinc-100">{event.title}</h3>
                 <p className="mt-1 text-[12px] text-zinc-500 dark:text-zinc-400">{event.category} · {event.photos.length ? `${event.photos.length} photos` : "Photos coming soon"}</p>
               </div>
-              {!archive && <Link href={`/highlights#${event.id}`} aria-label={`View ${event.title} highlights`} className="grid size-10 shrink-0 place-items-center rounded-md text-zinc-500 hover:bg-zinc-200/50 focus-visible:outline-2 dark:hover:bg-zinc-800"><ArrowUpRight aria-hidden="true" className="size-4" /></Link>}
+              {!archive && <Link href={`/highlights#${event.id}`} aria-label={`View ${event.title} highlights`} className="inline-flex min-h-10 shrink-0 items-center rounded-md px-2 text-[12px] font-medium mark-control focus-visible:outline-2">View</Link>}
             </div>
           </article>
         );
       })}
-      {!archive && <div className="flex justify-center pt-1"><Link href="/highlights" className="inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors">View all highlights <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
+      {!archive && <div className="flex justify-center pt-1"><Link href="/highlights" className="inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors">View all highlights </Link></div>}
     </div>
   );
 }

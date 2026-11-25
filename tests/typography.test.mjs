@@ -83,3 +83,24 @@ test("Reactor Slate uses a unified non-black background with neutral cards", () 
   assert.ok(css.includes("--mark-activity-4: var(--mark-gold)"));
   assert.ok(css.includes('.dark [data-slot="dialog-content"]'));
 });
+
+test("avatar renders the original image without a decorative frame or filter", () => {
+  const home = read("src/app/page.tsx");
+  assert.ok(home.includes("src={portfolio.heroAvatar}"));
+  assert.ok(!home.includes("mark-hero-avatar"));
+  assert.ok(!home.includes("object-cover grayscale"));
+  assert.ok(!read("src/app/globals.css").includes(".mark-hero-avatar"));
+  assert.ok(!home.includes("Development preview"));
+  assert.ok(read("portfolio.config.ts").includes("referencePreview: true"));
+});
+test("portfolio links are arrow-free and retain text navigation and disclosure affordances", () => {
+  for (const path of ["src/app/page.tsx","src/app/projects/page.tsx","src/app/projects/[slug]/page.tsx","src/app/blogs/page.tsx","src/app/blogs/[slug]/page.tsx","src/app/experience/page.tsx","src/app/contact/page.tsx","src/app/certifications/page.tsx","src/app/highlights/page.tsx","src/app/open-source/page.tsx","src/components/ProjectsGrid.tsx","src/components/BlogList.tsx","src/components/OpenSourceList.tsx","src/components/Certifications.tsx","src/components/CertificateLink.tsx","src/components/EventHighlights.tsx","src/components/ExperienceList.tsx","src/components/Hackathons.tsx","src/components/Highlights.tsx","src/components/Education.tsx","src/components/SpotifyCard.tsx","src/components/OpenSourceWork.tsx","src/components/DsaStats.tsx","src/components/command-menu.tsx"]) {
+    const source = read(path);
+    assert.ok(!/<(?:Arrow(?:Left|Right|UpRight|Up|Down)|ChevronDown|ExternalLink|CornerDownLeft)\\b/.test(source), path);
+    assert.ok(!source.includes('points="7 7 17 7 17 17"'), path);
+    assert.ok(!source.includes('points="6 9 12 15 18 9"'), path);
+  }
+  assert.ok(read("src/app/projects/page.tsx").includes(">\n                Back"));
+  assert.ok(read("src/components/OpenSourceList.tsx").includes('isOpen ? "−" : "+"'));
+  assert.ok(read("src/components/EventHighlights.tsx").includes(">View</Link>"));
+});

@@ -97,20 +97,7 @@ export function HighlightCard({ item, layout = "marquee", number }: { item: High
             </span>
             <div className="flex shrink-0 items-center gap-2">
               {isArchive && number && <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-600">{String(number).padStart(2, "0")}</span>}
-              {item.link && (
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
-              )}
+              
             </div>
           </div>
           <p className={`font-medium text-zinc-800 dark:text-zinc-200 leading-snug transition-colors group-hover:text-zinc-900 dark:group-hover:text-white ${isArchive ? "text-[14px]" : "text-[13px] line-clamp-2"}`}>

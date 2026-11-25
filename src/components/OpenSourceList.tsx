@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { ArrowUpRight, ChevronDown, GitPullRequest } from "lucide-react";
+import { GitPullRequest } from "lucide-react";
 import type { OpenSourceEntry } from "@/data/openSourceData";
 import { CertificateLink } from "@/components/CertificateLink";
 
@@ -33,7 +33,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                   <span className="mt-1 block text-[12px] font-normal leading-snug text-zinc-600 dark:text-zinc-400">{item.summary}</span>
                   <span className="mt-1 block text-[11px] font-normal text-zinc-500 dark:text-zinc-400">{item.links.length ? `${item.links.length} PR${item.links.length === 1 ? "" : "s"} · ${merged} merged` : "Community"}</span>
                 </span>
-                <ChevronDown aria-hidden="true" className={`size-4 shrink-0 text-zinc-500 motion-safe:transition-transform motion-safe:duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                <span aria-hidden="true" className="inline-block w-4 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
               </button>
             </h3>
             <div
@@ -52,7 +52,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                         <li key={link.href} className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                           <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-0 items-center gap-1 text-[12px] text-zinc-700 underline decoration-dotted underline-offset-4 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white">
                             <span className="break-words">{link.label}</span>
-                            <ArrowUpRight aria-hidden="true" className="size-3 shrink-0" />
+                            
                           </a>
                           <span className="shrink-0 text-[11px] text-zinc-500 dark:text-zinc-400">{link.status}</span>
                         </li>

@@ -45,16 +45,7 @@ export function Hackathons() {
                   </span>
                   <span className="ml-auto flex items-center gap-2 text-[12px] font-medium text-zinc-400 dark:text-zinc-600 whitespace-nowrap">
                     {h.dates}
-                    <svg
-                      viewBox="0 0 24 24"
-                      className={`w-3.5 h-3.5 text-zinc-500 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      aria-hidden="true"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
+                    <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
                   </span>
                 </header>
 
@@ -153,10 +144,7 @@ export function Hackathons() {
                                 className="flex items-center gap-1 text-[12px] font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
                               >
                                 {l.label}
-                                <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                  <line x1="7" y1="17" x2="17" y2="7" />
-                                  <polyline points="7 7 17 7 17 17" />
-                                </svg>
+                                
                               </a>
                             ))}
                           </div>

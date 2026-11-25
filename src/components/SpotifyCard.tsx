@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { ArrowUpRight, Music, Play, X } from "lucide-react";
+import { Music, Play, X } from "lucide-react";
 import { SiSpotify } from "react-icons/si";
 import { featuredTrack } from "@/data/featuredTrack";
 
@@ -55,7 +55,7 @@ export function SpotifyCard() {
           {showPlayer ? "Close player" : "Listen here"}
         </button>
         <a href={trackUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center gap-1 rounded text-[12px] font-medium text-zinc-700 underline decoration-dotted underline-offset-4 focus-visible:outline-2 dark:text-zinc-300">
-          Open in Spotify <ArrowUpRight aria-hidden="true" className="size-3" /><span className="sr-only"> (opens in a new tab)</span>
+          Open in Spotify <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </div>
       {showPlayer && <p className="mt-2 text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400">Press play in the player. Spotify may provide a preview.</p>}

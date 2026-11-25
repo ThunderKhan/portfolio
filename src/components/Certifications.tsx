@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Award, ArrowUpRight } from "lucide-react";
+import { Award } from "lucide-react";
 import { certifications, featuredCertifications } from "@/data/certificationsData";
 import { CertificateLink } from "@/components/CertificateLink";
 
@@ -17,14 +17,14 @@ export function Certifications({ archive = false }: { archive?: boolean }) {
               <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-400">{certificate.kind}{certificate.note ? ` · ${certificate.note}` : ""}</p>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 {certificate.file && <CertificateLink href={certificate.file} label="View certificate" />}
-                {certificate.link && <a href={certificate.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-md px-1 py-1.5 text-[12px] text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-300">Verify credential <ArrowUpRight aria-hidden="true" className="size-3" /></a>}
+                {certificate.link && <a href={certificate.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-md px-1 py-1.5 text-[12px] text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-300">Verify credential </a>}
                 {certificate.pending && <span className="text-[11px] text-zinc-500 dark:text-zinc-400">{certificate.pending}</span>}
               </div>
             </div>
           </li>
         ))}
       </ul>
-      {!archive && <div className="flex justify-center pt-4"><Link href="/certifications" className="inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors">View all certifications <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
+      {!archive && <div className="flex justify-center pt-4"><Link href="/certifications" className="inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors">View all certifications </Link></div>}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Calendar, Clock, Heart } from "lucide-react";
+import { Calendar, Clock, Heart } from "lucide-react";
 import { blogsData } from "@/data/blogsData";
 
 /**
@@ -100,14 +100,6 @@ export function BlogList({ counts, limit }: { counts?: Record<string, number>; l
                     ))}
                   </div>
                 </div>
-              </div>
-
-              <div className="ml-4 flex-shrink-0 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
-                {blog.isExternal ? (
-                  <ArrowUpRight className="w-4 h-4" />
-                ) : (
-                  <ArrowRight className="w-4 h-4" />
-                )}
               </div>
             </div>
           </Link>

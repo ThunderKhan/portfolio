@@ -303,12 +303,11 @@ export function CommandMenu() {
                 <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
                     <div className="flex items-center gap-4 text-[10px] text-zinc-500">
                         <div className="flex items-center gap-1">
-                            <ArrowUp className="w-3 h-3" />
-                            <ArrowDown className="w-3 h-3" />
+                            <span className="font-mono">Up / Down</span>
                             <span>to navigate</span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <CornerDownLeft className="w-3 h-3" />
+                            <span className="font-mono">Enter</span>
                             <span>to select</span>
                         </div>
                     </div>
