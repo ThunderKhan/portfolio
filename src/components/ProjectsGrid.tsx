@@ -101,7 +101,7 @@ export const ProjectCard = ({
               width={600}
               height={400}
               preload={isPriority}
-              sizes="(min-width: 768px) 17vw, calc(100vw - 2rem)"
+              sizes="(min-width: 848px) 320px, (min-width: 768px) calc((100vw - 120px) / 2), (min-width: 640px) calc(100vw - 80px), calc(100vw - 32px)"
               quality={70}
               className="size-full object-cover object-top"
             />

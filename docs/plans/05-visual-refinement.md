@@ -39,3 +39,7 @@ Follow-up: move project hover variant ownership to the card ancestor so the stre
 ## Slice 5a: Responsive geometry
 
 Owner reported 33/33 tests, clean TypeScript and lint, and 31/31 static pages generated at 2c9fd03. Replace inherited 30% side margins (307px column at 768px) with shared responsive inset: zero below 640px, otherwise max(24px, half the viewport excess above 800px). All ten primary route files align banner, header, body and rails. Desktop index appears at xl and scrolls locally. Narrow archive headers move controls to upper right; article text capped at 75ch. Preserve page order, assets, typography, themes and interactions. Source-level change only; browser measurements and full local verification pending. No deployment or dependencies.
+
+## Slice 5b: Responsive components
+
+Contribution calendar retains a 560px minimum graph width in its own keyboard-accessible horizontal scroll region rather than squeezing 53 columns; header wraps and cells honor reduced motion. Project image sizes reflect the new content column, command menu trigger is at least 32px tall and command list height is viewport-bounded. Add regression checks for shared gutters and local scrolling. Browser and full local verification pending; no deployment.

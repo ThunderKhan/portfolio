@@ -144,7 +144,7 @@ export function GithubGraph() {
 
       {/* Heading */}
       <div className="relative py-2">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 id="github-activity-title" className="mark-section-title text-zinc-900 dark:text-zinc-100">
             Engineering activity
           </h2>
@@ -168,8 +168,8 @@ export function GithubGraph() {
 
       {/* Graph content — sits directly on the page background */}
       <div className="relative py-4">
-        <div className="w-full">
-          <div>
+        <div className="w-full overflow-x-auto pb-2 focus-visible:outline-2" tabIndex={0} role="region" aria-label="GitHub contribution calendar; scroll horizontally if needed">
+          <div className="min-w-[560px]">
             <div className="mb-2 flex w-full justify-between text-[10px] text-zinc-400 dark:text-zinc-500">
               {displayMonths.map((month, index) => (
                 <span key={`${month}-${index}`}>{month}</span>
@@ -204,7 +204,7 @@ export function GithubGraph() {
                             key={day.date}
                             aria-hidden="true"
                             aria-label={`${day.contributionCount} contributions on ${formatDate(day.date)}`}
-                            className={`aspect-square w-full rounded-[2px] opacity-80 outline-none transition-[opacity,transform] hover:scale-125 hover:opacity-100 dark:opacity-70 dark:hover:opacity-100 ${color.cell}`}
+                            className={`aspect-square w-full rounded-[2px] opacity-80 outline-none transition-[opacity,transform] motion-safe:hover:scale-125 hover:opacity-100 dark:opacity-70 dark:hover:opacity-100 ${color.cell}`}
                             onMouseEnter={(event) => showTooltip(day, event)}
                             onMouseLeave={() => setTooltip(null)}
                           />
