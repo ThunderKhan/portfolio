@@ -65,22 +65,21 @@ test("engineering activity uses metallic gold in both themes with a shared legen
 test("brand accents appear in shared section, project and achievement treatments", () => {
   const css = read("src/app/globals.css");
   assert.ok(css.includes(".mark-section-title::before"));
-  assert.ok(css.includes("border-top: 3px solid var(--mark-armor-seam)"));
+  assert.ok(css.includes(".mark-project-frame {\n  border-color: var(--mark-seam);\n  background-color: var(--mark-panel);\n}"));
   assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-project-frame"));
   assert.ok(read("src/components/Hackathons.tsx").includes("mark-achievement"));
   assert.ok(read("src/components/OpenSourceList.tsx").includes("mark-reactor-text"));
 });
 
-test("Stark Workshop is dark-only and preserves the central reading column", () => {
+test("Reactor Slate uses a unified non-black background with neutral cards", () => {
   const css = read("src/app/globals.css");
   assert.ok(css.includes("--mark-page: #F4F3EF"));
-  assert.ok(css.includes("--mark-page: #140D0F"));
-  assert.ok(css.includes("--mark-panel: #241719"));
-  assert.ok(css.includes(".dark .mark-home,\n.dark .mark-page:not(body)"));
-  assert.ok(css.includes("var(--mark-page) calc(100% - var(--mark-gutter))"));
-  assert.ok(css.includes("radial-gradient(circle, var(--mark-workshop-grid)"));
-  assert.ok(css.includes(".dark .mark-workshop-rule"));
-  for (const path of ["src/app/page.tsx","src/app/projects/page.tsx","src/app/projects/[slug]/page.tsx","src/app/experience/page.tsx","src/app/blogs/page.tsx","src/app/blogs/[slug]/page.tsx","src/app/contact/page.tsx","src/app/open-source/page.tsx","src/app/certifications/page.tsx","src/app/highlights/page.tsx"]) {
-    assert.ok(read(path).includes("mark-workshop-rule"), path);
-  }
+  assert.ok(css.includes("--mark-page: #18252B"));
+  assert.ok(css.includes("--mark-panel: #22333C"));
+  assert.ok(css.includes("--mark-seam: #354852"));
+  assert.ok(!css.includes("--mark-workshop-ambient"));
+  assert.ok(!css.includes("--mark-workshop-grid"));
+  assert.ok(!css.includes("border-top: 3px solid var(--mark-armor-seam)"));
+  assert.ok(css.includes("--mark-activity-4: var(--mark-gold)"));
+  assert.ok(css.includes('.dark [data-slot="dialog-content"]'));
 });

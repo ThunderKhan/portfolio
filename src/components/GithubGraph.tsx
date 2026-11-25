@@ -176,7 +176,7 @@ export function GithubGraph() {
       <div className="relative py-4">
         <div className="w-full overflow-x-auto pb-2 focus-visible:outline-2" tabIndex={0} role="region" aria-label="GitHub contribution calendar; scroll horizontally if needed">
           <div className="min-w-[560px]">
-            <div className="mb-2 flex w-full justify-between text-[10px] text-zinc-400 dark:text-zinc-500">
+            <div className="mb-2 flex w-full justify-between text-[10px] mark-muted">
               {displayMonths.map((month, index) => (
                 <span key={`${month}-${index}`}>{month}</span>
               ))}

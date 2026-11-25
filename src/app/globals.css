@@ -247,16 +247,12 @@ body {
   --mark-seam: #C9CBD0;
 }
 .dark {
-  --mark-page: #140D0F;
-  --mark-panel: #241719;
+  --mark-page: #18252B;
+  --mark-panel: #22333C;
   --mark-ink: #F4FBFF;
-  --mark-muted: #C2B1AD;
+  --mark-muted: #AABCC5;
   --mark-interaction: var(--mark-arc-blue);
-  --mark-seam: #513031;
-  --mark-workshop-edge: #291317;
-  --mark-workshop-ambient: rgb(170 5 5 / 20%);
-  --mark-workshop-grid: rgb(185 125 16 / 17%);
-  --mark-workshop-rule: rgb(185 125 16 / 30%);
+  --mark-seam: #354852;
 }
 .mark-home,
 .mark-page {
@@ -324,8 +320,6 @@ body {
 :root {
   --mark-gold-ink: #805409;
   --mark-gold-seam: #B97D10;
-  --mark-armor-seam: #AA0505;
-  --mark-armor-border: #D8B5AF;
   --mark-achievement-border: #D8C49F;
   --mark-activity-0: #E5E1D8;
   --mark-activity-1: #E5CEA1;
@@ -334,10 +328,9 @@ body {
   --mark-activity-4: var(--mark-gold);
 }
 .dark {
-  --mark-gold-ink: var(--mark-bright-gold);
-  --mark-armor-border: #6A3030;
-  --mark-achievement-border: #554222;
-  --mark-activity-0: #2A3038;
+  --mark-gold-ink: #E5BE72;
+  --mark-achievement-border: #59604F;
+  --mark-activity-0: #354852;
   --mark-activity-1: #503910;
   --mark-activity-2: #765010;
   --mark-activity-3: #946410;
@@ -355,18 +348,14 @@ body {
 .mark-hero-avatar {
   outline: 1px solid var(--mark-gold-seam);
   outline-offset: 2px;
-  border-color: var(--mark-armor-seam);
+  border-color: var(--mark-seam);
 }
 .mark-project-frame {
-  border-color: var(--mark-armor-border);
-  border-top: 3px solid var(--mark-armor-seam);
-  background-color: color-mix(in srgb, var(--mark-deep-red) 4%, var(--mark-panel));
-}
-.dark .mark-project-frame {
-  background-color: color-mix(in srgb, var(--mark-deep-red) 12%, var(--mark-panel));
+  border-color: var(--mark-seam);
+  background-color: var(--mark-panel);
 }
 .mark-project-frame:hover,
-.mark-project-frame:focus-within { border-color: var(--mark-armor-seam); }
+.mark-project-frame:focus-within { border-color: var(--mark-interaction); }
 .mark-achievement {
   border-color: var(--mark-achievement-border);
 }
@@ -384,25 +373,15 @@ body {
 .mark-activity-3 { background-color: var(--mark-activity-3); }
 .mark-activity-4 { background-color: var(--mark-activity-4); }
 
-/* Stark Workshop: the top layer protects the reading column from side decoration.
-   Paint once per route, not on the body as well. At zero gutter the center
-   layer covers the entire viewport; mobile stays a quiet solid surface. */
-.dark .mark-home,
-.dark .mark-page:not(body) {
-  background-image:
-    linear-gradient(to right,
-      transparent var(--mark-gutter),
-      var(--mark-page) var(--mark-gutter),
-      var(--mark-page) calc(100% - var(--mark-gutter)),
-      transparent calc(100% - var(--mark-gutter))),
-    radial-gradient(circle, var(--mark-workshop-grid) 0.65px, transparent 0.9px),
-    radial-gradient(ellipse 520px 740px at left top, var(--mark-workshop-ambient), transparent 100%),
-    radial-gradient(ellipse 520px 740px at right top, rgb(185 125 16 / 8%), transparent 100%),
-    linear-gradient(to right, var(--mark-workshop-edge), var(--mark-page) 50%, var(--mark-workshop-edge));
-  background-size: 100% 100%, 16px 16px, 100% 100%, 100% 100%, 100% 100%;
-  background-position: center, center top, center top, center top, center;
-  background-repeat: no-repeat, repeat, no-repeat, no-repeat, no-repeat;
-}
+/* Reactor Slate: a single calm surface, without themed side panels.
+   Existing route rule markers are retained to avoid geometry changes. */
 .dark .mark-workshop-rule {
-  border-color: var(--mark-workshop-rule);
+  border-color: var(--mark-seam);
+}
+
+/* Shared overlay surfaces match the page, including portaled dialogs. */
+.dark [data-slot="dialog-content"],
+.dark [data-slot="command"] {
+  background-color: var(--mark-panel);
+  color: var(--mark-ink);
 }
