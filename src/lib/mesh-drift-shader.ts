@@ -2,13 +2,12 @@
 export const MESH_FRAGMENT = String.raw`// "Mesh drift" — made with the 21st.dev Shader Builder
 // Packed WebGL1 uniforms (the shader exposes readable u_* aliases as macros):
 //   u_colors[8] (first 4 used)
-//   #000000, #6A0C0B, #AA0505, #B97D10 (MARK I palette)
-//   u_scene = vec4(canvas width, canvas height, seconds * 0.28, 4.0)
-//   u_gutter = width of either visible side margin in framebuffer pixels
-//   u_shape = vec4(1.16, 0.34, 0.50, 0.00)
-//   u_surface = vec4(2.40, 1.16, 0.00, 1.00)
-//   u_finish = vec4(0.00, 0.00, 0.000, 0.09)
-//   u_transform = vec4(1453.0, 0.00, 0.00, 0.0)
+//   #000000, #6A0C0B, #861F0D, #B97D10 (muted MARK I palette)
+//   u_scene = vec4(canvas width, canvas height, seconds * 1.05, 4.0)
+//   u_shape = vec4(0.95, 0.48, 0.50, 0.00)
+//   u_surface = vec4(2.40, 1.22, 0.00, 0.92)
+//   u_finish = vec4(0.00, 0.00, 0.000, 0.055)
+//   u_transform = vec4(1453.0, 0.00, 0.20, 0.0)
 //   u_space = vec4(0.00, 0.00, pointer x, pointer y)
 //   u_cursor = vec4(presence, 2.0, 0.65, 0.46)
 
@@ -20,7 +19,7 @@ precision mediump float;
 
 uniform vec3 u_colors[8];
 // Seven packed vectors + eight colour vectors = 15 fragment uniform vectors,
-// plus one gutter uniform = 16, within WebGL1's guaranteed minimum.
+// one below WebGL1's guaranteed minimum.
 // Macros preserve the public u_* API.
 uniform vec4 u_scene;      // resolution.xy, time, colour count
 uniform vec4 u_shape;      // scale, intensity, paramA, warp
@@ -29,9 +28,8 @@ uniform vec4 u_finish;     // hue, vignette, blur, grain
 uniform vec4 u_transform;  // seed, rotation, drift, OKLab toggle
 uniform vec4 u_space;      // offset.xy, pointer.xy
 uniform vec4 u_cursor;
-uniform float u_gutter;
 
-#define u_resolution vec2(2.0 * u_gutter, u_scene.y)
+#define u_resolution u_scene.xy
 #define u_time u_scene.z
 #define u_colorCount u_scene.w
 #define u_scale u_shape.x
@@ -186,9 +184,10 @@ vec3 shade(vec2 uv, vec2 p, float t) {
     if (float(i) >= u_colorCount) break;
     float fi = float(i);
     vec2 c = vec2(
-      sin(t * (0.21 + fi * 0.071) + fi * 2.4 + u_seed),
-      cos(t * (0.17 + fi * 0.093) + fi * 1.7)) * (0.45 + u_intensity * 0.35);
-    float w = exp(-dot(p - c, p - c) * 6.0);
+      sin(t * (0.39 + fi * 0.071) + fi * 2.4 + mod(u_seed, 6.283185)),
+      cos(t * (0.31 + fi * 0.093) + fi * 1.7)) * (0.45 + u_intensity * 0.55);
+    c.x *= max(1.0, u_resolution.x / u_resolution.y * 0.85);
+    float w = exp(-dot(p - c, p - c) * 5.0);
     acc += u_colors[i] * w;
     total += w;
   }
@@ -196,17 +195,10 @@ vec3 shade(vec2 uv, vec2 p, float t) {
 }
 
 void main() {
-  // Join the two gutters into one field; the reading column stays black.
-  vec2 fieldCoord = gl_FragCoord.xy;
-  if (fieldCoord.x > u_gutter && fieldCoord.x < u_scene.x - u_gutter) {
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-    return;
-  }
-  if (fieldCoord.x >= u_scene.x - u_gutter)
-    fieldCoord.x -= u_scene.x - 2.0 * u_gutter;
-  vec2 uv = fieldCoord / u_resolution.xy;
+  // A continuous field across the viewport: CSS alone controls the reading fade.
+  vec2 uv = gl_FragCoord.xy / u_resolution.xy;
   vec2 screenUv = uv;
-  vec2 p = (fieldCoord - 0.5 * u_resolution.xy)
+  vec2 p = (gl_FragCoord.xy - 0.5 * u_resolution.xy)
     / min(u_resolution.x, u_resolution.y);
   float cursorMask = 0.0;
 

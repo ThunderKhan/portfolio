@@ -1,5 +1,5 @@
-export const MESH_PALETTE = ["#000000", "#6A0C0B", "#AA0505", "#B97D10"] as const;
-export const MESH_SPEED = 0.28;
+export const MESH_PALETTE = ["#000000", "#6A0C0B", "#861F0D", "#B97D10"] as const;
+export const MESH_SPEED = 1.05;
 export const MESH_FRAME_MS = 1000 / 30;
 export const MESH_MAX_PIXELS = 900_000;
 export const MESH_MIN_WIDTH = 1280;
@@ -10,7 +10,6 @@ export function meshResolution(width: number, height: number, dpr: number) {
   return {
     width: Math.max(1, Math.floor(width * scale)),
     height: Math.max(1, Math.floor(height * scale)),
-    gutterFraction: (width - 800) / (2 * width),
   };
 }
 
@@ -20,3 +19,9 @@ export function canAnimateMesh({ dark, wide, visible, reduced, paused }: {
   return dark && wide && visible && !reduced && !paused;
 }
 
+
+// Use wall-clock frame deltas, independently of the 30 FPS draw throttle.
+// Reset the previous timestamp whenever animation stops so hidden time is excluded.
+export function meshDelta(previous: number | null, now: number) {
+  return previous === null ? 0 : Math.max(0, Math.min(now - previous, 100)) / 1000;
+}

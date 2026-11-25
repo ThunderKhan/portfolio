@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createMeshRenderer } from "@/lib/mesh-drift";
-import { canAnimateMesh, meshResolution, MESH_FRAME_MS, MESH_MIN_WIDTH } from "@/lib/mesh-drift-settings";
+import { canAnimateMesh, meshDelta, meshResolution, MESH_FRAME_MS, MESH_MIN_WIDTH } from "@/lib/mesh-drift-settings";
 
 export function MeshDriftBackground() {
   const layerRef = useRef<HTMLDivElement>(null);
@@ -22,13 +22,15 @@ export function MeshDriftBackground() {
     let renderer: ReturnType<typeof createMeshRenderer> = null;
     let failed = false;
     let frame: number | null = null;
-    let last = 0;
+    let previous: number | null = null;
+    let lastDraw: number | null = null;
     let elapsed = 0;
 
     function stop() {
       if (frame !== null) cancelAnimationFrame(frame);
       frame = null;
-      last = 0;
+      previous = null;
+      lastDraw = null;
     }
     function conditions() {
       return {
@@ -48,9 +50,10 @@ export function MeshDriftBackground() {
     function tick(now: number) {
       frame = null;
       if (!renderer || !canAnimateMesh(conditions())) { stop(); return; }
-      if (last === 0 || now - last >= MESH_FRAME_MS - 1) {
-        if (last !== 0) elapsed += Math.min(now - last, 100) / 1000;
-        last = now;
+      elapsed += meshDelta(previous, now);
+      previous = now;
+      if (lastDraw === null || now - lastDraw >= MESH_FRAME_MS - 1) {
+        lastDraw = now;
         paint();
       }
       frame = requestAnimationFrame(tick);

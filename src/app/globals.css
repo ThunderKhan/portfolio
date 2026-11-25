@@ -381,7 +381,7 @@ body {
   color: var(--mark-ink);
 }
 
-/* Mesh Drift: decorative, fixed-size desktop gutters. No paint over reading column. */
+/* Mesh Drift: one continuous field, softly feathered into the black reading core. */
 .mark-mesh-background { display: none; }
 @media (min-width: 1280px) {
   .dark .mark-home .mark-mesh-background {
@@ -394,13 +394,22 @@ body {
   .mark-mesh-art {
     position: absolute;
     inset: 0;
-    opacity: .42;
-    background: radial-gradient(ellipse at 6% 32%, #6A0C0B 0%, transparent 35%),
-      radial-gradient(ellipse at 94% 70%, #B97D10 0%, transparent 32%), #000;
+    opacity: .48;
+    background: radial-gradient(ellipse at 6% 32%, #6A0C0B 0%, transparent 42%),
+      radial-gradient(ellipse at 94% 70%, #B97D10 0%, transparent 40%), #000;
+    /* The shader remains continuous behind the boundary. At the first text
+       column it is already very faint, then fades to zero within the content. */
     mask-image: linear-gradient(to right,
-      #000 0, #000 calc(var(--mark-gutter) - 36px), transparent var(--mark-gutter),
-      transparent calc(100% - var(--mark-gutter)),
-      #000 calc(100% - var(--mark-gutter) + 36px), #000 100%);
+      #000 0,
+      #000 calc(var(--mark-gutter) - 144px),
+      rgb(0 0 0 / 28%) calc(var(--mark-gutter) - 40px),
+      rgb(0 0 0 / 12%) var(--mark-gutter),
+      transparent calc(var(--mark-gutter) + 96px),
+      transparent calc(100% - var(--mark-gutter) - 96px),
+      rgb(0 0 0 / 12%) calc(100% - var(--mark-gutter)),
+      rgb(0 0 0 / 28%) calc(100% - var(--mark-gutter) + 40px),
+      #000 calc(100% - var(--mark-gutter) + 144px),
+      #000 100%);
   }
   .mark-mesh-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
   .mark-mesh-background[data-ready="true"] canvas { visibility: visible; }
@@ -408,7 +417,7 @@ body {
     display: none;
     position: absolute;
     bottom: 16px;
-    left: 16px;
+    left: 64px;
     min-height: 32px;
     padding: 4px 10px;
     border: 1px solid var(--mark-seam);

@@ -404,3 +404,7 @@ Supersedes the experimental Reactor Slate and Stark Workshop base palettes. Owne
 ### Mesh Drift background experiment (2026-11-25)
 
 Preserve the restored pure black content area. Owner requested a grainy animated background from the supplied 21st.dev Mesh Drift export. Use a single muted red/gold field in the dark homepage's desktop gutters only, no cursor effect, slow movement, static fallback and explicit pause. Do not change any card shape or content. This is a reversible visual trial, subject to actual browser review and performance/accessibility checks.
+
+### Mesh Drift refinement
+
+Owner requested more evident motion and a graceful transition into the reading surface. Use one continuous field with a broad feather across the column edges; keep the inner reading core black and art barely visible beneath outer text. Retain black/deep red/metallic gold with supporting burnt red, reduced grain and moderately faster drift. Preserve pause, reduced-motion, desktop-only and hidden-tab behavior.

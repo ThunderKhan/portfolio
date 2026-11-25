@@ -7,6 +7,7 @@ void main() { gl_Position = vec4(a_position, 0.0, 1.0); }`;
 export function createMeshRenderer(canvas: HTMLCanvasElement) {
   const gl = canvas.getContext("webgl", {
     alpha: false, antialias: false, depth: false, stencil: false,
+    preserveDrawingBuffer: true,
     powerPreference: "low-power", failIfMajorPerformanceCaveat: true,
   });
   if (!gl) return null;
@@ -53,15 +54,14 @@ export function createMeshRenderer(canvas: HTMLCanvasElement) {
   context.uniform3fv(context.getUniformLocation(program, "u_colors[0]"), colors);
   const uniform = (name: string, values: [number, number, number, number]) =>
     context.uniform4f(context.getUniformLocation(program, name), ...values);
-  uniform("u_shape", [1.16, 0.34, 0.50, 0]);
-  uniform("u_surface", [2.40, 1.16, 0, 1]);
-  uniform("u_finish", [0, 0, 0, 0.09]);
-  uniform("u_transform", [1453, 0, 0, 0]);
+  uniform("u_shape", [0.95, 0.48, 0.50, 0]);
+  uniform("u_surface", [2.40, 1.22, 0, 0.92]);
+  uniform("u_finish", [0, 0, 0, 0.055]);
+  uniform("u_transform", [1453, 0, 0.20, 0]);
   uniform("u_space", [0, 0, 0, 0]);
   uniform("u_cursor", [0, 2, 0.65, 0.46]);
   const scene = context.getUniformLocation(program, "u_scene");
-  const gutter = context.getUniformLocation(program, "u_gutter");
-  if (!scene || !gutter) { dispose(); return null; }
+  if (!scene) { dispose(); return null; }
 
   return {
     draw(seconds: number, dimensions: NonNullable<ReturnType<typeof meshResolution>>) {
@@ -69,7 +69,6 @@ export function createMeshRenderer(canvas: HTMLCanvasElement) {
       if (canvas.height !== dimensions.height) canvas.height = dimensions.height;
       context.viewport(0, 0, canvas.width, canvas.height);
       context.uniform4f(scene, canvas.width, canvas.height, seconds * MESH_SPEED, 4);
-      context.uniform1f(gutter, canvas.width * dimensions.gutterFraction);
       context.drawArrays(context.TRIANGLES, 0, 3);
     },
     dispose,
