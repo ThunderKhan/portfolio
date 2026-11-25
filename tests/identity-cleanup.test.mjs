@@ -8,7 +8,7 @@ const exists = (file) => existsSync(new URL("../" + file, import.meta.url));
 test("owner assets remain in the public tree", () => {
   for (const file of [
   "public/Ayan_Khan_Resume.pdf",
-  "public/Experience-image/micro1.jpg",
+  "public/Experience-image/micro1-logo.jpg",
   "public/Experience-image/vsph.jpg",
   "public/banner/starry-night.png",
   "public/certificates/community/hacktoberfest-completionist-plus-plus.png",
@@ -74,4 +74,10 @@ test("retired reference assets and inactive personal sections are absent", () =>
   assert.ok(contact.includes("<StarryNightBanner />"));
   assert.ok(!contact.includes("banner-light.jpg") && !contact.includes("banner-dark.jpg"));
   assert.ok(exists("LICENSE"));
+});
+
+test("company logos are not duplicate image assets", () => {
+  const micro1 = readFileSync(new URL("../public/Experience-image/micro1-logo.jpg", import.meta.url));
+  const vsph = readFileSync(new URL("../public/Experience-image/vsph.jpg", import.meta.url));
+  assert.ok(!micro1.equals(vsph));
 });

@@ -27,7 +27,7 @@ export const experiences: ExperienceData[] = [
     "dates": "Oct 2026 - Present",
     "startMonth": "2026-10",
     "location": "India",
-    "src": "/Experience-image/micro1.jpg",
+    "src": "/Experience-image/micro1-logo.jpg",
     "fallbackSrc": "/Experience-image/micro1-monogram.svg",
     "type": "Remote",
     "imageFit": "contain",
