@@ -12,7 +12,8 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = resolve(root, "src/data/stats-snapshot.json");
 
-const HANDLES = { github: "Paras-ydv", leetcode: "parascodes", codeforces: "Paras_ydv", codechef: "paras_ydv" };
+import { portfolio } from "../portfolio.config.ts";
+const HANDLES = portfolio.handles;
 
 const envPath = resolve(root, ".env.local");
 if (existsSync(envPath)) {
@@ -203,8 +204,14 @@ const previous = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : {};
 const next = { refreshedAt: new Date().toISOString() };
 
 for (const [key, fn] of [["leetcode", leetcode], ["codeforces", codeforces], ["codechef", codechef], ["github", github]]) {
+  if (!HANDLES[key]) {
+    next[key] = previous[key];
+    continue;
+  }
   try {
     next[key] = await fn();
+    const identity = next[key].username ?? next[key].login ?? next[key].handle;
+    if (typeof identity !== "string" || identity.toLowerCase() !== HANDLES[key].toLowerCase()) throw new Error("snapshot identity mismatch");
     console.log(`  ok   ${key}`);
   } catch (err) {
     next[key] = previous[key];

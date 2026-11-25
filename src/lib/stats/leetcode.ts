@@ -38,7 +38,7 @@ export function getLeetCode(): Promise<LeetCodeStats> {
     if (json.errors?.length) throw new Error(json.errors[0].message);
 
     const user = json.data?.matchedUser;
-    if (!user) throw new Error("leetcode returned no user");
+    if (!user || user.username.toLowerCase() !== handles.leetcode.toLowerCase()) throw new Error("leetcode returned a different or missing user");
     const contest = json.data?.userContestRanking;
 
     // LeetCode exposes no "max rating" field, so derive it from every contest

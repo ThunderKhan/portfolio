@@ -45,28 +45,19 @@ export type BlogBlock =
  */
 export const blogsData: Blog[] = [
   {
-    title: "Open Source & GSoC: A Guide to Getting Started",
-    date: "Nov 5, 2026",
-    claps: 50,
-    tags: ["Open Source", "GSoC", "Guide"],
-    link: "https://x.com/i/article/2118229255620276224",
-    isExternal: true,
-    // the count lives on the tweet that announced the article, not the article
-    live: { source: "x", handle: "parascodes", statusId: "2118271130712809929" },
-    description:
-      "EP-01 of the insights series: what open source actually is, why contribute, how GSoC works, and how to find and land a first issue.",
-  },
-  {
-    title: "bits/stdc++.h, pb_ds and rope on macOS with one command",
-    date: "Oct 23, 2026",
-    claps: 14,
-    tags: ["macOS", "C++", "pb_ds", "Tools"],
-    link: "https://codeforces.com/blog/entry/158076",
-    isExternal: true,
-    live: { source: "codeforces", entryId: 158076 },
-    description:
-      "Why GCC-only competitive programming code fails under Apple Clang, and how cp-mac fixes the headers, the missing std functions and the 8 MB stack in one install.",
-  },
+    "title": "I Built C++ Test Impact Analysis With Zero Runtime Dependencies",
+    "date": "Aug 30, 2026",
+    "claps": 0,
+    "tags": [
+      "C++",
+      "Testing",
+      "DevTools"
+    ],
+    "link": "https://dev.to/thunderkhan/i-built-c-test-impact-analysis-with-zero-runtime-dependencies-4bo8",
+    "isExternal": true,
+    "description": "How diff2test reconstructs affected CTest tests from CMake and compiler metadata without third-party runtime dependencies.",
+    "readingTime": "16 min read"
+  }
 ];
 
 export const blogPosts = blogsData.filter(

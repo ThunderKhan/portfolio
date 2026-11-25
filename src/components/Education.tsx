@@ -23,7 +23,7 @@ export function Education() {
             </h3>
             <p className="mt-1 text-[13px] text-zinc-600 dark:text-zinc-400">{education.degree}</p>
             <p className="mt-0.5 text-[12px] text-zinc-500 dark:text-zinc-500">
-              {education.dates} · CGPA {education.cgpa} · {education.location}
+              {education.dates} · SGPA {education.sgpa} · {education.location}
             </p>
           </div>
 
@@ -65,7 +65,7 @@ export function Education() {
                 <div className="px-4 py-3">
                   <p className="text-[13px] font-medium text-zinc-900 dark:text-zinc-100">{c.name}</p>
                   <p className="mt-0.5 text-[12px] text-zinc-500 dark:text-zinc-500">
-                    {c.date} · {c.issuer}
+                    {c.date ? `${c.date} · ` : ""}{c.issuer}
                     {c.note ? ` · ${c.note}` : ""}
                     {c.link && (
                       <>

@@ -124,7 +124,7 @@ export const projectsData: Project[] = [
       "Ships as a single runtime source file with no runtime process spawning, public verification, sanitizers, reproducibility checks, and deterministic output"
     ],
     "github": "https://github.com/ThunderKhan/diff2test",
-    "caseStudy": "https://ayankhan.me/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies",
+    "caseStudy": "https://dev.to/thunderkhan/i-built-c-test-impact-analysis-with-zero-runtime-dependencies-4bo8",
     "statusDetail": "Completed · C++20 CLI"
   },
   {

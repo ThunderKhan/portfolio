@@ -30,6 +30,7 @@ export function HighlightCard({ item, layout = "marquee", number }: { item: High
         {/* Screenshot Image Container */}
         <div className={cn(
           "relative w-full bg-zinc-100 dark:bg-[#0a0a0a] overflow-hidden",
+          !item.image && "hidden",
           !isArchive && "h-[200px]",
         )}>
           {isArchive && item.image ? (
@@ -122,7 +123,7 @@ export function HighlightCard({ item, layout = "marquee", number }: { item: High
 
   if (item.link) {
     return (
-      <Link href={item.link} target="_blank" rel="noopener noreferrer" className={isArchive ? "block rounded-[6px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-500" : "block"}>
+      <Link href={item.link} target={item.link.startsWith("/") ? undefined : "_blank"} rel={item.link.startsWith("/") ? undefined : "noopener noreferrer"} className={isArchive ? "block rounded-[6px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-500" : "block"}>
         {inner}
       </Link>
     );

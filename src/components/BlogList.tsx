@@ -76,10 +76,12 @@ export function BlogList({ counts }: { counts?: Record<string, number> }) {
                     <span>{blog.date}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-rose-500 dark:text-rose-400 font-medium">
-                    <Heart className="w-3.5 h-3.5" fill="currentColor" strokeWidth={0} />
-                    <span className="tabular-nums">{counts?.[blog.link] ?? blog.claps}</span>
-                  </div>
+                  {(counts?.[blog.link] !== undefined || blog.claps > 0) && (
+                    <div className="flex items-center gap-1.5 text-rose-500 dark:text-rose-400 font-medium">
+                      <Heart className="w-3.5 h-3.5" fill="currentColor" strokeWidth={0} />
+                      <span className="tabular-nums">{counts?.[blog.link] ?? blog.claps}</span>
+                    </div>
+                  )}
 
                   {/* Vertical Divider */}
                   <div className="hidden sm:block w-[1px] h-3 bg-zinc-300 dark:bg-zinc-700" />
