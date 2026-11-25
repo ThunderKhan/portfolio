@@ -31,4 +31,8 @@ test("custom cover has a graceful missing-image fallback and full-track link", (
   assert.ok(player.includes("https://open.spotify.com/track/"));
   assert.ok(player.includes("encrypted-media"));
   assert.ok(player.includes("Alternate artwork"));
+  assert.ok(player.includes("const [showPlayer, setShowPlayer] = useState(false)"));
+  assert.ok(player.includes("{showPlayer ? ("));
+  assert.ok(player.includes("Close player"));
+  assert.ok(player.includes("Listen here"));
 });
