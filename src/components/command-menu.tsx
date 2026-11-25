@@ -11,9 +11,6 @@ import {
     Sun,
     Laptop,
     Code,
-    ArrowUp,
-    ArrowDown,
-    CornerDownLeft,
     Copy,
     Briefcase,
     BookOpen,
@@ -46,8 +43,6 @@ import { projectsData } from "@/data/projectsData"
 import { handles, bookingLink, email, resume } from "@/data/links"
 
 const itemClass = "rounded-lg py-3 cursor-pointer"
-const kbdClass =
-    "font-mono text-[10px] bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700"
 
 const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Award, Binary, Camera } as const;
 const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionIcons[section.icon] })), { id: "contact", label: "Socials", icon: Send, key: "O" }] as const
@@ -64,6 +59,7 @@ const PROFILES = [
 
 export function CommandMenu() {
     const [open, setOpen] = React.useState(false)
+    const triggerRef = React.useRef<HTMLButtonElement>(null)
     const { setTheme } = useTheme()
     const router = useRouter()
 
@@ -89,45 +85,14 @@ export function CommandMenu() {
         command()
     }, [])
 
-    React.useEffect(() => {
-        const down = (e: KeyboardEvent) => {
-            if (!open || !e.shiftKey) return
-
-            const key = e.key.toUpperCase()
-            const section = SECTIONS.find((s) => s.key === key)
-            if (section) {
-                e.preventDefault()
-                runCommand(() => { router.push(`/#${section.id}`) })
-                return
-            }
-
-            if (key === "C") {
-                e.preventDefault()
-                runCommand(() => navigator.clipboard.writeText(email))
-            } else if (key === "R") {
-                e.preventDefault()
-                runCommand(() => openExternal(resume))
-            } else if (key === "T") {
-                e.preventDefault()
-                runCommand(() => setTheme("light"))
-            } else if (key === "Y") {
-                e.preventDefault()
-                runCommand(() => setTheme("dark"))
-            } else if (key === "U") {
-                e.preventDefault()
-                runCommand(() => setTheme("system"))
-            }
-        }
-
-        document.addEventListener("keydown", down)
-        return () => document.removeEventListener("keydown", down)
-    }, [open, openExternal, router, runCommand, setTheme])
 
     return (
         <>
             <button
                 type="button"
+                ref={triggerRef}
                 aria-label="Open command menu"
+                aria-keyshortcuts="Control+k Meta+k"
                 aria-haspopup="dialog"
                 aria-expanded={open}
                 onClick={() => setOpen(true)}
@@ -142,7 +107,12 @@ export function CommandMenu() {
                 </div>
             </button>
 
-            <CommandDialog open={open} onOpenChange={setOpen}>
+            <CommandDialog open={open} onOpenChange={setOpen} onCloseAutoFocus={(event) => {
+                if (triggerRef.current?.isConnected) {
+                    event.preventDefault()
+                    triggerRef.current.focus({ preventScroll: true })
+                }
+            }}>
                 {/* Header Section */}
                 <div className="flex items-center gap-4 p-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
@@ -154,7 +124,7 @@ export function CommandMenu() {
                     </div>
                 </div>
 
-                <CommandInput placeholder="Search sections, projects, profiles..." className="border-none focus:ring-0" />
+                <CommandInput aria-label="Search commands" placeholder="Search sections, projects, profiles..." className="border-none focus:ring-0" />
 
                 <CommandList className="p-2">
                     <CommandEmpty>No results found.</CommandEmpty>
@@ -171,7 +141,6 @@ export function CommandMenu() {
                                 >
                                     <Icon className="mr-2 h-4 w-4 text-zinc-500" />
                                     <span>{s.label}</span>
-                                    {s.key && <CommandShortcut className={kbdClass}>shift + {s.key}</CommandShortcut>}
                                 </CommandItem>
                             )
                         })}
@@ -189,7 +158,7 @@ export function CommandMenu() {
                             >
                                 <Code className="mr-2 h-4 w-4 text-zinc-500" />
                                 <span>{p.title}</span>
-                                <CommandShortcut className="font-mono text-[10px] text-zinc-400 dark:text-zinc-600 capitalize">
+                                <CommandShortcut className="font-mono text-[10px] mark-muted capitalize">
                                     {p.status}
                                 </CommandShortcut>
                             </CommandItem>
@@ -243,7 +212,7 @@ export function CommandMenu() {
                                 >
                                     <Icon className="mr-2 h-4 w-4 text-zinc-500" />
                                     <span>{p.label}</span>
-                                    <CommandShortcut className="font-mono text-[10px] text-zinc-400 dark:text-zinc-600">
+                                    <CommandShortcut className="font-mono text-[10px] mark-muted">
                                         {p.handle}
                                     </CommandShortcut>
                                 </CommandItem>
@@ -257,7 +226,6 @@ export function CommandMenu() {
                         <CommandItem value="action copy email address" onSelect={() => runCommand(() => navigator.clipboard.writeText(email))} className={itemClass}>
                             <Copy className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Copy email</span>
-                            <CommandShortcut className={kbdClass}>shift + C</CommandShortcut>
                         </CommandItem>
                         <CommandItem value="action send email write" onSelect={() => runCommand(() => openExternal(`mailto:${email}`))} className={itemClass}>
                             <Mail className="mr-2 h-4 w-4 text-zinc-500" />
@@ -270,7 +238,6 @@ export function CommandMenu() {
                         <CommandItem value="action resume cv download" onSelect={() => runCommand(() => openExternal(resume))} className={itemClass}>
                             <Download className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Download résumé</span>
-                            <CommandShortcut className={kbdClass}>shift + R</CommandShortcut>
                         </CommandItem>
                         <CommandItem value="action copy link url share" onSelect={() => runCommand(() => navigator.clipboard.writeText(window.location.href))} className={itemClass}>
                             <Copy className="mr-2 h-4 w-4 text-zinc-500" />
@@ -284,24 +251,21 @@ export function CommandMenu() {
                         <CommandItem value="theme light" onSelect={() => runCommand(() => setTheme("light"))} className={itemClass}>
                             <Sun className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Light Mode</span>
-                            <CommandShortcut className={kbdClass}>shift + T</CommandShortcut>
                         </CommandItem>
                         <CommandItem value="theme dark" onSelect={() => runCommand(() => setTheme("dark"))} className={itemClass}>
                             <Moon className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Dark Mode</span>
-                            <CommandShortcut className={kbdClass}>shift + Y</CommandShortcut>
                         </CommandItem>
                         <CommandItem value="theme system auto" onSelect={() => runCommand(() => setTheme("system"))} className={itemClass}>
                             <Laptop className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>System</span>
-                            <CommandShortcut className={kbdClass}>shift + U</CommandShortcut>
                         </CommandItem>
                     </CommandGroup>
                 </CommandList>
 
                 {/* Footer */}
                 <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
-                    <div className="flex items-center gap-4 text-[10px] text-zinc-500">
+                    <div className="flex items-center gap-4 text-[10px] mark-muted">
                         <div className="flex items-center gap-1">
                             <span className="font-mono">Up / Down</span>
                             <span>to navigate</span>
@@ -311,7 +275,7 @@ export function CommandMenu() {
                             <span>to select</span>
                         </div>
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] text-zinc-500">
+                    <div className="flex items-center gap-1 text-[10px] mark-muted">
                         <span className="font-mono">esc</span>
                         <span>to close</span>
                     </div>

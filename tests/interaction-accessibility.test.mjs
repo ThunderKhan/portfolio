@@ -41,3 +41,21 @@ test("contact form labels and actual submission status are exposed", () => {
   }
   assert.ok(s.includes('role="status"') && s.includes("Message could not be sent"));
 });
+
+test("dialog labels live within content and shortcuts do not intercept uppercase typing", () => {
+  const s = read("src/components/ui/command.tsx");
+  assert.ok(s.indexOf("<DialogHeader className") > s.indexOf("<DialogContent"));
+  const menu = read("src/components/command-menu.tsx");
+  assert.ok(menu.includes('aria-label="Search commands"'));
+  assert.ok(menu.includes("onCloseAutoFocus") && !menu.includes("!e.shiftKey"));
+});
+test("calendar daily values are available as a native data table", () => {
+  const s = read("src/components/GithubGraph.tsx");
+  assert.ok(s.includes("Daily activity") && s.includes("<table") && s.includes('scope="row"'));
+  assert.ok(s.includes("graphWeeks.flatMap"));
+});
+test("hackathon disclosure hides closed content and respects reduced motion", () => {
+  const s = read("src/components/Hackathons.tsx");
+  assert.ok(s.includes("aria-controls=") && s.includes("inert={!isOpen}") && s.includes("aria-hidden={!isOpen}"));
+  assert.ok(s.includes("motion-safe:transition-[grid-template-rows]"));
+});

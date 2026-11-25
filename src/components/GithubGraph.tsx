@@ -1,7 +1,7 @@
 "use client";
 import { portfolio } from "~/portfolio.config";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface ContributionDay {
   contributionCount: number;
@@ -20,12 +20,6 @@ interface ContributionLevel {
   cell: string;
 }
 
-interface TooltipState {
-  count: number;
-  date: string;
-  x: number;
-  y: number;
-}
 
 export function GithubGraph() {
   const [weeks, setWeeks] = useState<ContributionWeek[]>([]);
@@ -33,7 +27,7 @@ export function GithubGraph() {
   const [totalContributions, setTotalContributions] = useState(0);
   const [loading, setLoading] = useState(true);
   const [snapshotDate, setSnapshotDate] = useState<string | null>(null);
-  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+  const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -95,21 +89,6 @@ export function GithubGraph() {
       day: "numeric",
       year: "numeric",
     }).format(new Date(`${date}T00:00:00`));
-  };
-
-  const showTooltip = (
-    day: ContributionDay,
-    event:
-      | React.MouseEvent<HTMLDivElement>
-      | React.FocusEvent<HTMLDivElement>
-  ) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setTooltip({
-      count: day.contributionCount,
-      date: formatDate(day.date),
-      x: rect.left + rect.width / 2,
-      y: rect.top,
-    });
   };
 
   const defaultMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -209,10 +188,9 @@ export function GithubGraph() {
                           <div
                             key={day.date}
                             aria-hidden="true"
-                            aria-label={`${day.contributionCount} contributions on ${formatDate(day.date)}`}
                             className={`aspect-square w-full rounded-[2px] outline-none motion-safe:transition-transform motion-safe:hover:scale-125 ${color.cell}`}
-                            onMouseEnter={(event) => showTooltip(day, event)}
-                            onMouseLeave={() => setTooltip(null)}
+                            onMouseEnter={() => setHoveredDay(day)}
+                            onMouseLeave={() => setHoveredDay(null)}
                           />
                         );
                       })}
@@ -229,7 +207,7 @@ export function GithubGraph() {
         </div>
 
         <div className="mt-3 flex items-center justify-between gap-3">
-          <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Less active</span>
+          <span className="text-[11px] mark-muted">{hoveredDay ? `${hoveredDay.contributionCount} contributions on ${formatDate(hoveredDay.date)}` : "Less active"}</span>
           <div className="flex shrink-0 items-center gap-1.5">
             {contributionLevels.map((level, index) => (
               <div
@@ -242,13 +220,24 @@ export function GithubGraph() {
           </div>
         </div>
 
-        {tooltip && (
-          <div
-            className="pointer-events-none fixed z-[100] -translate-x-1/2 -translate-y-[calc(100%+8px)] rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-[11px] font-medium text-zinc-700 shadow-lg shadow-zinc-950/10 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200 dark:shadow-black/40"
-            style={{ left: tooltip.x, top: tooltip.y }}
-          >
-            {tooltip.count} contributions on {tooltip.date}
-          </div>
+        {!loading && graphWeeks.length > 0 && (
+          <details className="mt-2 text-[12px] mark-muted">
+            <summary className="min-h-8 cursor-pointer rounded py-2 underline underline-offset-4">Daily activity</summary>
+            <div className="max-h-64 overflow-auto rounded border mark-panel" role="region" aria-label="Daily GitHub contribution counts" tabIndex={0}>
+              <table className="w-full text-left">
+                <caption className="sr-only">Daily GitHub contributions</caption>
+                <thead><tr><th scope="col" className="px-3 py-2">Date</th><th scope="col" className="px-3 py-2 text-right">Contributions</th></tr></thead>
+                <tbody>
+                  {graphWeeks.flatMap(week => week.contributionDays).map(day => (
+                    <tr key={day.date} className="border-t border-[var(--mark-seam)]">
+                      <th scope="row" className="px-3 py-1 font-normal">{formatDate(day.date)}</th>
+                      <td className="px-3 py-1 text-right tabular-nums">{day.contributionCount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
         )}
       </div>
 

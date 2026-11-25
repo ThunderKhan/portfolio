@@ -67,11 +67,11 @@ export function ExperienceTimeline({ onSelect }: ExperienceTimelineProps) {
           >
             Career timeline
           </h2>
-          <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-600 sm:hidden">
+          <span className="text-[9px] font-medium uppercase tracking-[0.18em] mark-muted sm:hidden">
             drag
           </span>
         </div>
-        <span className="shrink-0 pt-0.5 font-mono text-[10px] font-medium tracking-[0.12em] text-zinc-500 dark:text-zinc-500 sm:text-[11px]">
+        <span className="shrink-0 pt-0.5 font-mono text-[10px] font-medium tracking-[0.12em] mark-muted sm:text-[11px]">
           AS OF NOV 2026
         </span>
       </div>
@@ -93,10 +93,13 @@ export function ExperienceTimeline({ onSelect }: ExperienceTimelineProps) {
       <div
         ref={scrollerRef}
         dir="rtl"
+        tabIndex={0}
+        role="region"
+        aria-label="Career timeline, scroll horizontally if needed"
         className="relative min-h-0 flex-1 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         <div dir="ltr" className="flex h-full w-full flex-col sm:w-[620px] xl:w-full">
-          <div className="relative h-6 shrink-0 font-mono text-[9px] tracking-[0.08em] text-zinc-400 dark:text-zinc-600 sm:text-[10px]">
+          <div className="relative h-6 shrink-0 font-mono text-[9px] tracking-[0.08em] mark-muted sm:text-[10px]">
             {months.map((month, index) => (
               <span key={index} className="absolute" style={{ left: `${(index / monthCount) * 100}%` }}>
                 {month}
@@ -147,7 +150,7 @@ export function ExperienceTimeline({ onSelect }: ExperienceTimelineProps) {
                     aria-label={`View ${item.label}`}
                     aria-describedby={`experience-timeline-tip-${item.experienceIndex}`}
                     onClick={() => onSelect(item.experienceIndex)}
-                    className="relative flex h-8 w-full cursor-pointer items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
+                    className="relative flex h-8 w-full cursor-pointer items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mark-interaction)]"
                   >
                     {/* The coloured bar is its own layer: the shine sweep needs a
                         clip, and the label below must escape it. */}

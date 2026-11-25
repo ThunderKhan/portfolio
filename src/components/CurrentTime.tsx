@@ -25,7 +25,7 @@ export function CurrentTime() {
 
   if (!time) {
     return (
-      <div className="flex items-center opacity-0">
+      <div aria-hidden="true" className="flex items-center opacity-0">
         <div 
           className="font-mono tabular-nums text-[18px] sm:text-[20px] tracking-[0.04em] text-[#F4FBFF]" 
           style={{ fontWeight: 600 }}
@@ -41,8 +41,8 @@ export function CurrentTime() {
   const seconds = time.getSeconds().toString().padStart(2, "0");
 
   return (
-    <div className="flex items-center h-[24px]">
-      <div 
+    <div role="timer" aria-live="off" aria-label={`Local time ${hours}:${minutes}:${seconds}`} className="flex items-center h-[24px]">
+      <div aria-hidden="true"
         className="font-mono tabular-nums text-[18px] sm:text-[20px] tracking-[0.04em] flex items-center text-[#F4FBFF] h-full" 
         style={{ fontWeight: 600 }}
       >

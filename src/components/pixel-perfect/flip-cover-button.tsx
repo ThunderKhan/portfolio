@@ -31,7 +31,8 @@ export function FlipCoverButton({
       <SoftPillButton
         as="div"
         variant="primary"
-        className="px-3 py-1.5 !text-[12px] opacity-0 pointer-events-none aria-hidden"
+        aria-hidden="true"
+        className="px-3 py-1.5 !text-[12px] opacity-0 pointer-events-none"
       >
         <div className="flex items-center gap-1.5">
           <svg
@@ -54,6 +55,7 @@ export function FlipCoverButton({
       <div className={styles.button}>
         <a
           href={href}
+          aria-label={`${label} (cal.com)`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-full h-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-black dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-900 rounded-[4px] text-[12px] font-semibold tracking-wide whitespace-nowrap shadow-sm border border-white/10 dark:border-black/10 transition-colors"

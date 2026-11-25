@@ -16,7 +16,7 @@ function Metric({ label, value }: { label: string; value: string }) {
       <p className="whitespace-nowrap text-[16px] font-bold leading-none text-zinc-900 dark:text-zinc-100">
         {value}
       </p>
-      <p className="mt-1 text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+      <p className="mt-1 text-[10px] font-medium uppercase mark-muted">
         {label}
       </p>
     </div>
@@ -48,7 +48,7 @@ function StatCard({
               {title}
             </h3>
             {stale && (
-              <span className="px-1.5 py-[1px] rounded-[4px] text-[10px] font-medium uppercase text-zinc-500 dark:text-zinc-500 bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/50 dark:border-zinc-700/50">
+              <span className="px-1.5 py-[1px] rounded-[4px] text-[10px] font-medium uppercase mark-muted bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/50 dark:border-zinc-700/50">
                 last known
               </span>
             )}
@@ -57,7 +57,7 @@ function StatCard({
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[12px] font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
+            className="flex items-center gap-1 text-[12px] font-medium mark-muted hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors"
           >
             {handle}
             
@@ -121,7 +121,7 @@ function RatingSparkline({
         <text x={PAD} y={H - 1} fontSize="9" className="fill-zinc-400 dark:fill-zinc-600">{min}</text>
         <text x={W - PAD} y="9" fontSize="9" textAnchor="end" className="fill-zinc-400 dark:fill-zinc-600">{max}</text>
       </svg>
-      <figcaption className="mt-1.5 text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+      <figcaption className="mt-1.5 text-[10px] font-medium uppercase mark-muted">
         Rating across every rated contest
       </figcaption>
     </figure>
@@ -155,7 +155,7 @@ export async function DsaStats() {
         <div className="flex flex-col gap-2.5">
           {difficulties.map((d) => (
             <div key={d.key} className="flex items-center gap-3">
-              <span className="w-12 shrink-0 text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+              <span className="w-12 shrink-0 text-[10px] font-medium uppercase mark-muted">
                 {d.key}
               </span>
               <div className="h-1 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
@@ -166,7 +166,7 @@ export async function DsaStats() {
               </div>
               <span className="w-[86px] shrink-0 text-right text-[11px] font-medium text-zinc-600 dark:text-zinc-400 tabular-nums">
                 {d.solved.toLocaleString()}
-                <span className="text-zinc-400 dark:text-zinc-600"> / {d.total.toLocaleString()}</span>
+                <span className="mark-muted"> / {d.total.toLocaleString()}</span>
               </span>
             </div>
           ))}

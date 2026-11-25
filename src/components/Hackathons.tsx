@@ -33,25 +33,26 @@ export function Hackathons() {
               <button
                 type="button"
                 aria-expanded={isOpen}
+                aria-controls={`hackathon-panel-${h.id}`}
                 onClick={() => setOpenId(isOpen ? null : h.id)}
-                className="w-full cursor-pointer text-left transition-colors hover:bg-zinc-100/60 dark:hover:bg-zinc-900/30"
+                className="w-full cursor-pointer text-left focus-visible:outline-2 focus-visible:-outline-offset-2 transition-colors hover:bg-zinc-100/60 dark:hover:bg-zinc-900/30"
               >
-                <header className="flex flex-wrap items-center gap-x-2 gap-y-1 px-4 pt-3 pb-2.5">
-                  <h3 className="text-[14px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight sm:text-[15px]">
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1 px-4 pt-3 pb-2.5">
+                  <span className="text-[14px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight sm:text-[15px]">
                     {h.event}
-                  </h3>
+                  </span>
                   <span className="px-1.5 py-[1px] rounded-[4px] text-[11px] font-medium mark-gold-text border mark-achievement whitespace-nowrap">
                     {h.placement}
                   </span>
-                  <span className="ml-auto flex items-center gap-2 text-[12px] font-medium text-zinc-400 dark:text-zinc-600 whitespace-nowrap">
+                  <span className="ml-auto flex items-center gap-2 text-[12px] font-medium mark-muted whitespace-nowrap">
                     {h.dates}
                     <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
                   </span>
-                </header>
+                </span>
 
-                <p className="px-4 pb-3 text-left text-[12px] text-zinc-500 dark:text-zinc-500">
+                <span className="block px-4 pb-3 text-left text-[12px] mark-muted">
                   {h.organizer}
-                </p>
+                </span>
               </button>
 
               <div className="h-px bg-black/30 dark:bg-white/[0.15]" style={dashedX} />
@@ -74,11 +75,14 @@ export function Hackathons() {
               </div>
 
               <div
-                className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                id={`hackathon-panel-${h.id}`}
+                inert={!isOpen}
+                aria-hidden={!isOpen}
+                className={`grid motion-safe:transition-[grid-template-rows] motion-safe:duration-[240ms] motion-safe:ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
               >
-                <div className="overflow-hidden">
+                <div className="min-h-0 overflow-hidden">
                   <div
-                    className={`transition-opacity duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "opacity-100" : "opacity-0"}`}
+                    className={`motion-safe:transition-opacity motion-safe:duration-[180ms] ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "opacity-100" : "opacity-0"}`}
                   >
                     <div className="h-px bg-black/30 dark:bg-white/[0.15]" style={dashedX} />
 
@@ -127,7 +131,7 @@ export function Hackathons() {
                         <div className="h-px bg-black/30 dark:bg-white/[0.15]" style={dashedX} />
                         <footer className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
                           {h.team?.length ? (
-                            <p className="text-[12px] text-zinc-500 dark:text-zinc-500">
+                            <p className="text-[12px] mark-muted">
                               Built with {h.team.join(", ")}
                             </p>
                           ) : null}

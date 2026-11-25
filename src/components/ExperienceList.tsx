@@ -125,7 +125,7 @@ export function ExperienceList() {
                             >
                               {metric.value}
                             </p>
-                            <p className="mt-1 text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+                            <p className="mt-1 text-[10px] font-medium uppercase mark-muted">
                               {metric.label}
                             </p>
                           </div>

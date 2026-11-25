@@ -15,6 +15,7 @@ export function SpotifyCard() {
 
   return (
     <article className="overflow-hidden rounded-[8px] border mark-panel p-3">
+      <div id="featured-music-player">
       {showPlayer ? (
         <iframe
           title={`Spotify player: ${title} by ${artist}`}
@@ -43,11 +44,13 @@ export function SpotifyCard() {
           <SiSpotify aria-hidden="true" className="size-5 shrink-0 text-[#16833e] dark:text-[#1ED760]" />
         </div>
       )}
+      </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
         <button
           ref={toggleRef}
           type="button"
           aria-expanded={showPlayer}
+          aria-controls="featured-music-player"
           onClick={() => setShowPlayer(value => !value)}
           className="inline-flex min-h-10 items-center gap-2 rounded-[6px] border mark-surface mark-control px-3 text-[12px] font-medium focus-visible:outline-2"
         >
