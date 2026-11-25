@@ -64,7 +64,7 @@ export default function AllHighlightsPage() {
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
             <div className="flex flex-col justify-center">
-              <h1 className="mb-0.5 text-[20px] font-bold leading-none tracking-tight text-zinc-800 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:text-zinc-100 dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)] sm:text-[24px]">
+              <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 Highlights
               </h1>
               <p className="text-[12px] text-zinc-500 dark:text-zinc-400">Achievements & community</p>
@@ -89,10 +89,10 @@ export default function AllHighlightsPage() {
         </div>
 
         <section aria-labelledby="event-highlights-heading" className="mb-6">
-          <h2 id="event-highlights-heading" className="mb-3 text-[16px] font-bold text-zinc-900 dark:text-zinc-100">Event highlights</h2>
+          <h2 id="event-highlights-heading" className="mb-3 mark-section-title text-zinc-900 dark:text-zinc-100">Event highlights</h2>
           <EventHighlights archive />
         </section>
-        <h2 className="mb-3 text-[16px] font-bold text-zinc-900 dark:text-zinc-100">Milestones</h2>
+        <h2 className="mb-3 mark-section-title text-zinc-900 dark:text-zinc-100">Milestones</h2>
         <section aria-label="Milestones" className="grid grid-cols-1 items-stretch gap-5 pt-2 sm:grid-cols-2 sm:gap-6">
           {highlightsData.map((item, index) => (
             <HighlightCard key={item.id} item={item} layout="archive" number={index + 1} />

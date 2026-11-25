@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Doto, Geist, Geist_Mono } from "next/font/google";
+import { Barlow_Semi_Condensed, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
 import { portfolio } from "~/portfolio.config";
@@ -17,10 +17,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const doto = Doto({
-  variable: "--font-doto",
+const barlow = Barlow_Semi_Condensed({
+  variable: "--font-barlow",
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
+  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -56,7 +56,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${doto.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${barlow.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col dark:bg-black dark:text-zinc-50 transition-colors duration-300">
         <ThemeProvider

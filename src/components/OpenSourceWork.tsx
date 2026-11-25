@@ -6,7 +6,7 @@ import { contributionTotals, featuredOpenSourceWork } from "@/data/openSourceDat
 export function OpenSourceWork() {
   return (
     <>
-      <h2 className="border-y border-dashed border-zinc-300 py-2 text-[18px] font-bold tracking-tight text-zinc-900 dark:border-zinc-800 dark:text-zinc-100">Open source &amp; community</h2>
+      <h2 className="border-y border-dashed border-zinc-300 py-2 mark-section-title text-zinc-900 dark:border-zinc-800 dark:text-zinc-100">Open source &amp; community</h2>
       <p className="mt-3 text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{contributionTotals.merged} merged pull requests across {contributionTotals.repositories} repositories · selected work</p>
       <div className="mt-2">
         <OpenSourceList items={featuredOpenSourceWork} />

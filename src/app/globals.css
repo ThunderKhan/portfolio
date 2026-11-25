@@ -22,7 +22,7 @@
   --color-ring: #a1a1aa;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-barlow);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -195,4 +195,38 @@ body {
     animation-play-state: paused;
   }
 
+}
+
+/* MARK I typography: display and section roles, not blanket heading resets. */
+@layer components {
+  .mark-display {
+    font-family: var(--font-barlow), var(--font-geist-sans), system-ui, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    overflow-wrap: break-word;
+  }
+  .mark-page-title {
+    font-family: var(--font-barlow), var(--font-geist-sans), system-ui, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    overflow-wrap: break-word;
+  }
+  .mark-section-title {
+    font-family: var(--font-barlow), var(--font-geist-sans), system-ui, sans-serif;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  @media (min-width: 1280px) {
+    .mark-display { font-size: 2.5rem; }
+    .mark-page-title { font-size: 1.75rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
 }

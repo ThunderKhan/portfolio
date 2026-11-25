@@ -1,0 +1,23 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { readFileSync } from "node:fs";
+const read = (file) => readFileSync(new URL("../" + file, import.meta.url), "utf8");
+test("approved display and monospace typography replace inherited fonts", () => {
+  const layout = read("src/app/layout.tsx");
+  assert.ok(layout.includes("Barlow_Semi_Condensed"));
+  assert.ok(!layout.includes("Doto"));
+  assert.ok(layout.includes("Geist_Mono"));
+  const css = read("src/app/globals.css");
+  assert.ok(css.includes(".mark-display"));
+  assert.ok(css.includes(".mark-section-title"));
+  const clock = read("src/components/CurrentTime.tsx");
+  assert.ok(clock.includes("font-mono tabular-nums"));
+  assert.ok(!clock.includes("font-doto"));
+});
+test("primary page headings no longer use inherited RGB glitch shadows", () => {
+  for (const path of ["src/app/page.tsx","src/app/projects/page.tsx","src/app/projects/[slug]/page.tsx","src/app/experience/page.tsx","src/app/blogs/page.tsx","src/app/blogs/[slug]/page.tsx","src/app/contact/page.tsx","src/app/open-source/page.tsx","src/app/certifications/page.tsx","src/app/highlights/page.tsx"]) {
+    const source = read(path);
+    assert.ok(!source.includes("[text-shadow:-1.5px_0_0_rgba"), path);
+    assert.ok(source.includes("mark-display") || source.includes("mark-page-title"), path);
+  }
+});

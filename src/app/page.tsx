@@ -93,7 +93,7 @@ export default async function Home() {
             </div>
 
             <div className="flex min-w-0 flex-col justify-center pt-8">
-              <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
+              <h1 className="mark-display mb-0.5 text-zinc-900 dark:text-zinc-100">
                 {portfolio.name}
               </h1>
               <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">{portfolio.location}</p>
@@ -110,11 +110,11 @@ export default async function Home() {
 
       {/* Flowing Content Section */}
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
-        <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
+        <p className="text-base leading-[1.55] text-zinc-600 dark:text-zinc-300 mt-4">
           {portfolio.intro}
         </p>
 
-        <ul className="list-disc space-y-1 text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-5">
+        <ul className="list-disc space-y-1 text-base leading-[1.55] text-zinc-600 dark:text-zinc-300 mt-4 pl-5">
           {portfolio.about.map((line) => <li key={line}>{line}</li>)}
         </ul>
 
@@ -201,7 +201,7 @@ export default async function Home() {
         {/* Projects */}
         <div id="projects" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Selected projects</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Selected projects</h2>
 
             {/* Horizontal line below Projects heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -257,7 +257,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Experience</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Experience</h2>
             {/* Bottom full-width line */}
             <div
               className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none"
@@ -310,7 +310,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Hackathons</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Hackathons</h2>
 
             {/* Horizontal line below heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -338,7 +338,7 @@ export default async function Home() {
             <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
             <div className="py-2 relative mt-1">
-              <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Technical writing</h2>
+              <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Technical writing</h2>
 
               {/* Horizontal line below Blogs heading */}
               <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -385,7 +385,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Skills & Technologies</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Skills & Technologies</h2>
 
             {/* Horizontal line below Skills heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -433,7 +433,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Education</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Education</h2>
 
             {/* Horizontal line below heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -458,7 +458,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Certifications</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Certifications</h2>
 
             {/* Horizontal line below heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -487,7 +487,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Problem solving</h2>
+            <h2 className="mark-section-title text-zinc-900 dark:text-zinc-100">Problem solving</h2>
 
             {/* Horizontal line below heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -506,7 +506,7 @@ export default async function Home() {
         <section id="highlights" aria-labelledby="highlights-heading" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
           <div className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
           <div className="py-2 relative mt-1">
-            <h2 id="highlights-heading" className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Highlights</h2>
+            <h2 id="highlights-heading" className="mark-section-title text-zinc-900 dark:text-zinc-100">Highlights</h2>
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
           </div>
           <div className="pt-4 pb-2">
@@ -517,7 +517,7 @@ export default async function Home() {
         <section id="music" aria-labelledby="music-heading" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
           <div className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
           <div className="py-2 relative mt-1">
-            <h2 id="music-heading" className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Music</h2>
+            <h2 id="music-heading" className="mark-section-title text-zinc-900 dark:text-zinc-100">Music</h2>
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
           </div>
           <div className="pt-4 pb-2">

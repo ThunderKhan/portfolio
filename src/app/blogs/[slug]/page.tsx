@@ -150,7 +150,7 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
             style={horizontalDashes}
           />
           <div className="absolute left-0 top-0 h-[2px] w-[2px] -translate-x-1/2 -translate-y-1/2 bg-black/40 pointer-events-none dark:bg-white/[0.22]" />
-          <h2 className="text-[18px] font-bold leading-snug tracking-tight text-zinc-900 dark:text-zinc-50">
+          <h2 className="mark-section-title text-zinc-900 dark:text-zinc-50">
             {block.text}
           </h2>
         </section>
@@ -269,7 +269,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
             <div className="flex min-w-0 flex-col justify-center">
-              <p className="text-[20px] font-bold leading-none tracking-tight text-zinc-800 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:text-zinc-100 dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)] sm:text-[24px]">
+              <p className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 Blog
               </p>
               <p className="mt-1 truncate text-[12px] font-medium text-zinc-500 dark:text-zinc-400">
@@ -299,7 +299,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               ))}
             </div>
 
-            <h1 className="text-[28px] font-bold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50 sm:text-[34px]">
+            <h1 className="mark-display text-zinc-950 dark:text-zinc-50">
               {post.title}
             </h1>
 

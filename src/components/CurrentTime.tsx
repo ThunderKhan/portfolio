@@ -27,8 +27,8 @@ export function CurrentTime() {
     return (
       <div className="flex items-center opacity-0">
         <div 
-          className="text-[20px] sm:text-[24px] tracking-[0.15em] text-[#F4FBFF]" 
-          style={{ fontFamily: "var(--font-doto), monospace", fontWeight: 700 }}
+          className="font-mono tabular-nums text-[18px] sm:text-[20px] tracking-[0.04em] text-[#F4FBFF]" 
+          style={{ fontWeight: 600 }}
         >
           00.00.00
         </div>
@@ -43,8 +43,8 @@ export function CurrentTime() {
   return (
     <div className="flex items-center h-[24px]">
       <div 
-        className="text-[20px] sm:text-[24px] tracking-[0.15em] flex items-center text-[#F4FBFF] h-full" 
-        style={{ fontFamily: "var(--font-doto), monospace", fontWeight: 700 }}
+        className="font-mono tabular-nums text-[18px] sm:text-[20px] tracking-[0.04em] flex items-center text-[#F4FBFF] h-full" 
+        style={{ fontWeight: 600 }}
       >
         <span>{hours}</span>
         <TwoDots />

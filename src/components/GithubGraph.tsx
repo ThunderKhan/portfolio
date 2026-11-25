@@ -145,7 +145,7 @@ export function GithubGraph() {
       {/* Heading */}
       <div className="relative py-2">
         <div className="flex items-center justify-between gap-3">
-          <h2 id="github-activity-title" className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+          <h2 id="github-activity-title" className="mark-section-title text-zinc-900 dark:text-zinc-100">
             Engineering activity
           </h2>
           <p className="text-right text-[11px] text-zinc-500 dark:text-zinc-400" aria-live="polite">

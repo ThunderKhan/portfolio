@@ -94,7 +94,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
             <div className="flex flex-col justify-center">
-              <p className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
+              <p className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 {project.title}
               </p>
               <p className="text-[12px] text-zinc-500 dark:text-zinc-400 font-medium">
@@ -178,7 +178,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {/* Title and Status */}
         <div className="flex items-center justify-between w-full mb-4">
-          <h1 className="text-[24px] sm:text-[28px] font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-none">
+          <h1 className="mark-display text-zinc-900 dark:text-zinc-50">
             {project.title}
           </h1>
           <div className="flex items-center gap-2">
@@ -202,13 +202,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         )}
         {project.problem && (
           <section className="mt-6">
-            <h2 className="mb-2 text-[16px] font-bold text-zinc-900 dark:text-zinc-50">Problem</h2>
+            <h2 className="mb-2 mark-section-title text-zinc-900 dark:text-zinc-50">Problem</h2>
             <p className="text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-300">{project.problem}</p>
           </section>
         )}
         {project.highlights?.length ? (
           <section className="mt-6">
-            <h2 className="mb-2 text-[16px] font-bold text-zinc-900 dark:text-zinc-50">Technical highlights</h2>
+            <h2 className="mb-2 mark-section-title text-zinc-900 dark:text-zinc-50">Technical highlights</h2>
             <ul className="list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-300">
               {project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
             </ul>
@@ -232,7 +232,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {/* Tech Stack */}
         <div>
-          <h2 className="text-[16px] font-bold text-zinc-900 dark:text-zinc-50 tracking-tight mb-4">Stack used</h2>
+          <h2 className="mark-section-title text-zinc-900 dark:text-zinc-50 tracking-tight mb-4">Stack used</h2>
           <div className="flex flex-wrap gap-2">
             {project.tech.map((t: TechItem, i: number) => {
               const isKey = typeof t === "string";

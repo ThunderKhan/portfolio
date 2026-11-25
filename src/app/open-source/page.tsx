@@ -63,7 +63,7 @@ export default function OpenSourcePage() {
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
             <div className="flex flex-col justify-center">
-              <h1 className="mb-0.5 text-[20px] font-bold leading-none tracking-tight text-zinc-800 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:text-zinc-100 dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)] sm:text-[24px]">
+              <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 OSS Contributions
               </h1>
               <p className="text-[12px] text-zinc-500 dark:text-zinc-400">Open source archive</p>
