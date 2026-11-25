@@ -37,7 +37,7 @@ export function ThemeToggle({ className }: { className?: string }) {
   const mounted = useMounted();
 
   if (!mounted) {
-    return <div className={cn("h-[18px] w-[18px]", className)} />;
+    return <div className={cn("h-8 w-8", className)} />;
   }
 
   const isDark = resolvedTheme === "dark";
@@ -46,7 +46,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     const nextTheme = isDark ? "light" : "dark";
     const transitionDocument = document as ViewTransitionDocument;
 
-    if (!transitionDocument.startViewTransition) {
+    if (!transitionDocument.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setTheme(nextTheme);
       return;
     }
@@ -66,7 +66,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         toggleTheme();
       }}
       className={cn(
-        "relative z-50 flex h-[18px] w-[18px] cursor-pointer items-center justify-center text-zinc-500 transition-all duration-300 hover:text-zinc-900 active:scale-95 dark:text-zinc-600 dark:hover:text-zinc-300",
+        "relative z-50 flex h-8 w-8 rounded-md cursor-pointer items-center justify-center mark-control motion-safe:transition-colors motion-safe:duration-150 focus-visible:outline-2 focus-visible:outline-offset-2",
         className,
       )}
       aria-label="Toggle theme"

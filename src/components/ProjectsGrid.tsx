@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { ProjectPreview } from "@/components/ProjectPreview";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 import {
   type TechIcon,
@@ -35,7 +35,8 @@ export const ProjectCard = ({
 }) => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
-  const router = useRouter();
+  const reduceMotion = useReducedMotion();
+  const externalUrl = project.live || project.github;
 
   const imageSrc = resolvedTheme === "light" && project.lightModeSrc ? project.lightModeSrc : project.src;
 
@@ -54,15 +55,12 @@ export const ProjectCard = ({
     : "Live";
 
   return (
-    <div
-      className="flex flex-col group cursor-pointer"
-      onClick={() => router.push(`/projects/${project.slug}`)}
-    >
+    <article className="relative flex min-w-0 flex-col group rounded-lg">
       {/* Outer Wrapper exactly like screenshot */}
       <motion.div
         className="relative w-full aspect-[1.25] rounded-xl border mark-surface shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md hover:border-black/10 dark:hover:border-white/10 sm:aspect-[1.4] sm:p-4 sm:pb-0"
         initial="rest"
-        whileHover="hover"
+        whileHover={reduceMotion ? "rest" : "hover"}
         animate="rest"
       >
         <div className="flex items-center justify-end z-10 min-h-[24px]">
@@ -80,7 +78,7 @@ export const ProjectCard = ({
         {project.backgroundImage && (
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 scale-100 bg-cover bg-center opacity-0 transition-[opacity,transform] duration-200 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+            className="pointer-events-none absolute inset-0 scale-100 bg-cover bg-center opacity-0 transition-[opacity,transform] duration-200 ease-out motion-safe:group-hover:scale-[1.03] group-hover:opacity-100"
             style={{ backgroundImage: `url(${project.backgroundImage})` }}
           />
         )}
@@ -94,7 +92,7 @@ export const ProjectCard = ({
             rest: { y: 0, x: "-50%", scale: 1 },
             hover: { y: 4, x: "-50%", scale: 0.94 },
           }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          transition={{ duration: reduceMotion ? 0 : 0.15, ease: "easeOut" }}
         >
           {/* The panel is sized to 1.6 to match the screenshots, so cover fills
               it exactly - at 1.53 it clipped the left edge of every 16:10 shot. */}
@@ -116,8 +114,12 @@ export const ProjectCard = ({
 
       {/* Content Area directly below the wrapper */}
       <div className="mt-4 flex flex-col px-0.5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
-          <h3 className="text-[15px] font-bold text-zinc-900 dark:text-zinc-100 leading-tight">{project.title}</h3>
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <h3 className="min-w-0 break-words text-[15px] font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
+            <Link href={`/projects/${project.slug}`} className="rounded-sm after:absolute after:inset-0 after:z-30 after:rounded-lg focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-[var(--mark-interaction)]">
+              {project.title}
+            </Link>
+          </h3>
 
           <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-900/50 w-fit shrink-0">
             <div className={`w-1.5 h-1.5 rounded-full ${statusColor}`} />
@@ -129,8 +131,8 @@ export const ProjectCard = ({
           {project.description}
         </p>
 
-        <div className="flex items-center justify-between gap-3 mt-3">
-          <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-wrap items-center justify-between gap-3 mt-3">
+          <div className="relative z-40 flex gap-2 flex-wrap">
             {project.tech.map((item) => {
               const key = typeof item === "string" ? item : item.label;
               const isIconItem = typeof item === "string";
@@ -141,13 +143,14 @@ export const ProjectCard = ({
                 <div
                   key={key}
                   className="relative"
+                  title={tooltipText}
                   onMouseEnter={() => setHoveredTech(uniqueId)}
                   onMouseLeave={() => setHoveredTech(null)}
                 >
                   {isIconItem ? (
                     (() => {
                       const TechIcon = iconMap[item];
-                      return <TechIcon className="w-4 h-4 md:w-3.5 md:h-3.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors" />;
+                      return <><span className="sr-only">{tooltipText}</span><TechIcon aria-hidden="true" className="w-4 h-4 md:w-3.5 md:h-3.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors" /></>;
                     })()
                   ) : (
                     <span className="px-1.5 py-0.5 rounded border border-black/30 dark:border-white/[0.15] text-[9px] text-zinc-500 dark:text-zinc-400 leading-none">
@@ -157,9 +160,10 @@ export const ProjectCard = ({
                   <AnimatePresence>
                     {hoveredTech === uniqueId && (
                       <motion.div
-                        initial={{ opacity: 0, y: 5 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 5 }}
+                        exit={{ opacity: 0, y: reduceMotion ? 0 : 5 }}
+                        aria-hidden="true"
                         className="absolute -top-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
                       >
                         <div className="bg-zinc-800 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 text-[10px] px-2 py-0.5 rounded shadow-xl whitespace-nowrap">
@@ -173,16 +177,18 @@ export const ProjectCard = ({
             })}
           </div>
 
-          <div className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-zinc-500 transition-colors cursor-pointer group-hover:text-zinc-800 dark:group-hover:text-zinc-200 sm:text-[12px]" onClick={(e) => { e.stopPropagation(); if (project.live) window.open(project.live, "_blank"); else if (project.github) window.open(project.github, "_blank"); }}>
-            View Project
-            <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="7 7 17 7 17 17"></polyline>
-            </svg>
-          </div>
+          {externalUrl && (
+            <a href={externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} ${project.live ? "live project" : "repository"} in a new tab`} className="relative z-40 inline-flex min-h-8 shrink-0 items-center gap-1 rounded-sm text-[12px] font-medium mark-control">
+              {project.live ? "Live project" : "Repository"}
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </a>
+          )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

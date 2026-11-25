@@ -173,7 +173,7 @@ body {
   }
   ::view-transition-new(root) {
     mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="m20 0 20 35H0z" fill="white"/></svg>') center / 0 no-repeat;
-    animation: scale 0.7s;
+    animation: scale 0.4s;
     animation-fill-mode: both;
   }
 
@@ -302,3 +302,10 @@ body {
 .mark-muted { color: var(--mark-muted); }
 .mark-control:hover { color: var(--mark-interaction); }
 .mark-surface:focus-within { border-color: var(--mark-interaction); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
+}

@@ -48,17 +48,21 @@ export function ExperienceList() {
               </>
             )}
 
-            <div
-              className="flex flex-col items-start gap-2.5 py-3.5 px-4 -mx-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer relative z-20 rounded-lg sm:gap-3 sm:py-4 2xl:flex-row 2xl:items-center 2xl:justify-between"
+            <button
+              type="button"
+              id={`home-experience-trigger-${idx}`}
+              aria-expanded={isOpen}
+              aria-controls={`home-experience-panel-${idx}`}
+              className="flex w-[calc(100%+2rem)] text-left flex-col items-start gap-2.5 py-3.5 px-4 -mx-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 motion-safe:transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 relative z-20 rounded-lg sm:gap-3 sm:py-4 2xl:flex-row 2xl:items-center 2xl:justify-between"
               onClick={() => setOpenIdx(isOpen ? null : idx)}
             >
-              <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
-                <div className="size-10 shrink-0 rounded-[10px] border border-black/10 bg-zinc-50 p-[2px] shadow-sm shadow-black/15 dark:border-zinc-800 dark:bg-[#111111] dark:shadow-md dark:shadow-black/50">
-                  <div className="w-full h-full rounded-[7px] border border-black/5 dark:border-black/20 bg-white flex items-center justify-center overflow-hidden relative">
+              <span className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
+                <span className="size-10 shrink-0 rounded-[10px] border border-black/10 bg-zinc-50 p-[2px] shadow-sm shadow-black/15 dark:border-zinc-800 dark:bg-[#111111] dark:shadow-md dark:shadow-black/50">
+                  <span className="w-full h-full rounded-[7px] border border-black/5 dark:border-black/20 bg-white flex items-center justify-center overflow-hidden relative">
                     <ExperienceLogo
                       src={item.src}
                       fallbackSrc={item.fallbackSrc}
-                      alt={item.title}
+                      alt=""
                       width={40}
                       height={40}
                       sizes="40px"
@@ -66,10 +70,10 @@ export function ExperienceList() {
                       style={item.imageZoom ? { transform: `scale(${item.imageZoom})` } : undefined}
                       className={`${item.imageFit === "contain" ? "object-contain" : "object-cover"} w-full h-full ${item.imageBleed ? "" : "p-0.5"}`}
                     />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-0.5 min-w-0 pr-2 sm:pr-4">
-                  <div className="flex flex-wrap items-center gap-2">
+                  </span>
+                </span>
+                <span className="flex flex-col gap-0.5 min-w-0 pr-2 sm:pr-4">
+                  <span className="flex flex-wrap items-center gap-2">
                     <span className="text-[14px] font-bold leading-tight text-zinc-900 dark:text-zinc-100 sm:text-[17px]">
                       {item.title}
                     </span>
@@ -78,20 +82,20 @@ export function ExperienceList() {
                         {item.type}
                       </span>
                     )}
-                  </div>
+                  </span>
                   <span
-                    className={`text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-400 truncate`}
+                    className={`text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-400 break-words`}
                   >
                     {item.role}
                   </span>
-                </div>
-              </div>
-              <div className="flex flex-col items-start gap-0.5 text-left pr-5 pl-[52px] shrink-0 sm:pl-[56px] 2xl:mt-0 2xl:items-end 2xl:pl-0 2xl:text-right">
-                <div className="flex items-center text-[13px] sm:text-[14px] font-medium text-zinc-900 dark:text-zinc-100 relative">
+                </span>
+              </span>
+              <span className="flex flex-col items-start gap-0.5 text-left pr-5 pl-[52px] shrink-0 sm:pl-[56px] 2xl:mt-0 2xl:items-end 2xl:pl-0 2xl:text-right">
+                <span className="flex items-center text-[13px] sm:text-[14px] font-medium text-zinc-900 dark:text-zinc-100 relative">
                   <span>{item.dates}</span>
                   <svg
                     viewBox="0 0 24 24"
-                    className={`w-3.5 h-3.5 text-zinc-500 absolute -right-5 top-1/2 -translate-y-1/2 -mt-[1.5px] transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                    className={`w-3.5 h-3.5 text-zinc-500 absolute -right-5 top-1/2 -translate-y-1/2 -mt-[1.5px] motion-safe:transition-transform motion-safe:duration-[240ms] ${isOpen ? "rotate-180" : ""
                       }`}
                     fill="none"
                     stroke="currentColor"
@@ -99,20 +103,23 @@ export function ExperienceList() {
                   >
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
-                </div>
+                </span>
                 {item.location && <span className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">{item.location}</span>}
-              </div>
-            </div>
+              </span>
+            </button>
 
             {/* Expandable Details Section */}
             <div
-              className={`-mx-4 grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              id={`home-experience-panel-${idx}`}
+              inert={!isOpen}
+              aria-hidden={!isOpen}
+              className={`-mx-4 grid motion-safe:transition-[grid-template-rows] motion-safe:duration-[240ms] motion-safe:ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                 }`}
             >
-              <div className="overflow-hidden">
+              <div className="min-h-0 overflow-hidden">
                 <div
-                  className={`${isOpen ? "pb-4 pt-0 opacity-100 translate-y-0" : "pb-0 pt-0 opacity-0 -translate-y-2"
-                    } transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] pl-6 pr-8 text-[14px] text-zinc-600 dark:text-zinc-400`}
+                  className={`${isOpen ? "pb-4 pt-0 opacity-100" : "pb-0 pt-0 opacity-0"
+                    } motion-safe:transition-opacity motion-safe:duration-[180ms] pl-6 pr-8 text-[14px] text-zinc-600 dark:text-zinc-400`}
                 >
                   {item.metrics && (
                     <div className="relative -ml-6 -mr-8 mb-4">
