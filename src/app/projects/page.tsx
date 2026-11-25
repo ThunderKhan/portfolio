@@ -79,7 +79,7 @@ export default function AllProjectsPage() {
         </div>
 
         {/* Content Section */}
-        <div
+        <main id="main-content" tabIndex={-1}
           className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative"
         >
           <div className="relative pt-6 pb-6">
@@ -123,7 +123,7 @@ export default function AllProjectsPage() {
             <div className="absolute -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
             <div className="absolute -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
           </div>
-        </div>
+        </main>
       </div>
 
       {/* MODAL */}

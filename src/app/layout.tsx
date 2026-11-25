@@ -66,6 +66,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <a href="#main-content" className="mark-skip-link">Skip to main content</a>
           {children}
         </ThemeProvider>
         <Analytics />

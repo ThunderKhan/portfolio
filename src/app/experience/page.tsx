@@ -94,7 +94,7 @@ export default function AllExperiencePage() {
       </div>
 
       {/* Content Section */}
-      <div
+      <main id="main-content" tabIndex={-1}
         className="pointer-events-none ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(var(--experience-hero)+112px)] pb-16 px-4 flex flex-col z-10 relative"
       >
         <div className="pointer-events-auto relative pt-0 pb-6">
@@ -205,7 +205,7 @@ export default function AllExperiencePage() {
                                   >
                                     {metric.value}
                                   </p>
-                                  <p className="mt-1 text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+                                  <p className="mt-1 text-[10px] font-medium uppercase mark-muted">
                                     {metric.label}
                                   </p>
                                 </div>
@@ -309,7 +309,7 @@ export default function AllExperiencePage() {
           <div className="absolute -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
           <div className="absolute -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
         </div>
-      </div>
+      </main>
     </div>
   );
 }

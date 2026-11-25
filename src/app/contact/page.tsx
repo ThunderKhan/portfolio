@@ -6,7 +6,6 @@ import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CurrentTime } from "@/components/CurrentTime";
 import { RightNavbar } from "@/components/RightNavbar";
-import { FlightButton } from "@/components/FlightButton";
 import DisplacementText from "@/components/DisplacementText";
 
 import Link from "next/link";
@@ -19,16 +18,13 @@ export default function ContactPage() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const isFormValid =
-    formData.name.trim() !== "" &&
-    formData.email.trim() !== "" &&
-    formData.message.trim() !== "";
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting || !portfolio.contactFormEnabled) return;
     setIsSubmitting(true);
+    setSubmitStatus("Sending message…");
 
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -45,9 +41,13 @@ export default function ContactPage() {
       if (response.ok) {
         form.reset();
         setFormData({ name: "", email: "", message: "" });
+        setSubmitStatus("Message sent.");
+      } else {
+        setSubmitStatus("Message could not be sent. Please try again or contact me by email.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSubmitStatus("Message could not be sent. Please try again or contact me by email.");
     } finally {
       setIsSubmitting(false);
     }
@@ -143,7 +143,7 @@ export default function ContactPage() {
       </div>
 
       {/* Content Section */}
-      <div className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative">
+      <main id="main-content" tabIndex={-1} className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative">
         {/* Form */}
         {portfolio.contactFormEnabled ? <form onSubmit={handleSubmit} className="mt-12 -mx-4 space-y-10">
           {/* FormSubmit Configuration */}
@@ -153,44 +153,49 @@ export default function ContactPage() {
           <input type="text" name="_honey" style={{ display: "none" }} />
 
           <div className="space-y-2">
-            <label className="text-[11px] font-bold tracking-[0.15em] text-zinc-400 dark:text-zinc-600 uppercase ml-4">
+            <label htmlFor="contact-name" className="text-[11px] font-bold tracking-[0.15em] mark-muted uppercase ml-4">
               Full Name
             </label>
             <input
               required
+              id="contact-name"
               name="name"
+              autoComplete="name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
               placeholder="Tyler Durden"
-              className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-500 dark:focus:border-zinc-500 transition-colors placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
+              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-zinc-500 transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[11px] font-bold tracking-[0.15em] text-zinc-400 dark:text-zinc-600 uppercase ml-4">
+            <label htmlFor="contact-email" className="text-[11px] font-bold tracking-[0.15em] mark-muted uppercase ml-4">
               Email Address
             </label>
             <input
               required
               type="email"
+              id="contact-email"
               name="email"
+              autoComplete="email"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
               placeholder="tyler@projectmayhem.com"
-              className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-500 dark:focus:border-zinc-500 transition-colors placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
+              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-zinc-500 transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[11px] font-bold tracking-[0.15em] text-zinc-400 dark:text-zinc-600 uppercase ml-4">
+            <label htmlFor="contact-message" className="text-[11px] font-bold tracking-[0.15em] mark-muted uppercase ml-4">
               Message
             </label>
             <textarea
               required
+              id="contact-message"
               name="message"
               rows={4}
               value={formData.message}
@@ -198,7 +203,7 @@ export default function ContactPage() {
                 setFormData({ ...formData, message: e.target.value })
               }
               placeholder="You're crazy good, never change."
-              className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-zinc-500 dark:focus:border-zinc-500 transition-colors placeholder:text-zinc-300 dark:placeholder:text-zinc-700 resize-none"
+              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-zinc-500 transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400 resize-none"
             />
           </div>
 
@@ -206,13 +211,10 @@ export default function ContactPage() {
           <div className="flex justify-center w-full pt-4">
             <div className="relative group">
               <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
-              <FlightButton
-                type="submit"
-                disabled={isSubmitting || !isFormValid}
-                className="!relative !bg-zinc-50 dark:!bg-[#09090b] !border-black/5 dark:!border-white/5 !shadow-sm !shadow-black/20 dark:!shadow-lg dark:!shadow-black/80 !rounded-[6px] !px-4 !py-2 !text-[13px] !font-medium !transition-all !duration-300 hover:!bg-zinc-100 dark:hover:!bg-[#121214]"
-              />
+              <button type="submit" disabled={isSubmitting} className="mark-surface mark-control min-h-10 rounded-[6px] border px-4 py-2 text-[13px] font-medium disabled:cursor-not-allowed disabled:opacity-70">{isSubmitting ? "Sending…" : "Send Message"}</button>
             </div>
           </div>
+          <p role="status" className="px-4 text-[13px] mark-muted">{submitStatus}</p>
         </form> : (
           <div className="py-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
             <p>For now, please contact me directly by email.</p>
@@ -270,7 +272,7 @@ export default function ContactPage() {
             />
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

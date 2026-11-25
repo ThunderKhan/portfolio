@@ -111,7 +111,7 @@ export default async function Home() {
       </div>
 
       {/* Flowing Content Section */}
-      <div className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
+      <main id="main-content" tabIndex={-1} className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
         <p className="text-base leading-[1.55] text-zinc-600 dark:text-zinc-300 mt-4">
           {portfolio.intro}
         </p>
@@ -130,7 +130,7 @@ export default async function Home() {
               className="px-3 py-1.5 !text-[12px]"
             >
               <div className="flex items-center gap-1.5">
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
@@ -142,7 +142,7 @@ export default async function Home() {
 
         {/* Socials */}
         <div id="contact" className="mt-6 scroll-mt-24">
-          <h2 className="text-[14px] text-zinc-500 mb-2">Here are my <span className="font-medium text-zinc-800 dark:text-zinc-200">socials</span></h2>
+          <h2 className="text-[14px] mark-muted mb-2">Here are my <span className="font-medium text-zinc-800 dark:text-zinc-200">socials</span></h2>
           <div className="flex flex-wrap gap-1.5">
             {[
               { name: 'GitHub', href: `https://github.com/${portfolio.handles.github}`, icon: <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" strokeWidth="2" fill="none"></path> },
@@ -159,11 +159,11 @@ export default async function Home() {
                   variant="secondary"
                   className="px-3 py-1.5 !text-[12px]"
                 >
-                  <div className="flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex items-center gap-1.5 ">
                     {social.name === 'LeetCode' ? (
                       <SiLeetcode className="w-3.5 h-3.5" aria-hidden="true" />
                     ) : (
-                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5">
+                      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-3.5 h-3.5">
                         {social.icon}
                       </svg>
                     )}
@@ -181,8 +181,8 @@ export default async function Home() {
               variant="secondary"
               className="px-3 py-1.5 !text-[12px]"
             >
-              <div className="flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="flex items-center gap-1.5 ">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
                   <line x1="16" y1="13" x2="8" y2="13" />
@@ -385,7 +385,7 @@ export default async function Home() {
           <div className="relative flex flex-col gap-5 pt-6 pb-2">
             {skillGroups.map((group) => (
               <div key={group.group}>
-                <p className="font-mono text-[10px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-600">
+                <p className="font-mono text-[10px] font-medium uppercase tracking-wider mark-muted">
                   {group.group}
                 </p>
                 {/* No `grow` here: it stretched the last row's chips across the
@@ -516,9 +516,9 @@ export default async function Home() {
         {/* Minimal Quote Section */}
         <div className="mt-2 flex flex-col items-center justify-center relative py-6">
           <div className="max-w-[480px] w-full flex flex-col items-center">
-            <h3 className="text-[16px] font-medium text-center leading-relaxed mark-gold-text mb-6 italic">
+            <p className="text-[16px] font-medium text-center leading-relaxed mark-gold-text mb-6 italic">
               Labor omnia vincit.
-            </h3>
+            </p>
 
             <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] mark-muted uppercase">
               <div className="w-4 h-[1px] mark-gold-detail" />
@@ -552,7 +552,7 @@ export default async function Home() {
           <FooterBackground />
         </div>
 
-      </div>
+      </main>
 
     </div>
   );

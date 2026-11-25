@@ -78,12 +78,12 @@ export default function AllHighlightsPage() {
         </div>
       </header>
 
-      <main className="relative z-10 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
+      <main id="main-content" tabIndex={-1} className="relative z-10 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
         <div className="flex items-center justify-between gap-4 py-5">
           <p className="text-[12px] leading-relaxed text-zinc-500 dark:text-zinc-400">
             Moments, milestones, and recognition along the way.
           </p>
-          <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-600">
+          <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] mark-muted">
             {String(highlightsData.length).padStart(2, "0")} items
           </span>
         </div>

@@ -112,7 +112,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* Content Section */}
-      <div className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative">
+      <main id="main-content" tabIndex={-1} className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative">
 
         {/* Media (Video or Image) right at the top */}
         <div className="w-full aspect-[16/10] relative mt-8 rounded-lg overflow-hidden border border-black/10 dark:border-white/[0.15] shadow-sm bg-zinc-100 dark:bg-[#0a0a0a] z-20">
@@ -248,7 +248,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             })}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

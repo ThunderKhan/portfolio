@@ -178,7 +178,7 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
               className="h-auto w-full object-cover"
             />
           </div>
-          <figcaption className="mt-2 text-[11px] leading-5 text-zinc-500 dark:text-zinc-500">
+          <figcaption className="mt-2 text-[11px] leading-5 mark-muted">
             {block.caption}
           </figcaption>
         </figure>
@@ -280,7 +280,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
         </div>
       </div>
 
-      <main className="relative z-10 flex flex-col px-4 pb-16 sm:px-8 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
+      <main id="main-content" tabIndex={-1} className="relative z-10 flex flex-col px-4 pb-16 sm:px-8 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
         <article className="relative mx-auto w-full min-w-0 max-w-[75ch] [overflow-wrap:anywhere]">
           <header className="relative py-7">
             <div className="mb-4 flex flex-wrap gap-2">

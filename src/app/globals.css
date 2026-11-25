@@ -433,3 +433,25 @@ body {
   .mark-mesh-background canvas,
   .mark-mesh-background[data-ready="true"] .mark-mesh-toggle { display: none; }
 }
+
+/* Keyboard bypass and focus, including portaled controls. */
+.mark-skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  transform: translateY(calc(-100% - 24px));
+  background: var(--mark-panel);
+  color: var(--mark-ink);
+  border: 2px solid var(--mark-interaction);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+.mark-skip-link:focus { transform: none; }
+[data-slot="dialog-content"] :focus-visible {
+  outline: 2px solid var(--mark-interaction);
+  outline-offset: -2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="dialog-content"], [data-slot="dialog-overlay"] { animation: none !important; }
+}
