@@ -120,7 +120,7 @@ export default function ContactPage() {
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/"
-              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 mark-muted hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
               Back
             </Link>
@@ -128,7 +128,7 @@ export default function ContactPage() {
               <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 Contact
               </h1>
-              <p className="text-[12px] text-zinc-500 dark:text-zinc-400">
+              <p className="text-[12px] mark-muted">
                 Open for meaningful work.
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function ContactPage() {
         {/* Footer - Socials + Displacement Text */}
         <div className="pt-2 -mt-4 pb-5 px-4 flex flex-col md:flex-row md:items-center justify-between gap-8 overflow-hidden">
           <div className="flex-shrink-0">
-            <p className="text-[14px] text-zinc-500 mb-2">Find me on my <span className="font-medium text-zinc-800 dark:text-zinc-200">socials</span></p>
+            <p className="text-[14px] mark-muted mb-2">Find me on my <span className="font-medium text-zinc-800 dark:text-zinc-200">socials</span></p>
             <div className="flex flex-wrap gap-1.5">
               <SocialHoverCard socialName="GitHub">
                 <a href={`https://github.com/${portfolio.handles.github}`} target="_blank" className="flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-100 dark:bg-zinc-800/40 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md text-[12px] font-medium text-zinc-600 dark:text-zinc-300 transition-colors border border-zinc-200/50 dark:border-zinc-700/50">

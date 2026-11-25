@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 const read = path => readFileSync(new URL("../" + path, import.meta.url), "utf8");
 test("project cards provide native distinct internal and external links", () => {
   const s = read("src/components/ProjectsGrid.tsx");
@@ -58,4 +58,23 @@ test("hackathon disclosure hides closed content and respects reduced motion", ()
   const s = read("src/components/Hackathons.tsx");
   assert.ok(s.includes("aria-controls=") && s.includes("inert={!isOpen}") && s.includes("aria-hidden={!isOpen}"));
   assert.ok(s.includes("motion-safe:transition-[grid-template-rows]"));
+});
+
+test("education definition list groups contain only terms and descriptions", () => {
+  const s = read("src/components/Education.tsx");
+  const list = s.slice(s.indexOf("<dl "), s.indexOf("</dl>"));
+  assert.ok(list.includes("<dt ") && list.includes("<dd "));
+  assert.ok(!list.includes("<p "), "Use dd for grading scale descriptions");
+});
+test("command shortcut is part of the accessible name and separators are decorative", () => {
+  assert.ok(read("src/components/command-menu.tsx").includes('aria-label="Open command menu (⌘K)"'));
+  const s = read("src/components/ui/command.tsx");
+  assert.ok(/data-slot="command-separator"\s+aria-hidden="true"/.test(s));
+});
+test("declared project screenshots exist and absent screenshots avoid image requests", () => {
+  const s = read("src/data/projectsData.ts");
+  const paths = [...s.matchAll(/"(?:src|lightModeSrc)": "(\/project-image\/[^"]+)"/g)].map(m => m[1]);
+  assert.ok(paths.length > 0);
+  for (const path of paths) assert.ok(existsSync(new URL("../public" + path, import.meta.url)), path);
+  assert.ok(read("src/components/ProjectPreview.tsx").includes("if (!src || failedSrc === src)"));
 });

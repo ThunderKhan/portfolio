@@ -24,7 +24,7 @@ export function ExperienceDescription({ item }: { item: ExperienceData }) {
           {item.assignments.map((assignment) => (
             <section key={assignment.role} className="border-l border-zinc-200 pl-3 dark:border-zinc-800">
               <h3 className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200">{assignment.role}</h3>
-              <p className="mb-2 text-[12px] text-zinc-500 dark:text-zinc-400">{assignment.dates}</p>
+              <p className="mb-2 text-[12px] mark-muted">{assignment.dates}</p>
               <Description description={assignment.description} />
             </section>
           ))}

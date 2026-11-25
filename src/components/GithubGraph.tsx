@@ -216,7 +216,7 @@ export function GithubGraph() {
                 className={`size-2 rounded-[2px] ${level.cell}`}
               />
             ))}
-            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">More active</span>
+            <span className="text-[11px] mark-muted">More active</span>
           </div>
         </div>
 

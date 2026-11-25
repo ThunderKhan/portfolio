@@ -56,7 +56,7 @@ export default function AllProjectsPage() {
             <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
               <Link
                 href="/"
-                className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 mark-muted hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
               >
                 Back
               </Link>
@@ -64,7 +64,7 @@ export default function AllProjectsPage() {
                 <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                   All Projects
                 </h1>
-                <p className="text-[12px] text-zinc-500 dark:text-zinc-400">
+                <p className="text-[12px] mark-muted">
                   Full Project Archive
                 </p>
               </div>

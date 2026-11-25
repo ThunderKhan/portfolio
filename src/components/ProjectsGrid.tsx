@@ -120,11 +120,11 @@ export const ProjectCard = ({
 
           <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-900/50 w-fit shrink-0">
             <div className={`w-1.5 h-1.5 rounded-full ${statusColor}`} />
-            <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">{statusLabel}</span>
+            <span className="text-[11px] font-medium mark-muted">{statusLabel}</span>
           </div>
         </div>
 
-        <p className="mt-2 sm:mt-1.5 text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed pr-2">
+        <p className="mt-2 sm:mt-1.5 text-[13px] mark-muted leading-relaxed pr-2">
           {project.description}
         </p>
 
@@ -149,7 +149,7 @@ export const ProjectCard = ({
                       return <><span className="sr-only">{tooltipText}</span><span aria-hidden="true"><TechIcon className="w-4 h-4 md:w-3.5 md:h-3.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors" /></span></>;
                     })()
                   ) : (
-                    <span className="px-1.5 py-0.5 rounded border border-black/30 dark:border-white/[0.15] text-[9px] text-zinc-500 dark:text-zinc-400 leading-none">
+                    <span className="px-1.5 py-0.5 rounded border border-black/30 dark:border-white/[0.15] text-[9px] mark-muted leading-none">
                       {item.label}
                     </span>
                   )}

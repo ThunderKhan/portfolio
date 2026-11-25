@@ -58,7 +58,7 @@ export default function BlogsPage() {
             <Link
               href="/#blogs"
               aria-label="Back to technical writing"
-              className="group flex h-8 min-w-8 px-2.5 text-[12px] font-medium shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+              className="group flex h-8 min-w-8 px-2.5 text-[12px] font-medium shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 mark-muted transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             >
               Back
             </Link>
@@ -66,7 +66,7 @@ export default function BlogsPage() {
               <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 Technical Writing
               </h1>
-              <p className="text-[12px] text-zinc-500 dark:text-zinc-400">Article archive</p>
+              <p className="text-[12px] mark-muted">Article archive</p>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export default function BlogsPage() {
 
       <main id="main-content" tabIndex={-1} className="relative z-10 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
         <div className="flex items-center justify-between gap-4 py-5">
-          <p className="text-[12px] leading-relaxed text-zinc-500 dark:text-zinc-400">
+          <p className="text-[12px] leading-relaxed mark-muted">
             Engineering notes, experiments and lessons from building software.
           </p>
           <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] mark-muted">

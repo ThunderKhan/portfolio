@@ -91,7 +91,7 @@ export function CommandMenu() {
             <button
                 type="button"
                 ref={triggerRef}
-                aria-label="Open command menu"
+                aria-label="Open command menu (⌘K)"
                 aria-keyshortcuts="Control+k Meta+k"
                 aria-haspopup="dialog"
                 aria-expanded={open}
@@ -115,12 +115,12 @@ export function CommandMenu() {
             }}>
                 {/* Header Section */}
                 <div className="flex items-center gap-4 p-4 border-b border-zinc-100 dark:border-zinc-800">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 mark-muted">
                         <LayoutDashboard className="w-5 h-5" />
                     </div>
                     <div>
                         <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Navigation Menu</h3>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400">Jump to a section, project, profile or action</p>
+                        <p className="text-xs mark-muted">Jump to a section, project, profile or action</p>
                     </div>
                 </div>
 
@@ -139,7 +139,7 @@ export function CommandMenu() {
                                     onSelect={() => runCommand(() => { router.push(`/#${s.id}`) })}
                                     className={itemClass}
                                 >
-                                    <Icon className="mr-2 h-4 w-4 text-zinc-500" />
+                                    <Icon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                                     <span>{s.label}</span>
                                 </CommandItem>
                             )
@@ -156,7 +156,7 @@ export function CommandMenu() {
                                 onSelect={() => runCommand(() => router.push(`/projects/${p.slug}`))}
                                 className={itemClass}
                             >
-                                <Code className="mr-2 h-4 w-4 text-zinc-500" />
+                                <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                                 <span>{p.title}</span>
                                 <CommandShortcut className="font-mono text-[10px] mark-muted capitalize">
                                     {p.status}
@@ -169,31 +169,31 @@ export function CommandMenu() {
 
                     <CommandGroup heading="Pages">
                         <CommandItem value="page all projects" onSelect={() => runCommand(() => router.push("/projects"))} className={itemClass}>
-                            <Code className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>All projects</span>
                         </CommandItem>
                         <CommandItem value="page all experience timeline" onSelect={() => runCommand(() => router.push("/experience"))} className={itemClass}>
-                            <Briefcase className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Briefcase aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Experience timeline</span>
                         </CommandItem>
                         <CommandItem value="page open source oss contributions archive" onSelect={() => runCommand(() => router.push("/open-source"))} className={itemClass}>
-                            <GitPullRequest className="mr-2 h-4 w-4 text-zinc-500" />
+                            <GitPullRequest aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>OSS Contributions</span>
                         </CommandItem>
                         <CommandItem value="page technical writing blogs articles" onSelect={() => runCommand(() => router.push("/blogs"))} className={itemClass}>
-                            <FileText className="mr-2 h-4 w-4 text-zinc-500" />
+                            <FileText aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Technical writing archive</span>
                         </CommandItem>
                         <CommandItem value="page certifications training credentials" onSelect={() => runCommand(() => router.push("/certifications"))} className={itemClass}>
-                            <Award className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Award aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Certifications archive</span>
                         </CommandItem>
                         <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
-                            <Sparkles className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Sparkles aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Highlights archive</span>
                         </CommandItem>
                         <CommandItem value="page contact form" onSelect={() => runCommand(() => router.push("/contact"))} className={itemClass}>
-                            <Send className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Send aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Contact page</span>
                         </CommandItem>
                     </CommandGroup>
@@ -210,7 +210,7 @@ export function CommandMenu() {
                                     onSelect={() => runCommand(() => openExternal(p.href))}
                                     className={itemClass}
                                 >
-                                    <Icon className="mr-2 h-4 w-4 text-zinc-500" />
+                                    <Icon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                                     <span>{p.label}</span>
                                     <CommandShortcut className="font-mono text-[10px] mark-muted">
                                         {p.handle}
@@ -224,23 +224,23 @@ export function CommandMenu() {
 
                     <CommandGroup heading="Actions">
                         <CommandItem value="action copy email address" onSelect={() => runCommand(() => navigator.clipboard.writeText(email))} className={itemClass}>
-                            <Copy className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Copy email</span>
                         </CommandItem>
                         <CommandItem value="action send email write" onSelect={() => runCommand(() => openExternal(`mailto:${email}`))} className={itemClass}>
-                            <Mail className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Mail aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Send an email</span>
                         </CommandItem>
                         {bookingLink && <CommandItem value="action book a call meeting cal" onSelect={() => runCommand(() => openExternal(bookingLink))} className={itemClass}>
-                            <CalendarDays className="mr-2 h-4 w-4 text-zinc-500" />
+                            <CalendarDays aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Book an intro call</span>
                         </CommandItem>}
                         <CommandItem value="action resume cv download" onSelect={() => runCommand(() => openExternal(resume))} className={itemClass}>
-                            <Download className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Download aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Download résumé</span>
                         </CommandItem>
                         <CommandItem value="action copy link url share" onSelect={() => runCommand(() => navigator.clipboard.writeText(window.location.href))} className={itemClass}>
-                            <Copy className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Copy link to page</span>
                         </CommandItem>
                     </CommandGroup>
@@ -249,15 +249,15 @@ export function CommandMenu() {
 
                     <CommandGroup heading="Theme">
                         <CommandItem value="theme light" onSelect={() => runCommand(() => setTheme("light"))} className={itemClass}>
-                            <Sun className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Sun aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Light Mode</span>
                         </CommandItem>
                         <CommandItem value="theme dark" onSelect={() => runCommand(() => setTheme("dark"))} className={itemClass}>
-                            <Moon className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Moon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Dark Mode</span>
                         </CommandItem>
                         <CommandItem value="theme system auto" onSelect={() => runCommand(() => setTheme("system"))} className={itemClass}>
-                            <Laptop className="mr-2 h-4 w-4 text-zinc-500" />
+                            <Laptop aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>System</span>
                         </CommandItem>
                     </CommandGroup>

@@ -109,7 +109,7 @@ export function Hackathons() {
                       </div>
 
                       {h.principle && (
-                        <blockquote className="border-l-2 border-black/20 dark:border-white/20 pl-3 text-[13px] leading-relaxed italic text-zinc-500 dark:text-zinc-400">
+                        <blockquote className="border-l-2 border-black/20 dark:border-white/20 pl-3 text-[13px] leading-relaxed italic mark-muted">
                           {h.principle}
                         </blockquote>
                       )}

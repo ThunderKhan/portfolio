@@ -17,7 +17,7 @@ export function EventHighlights({ archive = false }: { archive?: boolean }) {
                     <a href={photo.src} target="_blank" rel="noopener noreferrer" className="relative block aspect-[16/10] overflow-hidden rounded-[4px] bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-zinc-900">
                       <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
                     </a>
-                    {photo.caption && <figcaption className="mt-2 text-[12px] text-zinc-500 dark:text-zinc-400">{photo.caption}</figcaption>}
+                    {photo.caption && <figcaption className="mt-2 text-[12px] mark-muted">{photo.caption}</figcaption>}
                   </figure>
                 ))}
               </div>
@@ -28,7 +28,7 @@ export function EventHighlights({ archive = false }: { archive?: boolean }) {
               </span>
               <div className="min-w-0 flex-1">
                 <h3 className="text-[14px] font-semibold leading-snug text-zinc-900 dark:text-zinc-100">{event.title}</h3>
-                <p className="mt-1 text-[12px] text-zinc-500 dark:text-zinc-400">{event.category} · {event.photos.length ? `${event.photos.length} photos` : "Photos coming soon"}</p>
+                <p className="mt-1 text-[12px] mark-muted">{event.category} · {event.photos.length ? `${event.photos.length} photos` : "Photos coming soon"}</p>
               </div>
               {!archive && <Link href={`/highlights#${event.id}`} aria-label={`View ${event.title} highlights`} className="inline-flex min-h-10 shrink-0 items-center rounded-md px-2 text-[12px] font-medium mark-control focus-visible:outline-2">View</Link>}
             </div>

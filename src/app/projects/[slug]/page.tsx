@@ -28,11 +28,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     : project?.status === "archived" ? "bg-zinc-400 dark:bg-zinc-500"
     : "bg-emerald-500";
   const statusText =
-    project?.status === "research" ? "text-sky-600 dark:text-sky-400"
+    project?.status === "research" ? "text-sky-700 dark:text-sky-400"
     : project?.status === "prototype" ? "text-amber-700 dark:text-amber-400"
-    : project?.status === "building" ? "text-red-600 dark:text-red-400"
-    : project?.status === "archived" ? "text-zinc-500 dark:text-zinc-400"
-    : "text-emerald-600 dark:text-emerald-400";
+    : project?.status === "building" ? "text-red-700 dark:text-red-400"
+    : project?.status === "archived" ? "mark-muted"
+    : "text-emerald-700 dark:text-emerald-400";
   const statusLabel =
     project?.status === "research" ? "Research"
     : project?.status === "completed" ? "Completed"
@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/"
-              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 mark-muted hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
               Back
             </Link>
@@ -97,7 +97,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <p className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 {project.title}
               </p>
-              <p className="text-[12px] text-zinc-500 dark:text-zinc-400 font-medium">
+              <p className="text-[12px] mark-muted font-medium">
                 Projects/{project.title}
               </p>
             </div>
@@ -154,7 +154,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="grid grid-cols-2 items-center justify-between py-4 relative">
           {project.github ? (
             <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-              <SiGithub className="w-4 h-4" /> Github
+              <SiGithub aria-hidden="true" className="w-4 h-4" /> Github
             </a>
           ) : <div />}
           
@@ -198,7 +198,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </p>
 
         {project.statusDetail && (
-          <p className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">{project.statusDetail}</p>
+          <p className="mt-3 text-xs mark-muted">{project.statusDetail}</p>
         )}
         {project.problem && (
           <section className="mt-6">
@@ -241,7 +241,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
               return (
                 <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 dark:bg-zinc-900 border border-black/10 dark:border-white/5 rounded-md text-[12px] font-medium text-zinc-700 dark:text-zinc-300">
-                  {Icon && <Icon className="w-3.5 h-3.5" />}
+                  {Icon && <span aria-hidden="true"><Icon className="w-3.5 h-3.5" /></span>}
                   <span>{label}</span>
                 </div>
               );

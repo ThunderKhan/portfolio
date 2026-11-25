@@ -96,7 +96,7 @@ export function HighlightCard({ item, layout = "marquee", number }: { item: High
               {item.badge}
             </span>
             <div className="flex shrink-0 items-center gap-2">
-              {isArchive && number && <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-600">{String(number).padStart(2, "0")}</span>}
+              {isArchive && number && <span className="font-mono text-[10px] mark-muted">{String(number).padStart(2, "0")}</span>}
               
             </div>
           </div>

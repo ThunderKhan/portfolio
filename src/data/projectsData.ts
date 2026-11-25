@@ -50,7 +50,8 @@ export interface Project {
   slug: string;
   title: string;
   imageTitle: string;
-  src: string;
+  /** Omit until an owner-supplied screenshot exists in public. */
+  src?: string;
   lightModeSrc?: string;
   description: string;
   problem?: string;
@@ -230,7 +231,6 @@ export const projectsData: Project[] = [
       }
     ],
     "hasPin": false,
-    "src": "/project-image/llm-social-selection.png",
     "description": "A model-independent experimentation framework for repeated multi-agent answer, voting, elimination, and evaluation trials with deterministic orchestration, resumable runs, structured ballots, diagnostics, and SQLite provenance.",
     "problem": "Multi-agent LLM experiments are easy to make entertaining and surprisingly hard to make reproducible, diagnosable, and useful for studying emergent social behavior.",
     "highlights": [
@@ -259,7 +259,6 @@ export const projectsData: Project[] = [
       }
     ],
     "hasPin": false,
-    "src": "/project-image/heatops.png",
     "description": "An explainable decision-support system that enriches heat data with vulnerability signals, generates candidate resource sites, optimizes intervention placement, and produces an operational brief from a canonical evidence bundle.",
     "problem": "Heat maps show where conditions are dangerous, but emergency-response teams still need to decide where limited cooling and drinking-water resources should actually go.",
     "highlights": [
@@ -396,7 +395,6 @@ export const projectsData: Project[] = [
     "status": "building",
     "statusDetail": "Active development · production readiness not established",
     "imageTitle": "Axiom project preview",
-    "src": "/project-image/axiom.png",
     "description": "An evidence-grounded startup intelligence product in development, intended to help founders investigate demand signals, competitors and opportunities.",
     "problem": "Founders need to distinguish source-backed market evidence from plausible but unsupported AI research.",
     "highlights": [
@@ -420,7 +418,6 @@ export const projectsData: Project[] = [
     "status": "building",
     "statusDetail": "Build With AI: Basics · work in progress",
     "imageTitle": "Feynman-in-a-Loop project preview",
-    "src": "/project-image/feynman-in-a-loop.png",
     "description": "A learning prototype that reverses the tutoring relationship: the learner teaches an AI student that challenges misconceptions and tests transfer.",
     "problem": "Learners can mistake a fluent AI explanation for actual understanding.",
     "highlights": [
@@ -446,7 +443,6 @@ export const projectsData: Project[] = [
     "status": "building",
     "statusDetail": "SIH 2026 · offline communication research and feasibility work",
     "imageTitle": "VĀṆI / MeshVoice project preview",
-    "src": "/project-image/vani.png",
     "description": "An offline multilingual voice communication project exploring on-device speech processing and direct local transport for infrastructure-denied environments.",
     "problem": "Speech communication can fail when network infrastructure is unavailable.",
     "highlights": [
@@ -472,7 +468,6 @@ export const projectsData: Project[] = [
     "status": "completed",
     "statusDetail": "Educational systems project · experimental compiler",
     "imageTitle": "Prometheus Compiler project preview",
-    "src": "/project-image/prometheus-compiler.png",
     "description": "A minimal C++23 compiler exploring lexing, recursive-descent parsing, AST construction, semantic validation and deterministic code generation.",
     "problem": "A small language implementation makes the translation pipeline explicit and inspectable.",
     "highlights": [
@@ -501,7 +496,6 @@ export const projectsData: Project[] = [
     "status": "completed",
     "statusDetail": "Chrome Manifest V3 · unpacked extension",
     "imageTitle": "Tab Jumper project preview",
-    "src": "/project-image/tab-jumper.png",
     "description": "A dependency-free browser extension for navigating visited tabs or switching between the two most recent tabs.",
     "problem": "Tab-strip order is different from the order a user actually visits tabs.",
     "highlights": [

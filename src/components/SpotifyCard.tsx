@@ -39,7 +39,7 @@ export function SpotifyCard() {
           <div className="min-w-0 flex-1">
             <h3 className="text-[15px] font-semibold text-zinc-900 dark:text-zinc-100">{title}</h3>
             <p className="mt-0.5 text-[13px] text-zinc-600 dark:text-zinc-400">{artist}</p>
-            {!coverFailed && <p className="mt-1 text-[11px] leading-snug text-zinc-500 dark:text-zinc-400">Alternate artwork</p>}
+            {!coverFailed && <p className="mt-1 text-[11px] leading-snug mark-muted">Alternate artwork</p>}
           </div>
           <SiSpotify aria-hidden="true" className="size-5 shrink-0 text-[#16833e] dark:text-[#1ED760]" />
         </div>
@@ -61,7 +61,7 @@ export function SpotifyCard() {
           Open in Spotify <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </div>
-      {showPlayer && <p className="mt-2 text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400">Press play in the player. Spotify may provide a preview.</p>}
+      {showPlayer && <p className="mt-2 text-[11px] leading-relaxed mark-muted">Press play in the player. Spotify may provide a preview.</p>}
     </article>
   );
 }

@@ -95,7 +95,7 @@ export function ExperienceList() {
                   <span>{item.dates}</span>
                   <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
                 </span>
-                {item.location && <span className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">{item.location}</span>}
+                {item.location && <span className="text-[13px] sm:text-[14px] mark-muted">{item.location}</span>}
               </span>
             </button>
 
@@ -186,7 +186,7 @@ export function ExperienceList() {
                       {item.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2 py-0.5 rounded-[4px] border border-zinc-200/50 dark:border-zinc-800/50 bg-zinc-50 dark:bg-[#111111] text-[11px] font-medium text-zinc-500 dark:text-zinc-400"
+                          className="px-2 py-0.5 rounded-[4px] border border-zinc-200/50 dark:border-zinc-800/50 bg-zinc-50 dark:bg-[#111111] text-[11px] font-medium mark-muted"
                         >
                           {tech}
                         </span>

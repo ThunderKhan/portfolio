@@ -31,7 +31,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                 <span className="min-w-0 flex-1">
                   <span className="block break-words text-[14px] font-bold leading-tight text-zinc-900 dark:text-zinc-100 sm:text-[16px]">{item.title}</span>
                   <span className="mt-1 block text-[12px] font-normal leading-snug text-zinc-600 dark:text-zinc-400">{item.summary}</span>
-                  <span className="mt-1 block text-[11px] font-normal text-zinc-500 dark:text-zinc-400">{item.links.length ? `${item.links.length} PR${item.links.length === 1 ? "" : "s"} · ${merged} merged` : "Community"}</span>
+                  <span className="mt-1 block text-[11px] font-normal mark-muted">{item.links.length ? `${item.links.length} PR${item.links.length === 1 ? "" : "s"} · ${merged} merged` : "Community"}</span>
                 </span>
                 <span aria-hidden="true" className="inline-block w-4 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
               </button>
@@ -54,7 +54,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                             <span className="break-words">{link.label}</span>
                             
                           </a>
-                          <span className="shrink-0 text-[11px] text-zinc-500 dark:text-zinc-400">{link.status}</span>
+                          <span className="shrink-0 text-[11px] mark-muted">{link.status}</span>
                         </li>
                       ))}
                     </ul>

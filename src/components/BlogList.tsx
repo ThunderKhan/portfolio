@@ -16,10 +16,10 @@ export function BlogList({ counts, limit }: { counts?: Record<string, number>; l
   if (items.length === 0) {
     return (
       <div className="py-10 flex flex-col items-center justify-center text-center">
-        <p className="text-[13px] text-zinc-500 dark:text-zinc-400">
+        <p className="text-[13px] mark-muted">
           Nothing published yet.
         </p>
-        <p className="mt-1 text-[12px] text-zinc-400 dark:text-zinc-600">
+        <p className="mt-1 text-[12px] mark-muted">
           Writing about the work, not about writing.
         </p>
       </div>
@@ -72,7 +72,7 @@ export function BlogList({ counts, limit }: { counts?: Record<string, number>; l
                 </h3>
 
                 {blog.description && <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{blog.description}</p>}
-                <div className="flex flex-wrap items-center gap-4 text-[12px] text-zinc-500 dark:text-zinc-400">
+                <div className="flex flex-wrap items-center gap-4 text-[12px] mark-muted">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
                     <span>{blog.date}</span>

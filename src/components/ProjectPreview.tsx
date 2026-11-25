@@ -4,7 +4,7 @@ import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 
 type ProjectPreviewProps = Omit<ImageProps, "src" | "onError"> & {
-  src: string;
+  src?: string;
   projectTitle: string;
 };
 
@@ -12,11 +12,11 @@ type ProjectPreviewProps = Omit<ImageProps, "src" | "onError"> & {
 export function ProjectPreview({ src, projectTitle, alt, ...props }: ProjectPreviewProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
-  if (failedSrc === src) {
+  if (!src || failedSrc === src) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-zinc-100 px-3 text-center dark:bg-zinc-900">
         <span className="text-sm font-semibold text-zinc-700 dark:text-zinc-200">{projectTitle}</span>
-        <span className="text-xs text-zinc-500 dark:text-zinc-400">Project screenshot pending</span>
+        <span className="text-xs mark-muted">Project screenshot pending</span>
       </div>
     );
   }

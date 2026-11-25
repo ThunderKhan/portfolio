@@ -31,3 +31,17 @@ Owner-provided local baseline at 94e2009: 53/53 regression tests passed, TypeScr
 ### Slice 6b follow-up: Windows installation recovery
 
 Owner reported that npm's initial prefix-based browser installation succeeded (zero reported vulnerabilities), but created a circular `tests/browser/node_modules/portfolio-v1` symlink. Turbopack failed in CSS glob tracking; Playwright subsequently failed to start because the production build was missing. Correct setup to run npm from the browser package directory, document safe link cleanup and exclude browser tooling from Tailwind discovery. No audit assertion, brand token, application behavior or build engine change. The precise npm link-creation mechanism and effectiveness of the corrected setup remain unverified locally. Re-run the production build and browser suite before claiming recovery.
+
+## First rendered baseline and Slice 6c remediation
+
+Owner reported successful build, exit 0 and BUILD_ID present at 7537cfc, then 112 Chromium tests: 44 passed (40 route bypasses and four theme/reduced-motion checks), 68 failed in 3.2 minutes. Every reported failed case contained axe violations, not a browser-server startup failure. Counts below are reports containing the rule, not unique nodes.
+
+| Rule | Reports | Action |
+| --- | ---: | --- |
+| label-content-name-mismatch | 64 | Include the displayed command shortcut in the accessible name |
+| color-contrast | 52 | Apply existing theme-aware muted ink to identified legacy text pairs, back links, highlight numbers and detail status text |
+| definition-list | 24 | Use valid dd elements for education grading scale descriptions |
+| svg-img-alt | 8 | Hide redundant project-detail and palette glyphs from assistive technology; retain adjacent text |
+| aria-required-children | 4 | Make decorative cmdk list separators hidden to assistive technology; suspected cause, confirm in rerun |
+
+Seven project screenshot requests returned 404; repository tree confirms the assets are absent. Make screenshot source optional, omit those seven nonexistent paths, and render the existing pending state without a failed request. Existing screenshots, titles, routes and project data are retained. The original shader, palette primitives and layout are unchanged. Add source regressions for list semantics, shortcut label, separator and screenshot references. No rules disabled; runtime rerun and exact computed contrast/ARIA node inspection still pending. No new dependency or deployment.

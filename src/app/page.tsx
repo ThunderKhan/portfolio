@@ -98,7 +98,7 @@ export default async function Home() {
               <h1 className="mark-display mb-0.5 text-zinc-900 dark:text-zinc-100">
                 {portfolio.name}
               </h1>
-              <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">{portfolio.location}</p>
+              <p className="text-[13px] sm:text-[14px] mark-muted">{portfolio.location}</p>
             </div>
           </div>
 
@@ -485,7 +485,7 @@ export default async function Home() {
           </div>
 
           <div className="py-4 text-sm text-zinc-600 dark:text-zinc-300">
-            <p><span className="font-mono font-semibold mark-gold-text">{socialProfiles.LeetCode?.stats[0]?.value ?? portfolio.publishedLeetCodeSolved}</span> LeetCode problems solved <span className="text-xs text-zinc-500">({socialProfiles.LeetCode?.stats[0]?.label === "Solved" ? "live account data" : "last published or cached count"}).</span></p>
+            <p><span className="font-mono font-semibold mark-gold-text">{socialProfiles.LeetCode?.stats[0]?.value ?? portfolio.publishedLeetCodeSolved}</span> LeetCode problems solved <span className="text-xs mark-muted">({socialProfiles.LeetCode?.stats[0]?.label === "Solved" ? "live account data" : "last published or cached count"}).</span></p>
             <a href="https://github.com/ThunderKhan/LeetCode-Solutions" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline decoration-dotted underline-offset-4">Solution archive</a>
           </div>
         </div>

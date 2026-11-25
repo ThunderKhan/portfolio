@@ -14,11 +14,11 @@ export function Certifications({ archive = false }: { archive?: boolean }) {
             <div className="min-w-0 flex-1">
               <h3 className="text-[14px] font-semibold leading-snug text-zinc-900 dark:text-zinc-100">{certificate.name}</h3>
               <p className="mt-1 text-[12px] leading-relaxed text-zinc-600 dark:text-zinc-400">{certificate.issuer} · {certificate.date}</p>
-              <p className="mt-1 text-[11px] text-zinc-500 dark:text-zinc-400">{certificate.kind}{certificate.note ? ` · ${certificate.note}` : ""}</p>
+              <p className="mt-1 text-[11px] mark-muted">{certificate.kind}{certificate.note ? ` · ${certificate.note}` : ""}</p>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 {certificate.file && <CertificateLink href={certificate.file} label="View certificate" />}
                 {certificate.link && <a href={certificate.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-md px-1 py-1.5 text-[12px] text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-300">Verify credential </a>}
-                {certificate.pending && <span className="text-[11px] text-zinc-500 dark:text-zinc-400">{certificate.pending}</span>}
+                {certificate.pending && <span className="text-[11px] mark-muted">{certificate.pending}</span>}
               </div>
             </div>
           </li>

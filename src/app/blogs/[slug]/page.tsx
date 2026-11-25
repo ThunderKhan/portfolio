@@ -220,7 +220,7 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
                   <h3 className="text-[13px] font-bold text-zinc-900 transition-colors group-hover:text-blue-600 dark:text-zinc-100 dark:group-hover:text-blue-400">
                     {item.title}
                   </h3>
-                  <p className="mt-1 text-[12px] leading-5 text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-1 text-[12px] leading-5 mark-muted">
                     {item.description}
                   </p>
                 </div>
@@ -258,7 +258,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/blogs"
-              className="group flex h-8 min-w-8 px-2.5 text-[12px] font-medium shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+              className="group flex h-8 min-w-8 px-2.5 text-[12px] font-medium shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 mark-muted transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
               aria-label="Back to blogs"
             >
               Back
@@ -267,7 +267,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               <p className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 Blog
               </p>
-              <p className="mt-1 truncate text-[12px] font-medium text-zinc-500 dark:text-zinc-400">
+              <p className="mt-1 truncate text-[12px] font-medium mark-muted">
                 Blogs/{post.slug}
               </p>
             </div>
@@ -304,7 +304,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               </p>
             )}
 
-            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-zinc-500 dark:text-zinc-400">
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] mark-muted">
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5" />
                 {post.date}
