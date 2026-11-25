@@ -1,0 +1,22 @@
+export const MESH_PALETTE = ["#000000", "#6A0C0B", "#AA0505", "#B97D10"] as const;
+export const MESH_SPEED = 0.28;
+export const MESH_FRAME_MS = 1000 / 30;
+export const MESH_MAX_PIXELS = 900_000;
+export const MESH_MIN_WIDTH = 1280;
+
+export function meshResolution(width: number, height: number, dpr: number) {
+  if (width < MESH_MIN_WIDTH || height <= 0) return null;
+  const scale = Math.min(Math.max(dpr, 1), 2, Math.sqrt(MESH_MAX_PIXELS / (width * height)));
+  return {
+    width: Math.max(1, Math.floor(width * scale)),
+    height: Math.max(1, Math.floor(height * scale)),
+    gutterFraction: (width - 800) / (2 * width),
+  };
+}
+
+export function canAnimateMesh({ dark, wide, visible, reduced, paused }: {
+  dark: boolean; wide: boolean; visible: boolean; reduced: boolean; paused: boolean;
+}) {
+  return dark && wide && visible && !reduced && !paused;
+}
+

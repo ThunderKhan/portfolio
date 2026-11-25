@@ -23,6 +23,7 @@ import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
 import { FlipCoverButton } from "@/components/pixel-perfect/flip-cover-button";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
 import { StarryNightBanner } from "@/components/StarryNightBanner";
+import { MeshDriftBackground } from "@/components/MeshDriftBackground";
 import Image from "next/image";
 import { SiGithub, SiLeetcode } from "react-icons/si";
 
@@ -32,6 +33,7 @@ export default async function Home() {
 
   return (
     <div className="mark-home min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
+      <MeshDriftBackground />
       <CleanHash />
 
       {/* Right Side Blueprint Navigation */}

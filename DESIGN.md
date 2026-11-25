@@ -400,3 +400,7 @@ Supersedes the Stark Workshop background and red project-frame treatment above. 
 ### Original black restoration (2026-11-25)
 
 Supersedes the experimental Reactor Slate and Stark Workshop base palettes. Owner requested return to the original pure black page (#000000) with near-black neutral panels (#09090B), neutral seams (#27272A) and secondary ink #A6ADB7. Keep the existing soft gold text, approved metallic gold activity scale, red actions and reactor-blue interaction accents. Keep the avatar unfiltered and frameless, links arrow-free, and all existing component shapes and layout. Light palette unchanged. Supporting neutral choices are subject to rendered review.
+
+### Mesh Drift background experiment (2026-11-25)
+
+Preserve the restored pure black content area. Owner requested a grainy animated background from the supplied 21st.dev Mesh Drift export. Use a single muted red/gold field in the dark homepage's desktop gutters only, no cursor effect, slow movement, static fallback and explicit pause. Do not change any card shape or content. This is a reversible visual trial, subject to actual browser review and performance/accessibility checks.
