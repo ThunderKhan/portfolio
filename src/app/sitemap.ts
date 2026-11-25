@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const pages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified, changeFrequency: "weekly", priority: 1 },
-    ...["experience", "projects", "open-source", "highlights", "contact"].map((path) => ({
+    ...["experience", "projects", "open-source", "blogs", "highlights", "contact"].map((path) => ({
       url: `${SITE_URL}/${path}`,
       lastModified,
       changeFrequency: "monthly" as const,
@@ -23,11 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Empty today - every blog entry links out - but a written post appears here
-  // automatically rather than needing this file touched.
   const blogs: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${SITE_URL}/blogs/${post.slug}`,
-    lastModified,
     changeFrequency: "monthly",
     priority: 0.6,
   }));

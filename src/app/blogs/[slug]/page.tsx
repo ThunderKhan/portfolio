@@ -9,7 +9,6 @@ import {
   Calendar,
   Clock,
 } from "lucide-react";
-import { BlogLikeButton } from "@/components/BlogLikeButton";
 import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
 import { FooterBackground } from "@/components/FooterBackground";
@@ -60,15 +59,19 @@ export async function generateMetadata({
   return {
     title: `${post.title} | ${portfolio.name}`,
     description: post.description,
+    alternates: { canonical: post.link },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
+      url: post.link,
+      publishedTime: post.publishedAt,
+      authors: [portfolio.name],
       images: [
         {
-          url: "/og-image.jpg",
-          width: 1024,
-          height: 576,
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
           alt: post.title,
         },
       ],
@@ -77,7 +80,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: ["/og-image.jpg"],
+      images: ["/opengraph-image"],
     },
   };
 }
@@ -86,11 +89,11 @@ function BlueprintFrame() {
   return (
     <>
       <div
-        className="absolute top-0 bottom-0 left-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] md:block"
+        className="absolute top-0 bottom-0 left-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] xl:block"
         style={verticalDashes}
       />
       <div
-        className="absolute top-0 bottom-0 right-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] md:block"
+        className="absolute top-0 bottom-0 right-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] xl:block"
         style={verticalDashes}
       />
 
@@ -111,7 +114,7 @@ function BlueprintFrame() {
       ].map((position, index) => (
         <div
           key={index}
-          className="absolute hidden h-[2px] w-[2px] bg-black/50 pointer-events-none dark:bg-white/[0.25] md:block"
+          className="absolute hidden h-[2px] w-[2px] bg-black/50 pointer-events-none dark:bg-white/[0.25] xl:block"
           style={{
             top: position.top,
             left: position.left,
@@ -186,6 +189,14 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
         </figure>
       );
 
+    case "code":
+      return (
+        <figure className="my-6 overflow-hidden rounded-[6px] border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-[#09090b]">
+          {block.language && <figcaption className="border-b border-zinc-200 px-4 py-2 font-mono text-xs text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">{block.language}</figcaption>}
+          <pre tabIndex={0} aria-label={block.language ? `${block.language} code` : "Code or command output"} className="overflow-x-auto p-4 font-mono text-[12px] leading-6 text-zinc-800 focus-visible:outline-2 focus-visible:outline-inset dark:text-zinc-200 sm:text-[13px]"><code>{block.text}</code></pre>
+        </figure>
+      );
+
     case "list":
       return (
         <ul className="my-5 space-y-2.5 text-[15px] leading-7 text-zinc-700 dark:text-zinc-300 sm:text-[16px]">
@@ -240,27 +251,27 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
       <RightNavbar />
       <BlueprintFrame />
 
-      <div className="absolute left-0 right-0 top-0 h-[22vh] pointer-events-auto -z-0 md:left-[30%] md:right-[30%]">
+      <div className="absolute left-0 right-0 top-0 h-[22vh] pointer-events-auto -z-0 xl:left-[30%] xl:right-[30%]">
         <FooterBackground />
         <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
           <CurrentTime />
         </div>
       </div>
 
-      <div className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 md:left-[30%] md:right-[30%]">
+      <div className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 xl:left-[30%] xl:right-[30%]">
         <div className="flex w-full items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-5">
             <Link
-              href="/#blogs"
+              href="/blogs"
               className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
               aria-label="Back to blogs"
             >
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
             <div className="flex min-w-0 flex-col justify-center">
-              <h1 className="text-[20px] font-bold leading-none tracking-tight text-zinc-800 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:text-zinc-100 dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)] sm:text-[24px]">
+              <p className="text-[20px] font-bold leading-none tracking-tight text-zinc-800 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:text-zinc-100 dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)] sm:text-[24px]">
                 Blog
-              </h1>
+              </p>
               <p className="mt-1 truncate text-[12px] font-medium text-zinc-500 dark:text-zinc-400">
                 Blogs/{post.slug}
               </p>
@@ -274,7 +285,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
         </div>
       </div>
 
-      <main className="relative z-10 ml-0 mr-0 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] md:ml-[30%] md:mr-[30%]">
+      <main className="relative z-10 ml-0 mr-0 flex flex-col px-4 pb-16 sm:px-8 pt-[calc(22vh+112px)] xl:ml-[30%] xl:mr-[30%]">
         <article className="relative">
           <header className="relative py-7">
             <div className="mb-4 flex flex-wrap gap-2">
@@ -309,7 +320,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                   {post.readingTime}
                 </span>
               )}
-              <BlogLikeButton slug={post.slug} initialLikes={post.claps} />
+              <span>By {portfolio.name}</span>
             </div>
           </header>
 
@@ -321,7 +332,17 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
             ))}
           </div>
 
+          {(post.repositoryUrl || post.crossPosts?.length) && (
+            <section aria-label="Related links" className="mb-7 border-t border-dashed border-zinc-300 pt-5 dark:border-zinc-800">
+              <h2 className="text-[15px] font-semibold text-zinc-900 dark:text-zinc-100">Further reading</h2>
+              <div className="mt-3 flex flex-wrap gap-3 text-[13px]">
+                {post.repositoryUrl && <a href={post.repositoryUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-4">Source repository</a>}
+                {post.crossPosts?.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-4">{link.label}</a>)}
+              </div>
+            </section>
+          )}
           <BlueprintDivider className="mt-2" />
+          <Link href="/blogs" className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-400"><ArrowLeft className="size-3.5" aria-hidden="true" /> All articles</Link>
         </article>
 
         <div className="relative mt-12 h-[220px] w-[calc(100%+32px)] -mx-4 overflow-hidden">

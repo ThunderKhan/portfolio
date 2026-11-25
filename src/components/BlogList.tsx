@@ -2,17 +2,18 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Calendar, Heart } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Calendar, Clock, Heart } from "lucide-react";
 import { blogsData } from "@/data/blogsData";
 
 /**
  * `counts` carries the live approval numbers keyed by post link, fetched on the
  * server. Anything missing falls back to the number committed in blogsData.
  */
-export function BlogList({ counts }: { counts?: Record<string, number> }) {
+export function BlogList({ counts, limit }: { counts?: Record<string, number>; limit?: number }) {
+  const items = limit === undefined ? blogsData : blogsData.slice(0, limit);
   // Nothing published yet. Without this the section renders as a bare heading
   // over empty space, which reads as a broken page rather than a deliberate one.
-  if (blogsData.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="py-10 flex flex-col items-center justify-center text-center">
         <p className="text-[13px] text-zinc-500 dark:text-zinc-400">
@@ -27,8 +28,8 @@ export function BlogList({ counts }: { counts?: Record<string, number> }) {
 
   return (
     <div className="block">
-      {blogsData.map((blog, idx) => {
-        const isLast = idx === blogsData.length - 1;
+      {items.map((blog, idx) => {
+        const isLast = idx === items.length - 1;
 
         return (
           <Link
@@ -70,13 +71,15 @@ export function BlogList({ counts }: { counts?: Record<string, number> }) {
                   {blog.title}
                 </h3>
 
+                {blog.description && <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{blog.description}</p>}
                 <div className="flex flex-wrap items-center gap-4 text-[12px] text-zinc-500 dark:text-zinc-400">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
                     <span>{blog.date}</span>
                   </div>
 
-                  {(counts?.[blog.link] !== undefined || blog.claps > 0) && (
+                  {blog.readingTime && <div className="flex items-center gap-1.5"><Clock className="size-3.5" aria-hidden="true" />{blog.readingTime}</div>}
+                  {blog.isExternal && (counts?.[blog.link] !== undefined || blog.claps > 0) && (
                     <div className="flex items-center gap-1.5 text-rose-500 dark:text-rose-400 font-medium">
                       <Heart className="w-3.5 h-3.5" fill="currentColor" strokeWidth={0} />
                       <span className="tabular-nums">{counts?.[blog.link] ?? blog.claps}</span>

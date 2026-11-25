@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Keep the existing npm workflow; emit a traced server only for container builds.
   ...(process.env.PORTFOLIO_DOCKER_BUILD === "1" ? { output: "standalone" as const } : {}),
+  async redirects() {
+    return [
+      { source: "/blog/cpp-test-impact-analysis-zero-runtime-dependencies", destination: "/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", permanent: true },
+      { source: "/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies", destination: "/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", permanent: true },
+    ];
+  },
   images: {
     deviceSizes: [360, 414, 640, 768, 1024, 1280],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

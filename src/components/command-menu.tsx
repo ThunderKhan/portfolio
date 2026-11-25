@@ -205,6 +205,10 @@ export function CommandMenu() {
                             <GitPullRequest className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>OSS Contributions</span>
                         </CommandItem>
+                        <CommandItem value="page technical writing blogs articles" onSelect={() => runCommand(() => router.push("/blogs"))} className={itemClass}>
+                            <FileText className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Technical writing archive</span>
+                        </CommandItem>
                         <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
                             <Sparkles className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Milestones archive</span>
