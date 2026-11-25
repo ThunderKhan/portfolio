@@ -6,6 +6,8 @@
 
 /* Keep vendored skill examples out of the portfolio utility CSS. */
 @source not "../../.agents";
+/* Browser test tooling and reports are not application utility sources. */
+@source not "../../tests/browser";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
