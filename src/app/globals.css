@@ -231,7 +231,7 @@ body {
   }
 }
 
-/* Approved brand primitives. Supporting homepage surfaces are a review preview. */
+/* Approved brand primitives. Supporting theme colors remain a review preview. */
 :root {
   --mark-red: #AA0505;
   --mark-deep-red: #6A0C0B;
@@ -239,19 +239,14 @@ body {
   --mark-bright-gold: #FBCA03;
   --mark-arc-blue: #67C7EB;
   --mark-reactor-white: #F4FBFF;
-}
-
-.mark-home {
   --mark-page: #F4F3EF;
   --mark-panel: #FFFFFF;
   --mark-ink: #171A20;
   --mark-muted: #575D65;
   --mark-interaction: #12536B;
   --mark-seam: #C9CBD0;
-  background-color: var(--mark-page);
-  color: var(--mark-ink);
 }
-.dark .mark-home {
+.dark {
   --mark-page: #0B0D10;
   --mark-panel: #14171B;
   --mark-ink: #F4FBFF;
@@ -259,17 +254,22 @@ body {
   --mark-interaction: var(--mark-arc-blue);
   --mark-seam: #2A3038;
 }
-.mark-home .mark-section-title {
+.mark-home,
+.mark-page {
+  background-color: var(--mark-page);
   color: var(--mark-ink);
 }
-.mark-home .mark-display {
+.mark-section-title,
+.mark-display,
+.mark-page-title {
   color: var(--mark-ink);
 }
-.mark-home .mark-surface {
+.mark-panel,
+.mark-surface {
   background-color: var(--mark-panel);
   border-color: var(--mark-seam);
 }
-.mark-home .mark-surface:hover {
+.mark-surface:hover {
   border-color: var(--mark-interaction);
 }
 .mark-home .mark-nav-link {
@@ -282,7 +282,7 @@ body {
 .mark-home .mark-nav-link[aria-current="location"] .mark-nav-indicator {
   background-color: var(--mark-gold);
 }
-.mark-home :focus-visible {
+:where(.mark-home, .mark-page) :focus-visible {
   outline: 2px solid var(--mark-interaction);
   outline-offset: 3px;
 }

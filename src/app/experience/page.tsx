@@ -28,7 +28,7 @@ export default function AllExperiencePage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300 [--experience-hero:clamp(320px,38vh,370px)]">
+    <div className="mark-page min-h-screen w-full relative overflow-x-hidden transition-colors duration-300 [--experience-hero:clamp(320px,38vh,370px)]">
       {/* Right Side Blueprint Navigation */}
       <RightNavbar />
 

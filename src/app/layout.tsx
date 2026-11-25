@@ -58,7 +58,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${barlow.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col dark:bg-black dark:text-zinc-50 transition-colors duration-300">
+      <body className="mark-page min-h-full flex flex-col transition-colors duration-300">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -26,7 +26,7 @@ const verticalDots = {
 
 export default function CertificationsPage() {
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-white transition-colors duration-300 dark:bg-black">
+    <div className="mark-page relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
       <div className="pointer-events-none absolute bottom-0 left-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] xl:block" style={verticalDots} />
       <div className="pointer-events-none absolute bottom-0 right-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] xl:block" style={verticalDots} />
       <div className="pointer-events-none absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />

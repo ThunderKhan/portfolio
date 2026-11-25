@@ -60,7 +60,7 @@ export const ProjectCard = ({
     >
       {/* Outer Wrapper exactly like screenshot */}
       <motion.div
-        className="relative w-full aspect-[1.25] rounded-xl border border-black/5 dark:border-white/5 bg-zinc-50/80 dark:bg-[#09090b]/80 shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md hover:border-black/10 dark:hover:border-white/10 sm:aspect-[1.4] sm:p-4 sm:pb-0"
+        className="relative w-full aspect-[1.25] rounded-xl border mark-surface shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md hover:border-black/10 dark:hover:border-white/10 sm:aspect-[1.4] sm:p-4 sm:pb-0"
         initial="rest"
         whileHover="hover"
         animate="rest"

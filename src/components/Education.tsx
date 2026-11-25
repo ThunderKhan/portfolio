@@ -9,7 +9,7 @@ const resultDate = new Intl.DateTimeFormat("en-GB", {
 export function Education() {
   return (
     <div className="relative pb-2 pt-6">
-      <article className="relative rounded-[6px] border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-[#09090b]">
+      <article className="relative rounded-[6px] border mark-panel">
         <div className="flex items-start gap-3 px-4 py-4">
           <EducationLogo src={education.logo}>
             <GraduationCap aria-hidden="true" className="size-5 text-[#B97D10]" />
@@ -60,7 +60,7 @@ export function Education() {
         <h3 className="mb-3 text-[12px] font-semibold text-zinc-600 dark:text-zinc-400">Additional learning programs</h3>
         <div className="space-y-3">
           {learningPrograms.map((program) => (
-            <article key={program.id} className="rounded-[6px] border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-[#09090b]">
+            <article key={program.id} className="rounded-[6px] border mark-panel">
               <details className="group">
                 <summary className="flex cursor-pointer list-none items-start gap-3 rounded-[6px] px-4 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
                   <EducationLogo src={program.logo}>

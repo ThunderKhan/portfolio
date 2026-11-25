@@ -29,3 +29,14 @@ test("MARK I homepage preview uses the approved brand primitives", () => {
   assert.ok(read("src/components/pixel-perfect/soft-pill-button.tsx").includes("mark-primary-action"));
   assert.ok(read("src/components/RightNavbar.tsx").includes('aria-current={isActive ? "location" : undefined}'));
 });
+
+test("all primary routes share MARK I page surfaces", () => {
+  for (const path of ["src/app/projects/page.tsx","src/app/projects/[slug]/page.tsx","src/app/experience/page.tsx","src/app/blogs/page.tsx","src/app/blogs/[slug]/page.tsx","src/app/contact/page.tsx","src/app/open-source/page.tsx","src/app/certifications/page.tsx","src/app/highlights/page.tsx"]) {
+    assert.ok(read(path).includes("mark-page "), path);
+  }
+  const css = read("src/app/globals.css");
+  assert.ok(css.includes(".mark-home,\n.mark-page"));
+  assert.ok(css.includes(".mark-panel,\n.mark-surface"));
+  assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-surface"));
+  assert.ok(read("src/components/Education.tsx").includes("mark-panel"));
+});

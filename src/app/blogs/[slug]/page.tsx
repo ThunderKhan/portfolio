@@ -247,7 +247,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-white transition-colors duration-300 dark:bg-black">
+    <div className="mark-page relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
       <RightNavbar />
       <BlueprintFrame />
 
