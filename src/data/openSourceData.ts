@@ -1,9 +1,17 @@
 export type ContributionStatus = "Merged" | "Open" | "Closed";
-export type OpenSourceEntry = { title: string; description: string; links: { label: string; href: string; status: ContributionStatus }[] };
+export type OpenSourceEntry = {
+  id: string;
+  title: string;
+  summary: string;
+  description: string;
+  links: { label: string; href: string; status: ContributionStatus }[];
+};
 
 // Curated PR status snapshot verified against GitHub on 2026-11-25.
 export const openSourceWork: OpenSourceEntry[] = [
   {
+    "id": "corsair",
+    "summary": "Service integrations · 178 API operations",
     "title": "Corsair",
     "description": "Shipped two upstream service integrations covering 178 API operations: Borneo (153 operations across 20 endpoint groups) and Ably (25 REST operations). Added typed input/output schemas, authentication, error handling, provider registration and endpoint tests.",
     "links": [
@@ -20,6 +28,8 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "proofline",
+    "summary": "Verified Windows installer",
     "title": "Proofline CLI",
     "description": "Proposed a Windows PowerShell installer with SHA-256 verification, current-user installation, transactional upgrade recovery, rollback, PATH preservation and Windows PowerShell 5.1/7 test coverage.",
     "links": [
@@ -31,6 +41,8 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "hamr",
+    "summary": "URL encoding, QR and packaging",
     "title": "ha.mr",
     "description": "Six merged changes to the URL compression tool: backward-compatible 128-bit IPv6 encoding, preservation of reserved percent-encoded path characters, adaptive QR error correction, Nix packaging, system dark mode and upstream license compliance.",
     "links": [
@@ -67,6 +79,8 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "cli11",
+    "summary": "C++ correctness and precision",
     "title": "CLI11",
     "description": "Fixed precision loss in C++ floating-point defaults using max_digits10 and regression coverage. Separately proposed Unicode wide-string overloads for app descriptions and usage.",
     "links": [
@@ -83,6 +97,8 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "runtime-conditions",
+    "summary": "Python profiler · Windows compatibility",
     "title": "Runtime Conditions — Python profiler",
     "description": "Resolved Windows test failures caused by source encoding and path separators, taking the reported local suite from 101 passing / 18 failing to 119 passing. Proposed permanent Windows CI coverage with canonical schema line endings.",
     "links": [
@@ -99,6 +115,8 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "opentrace",
+    "summary": "Spreadsheet import correctness",
     "title": "OpenTrace",
     "description": "Fixed subscription imports across TSV and legacy XLS, then added XLSX discovery and parsing with read-only/data-only workbook handling, resource cleanup and regression tests.",
     "links": [
@@ -115,6 +133,8 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "manim",
+    "summary": "TeX conversion error handling",
     "title": "Manim",
     "description": "Fixed the TeX conversion pipeline to surface explicit dvisvgm subprocess failures as LatexError with diagnostic stderr, rather than continuing with invalid SVG output.",
     "links": [
@@ -126,8 +146,24 @@ export const openSourceWork: OpenSourceEntry[] = [
     ]
   },
   {
+    "id": "osci",
+    "summary": "Community contributor",
     "title": "Open Source Connect India 2026",
     "description": "Selected as a contributor.",
     "links": []
   }
 ];
+
+export const featuredContributionIds = ["corsair","runtime-conditions","hamr"] as const;
+
+export const featuredOpenSourceWork = featuredContributionIds.map((id) => {
+  const entry = openSourceWork.find((item) => item.id === id);
+  if (!entry) throw new Error(`Unknown featured contribution: ${id}`);
+  return entry;
+});
+
+export const contributionTotals = {
+  repositories: openSourceWork.filter((item) => item.links.length > 0).length,
+  pullRequests: openSourceWork.flatMap((item) => item.links).length,
+  merged: openSourceWork.flatMap((item) => item.links).filter((link) => link.status === "Merged").length,
+};

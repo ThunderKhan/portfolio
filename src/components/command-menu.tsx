@@ -201,6 +201,10 @@ export function CommandMenu() {
                             <Briefcase className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Experience timeline</span>
                         </CommandItem>
+                        <CommandItem value="page open source oss contributions archive" onSelect={() => runCommand(() => router.push("/open-source"))} className={itemClass}>
+                            <GitPullRequest className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>OSS Contributions</span>
+                        </CommandItem>
                         <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
                             <Sparkles className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Milestones archive</span>

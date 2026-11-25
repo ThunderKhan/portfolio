@@ -56,3 +56,7 @@ Follow-up: corrected shortcut collision (open source uses Shift+W; system theme 
 ## Open source — expanded contribution record
 
 Verified all 14 owner-supplied upstream PRs and the two existing CLI11/Manim links using GitHub PR metadata on 2026-11-25. The curated section now links 16 PRs across seven repositories (13 merged, two open, one closed without merge), plus OSCI community selection. Descriptions summarize the actual PR scope; status is a dated snapshot rather than a live count. Prioritize Corsair, Proofline and ha.mr for technical depth, and retain the earlier verified work. HACKBLOX links directly to the merged Ably PR. No upstream repository changes. Local lint, typecheck, tests, build and responsive rendering remain unverified.
+
+## Open source — featured accordion and archive
+
+Owner requested Experience-style collapsible entries, a compact homepage selection and a separate full OSS Contributions page. Featured Corsair, Runtime Conditions and ha.mr (three entries with substantial merged work); retained all eight groups including community selection and all 16 existing PR links in `/open-source`. Shared one accessible accordion with initially closed rows, single-open behavior, inert closed content, reduced-motion-aware transitions and explicit PR status labels. Archive uses existing blueprint shell, derived totals, command palette entry and sitemap route. No external logos or new dependencies. Added data invariant tests. Runtime/browser validation is pending; no release or deployment.
