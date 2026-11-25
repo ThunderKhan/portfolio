@@ -63,3 +63,7 @@ Owner requested a color-only refinement after rejecting dominant burgundy and li
 ## Slice 5g: Owner-requested visual cleanup
 
 Restore the original red-background avatar asset without grayscale or colored frame. Remove visible development-preview copy while preserving the noindex release safeguard. Remove decorative directional arrow SVGs and icons from route headers, cards, evidence links and buttons. Replace icon-only back navigation with Back text, event gallery icon links with View text, accordion chevrons with plus/minus, and command palette key arrows with text. Preserve destinations, accessible labels, non-directional functional icons and playback. No asset mutation, layout redesign or deployment. Local tests and visual review pending.
+
+## Slice 5h: Original black palette restoration
+
+Owner requested the original black after the Reactor Slate trial. The pre-color-refinement homepage at 4ad5377 used dark:bg-black and neutral #09090b action surfaces. Restore these through shared dark theme tokens (#000000 page, #09090B panel, #27272A neutral seams and zero-activity cells), with a restrained gold-brown achievement seam. Preserve softer gold text, all nonzero contribution colors, red primary actions, reactor-blue links, light theme, original unfiltered avatar, arrow-free navigation, noindex preview metadata, and all responsive/behavioral work. No layout, content or asset changes. Local build and browser review pending. No deployment.

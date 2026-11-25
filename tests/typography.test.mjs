@@ -71,12 +71,13 @@ test("brand accents appear in shared section, project and achievement treatments
   assert.ok(read("src/components/OpenSourceList.tsx").includes("mark-reactor-text"));
 });
 
-test("Reactor Slate uses a unified non-black background with neutral cards", () => {
+test("original black theme uses neutral cards without themed side panels", () => {
   const css = read("src/app/globals.css");
   assert.ok(css.includes("--mark-page: #F4F3EF"));
-  assert.ok(css.includes("--mark-page: #18252B"));
-  assert.ok(css.includes("--mark-panel: #22333C"));
-  assert.ok(css.includes("--mark-seam: #354852"));
+  assert.ok(css.includes("--mark-page: #000000"));
+  assert.ok(css.includes("--mark-panel: #09090B"));
+  assert.ok(css.includes("--mark-seam: #27272A"));
+  assert.ok(!css.includes("--mark-page: #18252B"));
   assert.ok(!css.includes("--mark-workshop-ambient"));
   assert.ok(!css.includes("--mark-workshop-grid"));
   assert.ok(!css.includes("border-top: 3px solid var(--mark-armor-seam)"));

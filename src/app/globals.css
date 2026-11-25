@@ -247,12 +247,12 @@ body {
   --mark-seam: #C9CBD0;
 }
 .dark {
-  --mark-page: #18252B;
-  --mark-panel: #22333C;
+  --mark-page: #000000;
+  --mark-panel: #09090B;
   --mark-ink: #F4FBFF;
-  --mark-muted: #AABCC5;
+  --mark-muted: #A6ADB7;
   --mark-interaction: var(--mark-arc-blue);
-  --mark-seam: #354852;
+  --mark-seam: #27272A;
 }
 .mark-home,
 .mark-page {
@@ -329,8 +329,8 @@ body {
 }
 .dark {
   --mark-gold-ink: #E5BE72;
-  --mark-achievement-border: #59604F;
-  --mark-activity-0: #354852;
+  --mark-achievement-border: #3D3424;
+  --mark-activity-0: #27272A;
   --mark-activity-1: #503910;
   --mark-activity-2: #765010;
   --mark-activity-3: #946410;
@@ -368,7 +368,7 @@ body {
 .mark-activity-3 { background-color: var(--mark-activity-3); }
 .mark-activity-4 { background-color: var(--mark-activity-4); }
 
-/* Reactor Slate: a single calm surface, without themed side panels.
+/* Original black: a single neutral surface, without themed side panels.
    Existing route rule markers are retained to avoid geometry changes. */
 .dark .mark-workshop-rule {
   border-color: var(--mark-seam);
