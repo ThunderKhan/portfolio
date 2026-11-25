@@ -55,13 +55,10 @@ export const ProjectCard = ({
     : "Live";
 
   return (
-    <article className="relative flex min-w-0 flex-col group rounded-lg">
+    <motion.article className="relative flex min-w-0 flex-col group rounded-lg" initial="rest" animate="rest" whileHover={reduceMotion ? "rest" : "hover"}>
       {/* Outer Wrapper exactly like screenshot */}
       <motion.div
         className="relative w-full aspect-[1.25] rounded-xl border mark-surface shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md hover:border-black/10 dark:hover:border-white/10 sm:aspect-[1.4] sm:p-4 sm:pb-0"
-        initial="rest"
-        whileHover={reduceMotion ? "rest" : "hover"}
-        animate="rest"
       >
         <div className="flex items-center justify-end z-10 min-h-[24px]">
           {project.hasPin && (
@@ -143,14 +140,13 @@ export const ProjectCard = ({
                 <div
                   key={key}
                   className="relative"
-                  title={tooltipText}
                   onMouseEnter={() => setHoveredTech(uniqueId)}
                   onMouseLeave={() => setHoveredTech(null)}
                 >
                   {isIconItem ? (
                     (() => {
                       const TechIcon = iconMap[item];
-                      return <><span className="sr-only">{tooltipText}</span><TechIcon aria-hidden="true" className="w-4 h-4 md:w-3.5 md:h-3.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors" /></>;
+                      return <><span className="sr-only">{tooltipText}</span><span aria-hidden="true"><TechIcon className="w-4 h-4 md:w-3.5 md:h-3.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors" /></span></>;
                     })()
                   ) : (
                     <span className="px-1.5 py-0.5 rounded border border-black/30 dark:border-white/[0.15] text-[9px] text-zinc-500 dark:text-zinc-400 leading-none">
@@ -188,7 +184,7 @@ export const ProjectCard = ({
           )}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };
 
