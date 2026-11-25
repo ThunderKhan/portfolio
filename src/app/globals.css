@@ -296,3 +296,9 @@ body {
 .mark-primary-action:active {
   background-color: var(--mark-deep-red);
 }
+
+/* Shared action surfaces keep semantic colors and affordances independent of branding. */
+.mark-control { color: var(--mark-ink); }
+.mark-muted { color: var(--mark-muted); }
+.mark-control:hover { color: var(--mark-interaction); }
+.mark-surface:focus-within { border-color: var(--mark-interaction); }

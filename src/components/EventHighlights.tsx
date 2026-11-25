@@ -9,7 +9,7 @@ export function EventHighlights({ archive = false }: { archive?: boolean }) {
       {eventHighlights.map((event) => {
         const photos = archive ? event.photos : event.photos.slice(0, 1);
         return (
-          <article key={event.id} id={archive ? event.id : undefined} className="scroll-mt-6 overflow-hidden rounded-[6px] border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-[#09090b]">
+          <article key={event.id} id={archive ? event.id : undefined} className="scroll-mt-6 overflow-hidden rounded-[6px] border mark-panel">
             {photos.length > 0 && (
               <div className={archive ? "grid grid-cols-1 gap-2 p-3 sm:grid-cols-2" : "p-3"}>
                 {photos.map((photo) => (
@@ -35,7 +35,7 @@ export function EventHighlights({ archive = false }: { archive?: boolean }) {
           </article>
         );
       })}
-      {!archive && <div className="flex justify-center pt-1"><Link href="/highlights" className="inline-flex items-center gap-1.5 rounded-[6px] border border-black/10 bg-zinc-50 px-4 py-2 text-[13px] font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-white/10 dark:bg-[#09090b] dark:text-zinc-400 dark:hover:bg-zinc-900">View all highlights <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
+      {!archive && <div className="flex justify-center pt-1"><Link href="/highlights" className="inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors">View all highlights <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
     </div>
   );
 }

@@ -14,7 +14,7 @@ export function SpotifyCard() {
   const trackUrl = `https://open.spotify.com/track/${spotifyId}`;
 
   return (
-    <article className="overflow-hidden rounded-[8px] border border-black/10 bg-zinc-50 p-3 dark:border-white/10 dark:bg-[#09090b]">
+    <article className="overflow-hidden rounded-[8px] border mark-panel p-3">
       {showPlayer ? (
         <iframe
           title={`Spotify player: ${title} by ${artist}`}
@@ -49,7 +49,7 @@ export function SpotifyCard() {
           type="button"
           aria-expanded={showPlayer}
           onClick={() => setShowPlayer(value => !value)}
-          className="inline-flex min-h-10 items-center gap-2 rounded-[6px] border border-black/10 px-3 text-[12px] font-medium text-zinc-700 hover:bg-zinc-100 focus-visible:outline-2 dark:border-white/10 dark:text-zinc-300 dark:hover:bg-zinc-900"
+          className="inline-flex min-h-10 items-center gap-2 rounded-[6px] border mark-surface mark-control px-3 text-[12px] font-medium focus-visible:outline-2"
         >
           {showPlayer ? <X aria-hidden="true" className="size-4" /> : <Play aria-hidden="true" className="size-4" />}
           {showPlayer ? "Close player" : "Listen here"}

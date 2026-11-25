@@ -7,7 +7,7 @@ export function Certifications({ archive = false }: { archive?: boolean }) {
   const items = archive ? certifications : featuredCertifications;
   return (
     <div className="relative pb-2 pt-4">
-      <ul className="divide-y divide-dashed divide-zinc-200 rounded-[6px] border border-black/10 bg-zinc-50 dark:divide-zinc-800 dark:border-white/10 dark:bg-[#09090b]">
+      <ul className="divide-y divide-dashed divide-zinc-200 rounded-[6px] border mark-panel dark:divide-zinc-800">
         {items.map((certificate) => (
           <li key={certificate.id} className="flex items-start gap-3 px-3 py-4 sm:px-4">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"><Award aria-hidden="true" className="size-4 text-[#B97D10]" /></span>
@@ -24,7 +24,7 @@ export function Certifications({ archive = false }: { archive?: boolean }) {
           </li>
         ))}
       </ul>
-      {!archive && <div className="flex justify-center pt-4"><Link href="/certifications" className="inline-flex items-center gap-1.5 rounded-[6px] border border-black/10 bg-zinc-50 px-4 py-2 text-[13px] font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-white/10 dark:bg-[#09090b] dark:text-zinc-400 dark:hover:bg-zinc-900">View all certifications <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
+      {!archive && <div className="flex justify-center pt-4"><Link href="/certifications" className="inline-flex items-center gap-1.5 rounded-[6px] border mark-surface mark-control px-4 py-2 text-[13px] font-medium transition-colors">View all certifications <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
     </div>
   );
 }

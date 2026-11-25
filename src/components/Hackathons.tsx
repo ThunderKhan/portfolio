@@ -29,7 +29,7 @@ export function Hackathons() {
         return (
           <div key={h.id} className="relative group">
             <div className="absolute -inset-[5px] rounded-[11px] border border-black/5 dark:border-white/5 pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
-            <article className="relative flex flex-col rounded-[6px] overflow-hidden bg-zinc-50 dark:bg-[#09090b] border border-black/5 dark:border-white/5 shadow-sm shadow-black/5 dark:shadow-lg dark:shadow-black/80">
+            <article className="relative flex flex-col rounded-[6px] overflow-hidden border mark-panel">
               <button
                 type="button"
                 aria-expanded={isOpen}

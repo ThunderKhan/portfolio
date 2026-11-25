@@ -24,8 +24,8 @@ export function HighlightCard({ item, layout = "marquee", number }: { item: High
 
       {/* Main Card Body */}
       <div className={cn(
-        "relative flex flex-col rounded-[6px] overflow-hidden bg-zinc-50 dark:bg-[#09090b] border border-black/5 dark:border-white/5 shadow-sm shadow-black/5 dark:shadow-lg dark:shadow-black/80 transition-all duration-300 group-hover:bg-zinc-100/80 dark:group-hover:bg-[#121214]",
-        isArchive && "h-full motion-safe:group-hover:-translate-y-px group-hover:border-black/15 dark:group-hover:border-white/15 group-hover:shadow-md dark:group-hover:shadow-black/90",
+        "relative flex flex-col rounded-[6px] overflow-hidden border mark-panel transition-colors duration-150",
+        isArchive && "h-full",
       )}>
         {/* Screenshot Image Container */}
         <div className={cn(

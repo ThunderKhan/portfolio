@@ -40,3 +40,12 @@ test("all primary routes share MARK I page surfaces", () => {
   assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-surface"));
   assert.ok(read("src/components/Education.tsx").includes("mark-panel"));
 });
+
+test("shared cards and controls consume common theme surfaces", () => {
+  for (const path of ["src/components/Certifications.tsx","src/components/Hackathons.tsx","src/components/EventHighlights.tsx","src/components/SpotifyCard.tsx","src/components/Highlights.tsx","src/components/CertificateLink.tsx","src/components/OpenSourceWork.tsx"]) {
+    assert.match(read(path), /mark-panel|mark-surface/, path);
+  }
+  assert.ok(read("src/components/command-menu.tsx").includes('aria-label="Open command menu"'));
+  assert.ok(read("src/components/RightNavbar.tsx").includes('aria-label="Portfolio sections"'));
+  assert.ok(!read("src/components/pixel-perfect/soft-pill-button.tsx").includes("radial-gradient"));
+});

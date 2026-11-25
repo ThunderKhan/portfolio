@@ -126,13 +126,17 @@ export function CommandMenu() {
     return (
         <>
             <button
+                type="button"
+                aria-label="Open command menu"
+                aria-haspopup="dialog"
+                aria-expanded={open}
                 onClick={() => setOpen(true)}
                 className="relative group cursor-pointer transition-all duration-300 active:scale-95"
             >
                 {/* Outer border wrapper matching View All style */}
                 <div className="absolute -inset-[4.5px] border border-black/5 dark:border-white/5 rounded-[9px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
 
-                <div className="relative flex items-center gap-1.5 px-3 py-1 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#09090b] dark:hover:bg-[#121214] text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-[5px] text-[11px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80 font-mono">
+                <div className="relative flex items-center gap-1.5 px-3 py-1 mark-surface mark-control rounded-[5px] text-[11px] font-medium transition-colors duration-150 border font-mono">
                     <span className="leading-none mt-[0.5px]">⌘</span>
                     <span className="leading-none mt-[0.5px]">K</span>
                 </div>
