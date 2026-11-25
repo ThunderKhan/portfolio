@@ -9,13 +9,14 @@ type ExperienceLogoProps = Omit<ImageProps, "src" | "onError"> & {
 };
 
 /** Keep the supplied logo in full color; use the local monogram until it exists. */
-export function ExperienceLogo({ src, fallbackSrc, ...props }: ExperienceLogoProps) {
+export function ExperienceLogo({ src, fallbackSrc, alt, ...props }: ExperienceLogoProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const useFallback = failedSrc === src && Boolean(fallbackSrc);
 
   return (
     <Image
       {...props}
+      alt={alt}
       src={useFallback ? fallbackSrc! : src}
       onError={() => {
         if (!useFallback && fallbackSrc) setFailedSrc(src);

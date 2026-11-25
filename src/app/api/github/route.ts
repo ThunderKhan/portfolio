@@ -38,7 +38,7 @@ const REVALIDATE = 3600;
 function fallback(status: number, error: string) {
   const calendar = snapshotCalendar(snapshot.github, portfolio.handles.github);
   return calendar
-    ? NextResponse.json({ calendar, stale: true, asOf: snapshot.github.calendar.at(-1)?.date })
+    ? NextResponse.json({ calendar, stale: true, asOf: calendar.weeks.at(-1)?.contributionDays.at(-1)?.date })
     : NextResponse.json({ error }, { status });
 }
 

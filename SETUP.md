@@ -40,3 +40,17 @@ Set `GITHUB_TOKEN` in a local private environment file for GitHub contribution a
 Run `npm test`, `npm run typecheck`, `npm run lint` and `npm run build`. Review both themes at 320, 360, 768 and 1440px, including navigation, accordion behavior, article pages, images, credentials and keyboard access. Retain preview/noindex until the owner authorizes deployment. See `ENGINEERING.md` for full verification gates.
 
 The source code retains the upstream MIT attribution. Do not copy the upstream owner's personal data back into this repository.
+
+### After removing or renaming routes
+
+Stop the development server and remove the generated `.next` directory before rerunning checks. It can retain validators for routes that no longer exist. In PowerShell, from the repository root:
+
+```powershell
+if (Test-Path .next) { Remove-Item -Recurse -Force .next }
+npx next typegen
+npm run typecheck
+npm run lint
+npm run build
+```
+
+Never edit generated route validators or disable TypeScript checks to hide stale-cache errors.

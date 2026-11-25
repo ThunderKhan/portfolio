@@ -55,7 +55,7 @@ const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionI
 const PROFILES = [
     { label: "GitHub", icon: SiGithub, href: `https://github.com/${handles.github}`, handle: handles.github },
     { label: "LinkedIn", icon: FaLinkedin, href: `https://www.linkedin.com/in/${handles.linkedin}/`, handle: handles.linkedin },
-    { label: "X", icon: SiX, href: `https://x.com/${handles.x}`, handle: `@${handles.x}` },
+    { label: "X", icon: SiX, href: `https://x.com/${handles.x}`, handle: handles.x ? `@${handles.x}` : "" },
     { label: "LeetCode", icon: SiLeetcode, href: `https://leetcode.com/u/${handles.leetcode}`, handle: handles.leetcode },
     { label: "Codeforces", icon: SiCodeforces, href: `https://codeforces.com/profile/${handles.codeforces}`, handle: handles.codeforces },
     { label: "CodeChef", icon: SiCodechef, href: `https://www.codechef.com/users/${handles.codechef}`, handle: handles.codechef },
@@ -227,7 +227,7 @@ export function CommandMenu() {
                     <CommandSeparator className="my-2" />
 
                     <CommandGroup heading="Profiles">
-                        {PROFILES.filter(p => Boolean(p.handle) && p.handle !== "@").map((p) => {
+                        {PROFILES.filter(p => Boolean(p.handle)).map((p) => {
                             const Icon = p.icon
                             return (
                                 <CommandItem

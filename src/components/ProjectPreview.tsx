@@ -9,7 +9,7 @@ type ProjectPreviewProps = Omit<ImageProps, "src" | "onError"> & {
 };
 
 /** A missing screenshot must never be replaced by another project's image. */
-export function ProjectPreview({ src, projectTitle, ...props }: ProjectPreviewProps) {
+export function ProjectPreview({ src, projectTitle, alt, ...props }: ProjectPreviewProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
   if (failedSrc === src) {
@@ -21,5 +21,5 @@ export function ProjectPreview({ src, projectTitle, ...props }: ProjectPreviewPr
     );
   }
 
-  return <Image {...props} src={src} onError={() => setFailedSrc(src)} />;
+  return <Image {...props} alt={alt} src={src} onError={() => setFailedSrc(src)} />;
 }

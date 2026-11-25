@@ -25,8 +25,6 @@ Ayan Khan's portfolio redesign, forked from Paras-ydv/portfolio (MIT). Preserve 
 | `npm run start` | Serve production build |
 | `npm audit` | Inspect advisories; no forced upgrades |
 | `npm run refresh-stats` | Regenerate stats for configured identity |
-| `npm run refresh-music` | Refresh configured music metadata |
-| `npm run refresh-visitors` | Update visitor baseline with authorized credentials |
 
 Run the focused Node regression suite with npm test; add coverage as behavior changes. This is not a substitute for build and browser checks.
 
