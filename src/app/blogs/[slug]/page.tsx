@@ -89,20 +89,20 @@ function BlueprintFrame() {
   return (
     <>
       <div
-        className="absolute top-0 bottom-0 left-[var(--mark-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] sm:block"
+        className="mark-workshop-rule absolute top-0 bottom-0 left-[var(--mark-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] sm:block"
         style={verticalDashes}
       />
       <div
-        className="absolute top-0 bottom-0 right-[var(--mark-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] sm:block"
+        className="mark-workshop-rule absolute top-0 bottom-0 right-[var(--mark-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] sm:block"
         style={verticalDashes}
       />
 
       <div
-        className="absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
+        className="mark-workshop-rule absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
         style={horizontalDashes}
       />
       <div
-        className="absolute left-0 right-0 top-[calc(22vh+112px)] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
+        className="mark-workshop-rule absolute left-0 right-0 top-[calc(22vh+112px)] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
         style={horizontalDashes}
       />
 
@@ -131,7 +131,7 @@ function BlueprintDivider({ className = "" }: { className?: string }) {
   return (
     <div className={`relative ${className}`}>
       <div
-        className="absolute left-[-100vw] right-[-100vw] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
+        className="mark-workshop-rule absolute left-[-100vw] right-[-100vw] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
         style={horizontalDashes}
       />
       <div className="absolute left-0 h-[2px] w-[2px] -translate-x-1/2 translate-y-[-1px] bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
@@ -347,7 +347,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 
         <div className="relative mt-12 h-[220px] w-[calc(100%+32px)] -mx-4 overflow-hidden">
           <div
-            className="absolute left-[-100vw] right-[-100vw] top-0 z-10 h-0 border-t border-black/30 pointer-events-none dark:border-white/[0.15]"
+            className="mark-workshop-rule absolute left-[-100vw] right-[-100vw] top-0 z-10 h-0 border-t border-black/30 pointer-events-none dark:border-white/[0.15]"
             style={horizontalDashes}
           />
           <div className="absolute left-0 top-0 z-20 h-[2px] w-[2px] -translate-x-1/2 -translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />

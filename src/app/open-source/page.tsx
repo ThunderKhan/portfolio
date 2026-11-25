@@ -27,10 +27,10 @@ const verticalDots = {
 export default function OpenSourcePage() {
   return (
     <div className="mark-page relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
-      <div className="pointer-events-none absolute bottom-0 left-[var(--mark-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] sm:block" style={verticalDots} />
-      <div className="pointer-events-none absolute bottom-0 right-[var(--mark-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] sm:block" style={verticalDots} />
-      <div className="pointer-events-none absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
-      <div className="pointer-events-none absolute left-0 right-0 top-[calc(22vh+112px)] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
+      <div className="mark-workshop-rule pointer-events-none absolute bottom-0 left-[var(--mark-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] sm:block" style={verticalDots} />
+      <div className="mark-workshop-rule pointer-events-none absolute bottom-0 right-[var(--mark-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] sm:block" style={verticalDots} />
+      <div className="mark-workshop-rule pointer-events-none absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
+      <div className="mark-workshop-rule pointer-events-none absolute left-0 right-0 top-[calc(22vh+112px)] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
 
       {[
         { top: "22vh", left: "var(--mark-gutter)" },
@@ -106,7 +106,7 @@ export default function OpenSourcePage() {
 
 
         <div className="relative mt-4">
-          <div className="pointer-events-none absolute -left-[100vw] -right-[100vw] bottom-0 h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
+          <div className="mark-workshop-rule pointer-events-none absolute -left-[100vw] -right-[100vw] bottom-0 h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
           <div className="pointer-events-none absolute -bottom-px -left-4 z-10 h-[2px] w-[2px] bg-black/50 dark:bg-white/[0.25]" />
           <div className="pointer-events-none absolute -bottom-px -right-4 z-10 h-[2px] w-[2px] bg-black/50 dark:bg-white/[0.25]" />
         </div>

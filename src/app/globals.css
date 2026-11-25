@@ -247,12 +247,16 @@ body {
   --mark-seam: #C9CBD0;
 }
 .dark {
-  --mark-page: #0B0D10;
-  --mark-panel: #14171B;
+  --mark-page: #140D0F;
+  --mark-panel: #241719;
   --mark-ink: #F4FBFF;
-  --mark-muted: #A6ADB7;
+  --mark-muted: #C2B1AD;
   --mark-interaction: var(--mark-arc-blue);
-  --mark-seam: #2A3038;
+  --mark-seam: #513031;
+  --mark-workshop-edge: #291317;
+  --mark-workshop-ambient: rgb(170 5 5 / 20%);
+  --mark-workshop-grid: rgb(185 125 16 / 17%);
+  --mark-workshop-rule: rgb(185 125 16 / 30%);
 }
 .mark-home,
 .mark-page {
@@ -379,3 +383,26 @@ body {
 .mark-activity-2 { background-color: var(--mark-activity-2); }
 .mark-activity-3 { background-color: var(--mark-activity-3); }
 .mark-activity-4 { background-color: var(--mark-activity-4); }
+
+/* Stark Workshop: the top layer protects the reading column from side decoration.
+   Paint once per route, not on the body as well. At zero gutter the center
+   layer covers the entire viewport; mobile stays a quiet solid surface. */
+.dark .mark-home,
+.dark .mark-page:not(body) {
+  background-image:
+    linear-gradient(to right,
+      transparent var(--mark-gutter),
+      var(--mark-page) var(--mark-gutter),
+      var(--mark-page) calc(100% - var(--mark-gutter)),
+      transparent calc(100% - var(--mark-gutter))),
+    radial-gradient(circle, var(--mark-workshop-grid) 0.65px, transparent 0.9px),
+    radial-gradient(ellipse 520px 740px at left top, var(--mark-workshop-ambient), transparent 100%),
+    radial-gradient(ellipse 520px 740px at right top, rgb(185 125 16 / 8%), transparent 100%),
+    linear-gradient(to right, var(--mark-workshop-edge), var(--mark-page) 50%, var(--mark-workshop-edge));
+  background-size: 100% 100%, 16px 16px, 100% 100%, 100% 100%, 100% 100%;
+  background-position: center, center top, center top, center top, center;
+  background-repeat: no-repeat, repeat, no-repeat, no-repeat, no-repeat;
+}
+.dark .mark-workshop-rule {
+  border-color: var(--mark-workshop-rule);
+}

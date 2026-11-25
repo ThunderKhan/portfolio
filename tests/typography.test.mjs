@@ -70,3 +70,17 @@ test("brand accents appear in shared section, project and achievement treatments
   assert.ok(read("src/components/Hackathons.tsx").includes("mark-achievement"));
   assert.ok(read("src/components/OpenSourceList.tsx").includes("mark-reactor-text"));
 });
+
+test("Stark Workshop is dark-only and preserves the central reading column", () => {
+  const css = read("src/app/globals.css");
+  assert.ok(css.includes("--mark-page: #F4F3EF"));
+  assert.ok(css.includes("--mark-page: #140D0F"));
+  assert.ok(css.includes("--mark-panel: #241719"));
+  assert.ok(css.includes(".dark .mark-home,\n.dark .mark-page:not(body)"));
+  assert.ok(css.includes("var(--mark-page) calc(100% - var(--mark-gutter))"));
+  assert.ok(css.includes("radial-gradient(circle, var(--mark-workshop-grid)"));
+  assert.ok(css.includes(".dark .mark-workshop-rule"));
+  for (const path of ["src/app/page.tsx","src/app/projects/page.tsx","src/app/projects/[slug]/page.tsx","src/app/experience/page.tsx","src/app/blogs/page.tsx","src/app/blogs/[slug]/page.tsx","src/app/contact/page.tsx","src/app/open-source/page.tsx","src/app/certifications/page.tsx","src/app/highlights/page.tsx"]) {
+    assert.ok(read(path).includes("mark-workshop-rule"), path);
+  }
+});
