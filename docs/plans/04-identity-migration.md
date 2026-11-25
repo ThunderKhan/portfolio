@@ -64,3 +64,7 @@ Owner requested Experience-style collapsible entries, a compact homepage selecti
 ## Technical writing — first-party blog
 
 Owner requested self-hosted articles and a dedicated archive. Migrated the complete original diff2test body from `ThunderKhan/ThunderKhan.github.io/src/data/blogs.ts` (blob d05dea15785bb73b2df4b65d40d7d0ec64145bd3) without rewriting the article. Preserve original date, tags, reading time, code, quotations and cross-post links. Homepage shows up to three latest posts, `/blogs` lists all, `/blogs/[slug]` renders the article; old singular blog paths redirect to the canonical plural path. Project case study, command palette and sitemap use internal routes. Removed the local-only like counter from the article rather than implying shared engagement. No CMS, new dependencies or deployment. Regression tests added; local execution, Next.js installed documentation and browser/build validation remain pending.
+
+## Technical writing — permanent numbered URLs
+
+Owner requested short engineering-log-style article URLs. First article has permanent ID `001` and canonical path `/blogs/001`. Assign subsequent IDs explicitly (002, 003, etc.); never derive an ID from sorting, renumber old posts or reuse retired IDs. All three previously used descriptive article paths redirect directly to `/blogs/001`. Project case-study link updated; homepage, archive, metadata, static params and sitemap already derive their routes from the article data. Article body unchanged. Added numbered-ID regression assertions. Local test and runtime verification pending.

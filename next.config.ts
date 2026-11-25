@@ -5,8 +5,9 @@ const nextConfig: NextConfig = {
   ...(process.env.PORTFOLIO_DOCKER_BUILD === "1" ? { output: "standalone" as const } : {}),
   async redirects() {
     return [
-      { source: "/blog/cpp-test-impact-analysis-zero-runtime-dependencies", destination: "/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", permanent: true },
-      { source: "/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies", destination: "/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", permanent: true },
+      { source: "/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", destination: "/blogs/001", permanent: true },
+      { source: "/blog/cpp-test-impact-analysis-zero-runtime-dependencies", destination: "/blogs/001", permanent: true },
+      { source: "/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies", destination: "/blogs/001", permanent: true },
     ];
   },
   images: {

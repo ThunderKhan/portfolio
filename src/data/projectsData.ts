@@ -124,7 +124,7 @@ export const projectsData: Project[] = [
       "Ships as a single runtime source file with no runtime process spawning, public verification, sanitizers, reproducibility checks, and deterministic output"
     ],
     "github": "https://github.com/ThunderKhan/diff2test",
-    "caseStudy": "/blogs/cpp-test-impact-analysis-zero-runtime-dependencies",
+    "caseStudy": "/blogs/001",
     "statusDetail": "Completed · C++20 CLI"
   },
   {

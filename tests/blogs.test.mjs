@@ -6,6 +6,7 @@ test("published articles have unique internal URLs and complete content", () => 
   assert.ok(blogPosts.length > 0);
   assert.equal(new Set(blogPosts.map((post) => post.slug)).size, blogPosts.length);
   for (const post of blogPosts) {
+    assert.match(post.slug, /^(?!0+$)\d{3,}$/);
     assert.equal(post.link, `/blogs/${post.slug}`);
     assert.equal(post.isExternal, false);
     assert.ok(post.content.length > 0);
@@ -16,8 +17,9 @@ test("published articles have unique internal URLs and complete content", () => 
 });
 
 test("diff2test preserves code blocks and cross-publication links", () => {
-  const post = getBlogPostBySlug("cpp-test-impact-analysis-zero-runtime-dependencies");
+  const post = getBlogPostBySlug("001");
   assert.ok(post);
+  assert.equal(post.link, "/blogs/001");
   assert.ok(post.content.some((block) => block.type === "code" && block.text.includes("git diff")));
   assert.ok(post.content.some((block) => block.type === "quote" && block.text.includes("precondition engineering")));
   assert.equal(post.crossPosts.length, 2);

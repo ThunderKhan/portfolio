@@ -55,9 +55,11 @@ type AuthoredPost = {
 };
 
 // Article body migrated verbatim from the owner's published portfolio.
+// Slugs are permanent, explicitly assigned zero-padded article IDs (001, 002, ...).
+// Never derive them from array order, renumber published entries, or reuse retired IDs.
 const authoredPosts: AuthoredPost[] = [
   {
-    slug: 'cpp-test-impact-analysis-zero-runtime-dependencies',
+    slug: '001',
     title: 'I Built C++ Test Impact Analysis With Zero Runtime Dependencies',
     description:
       'How I built diff2test: a conservative C++20 test-impact CLI that reconstructs affected tests from compiler, CMake, and CTest metadata without third-party runtime dependencies.',
