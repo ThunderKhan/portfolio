@@ -23,3 +23,12 @@ test("music uses a single user-selected track and native playback controls", () 
   assert.ok(home.indexOf('<section id="highlights"') < home.indexOf('<section id="music"'));
   assert.ok(home.includes("<EventHighlights />") && home.includes("<SpotifyCard />"));
 });
+
+test("custom cover has a graceful missing-image fallback and full-track link", () => {
+  assert.equal(featuredTrack.cover, "/music/loser-cover.png");
+  const player = read("src/components/SpotifyCard.tsx");
+  assert.ok(player.includes("onError={() => setCoverFailed(true)}"));
+  assert.ok(player.includes("https://open.spotify.com/track/"));
+  assert.ok(player.includes("encrypted-media"));
+  assert.ok(player.includes("Alternate artwork"));
+});
