@@ -7,6 +7,7 @@ import { BlogList } from "@/components/BlogList";
 import { Hackathons } from "@/components/Hackathons";
 import { OpenSourceWork } from "@/components/OpenSourceWork";
 import { Education } from "@/components/Education";
+import { Certifications } from "@/components/Certifications";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
@@ -417,7 +418,7 @@ export default async function Home() {
         </div>
 
 
-        {/* Education & Certifications */}
+        {/* Education */}
         <div id="education" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
 
           {/* Top full-width line */}
@@ -430,7 +431,7 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Education & Certifications</h2>
+            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Education</h2>
 
             {/* Horizontal line below heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -440,6 +441,31 @@ export default async function Home() {
           </div>
 
           <Education />
+        </div>
+
+        {/* Certifications */}
+        <div id="certifications" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
+
+          {/* Top full-width line */}
+          <div
+            className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none"
+            style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }}
+          />
+          {/* Top Line Intersections */}
+          <div className="absolute top-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
+          <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
+
+          <div className="py-2 relative mt-1">
+            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Certifications</h2>
+
+            {/* Horizontal line below heading */}
+            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+            {/* Intersections */}
+            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+          </div>
+
+          <Certifications />
         </div>
 
         {/* Github Graph */}

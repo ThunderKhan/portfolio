@@ -21,6 +21,7 @@ import {
     Binary,
     GitPullRequest,
     GraduationCap,
+    Award,
     Sparkles,
     Mail,
     Download,
@@ -47,7 +48,7 @@ const itemClass = "rounded-lg py-3 cursor-pointer"
 const kbdClass =
     "font-mono text-[10px] bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700"
 
-const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Binary } as const;
+const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Award, Binary } as const;
 const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionIcons[section.icon] })), { id: "contact", label: "Socials", icon: Send, key: "O" }] as const
 
 

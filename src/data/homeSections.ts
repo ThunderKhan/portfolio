@@ -44,6 +44,12 @@ const allSections = [
     "key": "G"
   },
   {
+    "id": "certifications",
+    "label": "Certifications",
+    "icon": "Award",
+    "key": "F"
+  },
+  {
     "id": "activity",
     "label": "Engineering activity",
     "icon": "Binary",

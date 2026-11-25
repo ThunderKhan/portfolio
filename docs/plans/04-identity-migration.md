@@ -68,3 +68,7 @@ Owner requested self-hosted articles and a dedicated archive. Migrated the compl
 ## Technical writing — permanent numbered URLs
 
 Owner requested short engineering-log-style article URLs. First article has permanent ID `001` and canonical path `/blogs/001`. Assign subsequent IDs explicitly (002, 003, etc.); never derive an ID from sorting, renumber old posts or reuse retired IDs. All three previously used descriptive article paths redirect directly to `/blogs/001`. Project case-study link updated; homepage, archive, metadata, static params and sitemap already derive their routes from the article data. Article body unchanged. Added numbered-ID regression assertions. Local test and runtime verification pending.
+
+## Education and certifications separation
+
+Owner supplied two university grade sheets for academic year 2025–2026. Education now shows official cumulative CGPA 8.82 and separate semester SGPAs 9.08 and 8.56, both passed; result dates and exact course titles are stored per semester. The prior degree duration is retained as expected graduation. Native expandable semester coursework keeps the card compact. Certifications have independent data, section and navigation; existing two credentials are unchanged pending owner review. No grade sheet PDFs, individual marks, family details or student identifiers are committed. No new dependencies or deployment. Local verification pending.
