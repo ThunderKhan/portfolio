@@ -28,16 +28,16 @@ const verticalDots = {
 export default function AllHighlightsPage() {
   return (
     <div className="mark-page relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
-      <div className="pointer-events-none absolute bottom-0 left-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block" style={verticalDots} />
-      <div className="pointer-events-none absolute bottom-0 right-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block" style={verticalDots} />
+      <div className="pointer-events-none absolute bottom-0 left-[var(--mark-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] sm:block" style={verticalDots} />
+      <div className="pointer-events-none absolute bottom-0 right-[var(--mark-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] sm:block" style={verticalDots} />
       <div className="pointer-events-none absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
       <div className="pointer-events-none absolute left-0 right-0 top-[calc(22vh+112px)] h-0 border-b border-black/30 dark:border-white/[0.15]" style={horizontalDots} />
 
       {[
-        { top: "22vh", left: "30%" },
-        { top: "22vh", right: "30%" },
-        { top: "calc(22vh + 112px)", left: "30%" },
-        { top: "calc(22vh + 112px)", right: "30%" },
+        { top: "22vh", left: "var(--mark-gutter)" },
+        { top: "22vh", right: "var(--mark-gutter)" },
+        { top: "calc(22vh + 112px)", left: "var(--mark-gutter)" },
+        { top: "calc(22vh + 112px)", right: "var(--mark-gutter)" },
       ].map((position, index) => (
         <div
           key={index}
@@ -46,16 +46,16 @@ export default function AllHighlightsPage() {
         />
       ))}
 
-      <div className="absolute left-0 right-0 top-0 h-[22vh] md:left-[30%] md:right-[30%]">
+      <div className="absolute top-0 h-[22vh] left-[var(--mark-gutter)] right-[var(--mark-gutter)]">
         <FooterBackground />
         <div className="pointer-events-auto absolute bottom-3 right-2 z-10">
           <CurrentTime />
         </div>
       </div>
 
-      <header className="absolute left-0 right-0 top-[22vh] z-20 flex h-[112px] items-center px-4 md:left-[30%] md:right-[30%]">
-        <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-5">
+      <header className="absolute top-[22vh] z-20 flex h-[112px] items-center px-4 left-[var(--mark-gutter)] right-[var(--mark-gutter)]">
+        <div className="flex w-full min-w-0 items-center justify-between">
+          <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/#highlights"
               aria-label="Back to highlights"
@@ -63,7 +63,7 @@ export default function AllHighlightsPage() {
             >
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
             </Link>
-            <div className="flex flex-col justify-center">
+            <div className="flex min-w-0 flex-col justify-center">
               <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                 Highlights
               </h1>
@@ -71,14 +71,14 @@ export default function AllHighlightsPage() {
             </div>
           </div>
 
-          <div className="flex h-20 items-start justify-end gap-2 py-1 sm:h-24 sm:gap-3">
+          <div className="absolute right-4 top-2 flex shrink-0 items-center justify-end gap-2 sm:static sm:self-start sm:gap-3">
             <CommandMenu />
             <ThemeToggle className="dark:text-zinc-400 hover:dark:text-zinc-300" />
           </div>
         </div>
       </header>
 
-      <main className="relative z-10 ml-0 mr-0 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] md:ml-[30%] md:mr-[30%]">
+      <main className="relative z-10 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
         <div className="flex items-center justify-between gap-4 py-5">
           <p className="text-[12px] leading-relaxed text-zinc-500 dark:text-zinc-400">
             Moments, milestones, and recognition along the way.

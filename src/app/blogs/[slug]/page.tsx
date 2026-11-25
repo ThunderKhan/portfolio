@@ -89,11 +89,11 @@ function BlueprintFrame() {
   return (
     <>
       <div
-        className="absolute top-0 bottom-0 left-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] xl:block"
+        className="absolute top-0 bottom-0 left-[var(--mark-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] sm:block"
         style={verticalDashes}
       />
       <div
-        className="absolute top-0 bottom-0 right-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] xl:block"
+        className="absolute top-0 bottom-0 right-[var(--mark-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] sm:block"
         style={verticalDashes}
       />
 
@@ -107,10 +107,10 @@ function BlueprintFrame() {
       />
 
       {[
-        { top: "22vh", left: "30%" },
-        { top: "22vh", right: "30%" },
-        { top: "calc(22vh + 112px)", left: "30%" },
-        { top: "calc(22vh + 112px)", right: "30%" },
+        { top: "22vh", left: "var(--mark-gutter)" },
+        { top: "22vh", right: "var(--mark-gutter)" },
+        { top: "calc(22vh + 112px)", left: "var(--mark-gutter)" },
+        { top: "calc(22vh + 112px)", right: "var(--mark-gutter)" },
       ].map((position, index) => (
         <div
           key={index}
@@ -251,16 +251,16 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
       <RightNavbar />
       <BlueprintFrame />
 
-      <div className="absolute left-0 right-0 top-0 h-[22vh] pointer-events-auto -z-0 xl:left-[30%] xl:right-[30%]">
+      <div className="absolute top-0 h-[22vh] pointer-events-auto -z-0 left-[var(--mark-gutter)] right-[var(--mark-gutter)]">
         <FooterBackground />
         <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
           <CurrentTime />
         </div>
       </div>
 
-      <div className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 xl:left-[30%] xl:right-[30%]">
-        <div className="flex w-full items-center justify-between gap-4">
-          <div className="flex min-w-0 items-center gap-5">
+      <div className="absolute top-[22vh] z-50 flex h-[112px] items-center px-4 left-[var(--mark-gutter)] right-[var(--mark-gutter)]">
+        <div className="flex w-full min-w-0 items-center justify-between gap-4">
+          <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/blogs"
               className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
@@ -278,15 +278,15 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
             </div>
           </div>
 
-          <div className="flex h-20 items-start justify-end gap-2 py-1 sm:h-24 sm:gap-3">
+          <div className="absolute right-4 top-2 flex shrink-0 items-center justify-end gap-2 sm:static sm:self-start sm:gap-3">
             <CommandMenu />
             <ThemeToggle className="dark:text-zinc-400 hover:dark:text-zinc-300" />
           </div>
         </div>
       </div>
 
-      <main className="relative z-10 ml-0 mr-0 flex flex-col px-4 pb-16 sm:px-8 pt-[calc(22vh+112px)] xl:ml-[30%] xl:mr-[30%]">
-        <article className="relative">
+      <main className="relative z-10 flex flex-col px-4 pb-16 sm:px-8 pt-[calc(22vh+112px)] ml-[var(--mark-gutter)] mr-[var(--mark-gutter)]">
+        <article className="relative mx-auto w-full min-w-0 max-w-[75ch] [overflow-wrap:anywhere]">
           <header className="relative py-7">
             <div className="mb-4 flex flex-wrap gap-2">
               {post.tags.map((tag) => (

@@ -18,8 +18,8 @@ export default function AllProjectsPage() {
         <RightNavbar />
 
         {/* Vertical Lines - Ultra-fine Micro Dots */}
-        <div className="absolute top-0 bottom-0 left-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-        <div className="absolute top-0 bottom-0 right-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+        <div className="absolute top-0 bottom-0 left-[var(--mark-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden sm:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+        <div className="absolute top-0 bottom-0 right-[var(--mark-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden sm:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
 
         {/* Horizontal Lines - Ultra-fine Micro Dots */}
         <div className="absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -27,12 +27,12 @@ export default function AllProjectsPage() {
 
         {/* Ultra-Tiny Solid Nodes */}
         {[
-          { top: '22vh', left: '30%' },
-          { top: '22vh', right: '30%' },
-          { top: 'calc(22vh + 112px)', left: '30%' },
-          { top: 'calc(22vh + 112px)', right: '30%' },
+          { top: '22vh', left: 'var(--mark-gutter)' },
+          { top: '22vh', right: 'var(--mark-gutter)' },
+          { top: 'calc(22vh + 112px)', left: 'var(--mark-gutter)' },
+          { top: 'calc(22vh + 112px)', right: 'var(--mark-gutter)' },
         ].map((pos, i) => (
-          <div key={i} className="absolute w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] pointer-events-none z-10 hidden md:block"
+          <div key={i} className="absolute w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] pointer-events-none z-10 hidden sm:block"
             style={{
               top: pos.top,
               left: pos.left,
@@ -42,7 +42,7 @@ export default function AllProjectsPage() {
         ))}
 
         {/* Cell 1: Dot Matrix Background */}
-        <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 h-[22vh] -z-0 pointer-events-auto">
+        <div className="absolute left-[var(--mark-gutter)] right-[var(--mark-gutter)] top-0 h-[22vh] -z-0 pointer-events-auto">
           <FooterBackground />
           <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
             <CurrentTime />
@@ -50,17 +50,17 @@ export default function AllProjectsPage() {
         </div>
 
         {/* Cell 2: Header with Back Button + Title + Controls */}
-        <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-[22vh] h-[112px] flex items-center px-4 z-50">
-          <div className="flex w-full items-center justify-between">
+        <div className="absolute left-[var(--mark-gutter)] right-[var(--mark-gutter)] top-[22vh] h-[112px] flex items-center px-4 z-50">
+          <div className="flex w-full min-w-0 items-center justify-between">
             {/* Left: Back + Title */}
-            <div className="flex items-center gap-5">
+            <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
               <Link
                 href="/"
-                className="group flex items-center justify-center w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                className="group flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
               >
                 <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
               </Link>
-              <div className="flex flex-col justify-center">
+              <div className="flex min-w-0 flex-col justify-center">
                 <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
                   All Projects
                 </h1>
@@ -71,7 +71,7 @@ export default function AllProjectsPage() {
             </div>
 
             {/* Right: Controls */}
-            <div className="flex items-start justify-end gap-2 sm:gap-3 h-20 sm:h-24 py-1">
+            <div className="absolute right-4 top-2 flex shrink-0 items-center justify-end gap-2 sm:static sm:self-start sm:gap-3">
               <CommandMenu />
               <ThemeToggle className="dark:text-zinc-400 hover:dark:text-zinc-300" />
             </div>
@@ -80,7 +80,7 @@ export default function AllProjectsPage() {
 
         {/* Content Section */}
         <div
-          className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative"
+          className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative"
         >
           <div className="relative pt-6 pb-6">
             {/* Center Vertical Line */}

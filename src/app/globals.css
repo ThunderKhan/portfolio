@@ -309,3 +309,9 @@ body {
   ::view-transition-old(root),
   ::view-transition-new(root) { animation: none; }
 }
+
+/* Shared inset keeps the banner, header, content, rails and desktop index aligned. */
+:root { --mark-gutter: 0px; }
+@media (min-width: 640px) {
+  :root { --mark-gutter: max(24px, calc((100vw - 800px) / 2)); }
+}

@@ -42,10 +42,10 @@ export function RightNavbar() {
 
   return (
     <div
-      className="fixed inset-0 z-50 pointer-events-none hidden lg:block"
+      className="fixed inset-0 z-50 pointer-events-none hidden xl:block"
       style={{ width: 'calc(100vw - var(--removed-body-scroll-bar-size, 0px))' }}
     >
-      <nav aria-label="Portfolio sections" className="absolute top-[22vh] left-[calc(69%+32px)] pointer-events-auto flex flex-col gap-4 mt-2">
+      <nav aria-label="Portfolio sections" className="absolute top-[22vh] left-[calc(100%-var(--mark-gutter)+24px)] right-4 max-h-[calc(78dvh-24px)] overflow-y-auto pointer-events-auto flex flex-col gap-3 mt-2 py-1">
         <h3 className="text-[10px] font-bold tracking-[0.2em] mark-muted uppercase mb-1">Index</h3>
         {links.map((link) => {
           const isActive = activeSection === link.href.slice(1);
