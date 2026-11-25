@@ -166,7 +166,13 @@ export function GithubGraph() {
         Calendar heatmap for {portfolio.handles.github}. {graphStatus}.
       </p>
 
-      {/* Graph content — sits directly on the page background */}
+      {/* Missing data is not a zero-contribution calendar. */}
+      {!loading && weeks.length === 0 ? (
+        <div className="py-5 text-[13px] leading-relaxed mark-muted">
+          <p>The contribution calendar is temporarily unavailable.</p>
+          <a href={`https://github.com/${portfolio.handles.github}`} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-8 items-center rounded-sm font-medium mark-control underline underline-offset-4">View activity on GitHub<span className="sr-only"> (opens in a new tab)</span></a>
+        </div>
+      ) : (
       <div className="relative py-4">
         <div className="w-full overflow-x-auto pb-2 focus-visible:outline-2" tabIndex={0} role="region" aria-label="GitHub contribution calendar; scroll horizontally if needed">
           <div className="min-w-[560px]">
@@ -245,6 +251,8 @@ export function GithubGraph() {
           </div>
         )}
       </div>
+
+      )}
 
       {/* Bottom full-width dashed line */}
       <div

@@ -18,3 +18,14 @@ test("responsive calendar and desktop index use local scrolling", () => {
   assert.ok(nav.includes("hidden xl:block") && nav.includes("overflow-y-auto"));
   assert.ok(read("src/components/ui/command.tsx").includes("40dvh"));
 });
+
+test("runtime image quality and smooth-scroll config match the application", () => {
+  assert.ok(read("next.config.ts").includes("qualities: [60, 70, 75, 80, 90, 100]"));
+  assert.ok(read("src/app/layout.tsx").includes('data-scroll-behavior="smooth"'));
+});
+test("unavailable activity does not render an empty calendar as actual history", () => {
+  const graph = read("src/components/GithubGraph.tsx");
+  assert.ok(graph.includes("!loading && weeks.length === 0 ? ("));
+  assert.ok(graph.includes("View activity on GitHub"));
+  assert.ok(read("src/app/api/github/route.ts").includes('fallback(503, "GitHub is not configured")'));
+});

@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     deviceSizes: [360, 414, 640, 768, 1024, 1280],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 2678400,
-    qualities: [60, 70, 75, 90, 100],
+    qualities: [60, 70, 75, 80, 90, 100],
     // Portfolio images are owner-supplied local assets; no remote image hosts required.
     remotePatterns: [],
   },

@@ -43,3 +43,7 @@ Owner reported 33/33 tests, clean TypeScript and lint, and 31/31 static pages ge
 ## Slice 5b: Responsive components
 
 Contribution calendar retains a 560px minimum graph width in its own keyboard-accessible horizontal scroll region rather than squeezing 53 columns; header wraps and cells honor reduced motion. Project image sizes reflect the new content column, command menu trigger is at least 32px tall and command list height is viewport-bounded. Add regression checks for shared gutters and local scrolling. Browser and full local verification pending; no deployment.
+
+## Slice 5c: Runtime verification findings
+
+Owner reported 35/35 passing tests, clean TypeScript/lint and production build (31/31) at 3579d7f. Dev server routes returned 200, with missing GitHub configuration returning 503, unconfigured image quality 80 and missing smooth-scroll attribute warnings. Apply the two documented Next.js fixes; keep the server-side GitHub error status meaningful and replace empty-calendar failure state with a direct profile link. No token or snapshot fabricated. Document least-privilege server-only token setup and optional reviewed snapshot. New regression checks cover config and fallback. Local browser and live GitHub verification pending. No deployment or dependency changes.
