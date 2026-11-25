@@ -41,3 +41,29 @@ test("social hover artwork loads only when its card is open", () => {
   assert.match(source, /\{isOpen && \([\s\S]*?src=\{bannerImage\}/);
   assert.ok(source.includes('loading="eager"'));
 });
+
+test("static blog lists keep article content outside the client boundary", () => {
+  const source = read("src/components/BlogList.tsx");
+  assert.ok(!source.includes('"use client"'));
+  assert.ok(source.includes('import { blogsData } from "@/data/blogsData"'));
+  for (const path of ["src/app/page.tsx", "src/app/blogs/page.tsx"]) {
+    assert.ok(!read(path).includes('"use client"'));
+    assert.ok(read(path).includes("<BlogList"));
+  }
+});
+test("social hover cards reuse the existing public hero artwork", () => {
+  const source = read("src/components/pixel-perfect/social-hover-card.tsx");
+  assert.ok(source.includes('const bannerImage = "/banner/starry-night.png";'));
+  assert.ok(!source.includes('import bannerImage'));
+  assert.ok(read("src/components/StarryNightBanner.tsx").includes("/banner/starry-night.png"));
+});
+test("project and social card motion use only the required feature bundle", () => {
+  for (const path of ["src/components/ProjectsGrid.tsx", "src/components/pixel-perfect/social-hover-card.tsx"]) {
+    const source = read(path);
+    assert.ok(source.includes("<LazyMotion features={domAnimation} strict>"));
+    assert.ok(source.includes("<m."));
+    assert.ok(!source.includes("<motion."));
+    assert.ok(!source.includes("domMax"));
+    assert.ok(source.includes("<AnimatePresence>"));
+  }
+});

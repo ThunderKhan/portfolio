@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 const read = path => readFileSync(new URL("../" + path, import.meta.url), "utf8");
 test("project cards provide native distinct internal and external links", () => {
   const s = read("src/components/ProjectsGrid.tsx");
-  assert.ok(s.includes("<motion.article") && s.includes('whileHover={reduceMotion ? "rest" : "hover"}'));
+  assert.ok(s.includes("<m.article") && s.includes('whileHover={reduceMotion ? "rest" : "hover"}'));
   assert.ok(s.includes("<Link href={`/projects/${project.slug}`}"));
   assert.ok(s.includes('href={externalUrl} target="_blank" rel="noopener noreferrer"'));
   assert.ok(!s.includes("window.open(") && !s.includes("router.push("));

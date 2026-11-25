@@ -98,3 +98,25 @@ node .\node_modules\next\dist\bin\next experimental-analyze --output
 ```
 
 The official guide https://nextjs.org/docs/app/guides/package-bundling and CLI reference https://nextjs.org/docs/app/api-reference/cli/next document the output directory .next/diagnostics/analyze. Analyze client JavaScript for / and /projects; inspect module sizes and import chains, not just filenames or installed package sizes. Owner can share reviewed analyzer output or screenshots of the route-filtered client treemap and largest module import chains. Do not share .env.local, the whole .next directory, or unrelated build files. Analyzer data may contain source paths/module names; review before sharing. Analyzer does not create a production build; rebuild before subsequent production checks if necessary. No app code changes in this documentation-only checkpoint. No deployment.
+
+
+## Turbopack analysis and focused client bundle reduction
+
+Owner supplied the complete analyzer ZIP from Next.js 16.4.6 at e57b7673c3f9809e823bc5d01706367974472a16. Metadata reports gitDirty=true; exact local worktree changes are not known. Analyzer format schema_version=1, routeCount=17. Parsed the length-prefixed JSON in data/analyze.data, data/projects/analyze.data and data/modules.data; filtered chunk parts to client static JavaScript, grouped by package/source. Analyzer output filenames differ from runtime build filenames. Per-source compressed sizes are analyzer estimates and are not additive network measurements; the route total includes non-JS assets (notably two records for the same 1,733,427-byte static banner). Do not compare route aggregate compressed_size with Playwright transfer totals.
+
+| Client static JS source group | Home estimated compressed bytes | Projects estimated compressed bytes |
+| --- | ---: | ---: |
+| Next.js (includes compiled React, polyfills) | 217530 | 217530 |
+| motion-dom | 42713 | 42713 |
+| framer-motion | 15251 | 15251 |
+| motion-utils | 1362 | 1362 |
+| Application source (approximate path grouping) | 46214 | 19008 |
+| react-icons | 23088 | 23088 |
+| tailwind-merge | 8412 | 8412 |
+| lucide-react | 8074 | 7066 |
+
+Home motion chunk includes projection node, drag controls and other unused features. Project cards and social hover cards use hover, variants, enter/exit and reduced-motion handling, not drag or layout projection. Use scoped synchronous LazyMotion + domAnimation + m (strict), retain the existing variant definitions, transition properties, AnimatePresence, interaction state and classes; no asynchronous loading delay or root provider. Source regression updated for equivalent m.article. See https://motion.dev/docs/react-lazy-motion and https://motion.dev/docs/react-upgrade-guide for Framer Motion exports. Runtime verification pending on installed package.
+
+BlogList has no client hooks or event handlers; both home and blog archive are Server Components. Remove its unnecessary client boundary; article source (5875 estimated compressed bytes) and list renderer (1111) need not be shipped as client JS merely to show summaries. Link behavior remains Next Link. See https://nextjs.org/docs/app/getting-started/server-and-client-components. The social-card banner static import causes an emitted copy of the existing public asset; use the same public URL as the hero, keep sizing/quality and on-open loading. This avoids redundant build artwork, not an additional 1.73 MB measured network saving. All changes preserve content and intended appearance. No dependency edits, no deployment, no claims of measured savings yet.
+
+Verification: run full source/typecheck/lint/build, normal performance sampler (prior reference 448246/456915/456915/314485 JS bytes), browser accessibility suite, and manually check project hover/tooltip, social hover banner, article links and reduced motion. Re-run analyzer only after verifying build and runtime behavior; compare estimated JS groups separately from actual transfer. Prior shader visual checks and GPU profiling still pending; Lighthouse and production checks remain outstanding.
