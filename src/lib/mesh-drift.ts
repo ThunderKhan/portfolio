@@ -64,12 +64,23 @@ export function createMeshRenderer(canvas: HTMLCanvasElement) {
   if (!scene) { dispose(); return null; }
 
   return {
-    draw(seconds: number, dimensions: NonNullable<ReturnType<typeof meshResolution>>) {
+    draw(seconds: number, dimensions: NonNullable<ReturnType<typeof meshResolution>>, edgePixels: number) {
       if (canvas.width !== dimensions.width) canvas.width = dimensions.width;
       if (canvas.height !== dimensions.height) canvas.height = dimensions.height;
       context.viewport(0, 0, canvas.width, canvas.height);
       context.uniform4f(scene, canvas.width, canvas.height, seconds * MESH_SPEED, 4);
-      context.drawArrays(context.TRIANGLES, 0, 3);
+      // Keep the full viewport and original fragment coordinates. Skip only
+      // pixels hidden by the CSS mask; the safety margin covers edge sampling.
+      context.enable(context.SCISSOR_TEST);
+      if (edgePixels > 0 && edgePixels * 2 < canvas.width) {
+        context.scissor(0, 0, edgePixels, canvas.height);
+        context.drawArrays(context.TRIANGLES, 0, 3);
+        context.scissor(canvas.width - edgePixels, 0, edgePixels, canvas.height);
+        context.drawArrays(context.TRIANGLES, 0, 3);
+      } else {
+        context.scissor(0, 0, canvas.width, canvas.height);
+        context.drawArrays(context.TRIANGLES, 0, 3);
+      }
     },
     dispose,
   };

@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createMeshRenderer } from "@/lib/mesh-drift";
-import { canAnimateMesh, meshDelta, meshResolution, MESH_FRAME_MS, MESH_MIN_WIDTH } from "@/lib/mesh-drift-settings";
+import { canAnimateMesh, meshDelta, meshEdgePixels, meshResolution, MESH_FRAME_MS, MESH_MIN_WIDTH } from "@/lib/mesh-drift-settings";
 
 export function MeshDriftBackground() {
   const layerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const edgeRef = useRef<HTMLSpanElement>(null);
   const pausedRef = useRef(false);
   const syncRef = useRef<() => void>(() => {});
   const [paused, setPaused] = useState(false);
@@ -14,9 +15,11 @@ export function MeshDriftBackground() {
   useEffect(() => {
     const layer = layerRef.current;
     const canvas = canvasRef.current;
-    if (!layer || !canvas) return;
+    const edge = edgeRef.current;
+    if (!layer || !canvas || !edge) return;
     const host = layer;
     const surface = canvas;
+    const maskBoundary = edge;
     const wide = window.matchMedia(`(min-width: ${MESH_MIN_WIDTH}px)`);
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let renderer: ReturnType<typeof createMeshRenderer> = null;
@@ -25,6 +28,9 @@ export function MeshDriftBackground() {
     let previous: number | null = null;
     let lastDraw: number | null = null;
     let elapsed = 0;
+    let dimensions: ReturnType<typeof meshResolution> = null;
+    let edgePixels = 0;
+    let measuredDpr = 0;
 
     function stop() {
       if (frame !== null) cancelAnimationFrame(frame);
@@ -41,11 +47,19 @@ export function MeshDriftBackground() {
         paused: pausedRef.current,
       };
     }
+    function measure() {
+      measuredDpr = window.devicePixelRatio || 1;
+      dimensions = meshResolution(surface.clientWidth, surface.clientHeight, measuredDpr);
+      if (!dimensions) return;
+      const mask = window.getComputedStyle(maskBoundary.parentElement ?? host).maskImage;
+      const cssEdge = mask?.includes("linear-gradient") ? maskBoundary.getBoundingClientRect().width : 0;
+      edgePixels = meshEdgePixels(dimensions.width, surface.getBoundingClientRect().width, cssEdge);
+    }
     function paint() {
-      const dimensions = meshResolution(surface.clientWidth, surface.clientHeight, window.devicePixelRatio || 1);
+      if ((window.devicePixelRatio || 1) !== measuredDpr) measure();
       if (!dimensions || !renderer) return;
-      renderer.draw(elapsed, dimensions);
-      host.dataset.ready = "true";
+      renderer.draw(elapsed, dimensions, edgePixels);
+      if (host.dataset.ready !== "true") host.dataset.ready = "true";
     }
     function tick(now: number) {
       frame = null;
@@ -71,6 +85,7 @@ export function MeshDriftBackground() {
         try { renderer = createMeshRenderer(surface); } catch { renderer = null; }
         if (!renderer) { failed = true; return; }
       }
+      measure();
       if (state.paused) {
         stop();
         paint();
@@ -94,6 +109,9 @@ export function MeshDriftBackground() {
     wide.addEventListener("change", sync);
     motion.addEventListener("change", sync);
     window.addEventListener("resize", sync, { passive: true });
+    const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(sync);
+    resize?.observe(surface);
+    resize?.observe(maskBoundary);
     document.addEventListener("visibilitychange", sync);
     surface.addEventListener("webglcontextlost", lost);
     surface.addEventListener("webglcontextrestored", restored);
@@ -105,6 +123,7 @@ export function MeshDriftBackground() {
       wide.removeEventListener("change", sync);
       motion.removeEventListener("change", sync);
       window.removeEventListener("resize", sync);
+      resize?.disconnect();
       document.removeEventListener("visibilitychange", sync);
       surface.removeEventListener("webglcontextlost", lost);
       surface.removeEventListener("webglcontextrestored", restored);
@@ -117,6 +136,7 @@ export function MeshDriftBackground() {
   return (
     <div ref={layerRef} className="mark-mesh-background">
       <div className="mark-mesh-art" aria-hidden="true">
+        <span ref={edgeRef} className="mark-mesh-edge" />
         <canvas ref={canvasRef} />
       </div>
       <button

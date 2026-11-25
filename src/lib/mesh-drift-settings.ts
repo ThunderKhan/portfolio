@@ -25,3 +25,13 @@ export function canAnimateMesh({ dark, wide, visible, reduced, paused }: {
 export function meshDelta(previous: number | null, now: number) {
   return previous === null ? 0 : Math.max(0, Math.min(now - previous, 100)) / 1000;
 }
+
+// Convert the CSS fade boundary to backing-buffer pixels. Round outward and
+// include two extra pixels for interpolation at fractional canvas scales.
+// Invalid measurements or overlapping strips must retain full-frame rendering.
+export function meshEdgePixels(bufferWidth: number, cssWidth: number, cssEdge: number) {
+  if (!Number.isFinite(bufferWidth) || !Number.isFinite(cssWidth) || !Number.isFinite(cssEdge) ||
+      bufferWidth <= 0 || cssWidth <= 0 || cssEdge <= 0) return bufferWidth;
+  const edge = Math.min(bufferWidth, Math.ceil(cssEdge / cssWidth * bufferWidth) + 2);
+  return edge * 2 >= bufferWidth ? bufferWidth : edge;
+}

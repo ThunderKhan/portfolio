@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readFileSync } from "node:fs";
-import { meshResolution, canAnimateMesh, meshDelta, MESH_MAX_PIXELS, MESH_PALETTE, MESH_SPEED } from "../src/lib/mesh-drift-settings.ts";
+import { meshResolution, canAnimateMesh, meshDelta, meshEdgePixels, MESH_MAX_PIXELS, MESH_PALETTE, MESH_SPEED } from "../src/lib/mesh-drift-settings.ts";
 import { MESH_FRAGMENT } from "../src/lib/mesh-drift-shader.ts";
 const read = path => readFileSync(new URL("../" + path, import.meta.url), "utf8");
 
@@ -32,8 +32,10 @@ test("mesh is homepage-only and has a static fallback and pause control", () => 
   assert.ok(read("src/app/page.tsx").includes("<MeshDriftBackground />"));
   assert.ok(!read("src/app/layout.tsx").includes("MeshDriftBackground"));
   for (const token of ["visibilitychange", "webglcontextlost", "webglcontextrestored", "cancelAnimationFrame", "renderer?.dispose()", "Pause background"]) assert.ok(component.includes(token), token);
-  assert.ok(css.includes("transparent calc(var(--mark-gutter) + 96px)"));
-  assert.ok(css.includes("transparent calc(100% - var(--mark-gutter) - 96px)"));
+  assert.ok(css.includes("--mark-mesh-edge: calc(var(--mark-gutter) + 96px)"));
+  assert.ok(css.includes("transparent var(--mark-mesh-edge)"));
+  assert.ok(css.includes("transparent calc(100% - var(--mark-mesh-edge))"));
+  assert.ok(css.includes("width: var(--mark-mesh-edge)"));
   assert.ok(css.includes("--mark-page: #000000"));
 });
 
@@ -47,4 +49,30 @@ test("mesh timing advances independently of the draw throttle and excludes stopp
   for (let i = 1; i <= 60; i++) elapsed += meshDelta((i - 1) * 1000 / 60, i * 1000 / 60);
   assert.ok(Math.abs(elapsed - 1) < 1e-9);
   assert.ok(read("src/lib/mesh-drift.ts").includes("preserveDrawingBuffer: true"));
+});
+
+test("scissor strips cover the complete visible mask with a conservative guard", () => {
+  for (const [w, h, dpr] of [[1280, 720, 1], [1440, 900, 1], [1920, 1080, 2], [3840, 2160, 3]]) {
+    const size = meshResolution(w, h, dpr);
+    const cssEdge = (w - 800) / 2 + 96;
+    const edge = meshEdgePixels(size.width, w, cssEdge);
+    assert.ok(edge >= Math.ceil(cssEdge / w * size.width) + 2);
+    assert.ok(edge * 2 < size.width);
+  }
+  assert.equal(meshEdgePixels(1000, 1440, 416.5), 292);
+  assert.equal(meshEdgePixels(1000, 1440, 0), 1000);
+  assert.equal(meshEdgePixels(1000, 0, 416), 1000);
+  assert.equal(meshEdgePixels(1000, 1440, NaN), 1000);
+  assert.equal(meshEdgePixels(1000, 1440, 800), 1000);
+});
+test("scissor retains full shader coordinates and caches layout measurements", () => {
+  const renderer = read("src/lib/mesh-drift.ts");
+  const component = read("src/components/MeshDriftBackground.tsx");
+  assert.ok(renderer.includes("context.viewport(0, 0, canvas.width, canvas.height)"));
+  assert.ok(renderer.includes("context.scissor(0, 0, edgePixels, canvas.height)"));
+  assert.ok(renderer.includes("context.scissor(canvas.width - edgePixels, 0, edgePixels, canvas.height)"));
+  assert.ok(renderer.includes("context.scissor(0, 0, canvas.width, canvas.height)"));
+  assert.ok(component.includes('mask?.includes("linear-gradient")'));
+  assert.ok(component.includes("resize?.disconnect()"));
+  assert.ok(component.includes('if (host.dataset.ready !== "true")'));
 });
