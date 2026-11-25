@@ -76,3 +76,21 @@ test("above-fold hero artwork is eagerly loaded with high fetch priority", () =>
   assert.match(image, /fetchPriority="high"/);
   assert.doesNotMatch(image, /loading="lazy"/);
 });
+
+test("hero compression retains eager priority and the approved image geometry", () => {
+  const source = read("src/components/StarryNightBanner.tsx");
+  assert.match(source, /quality=\{80\}/);
+  assert.match(source, /loading="eager"/);
+  assert.match(source, /fetchPriority="high"/);
+  assert.ok(source.includes('className="object-cover object-[75%_50%]"'));
+});
+
+test("project screenshot sizes reflect the actual home and archive panel widths", () => {
+  const source = read("src/components/ProjectsGrid.tsx");
+  assert.match(source, /const HOME_PREVIEW_SIZES = "[^"]*calc\(85vw - 56px\)"/);
+  assert.match(source, /const ARCHIVE_PREVIEW_SIZES = "[^"]*calc\(85vw - 28px\)"/);
+  assert.ok(source.includes("previewSizes = ARCHIVE_PREVIEW_SIZES"));
+  assert.ok(source.includes("sizes={previewSizes}"));
+  assert.equal(source.match(/previewSizes=\{HOME_PREVIEW_SIZES\}/g)?.length, 2);
+  assert.ok(source.includes("w-[85%]"));
+});

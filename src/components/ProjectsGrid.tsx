@@ -26,12 +26,20 @@ export {
   projectsData,
 };
 
+// The archive uses 16px main padding per side. The home grid adds another
+// 16px per side. Account for the 40px desktop gap, the 85%-wide screenshot
+// panel, and the shared 800px content cap. Round up slightly for borders.
+const ARCHIVE_PREVIEW_SIZES = "(min-width: 848px) 315px, (min-width: 768px) calc(42.5vw - 48px), (min-width: 640px) calc(85vw - 66px), calc(85vw - 28px)";
+const HOME_PREVIEW_SIZES = "(min-width: 848px) 300px, (min-width: 768px) calc(42.5vw - 62px), (min-width: 640px) calc(85vw - 94px), calc(85vw - 56px)";
+
 export const ProjectCard = ({
   project,
   isPriority = false,
+  previewSizes = ARCHIVE_PREVIEW_SIZES,
 }: {
   project: Project;
   isPriority?: boolean;
+  previewSizes?: string;
 }) => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
@@ -102,7 +110,7 @@ export const ProjectCard = ({
                 width={600}
                 height={400}
                 preload={isPriority}
-                sizes="(min-width: 848px) 320px, (min-width: 768px) calc((100vw - 120px) / 2), (min-width: 640px) calc(100vw - 80px), calc(100vw - 32px)"
+                sizes={previewSizes}
                 quality={70}
                 className="size-full object-cover object-top"
               />
@@ -193,7 +201,7 @@ export function ProjectsGrid() {
         {/* Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 md:gap-y-0 pb-10 md:pb-6">
           {projectsData.slice(0, 2).map((project) => (
-            <ProjectCard key={project.title} project={project} />
+            <ProjectCard key={project.title} project={project} previewSizes={HOME_PREVIEW_SIZES} />
           ))}
         </div>
 
@@ -209,7 +217,7 @@ export function ProjectsGrid() {
         {/* Row 2 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 md:gap-y-0 pt-0 md:pt-6">
           {projectsData.slice(2, 4).map((project) => (
-            <ProjectCard key={project.title} project={project} />
+            <ProjectCard key={project.title} project={project} previewSizes={HOME_PREVIEW_SIZES} />
           ))}
         </div>
       </div>
