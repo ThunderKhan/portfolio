@@ -56,6 +56,7 @@ export interface Project {
   problem?: string;
   highlights?: string[];
   caseStudy?: string;
+  evidence?: { label: string; href: string }[];
   statusDetail?: string;
   tech: TechItem[];
   github: string;
@@ -299,7 +300,13 @@ export const projectsData: Project[] = [
     ],
     "github": "https://github.com/ThunderKhan/pareto",
     "live": "https://try-pareto.vercel.app",
-    "hasPin": false
+    "hasPin": false,
+    "evidence": [
+      {
+        "label": "View Trustume participation certificate",
+        "href": "/certificates/hackathons/trustume-2026.png"
+      }
+    ]
   },
   {
     "slug": "refute",

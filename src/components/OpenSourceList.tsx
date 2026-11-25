@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { ArrowUpRight, ChevronDown, GitPullRequest } from "lucide-react";
 import type { OpenSourceEntry } from "@/data/openSourceData";
+import { CertificateLink } from "@/components/CertificateLink";
 
 export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -44,6 +45,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
               <div className="min-h-0 overflow-hidden">
                 <div className="pb-4 pl-3 pr-2 sm:pl-[53px]">
                   <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{item.description}</p>
+                  {item.evidence?.length ? <div className="mt-3 flex flex-wrap gap-2">{item.evidence.map((evidence) => <CertificateLink key={evidence.href} {...evidence} />)}</div> : null}
                   {item.links.length > 0 && (
                     <ul className="mt-3 space-y-2">
                       {item.links.map((link) => (

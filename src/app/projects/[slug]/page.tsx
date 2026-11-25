@@ -6,6 +6,7 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { projectsData, iconMap, techNames, TechItem, TechKey } from "@/data/projectsData";
 import Link from "next/link";
 import { ProjectPreview } from "@/components/ProjectPreview";
+import { CertificateLink } from "@/components/CertificateLink";
 import { notFound } from "next/navigation";
 import { ExternalLink, ArrowLeft } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -212,6 +213,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               {project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
             </ul>
           </section>
+        ) : null}
+        {project.evidence?.length ? (
+          <div className="mt-5 flex flex-wrap gap-2">{project.evidence.map((evidence) => <CertificateLink key={evidence.href} {...evidence} />)}</div>
         ) : null}
         {project.caseStudy && (
           <a href={project.caseStudy} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-fit items-center gap-1.5 text-[13px] font-medium text-zinc-700 underline-offset-4 hover:underline dark:text-zinc-200">

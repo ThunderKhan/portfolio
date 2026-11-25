@@ -210,6 +210,10 @@ export function CommandMenu() {
                             <FileText className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Technical writing archive</span>
                         </CommandItem>
+                        <CommandItem value="page certifications training credentials" onSelect={() => runCommand(() => router.push("/certifications"))} className={itemClass}>
+                            <Award className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Certifications archive</span>
+                        </CommandItem>
                         <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
                             <Sparkles className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Milestones archive</span>

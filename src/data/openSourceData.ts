@@ -5,6 +5,7 @@ export type OpenSourceEntry = {
   summary: string;
   description: string;
   links: { label: string; href: string; status: ContributionStatus }[];
+  evidence?: { label: string; href: string }[];
 };
 
 // Curated PR status snapshot verified against GitHub on 2026-11-25.
@@ -150,7 +151,39 @@ export const openSourceWork: OpenSourceEntry[] = [
     "summary": "Community contributor",
     "title": "Open Source Connect India 2026",
     "description": "Selected as a contributor.",
-    "links": []
+    "links": [],
+    "evidence": [
+      {
+        "label": "View contributor badge",
+        "href": "/certificates/community/osci-2026.png"
+      }
+    ]
+  },
+  {
+    "id": "hacktoberfest-completionist",
+    "title": "Hacktoberfest 2026 — Completionist++",
+    "summary": "Open-source achievement · 12 Oct 2026",
+    "description": "Earned the Hacktoberfest 2026 Completionist++ certificate on 12 October 2026.",
+    "links": [],
+    "evidence": [
+      {
+        "label": "View completion certificate",
+        "href": "/certificates/community/hacktoberfest-completionist-plus-plus.png"
+      }
+    ]
+  },
+  {
+    "id": "hacktoberfest-host",
+    "title": "Hacktoberfest 2026 — Event Host",
+    "summary": "Community leadership · 10 Oct 2026",
+    "description": "Hosted Hacktoberfest Hack Day Gorakhpur × DDUGU in person on 10 October 2026, as recognized by the Hacktoberfest team.",
+    "links": [],
+    "evidence": [
+      {
+        "label": "View host certificate",
+        "href": "/certificates/community/hacktoberfest-host.png"
+      }
+    ]
   }
 ];
 

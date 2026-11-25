@@ -71,6 +71,58 @@ export const hackathonsData: Hackathon[] = [
     ]
   },
   {
+    "id": "zero-dependency-2026",
+    "event": "Zero Dependency Hackathon 2026",
+    "organizer": "Hackathon Raptors",
+    "placement": "Top 10%",
+    "scale": "Online · 72 hours",
+    "dates": "Aug 2026",
+    "project": "diff2test",
+    "problem": "Reduce unnecessary CTest execution while maintaining conservative selection guarantees.",
+    "built": [
+      "Built diff2test with team std::zero using C++20 and the standard library alone.",
+      "Reconstructed affected tests from compiler, CMake and CTest metadata, widening selection when evidence was incomplete.",
+      "The Certificate of Excellence records rank 29 of 295 and a score of 4.293 out of 5."
+    ],
+    "tech": [
+      "C++20",
+      "CMake",
+      "CTest"
+    ],
+    "metrics": [
+      {
+        "label": "Rank",
+        "value": "29 / 295"
+      },
+      {
+        "label": "Score",
+        "value": "4.293 / 5"
+      },
+      {
+        "label": "Duration",
+        "value": "72h"
+      },
+      {
+        "label": "Result",
+        "value": "Top 10%"
+      }
+    ],
+    "links": [
+      {
+        "label": "Project details",
+        "href": "/projects/diff2test"
+      },
+      {
+        "label": "Competition result",
+        "href": "https://zerodepshack.com/projects#p-10"
+      },
+      {
+        "label": "View certificate of excellence",
+        "href": "/certificates/hackathons/zero-dependency-2026.png"
+      }
+    ]
+  },
+  {
     "id": "hackblox-2026",
     "event": "HACKBLOX 2026",
     "organizer": "Hackers Cult",
@@ -104,6 +156,10 @@ export const hackathonsData: Hackathon[] = [
       {
         "label": "Merged Ably PR #865",
         "href": "https://github.com/corsairdev/corsair/pull/865"
+      },
+      {
+        "label": "View participation certificate",
+        "href": "/certificates/hackathons/hackblox-2026.pdf"
       }
     ]
   },
@@ -146,6 +202,10 @@ export const hackathonsData: Hackathon[] = [
       {
         "label": "Project details",
         "href": "/projects/oasis"
+      },
+      {
+        "label": "View participation certificate",
+        "href": "/certificates/hackathons/sih-2026.jpg"
       }
     ]
   }

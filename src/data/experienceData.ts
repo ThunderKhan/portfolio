@@ -48,6 +48,12 @@ export const experiences: ExperienceData[] = [
     "tech": [
       "AI Model Evaluation",
       "Data Annotation"
+    ],
+    "links": [
+      {
+        "label": "AI interview recognition · 18 Sep 2026",
+        "href": "/certificates/experience/micro1-ai-interview.jpg"
+      }
     ]
   },
   {
