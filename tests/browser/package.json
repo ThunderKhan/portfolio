@@ -1,0 +1,13 @@
+{
+  "name": "mark-i-browser-audit",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "install:browser": "playwright install chromium",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@axe-core/playwright": "4.14.0"
+  }
+}
