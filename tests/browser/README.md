@@ -32,3 +32,5 @@ Four Chromium projects exercise desktop 1440x900 and mobile 390x844 in both syst
 Axe runs available WCAG A/AA tagged rules without disabling findings. Each scan attaches full axe JSON (including incomplete results); violation assertions fail the test. The HTML report includes traces and screenshots on failure. Review incomplete findings manually. Report artifacts are local and ignored by Git; inspect for personal data before sharing. A clean automated report is not WCAG conformance.
 
 See [audit findings and remaining checks](../../docs/audits/accessibility.md). Record the exact tested commit, commands, results and unresolved issues. Do not mark findings closed based solely on this suite.
+
+For the separate local performance observation runner, see [performance audit](../../docs/audits/performance.md). It uses the same pinned browser dependencies and does not run as part of the accessibility suite.
