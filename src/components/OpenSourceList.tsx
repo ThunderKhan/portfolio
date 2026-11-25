@@ -26,7 +26,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                 className="flex w-full items-center gap-3 rounded-md px-1 py-3.5 text-left transition-colors hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:hover:bg-zinc-900/30"
               >
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
-                  <GitPullRequest aria-hidden="true" className="size-4 text-[#B97D10]" />
+                  <GitPullRequest aria-hidden="true" className="size-4 mark-reactor-text" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block break-words text-[14px] font-bold leading-tight text-zinc-900 dark:text-zinc-100 sm:text-[16px]">{item.title}</span>

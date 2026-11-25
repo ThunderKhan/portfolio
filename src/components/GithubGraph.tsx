@@ -63,19 +63,19 @@ export function GithubGraph() {
   const contributionLevels = useMemo<ContributionLevel[]>(
     () => [
       {
-        cell: "bg-zinc-100 dark:bg-zinc-800",
+        cell: "mark-activity-0",
       },
       {
-        cell: "bg-zinc-300 dark:bg-zinc-600",
+        cell: "mark-activity-1",
       },
       {
-        cell: "bg-zinc-500 dark:bg-zinc-500",
+        cell: "mark-activity-2",
       },
       {
-        cell: "bg-zinc-700 dark:bg-zinc-300",
+        cell: "mark-activity-3",
       },
       {
-        cell: "bg-zinc-950 dark:bg-zinc-100",
+        cell: "mark-activity-4",
       },
     ],
     []
@@ -148,7 +148,7 @@ export function GithubGraph() {
           <h2 id="github-activity-title" className="mark-section-title text-zinc-900 dark:text-zinc-100">
             Engineering activity
           </h2>
-          <p className="text-right text-[11px] text-zinc-500 dark:text-zinc-400" aria-live="polite">
+          <p className={`text-right text-[11px] ${weeks.length ? "mark-gold-text" : "mark-muted"}`} aria-live="polite">
             {graphStatus}
           </p>
         </div>
@@ -189,7 +189,7 @@ export function GithubGraph() {
                       {Array.from({ length: 7 }).map((__, rowIndex) => (
                         <div
                           key={rowIndex}
-                          className={`aspect-square w-full rounded-[2px] bg-zinc-100 dark:bg-zinc-800 ${loading ? "motion-safe:animate-pulse" : ""}`}
+                          className={`aspect-square w-full rounded-[2px] mark-activity-0 ${loading ? "motion-safe:animate-pulse" : ""}`}
                         />
                       ))}
                     </div>
@@ -210,7 +210,7 @@ export function GithubGraph() {
                             key={day.date}
                             aria-hidden="true"
                             aria-label={`${day.contributionCount} contributions on ${formatDate(day.date)}`}
-                            className={`aspect-square w-full rounded-[2px] opacity-80 outline-none transition-[opacity,transform] motion-safe:hover:scale-125 hover:opacity-100 dark:opacity-70 dark:hover:opacity-100 ${color.cell}`}
+                            className={`aspect-square w-full rounded-[2px] outline-none motion-safe:transition-transform motion-safe:hover:scale-125 ${color.cell}`}
                             onMouseEnter={(event) => showTooltip(day, event)}
                             onMouseLeave={() => setTooltip(null)}
                           />
@@ -235,7 +235,7 @@ export function GithubGraph() {
               <div
                 key={index}
                 aria-hidden="true"
-                className={`size-2 rounded-[2px] opacity-80 dark:opacity-70 ${level.cell}`}
+                className={`size-2 rounded-[2px] ${level.cell}`}
               />
             ))}
             <span className="text-[11px] text-zinc-500 dark:text-zinc-400">More active</span>

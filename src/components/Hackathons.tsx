@@ -29,7 +29,7 @@ export function Hackathons() {
         return (
           <div key={h.id} className="relative group">
             <div className="absolute -inset-[5px] rounded-[11px] border border-black/5 dark:border-white/5 pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
-            <article className="relative flex flex-col rounded-[6px] overflow-hidden border mark-panel">
+            <article className="relative flex flex-col rounded-[6px] overflow-hidden border mark-panel mark-achievement">
               <button
                 type="button"
                 aria-expanded={isOpen}
@@ -40,7 +40,7 @@ export function Hackathons() {
                   <h3 className="text-[14px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight sm:text-[15px]">
                     {h.event}
                   </h3>
-                  <span className="px-1.5 py-[1px] rounded-[4px] text-[11px] font-medium text-zinc-600 dark:text-zinc-400 bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/50 dark:border-zinc-700/50 whitespace-nowrap">
+                  <span className="px-1.5 py-[1px] rounded-[4px] text-[11px] font-medium mark-gold-text border mark-achievement whitespace-nowrap">
                     {h.placement}
                   </span>
                   <span className="ml-auto flex items-center gap-2 text-[12px] font-medium text-zinc-400 dark:text-zinc-600 whitespace-nowrap">
@@ -72,10 +72,10 @@ export function Hackathons() {
                     key={m.label}
                     className="relative min-w-0 px-3 py-2 after:absolute after:bottom-0 after:right-0 after:top-0 after:w-0 after:border-r after:border-black/30 after:[mask-image:repeating-linear-gradient(to_bottom,black_0,black_1px,transparent_1px,transparent_6px)] dark:after:border-white/[0.15] [&:nth-child(2n)]:after:hidden sm:[&:not(:last-child)]:after:block sm:[&:last-child]:after:hidden"
                   >
-                    <p className="whitespace-nowrap text-[16px] font-bold leading-none text-zinc-900 dark:text-zinc-100">
+                    <p className="break-words font-mono text-[16px] font-semibold leading-tight mark-gold-text">
                       {m.value}
                     </p>
-                    <p className="mt-1 text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+                    <p className="mt-1 text-[10px] font-medium uppercase mark-muted">
                       {m.label}
                     </p>
                   </div>
@@ -97,7 +97,7 @@ export function Hackathons() {
                       </p>
 
                       <div>
-                        <p className="text-[10px] font-medium uppercase text-zinc-400 dark:text-zinc-600">
+                        <p className="text-[10px] font-medium uppercase mark-muted">
                           {h.project}
                         </p>
                         <ul className="mt-2 flex flex-col gap-1.5">

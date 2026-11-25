@@ -24,7 +24,7 @@ export function EventHighlights({ archive = false }: { archive?: boolean }) {
             )}
             <div className="flex items-center gap-3 px-3 py-3">
               <span className="flex size-10 shrink-0 items-center justify-center rounded-[8px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-                <Camera aria-hidden="true" className="size-4 text-[#B97D10]" />
+                <Camera aria-hidden="true" className="size-4 mark-gold-text" />
               </span>
               <div className="min-w-0 flex-1">
                 <h3 className="text-[14px] font-semibold leading-snug text-zinc-900 dark:text-zinc-100">{event.title}</h3>

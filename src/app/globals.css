@@ -315,3 +315,67 @@ body {
 @media (min-width: 640px) {
   :root { --mark-gutter: max(24px, calc((100vw - 800px) / 2)); }
 }
+
+/* MARK I brand integration: armor seams, achievement gold, reactor interactions. */
+:root {
+  --mark-gold-ink: #805409;
+  --mark-gold-seam: #B97D10;
+  --mark-armor-seam: #AA0505;
+  --mark-armor-border: #D8B5AF;
+  --mark-achievement-border: #D8C49F;
+  --mark-activity-0: #E5E1D8;
+  --mark-activity-1: #E5CEA1;
+  --mark-activity-2: #D6AE62;
+  --mark-activity-3: #C59339;
+  --mark-activity-4: var(--mark-gold);
+}
+.dark {
+  --mark-gold-ink: var(--mark-bright-gold);
+  --mark-armor-border: #6A3030;
+  --mark-achievement-border: #554222;
+  --mark-activity-0: #2A3038;
+  --mark-activity-1: #503910;
+  --mark-activity-2: #765010;
+  --mark-activity-3: #946410;
+}
+.mark-section-title::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: .82em;
+  margin-inline-end: 9px;
+  vertical-align: -.015em;
+  border-radius: 1px;
+  background: var(--mark-gold-seam);
+}
+.mark-hero-avatar {
+  outline: 1px solid var(--mark-gold-seam);
+  outline-offset: 2px;
+  border-color: var(--mark-armor-seam);
+}
+.mark-project-frame {
+  border-color: var(--mark-armor-border);
+  border-top: 3px solid var(--mark-armor-seam);
+  background-color: color-mix(in srgb, var(--mark-deep-red) 4%, var(--mark-panel));
+}
+.dark .mark-project-frame {
+  background-color: color-mix(in srgb, var(--mark-deep-red) 12%, var(--mark-panel));
+}
+.mark-project-frame:hover,
+.mark-project-frame:focus-within { border-color: var(--mark-armor-seam); }
+.mark-achievement {
+  border-color: var(--mark-achievement-border);
+}
+.mark-gold-text { color: var(--mark-gold-ink); }
+.mark-reactor-text { color: var(--mark-interaction); }
+.mark-gold-detail { background-color: var(--mark-gold-seam); }
+.mark-home .mark-nav-link[aria-current="location"] { color: var(--mark-gold-ink); }
+.mark-skill:hover {
+  border-color: var(--mark-interaction);
+}
+.mark-skill:hover .mark-skill-icon { color: var(--mark-interaction); }
+.mark-activity-0 { background-color: var(--mark-activity-0); }
+.mark-activity-1 { background-color: var(--mark-activity-1); }
+.mark-activity-2 { background-color: var(--mark-activity-2); }
+.mark-activity-3 { background-color: var(--mark-activity-3); }
+.mark-activity-4 { background-color: var(--mark-activity-4); }

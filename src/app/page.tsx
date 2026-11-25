@@ -77,7 +77,7 @@ export default async function Home() {
         <div className="flex w-full items-center justify-between">
 
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-            <div className="relative p-[3px] border-[1.5px] border-transparent shrink-0">
+            <div className="mark-hero-avatar relative rounded-[5px] p-[3px] border-[1.5px] shrink-0">
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
@@ -407,8 +407,8 @@ export default async function Home() {
                     const SkillIcon = skill.icon;
 
                     return (
-                      <div key={skill.name} className="flex items-center gap-2 px-3 py-1.5 mark-surface border rounded-[6px] transition-colors duration-200 cursor-default">
-                        <SkillIcon aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-zinc-500 opacity-80" />
+                      <div key={skill.name} className="flex items-center gap-2 px-3 py-1.5 mark-surface mark-skill border rounded-[6px] transition-colors duration-200 cursor-default">
+                        <SkillIcon aria-hidden="true" className="mark-skill-icon h-3.5 w-3.5 shrink-0 text-zinc-500 opacity-80" />
                         <span className="text-[13px] font-medium text-zinc-600 dark:text-zinc-400">{skill.name}</span>
                       </div>
                     );
@@ -497,7 +497,7 @@ export default async function Home() {
           </div>
 
           <div className="py-4 text-sm text-zinc-600 dark:text-zinc-300">
-            <p><span className="font-semibold text-zinc-900 dark:text-zinc-100">{socialProfiles.LeetCode?.stats[0]?.value ?? portfolio.publishedLeetCodeSolved}</span> LeetCode problems solved <span className="text-xs text-zinc-500">({socialProfiles.LeetCode?.stats[0]?.label === "Solved" ? "live account data" : "last published or cached count"}).</span></p>
+            <p><span className="font-mono font-semibold mark-gold-text">{socialProfiles.LeetCode?.stats[0]?.value ?? portfolio.publishedLeetCodeSolved}</span> LeetCode problems solved <span className="text-xs text-zinc-500">({socialProfiles.LeetCode?.stats[0]?.label === "Solved" ? "live account data" : "last published or cached count"}).</span></p>
             <a href="https://github.com/ThunderKhan/LeetCode-Solutions" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline decoration-dotted underline-offset-4">Solution archive</a>
           </div>
         </div>
@@ -528,14 +528,14 @@ export default async function Home() {
         {/* Minimal Quote Section */}
         <div className="mt-2 flex flex-col items-center justify-center relative py-6">
           <div className="max-w-[480px] w-full flex flex-col items-center">
-            <h3 className="text-[16px] font-medium text-center leading-relaxed text-zinc-500 dark:text-zinc-400 mb-6 italic">
+            <h3 className="text-[16px] font-medium text-center leading-relaxed mark-gold-text mb-6 italic">
               Labor omnia vincit.
             </h3>
 
-            <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] text-zinc-400 dark:text-zinc-600 uppercase">
-              <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
+            <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] mark-muted uppercase">
+              <div className="w-4 h-[1px] mark-gold-detail" />
               WORK CONQUERS ALL
-              <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
+              <div className="w-4 h-[1px] mark-gold-detail" />
             </div>
           </div>
         </div>

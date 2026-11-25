@@ -49,3 +49,24 @@ test("shared cards and controls consume common theme surfaces", () => {
   assert.ok(read("src/components/RightNavbar.tsx").includes('aria-label="Portfolio sections"'));
   assert.ok(!read("src/components/pixel-perfect/soft-pill-button.tsx").includes("radial-gradient"));
 });
+
+test("engineering activity uses metallic gold in both themes with a shared legend", () => {
+  const css = read("src/app/globals.css");
+  const graph = read("src/components/GithubGraph.tsx");
+  assert.ok(css.includes("--mark-activity-4: var(--mark-gold)"));
+  for (let level = 0; level <= 4; level++) {
+    assert.ok(css.includes(".mark-activity-" + level));
+    assert.ok(graph.includes('cell: "mark-activity-' + level + '"'));
+  }
+  assert.ok(graph.includes("contributionLevels.map"));
+  assert.ok(graph.includes("const color = contributionLevels[level]"));
+  assert.ok(!graph.includes("dark:opacity-70"));
+});
+test("brand accents appear in shared section, project and achievement treatments", () => {
+  const css = read("src/app/globals.css");
+  assert.ok(css.includes(".mark-section-title::before"));
+  assert.ok(css.includes("border-top: 3px solid var(--mark-armor-seam)"));
+  assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-project-frame"));
+  assert.ok(read("src/components/Hackathons.tsx").includes("mark-achievement"));
+  assert.ok(read("src/components/OpenSourceList.tsx").includes("mark-reactor-text"));
+});

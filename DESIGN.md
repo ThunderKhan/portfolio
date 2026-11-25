@@ -384,3 +384,7 @@ belongs to the owner, not a generated design score.
 Keep design tokens and implementation synchronized after approval. Update this document when
 an approved design decision changes. Do not automatically run third-party tooling or export
 provisional tokens. Validate against the current Google schema when tooling is available.
+
+### Owner-directed brand integration (2026-11-25)
+
+Owner approved stronger color presence and explicitly selected Metallic Gold, not Arc Reactor Blue, for engineering activity. The five-step calendar palette retains neutral zero-activity cells, progressively richer gold shades, and exact #B97D10 at the highest level in both themes. Do not alter contribution counts or activity thresholds. Gold markers identify section headings; armor-red project seams and subtle recessed tint preserve original screenshots. Gold achievement ink uses a darker supporting shade on light surfaces and Bright Gold on dark surfaces. Reactor ink remains reserved for technical links and interactive states. Supporting shades are implementation choices subject to rendered review; all six brand primitives remain unchanged.

@@ -9,10 +9,10 @@ const resultDate = new Intl.DateTimeFormat("en-GB", {
 export function Education() {
   return (
     <div className="relative pb-2 pt-6">
-      <article className="relative rounded-[6px] border mark-panel">
+      <article className="relative rounded-[6px] border mark-panel mark-achievement">
         <div className="flex items-start gap-3 px-4 py-4">
           <EducationLogo src={education.logo}>
-            <GraduationCap aria-hidden="true" className="size-5 text-[#B97D10]" />
+            <GraduationCap aria-hidden="true" className="size-5 mark-gold-text" />
           </EducationLogo>
           <div className="min-w-0">
             <h3 className="text-[15px] font-bold leading-snug text-zinc-900 dark:text-zinc-100">{education.school}</h3>
@@ -24,7 +24,7 @@ export function Education() {
         <dl className="grid grid-cols-3 divide-x divide-zinc-200 border-y border-dashed border-zinc-300 py-3 dark:divide-zinc-800 dark:border-zinc-800">
           <div className="min-w-0 px-2 text-center">
             <dt className="text-[11px] text-zinc-600 dark:text-zinc-400">CGPA</dt>
-            <dd className="mt-1 font-mono text-xl font-semibold tabular-nums text-[#6A0C0B] dark:text-[#FBCA03]">{education.cgpa.toFixed(2)}</dd>
+            <dd className="mt-1 font-mono text-xl font-semibold tabular-nums mark-gold-text">{education.cgpa.toFixed(2)}</dd>
             <p className="text-[10px] text-zinc-500 dark:text-zinc-400">Out of 10</p>
           </div>
           {education.semesters.map((semester) => (
@@ -64,7 +64,7 @@ export function Education() {
               <details className="group">
                 <summary className="flex cursor-pointer list-none items-start gap-3 rounded-[6px] px-4 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
                   <EducationLogo src={program.logo}>
-                    <BookOpen aria-hidden="true" className="size-5 text-[#B97D10]" />
+                    <BookOpen aria-hidden="true" className="size-5 mark-gold-text" />
                   </EducationLogo>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[14px] font-bold leading-snug text-zinc-900 dark:text-zinc-100">{program.provider}</span>

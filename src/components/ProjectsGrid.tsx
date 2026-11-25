@@ -58,7 +58,7 @@ export const ProjectCard = ({
     <motion.article className="relative flex min-w-0 flex-col group rounded-lg" initial="rest" animate="rest" whileHover={reduceMotion ? "rest" : "hover"}>
       {/* Outer Wrapper exactly like screenshot */}
       <motion.div
-        className="relative w-full aspect-[1.25] rounded-xl border mark-surface shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md hover:border-black/10 dark:hover:border-white/10 sm:aspect-[1.4] sm:p-4 sm:pb-0"
+        className="relative w-full aspect-[1.25] rounded-xl border mark-surface mark-project-frame shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md hover:border-black/10 dark:hover:border-white/10 sm:aspect-[1.4] sm:p-4 sm:pb-0"
       >
         <div className="flex items-center justify-end z-10 min-h-[24px]">
           {project.hasPin && (
@@ -174,7 +174,7 @@ export const ProjectCard = ({
           </div>
 
           {externalUrl && (
-            <a href={externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} ${project.live ? "live project" : "repository"} in a new tab`} className="relative z-40 inline-flex min-h-8 shrink-0 items-center gap-1 rounded-sm text-[12px] font-medium mark-control">
+            <a href={externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} ${project.live ? "live project" : "repository"} in a new tab`} className="relative z-40 inline-flex min-h-8 shrink-0 items-center gap-1 rounded-sm text-[12px] font-medium mark-reactor-text">
               {project.live ? "Live project" : "Repository"}
               <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7" />

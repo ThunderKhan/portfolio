@@ -7,10 +7,10 @@ export function Certifications({ archive = false }: { archive?: boolean }) {
   const items = archive ? certifications : featuredCertifications;
   return (
     <div className="relative pb-2 pt-4">
-      <ul className="divide-y divide-dashed divide-zinc-200 rounded-[6px] border mark-panel dark:divide-zinc-800">
+      <ul className="divide-y divide-dashed divide-zinc-200 rounded-[6px] border mark-panel mark-achievement dark:divide-zinc-800">
         {items.map((certificate) => (
           <li key={certificate.id} className="flex items-start gap-3 px-3 py-4 sm:px-4">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"><Award aria-hidden="true" className="size-4 text-[#B97D10]" /></span>
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"><Award aria-hidden="true" className="size-4 mark-gold-text" /></span>
             <div className="min-w-0 flex-1">
               <h3 className="text-[14px] font-semibold leading-snug text-zinc-900 dark:text-zinc-100">{certificate.name}</h3>
               <p className="mt-1 text-[12px] leading-relaxed text-zinc-600 dark:text-zinc-400">{certificate.issuer} · {certificate.date}</p>
