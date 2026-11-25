@@ -29,3 +29,15 @@ test("unavailable activity does not render an empty calendar as actual history",
   assert.ok(graph.includes("View activity on GitHub"));
   assert.ok(read("src/app/api/github/route.ts").includes('fallback(503, "GitHub is not configured")'));
 });
+
+
+test("preview does not inject production telemetry scripts", () => {
+  assert.match(read("src/app/layout.tsx"), /\{!portfolio\.referencePreview && \([\s\S]*?<Analytics \/>[\s\S]*?<SpeedInsights \/>/);
+});
+test("social hover artwork loads only when its card is open", () => {
+  const source = read("src/components/pixel-perfect/social-hover-card.tsx");
+  assert.ok(!source.includes("ReactDOM.preload"));
+  assert.ok(!source.includes("getImageProps"));
+  assert.match(source, /\{isOpen && \([\s\S]*?src=\{bannerImage\}/);
+  assert.ok(source.includes('loading="eager"'));
+});

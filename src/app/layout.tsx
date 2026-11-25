@@ -69,8 +69,12 @@ export default function RootLayout({
           <a href="#main-content" className="mark-skip-link">Skip to main content</a>
           {children}
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        {!portfolio.referencePreview && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

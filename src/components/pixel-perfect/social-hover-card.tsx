@@ -1,16 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { portfolio } from "~/portfolio.config";
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import bannerImage from "../../../public/banner/starry-night.png";
 
 const bannerImageProps = { width: 250, height: 64, quality: 70, sizes: "250px" } as const;
-const bannerPreload = getImageProps({ ...bannerImageProps, alt: "", src: bannerImage }).props;
 
 interface SocialProfile {
   name: string;
@@ -78,14 +76,6 @@ export default function SocialHoverCard({ socialName, children, profile: live }:
   // If there's no profile configuration for this social name, just render the child as-is
   if (!profile) {
     return <>{children}</>;
-  }
-
-  if (profile.banner) {
-    ReactDOM.preload(bannerPreload.src, {
-      as: "image",
-      imageSrcSet: bannerPreload.srcSet,
-      imageSizes: bannerPreload.sizes,
-    });
   }
 
   return (

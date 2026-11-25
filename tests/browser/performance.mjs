@@ -4,18 +4,26 @@ import { execFileSync } from 'node:child_process';
 
 const origin = 'http://127.0.0.1:4173';
 const root = new URL('../../', import.meta.url);
-const output = new URL('./test-results/performance-baseline.json', import.meta.url);
+const meshProbe = process.argv.includes('--mesh-probe');
+const outputName = meshProbe ? 'mesh-probe.json' : 'performance-baseline.json';
+const output = new URL('./test-results/' + outputName, import.meta.url);
 const observationMs = 5000;
 const repetitions = 3;
-const profiles = [
+const baselineProfiles = [
   { name: 'home-mobile-light', path: '/', viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, colorScheme: 'light', isMobile: true, hasTouch: true },
   { name: 'home-desktop-light', path: '/', viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, colorScheme: 'light', isMobile: false, hasTouch: false },
   { name: 'home-desktop-dark', path: '/', viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, colorScheme: 'dark', isMobile: false, hasTouch: false },
   { name: 'projects-mobile-light', path: '/projects', viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, colorScheme: 'light', isMobile: true, hasTouch: true },
 ];
 
+const dark = baselineProfiles.find(profile => profile.name === 'home-desktop-dark');
+const profiles = meshProbe ? [
+  { ...dark, name: 'mesh-running', meshState: 'running' },
+  { ...dark, name: 'mesh-paused', meshState: 'paused' },
+] : baselineProfiles;
+
 async function sample(browser, profile) {
-  const { name, path, ...device } = profile;
+  const { name, path, meshState, ...device } = profile;
   const context = await browser.newContext({ ...device, reducedMotion: 'no-preference', serviceWorkers: 'block' });
   try {
     let externalRequestsBlocked = 0;
@@ -103,10 +111,30 @@ async function sample(browser, profile) {
     const response = await page.goto(origin + path, { waitUntil: 'load', timeout: 60000 });
     if (!response?.ok() || new URL(page.url()).origin !== origin) throw new Error('Local navigation failed: ' + name);
     await page.locator('main#main-content').waitFor({ state: 'visible', timeout: 15000 });
+    let before = null;
+    if (meshState) {
+      await page.waitForFunction(() => document.querySelector('.mark-mesh-background')?.getAttribute('data-ready') === 'true', null, { timeout: 15000 });
+      if (meshState === 'paused') {
+        await page.getByRole('button', { name: 'Pause background', exact: true }).click();
+        await page.getByRole('button', { name: 'Resume background', exact: true }).waitFor({ state: 'visible' });
+      } else {
+        await page.getByRole('button', { name: 'Pause background', exact: true }).waitFor({ state: 'visible' });
+      }
+      await page.waitForTimeout(1000);
+      before = await page.evaluate(() => window.__markPerformanceSnapshot());
+    }
     // Fixed observation window, not an assertion or a claim that all asynchronous work has settled.
     await page.waitForTimeout(observationMs);
+    const after = await page.evaluate(() => window.__markPerformanceSnapshot());
+    const meshWindow = before ? {
+      state: meshState,
+      durationMs: after.observationEndMs - before.observationEndMs,
+      longTaskCount: before.longTaskCount === null || after.longTaskCount === null ? null : after.longTaskCount - before.longTaskCount,
+      longTaskMs: before.observedLongTaskMs === null || after.observedLongTaskMs === null ? null : after.observedLongTaskMs - before.observedLongTaskMs,
+    } : null;
     return {
-      ...await page.evaluate(() => window.__markPerformanceSnapshot()),
+      ...after,
+      ...(meshWindow ? { meshWindow } : {}),
       pageErrors, httpErrors, githubStatuses, externalRequestsBlocked,
     };
   } finally {
@@ -148,13 +176,18 @@ try {
       fontTransferBytes: summarize(samples, s => s.resourceTransferBytesByKind.font ?? 0),
       observedLongTaskMs: summarize(samples, s => s.observedLongTaskMs),
       meshReady: samples.map(s => s.meshReady),
+      ...(meshProbe ? {
+        windowLongTaskMs: summarize(samples, s => s.meshWindow.longTaskMs),
+        windowLongTaskCount: summarize(samples, s => s.meshWindow.longTaskCount),
+        windowDurationMs: summarize(samples, s => s.meshWindow.durationMs),
+      } : {}),
     };
     report.profiles.push({ profile, summary, samples });
     console.log(JSON.stringify({ profile: profile.name, ...summary }));
   }
   await mkdir(new URL('./test-results/', import.meta.url), { recursive: true });
   await writeFile(output, JSON.stringify(report, null, 2) + '\n');
-  console.log('Full report: tests/browser/test-results/performance-baseline.json (local, ignored by Git)');
+  console.log('Full report: tests/browser/test-results/' + outputName + ' (local, ignored by Git)');
 } finally {
   await browser.close();
 }

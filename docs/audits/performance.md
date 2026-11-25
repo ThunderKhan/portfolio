@@ -22,7 +22,7 @@ In terminal 1 at repository root, after stopping any existing process on 4173:
 ```powershell
 npm run build
 if ($LASTEXITCODE -ne 0) { throw "Build failed" }
-npm run start -- --hostname 127.0.0.1 --port 4173
+node .\node_modules\next\dist\bin\next start --hostname 127.0.0.1 --port 4173
 ```
 
 In terminal 2:
@@ -45,3 +45,25 @@ Use Chrome DevTools Lighthouse on the local production homepage (navigation mode
 Proposed lab Lighthouse score >=95; field-oriented good thresholds LCP <=2.5s, CLS <=0.1, INP <=200ms (INP requires real interaction/field or appropriate trace; not inferred from long tasks). Establish route JS/image/font transfer baselines before setting project-specific byte budgets. Prioritize trace-backed bottlenecks; use minimal reversible slices, comparable before/after samples, full source/type/lint/build/browser accessibility checks after application changes, and owner visual review. Retain separate production site and noindex until explicit release approval.
 
 Status: instrumentation and static inspection only; runtime baseline, GPU trace and optimization pending. No measured improvement claimed.
+
+
+## Measured baseline and first remediation slice
+
+Owner supplied complete performance-baseline.json for 72dec7825d2ded51480f45572ac1bb42b1e31d17. Windows, Node 22.16.0, Chromium 159.0.8154.6, 3 measured runs per profile, 5 seconds after load, unthrottled loopback, fresh contexts, headless, motion enabled. Production build succeeded, 31/31 static pages. The npm start argument forwarding stripped flags on the owner's shell; the direct local Next CLI command above started successfully.
+
+| Profile | Median LCP ms (range) | CLS | JS transfer bytes | Image bytes | Font bytes | Long task ms (range) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Home mobile light | 184 (184–208) | 0 | 448929 | 177400 | 85340 | 0 |
+| Home desktop light | 176 (168–180) | 0 | 457598 | 75716 | 85340 | 0 |
+| Home desktop dark | 192 (180–204) | 0 | 457598 | 75716 | 85340 | 420 (305–466) |
+| Projects mobile light | 96 (88–96) | 0 | 315168 | 76204 | 102180 | 0 |
+
+No page errors; GitHub 200 in all nine home runs. All 12 navigations requested two unavailable local Vercel scripts (24 total 404s). Gate existing telemetry components behind the already-established referencePreview flag; no new service and no changes to intended non-preview behavior. Hosting/telemetry selection remains pending release approval. The mobile home fetched a 25,234-byte hover-banner variant in addition to the 82,506-byte hero variant despite no hover; source confirms unconditional ReactDOM.preload. Remove only this preload; preserve the mounted-card eager image, geometry, artwork, interactions and fallback. Expect avoided speculative transfer, not yet measured. Regression checks added. No dependency changes.
+
+Dark-only long tasks (4–7 per navigation) correlate with mesh readiness in all three dark samples; no causal attribution or hardware GPU measurements yet. Preserve speed, resolution, frame cap and shader source. New optional mesh probe compares five-second steady-state observation windows after readiness and a one-second settling period, with shader running vs paused via its real control. Banner animation stays unchanged. It reports differences of cumulative long-task counters, not TBT, INP or GPU utilization. Run against the same local build:
+
+```powershell
+node performance.mjs --mesh-probe
+```
+
+Report: tests/browser/test-results/mesh-probe.json. Use headless paired results to isolate CPU impact; headed GPU trace is still needed. The largest homepage JS chunk (136,253 transferred bytes) is not among the projects top ten; map actual bundle contents before changing client boundaries or libraries. No attribution to a specific package from filename alone. No Lighthouse/field data. Re-run normal sampler after first slice, retain baseline report separately, run full code gates and accessibility suite, then inspect shader probe. Browser and source verification of this slice pending owner execution; no performance improvements claimed yet.
