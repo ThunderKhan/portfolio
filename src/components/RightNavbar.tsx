@@ -3,30 +3,13 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { portfolio } from "~/portfolio.config";
+import { homeSections } from "@/data/homeSections";
 
 export function RightNavbar() {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  const links = useMemo(
-    () => [
-      { name: "Experience", href: "#experience" },
-      { name: "Projects", href: "#projects" },
-      { name: "Hackathons", href: "#hackathons" },
-      { name: "DSA / CP", href: "#dsa" },
-      { name: "Skills", href: "#skills" },
-      { name: "Education", href: "#education" },
-      // Sits between Education and Anime on the page, and this list drives both
-      // the index and the scroll-spy - out of order, it highlights the wrong
-      // entry. Hidden while portfolio.config.ts has sections.blog = false.
-      ...(portfolio.sections.blog ? [{ name: "Blog", href: "#blogs" }] : []),
-      { name: "Anime & Music", href: "#anime" },
-      { name: "Highlights", href: "#highlights" },
-      { name: "Guestbook", href: "#guestbook" },
-    ],
-    []
-  );
+  const links = useMemo(() => homeSections.map((section) => ({ name: section.label, href: `#${section.id}` })), []);
 
   useEffect(() => {
     // Derived from `links`, so a new section can never be missed the way

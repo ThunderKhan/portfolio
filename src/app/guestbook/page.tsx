@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { CommandMenu } from "@/components/command-menu";
@@ -24,6 +25,7 @@ const verticalDots = {
 };
 
 export default function GuestbookPage() {
+  if (!portfolio.giscus.repoId || !portfolio.giscus.categoryId) notFound();
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden bg-white transition-colors duration-300 dark:bg-black">
       <div className="pointer-events-none absolute bottom-0 left-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block" style={verticalDots} />

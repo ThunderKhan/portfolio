@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { portfolio } from "~/portfolio.config";
+import { homeSections } from "@/data/homeSections";
 import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import {
@@ -19,14 +19,13 @@ import {
     BookOpen,
     Trophy,
     Binary,
+    GitPullRequest,
     GraduationCap,
     Sparkles,
-    Music,
     Mail,
     Download,
     CalendarDays,
     Send,
-    MessageSquare,
 } from "lucide-react"
 import { SiGithub, SiX, SiLeetcode, SiCodeforces, SiCodechef } from "react-icons/si"
 import { FaLinkedin } from "react-icons/fa6"
@@ -48,22 +47,9 @@ const itemClass = "rounded-lg py-3 cursor-pointer"
 const kbdClass =
     "font-mono text-[10px] bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700"
 
-const SECTIONS = [
-    { id: "experience", label: "Experience", icon: Briefcase, key: "E" },
-    // Hidden while portfolio.config.ts has sections.blog = false.
-    ...(portfolio.sections.blog
-        ? [{ id: "blogs", label: "Blogs", icon: FileText, key: "B" } as const]
-        : []),
-    { id: "projects", label: "Projects", icon: Code, key: "P" },
-    { id: "hackathons", label: "Hackathons", icon: Trophy, key: "H" },
-    { id: "dsa", label: "DSA / CP", icon: Binary, key: "D" },
-    { id: "skills", label: "Skills", icon: BookOpen, key: "S" },
-    { id: "education", label: "Education", icon: GraduationCap, key: "G" },
-    { id: "anime", label: "Anime & Music", icon: Music, key: "A" },
-    { id: "highlights", label: "Highlights", icon: Sparkles, key: "L" },
-    { id: "contact", label: "Socials", icon: Send, key: "O" },
-    { id: "guestbook", label: "Guestbook", icon: MessageSquare, key: "N" },
-] as const
+const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Binary } as const;
+const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionIcons[section.icon] })), { id: "contact", label: "Socials", icon: Send, key: "O" }] as const
+
 
 const PROFILES = [
     { label: "GitHub", icon: SiGithub, href: `https://github.com/${handles.github}`, handle: handles.github },
@@ -109,7 +95,7 @@ export function CommandMenu() {
             const section = SECTIONS.find((s) => s.key === key)
             if (section) {
                 e.preventDefault()
-                runCommand(() => { window.location.hash = `#${section.id}` })
+                runCommand(() => { router.push(`/#${section.id}`) })
                 return
             }
 
@@ -174,7 +160,7 @@ export function CommandMenu() {
                                 <CommandItem
                                     key={s.id}
                                     value={`section ${s.label}`}
-                                    onSelect={() => runCommand(() => { window.location.hash = `#${s.id}` })}
+                                    onSelect={() => runCommand(() => { router.push(`/#${s.id}`) })}
                                     className={itemClass}
                                 >
                                     <Icon className="mr-2 h-4 w-4 text-zinc-500" />
@@ -217,15 +203,7 @@ export function CommandMenu() {
                         </CommandItem>
                         <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
                             <Sparkles className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Highlights archive</span>
-                        </CommandItem>
-                        <CommandItem value="page anime music rap pop watchlist" onSelect={() => runCommand(() => router.push("/anime"))} className={itemClass}>
-                            <Music className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Anime &amp; Music</span>
-                        </CommandItem>
-                        <CommandItem value="page guestbook notes comments sign" onSelect={() => runCommand(() => router.push("/guestbook"))} className={itemClass}>
-                            <MessageSquare className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Guestbook</span>
+                            <span>Milestones archive</span>
                         </CommandItem>
                         <CommandItem value="page contact form" onSelect={() => runCommand(() => router.push("/contact"))} className={itemClass}>
                             <Send className="mr-2 h-4 w-4 text-zinc-500" />

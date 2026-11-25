@@ -129,6 +129,7 @@ export function GithubGraph() {
 
   return (
     <section
+      id="activity"
       className="relative z-10 mt-6 flex flex-col scroll-mt-24"
       aria-labelledby="github-activity-title"
       aria-describedby="github-activity-summary"
@@ -145,7 +146,7 @@ export function GithubGraph() {
       <div className="relative py-2">
         <div className="flex items-center justify-between gap-3">
           <h2 id="github-activity-title" className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-            GitHub Activity
+            Engineering activity
           </h2>
           <p className="text-right text-[11px] text-zinc-500 dark:text-zinc-400" aria-live="polite">
             {graphStatus}

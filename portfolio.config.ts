@@ -86,7 +86,7 @@ export const portfolio = {
    */
   sections: {
     blog: true,
-    anime: true,
+    anime: false,
   },
 
   /**
