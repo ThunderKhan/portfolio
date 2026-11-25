@@ -38,7 +38,7 @@ test("mesh is homepage-only and has a static fallback and pause control", () => 
 });
 
 test("mesh timing advances independently of the draw throttle and excludes stopped time", () => {
-  assert.equal(MESH_SPEED, 1.05);
+  assert.equal(MESH_SPEED, 0.84);
   assert.equal(meshDelta(null, 1000), 0);
   assert.equal(meshDelta(1000, 1016), 0.016);
   assert.equal(meshDelta(1000, 9000), 0.1);

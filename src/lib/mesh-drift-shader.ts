@@ -3,7 +3,7 @@ export const MESH_FRAGMENT = String.raw`// "Mesh drift" — made with the 21st.d
 // Packed WebGL1 uniforms (the shader exposes readable u_* aliases as macros):
 //   u_colors[8] (first 4 used)
 //   #000000, #6A0C0B, #861F0D, #B97D10 (muted MARK I palette)
-//   u_scene = vec4(canvas width, canvas height, seconds * 1.05, 4.0)
+//   u_scene = vec4(canvas width, canvas height, seconds * 0.84, 4.0)
 //   u_shape = vec4(0.95, 0.48, 0.50, 0.00)
 //   u_surface = vec4(2.40, 1.22, 0.00, 0.92)
 //   u_finish = vec4(0.00, 0.00, 0.000, 0.055)

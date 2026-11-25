@@ -1,5 +1,5 @@
 export const MESH_PALETTE = ["#000000", "#6A0C0B", "#861F0D", "#B97D10"] as const;
-export const MESH_SPEED = 1.05;
+export const MESH_SPEED = 0.84;
 export const MESH_FRAME_MS = 1000 / 30;
 export const MESH_MAX_PIXELS = 900_000;
 export const MESH_MIN_WIDTH = 1280;
