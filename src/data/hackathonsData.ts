@@ -102,8 +102,8 @@ export const hackathonsData: Hackathon[] = [
     ],
     "links": [
       {
-        "label": "Contribution fork",
-        "href": "https://github.com/ThunderKhan/corsair"
+        "label": "Merged Ably PR #865",
+        "href": "https://github.com/corsairdev/corsair/pull/865"
       }
     ]
   },
