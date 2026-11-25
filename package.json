@@ -9,7 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test tests/github-calendar.test.mjs tests/banner-animation.test.mjs",
-    "refresh-stats": "node scripts/refresh-stats.mjs",
+    "refresh-stats": "node --experimental-strip-types scripts/refresh-stats.mjs",
     "refresh-music": "node scripts/refresh-music.mjs",
     "refresh-visitors": "node scripts/refresh-visitors.mjs"
   },

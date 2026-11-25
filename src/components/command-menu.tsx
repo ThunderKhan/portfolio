@@ -119,7 +119,7 @@ export function CommandMenu() {
 
         document.addEventListener("keydown", down)
         return () => document.removeEventListener("keydown", down)
-    }, [open, openExternal, runCommand, setTheme])
+    }, [open, openExternal, router, runCommand, setTheme])
 
     return (
         <>

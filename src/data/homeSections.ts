@@ -1,4 +1,6 @@
-export const homeSections = [
+import { portfolio } from "~/portfolio.config";
+
+const allSections = [
   {
     "id": "projects",
     "label": "Selected projects",
@@ -15,7 +17,7 @@ export const homeSections = [
     "id": "opensource",
     "label": "Open source & community",
     "icon": "GitPullRequest",
-    "key": "U"
+    "key": "W"
   },
   {
     "id": "hackathons",
@@ -48,3 +50,5 @@ export const homeSections = [
     "key": "D"
   }
 ] as const;
+
+export const homeSections = allSections.filter((section) => section.id !== "blogs" || portfolio.sections.blog);
