@@ -67,3 +67,7 @@ Restore the original red-background avatar asset without grayscale or colored fr
 ## Slice 5h: Original black palette restoration
 
 Owner requested the original black after the Reactor Slate trial. The pre-color-refinement homepage at 4ad5377 used dark:bg-black and neutral #09090b action surfaces. Restore these through shared dark theme tokens (#000000 page, #09090B panel, #27272A neutral seams and zero-activity cells), with a restrained gold-brown achievement seam. Preserve softer gold text, all nonzero contribution colors, red primary actions, reactor-blue links, light theme, original unfiltered avatar, arrow-free navigation, noindex preview metadata, and all responsive/behavioral work. No layout, content or asset changes. Local build and browser review pending. No deployment.
+
+## Slice 5i: Arc reactor favicon
+
+Owner requested an arc reactor browser-tab icon instead of the AK monogram. Replace the existing Next.js file-based icon at src/app/icon.svg with an original circular vector: dark housing, segmented reactor-blue ring and bright white core. Use broad strokes and no text or filters to preserve the silhouette at 16–32 CSS pixels. No metadata API change or external image dependency; preserve all other assets and site styling. Regression assertion added to identity tests. Browser cache, local build and actual tab appearance remain to be verified.

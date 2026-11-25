@@ -81,3 +81,12 @@ test("company logos are not duplicate image assets", () => {
   const vsph = readFileSync(new URL("../public/Experience-image/vsph.jpg", import.meta.url));
   assert.ok(!micro1.equals(vsph));
 });
+
+test("browser icon uses the original arc reactor vector and brand colors", () => {
+  const icon = readFileSync(new URL("../src/app/icon.svg", import.meta.url), "utf8");
+  assert.match(icon, /viewBox="0 0 64 64"/);
+  assert.ok(icon.includes("<title>Arc reactor</title>"));
+  assert.ok(icon.includes("#67C7EB") && icon.includes("#F4FBFF"));
+  assert.ok(icon.includes("stroke-dasharray"));
+  assert.ok(!icon.includes("<text") && !icon.includes("<image") && !icon.includes("<script"));
+});
