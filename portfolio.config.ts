@@ -20,7 +20,7 @@ export const portfolio = {
   /** Decorative homepage avatar, selected by the owner. */
   heroAvatar: "/profile/iron-man.jpg",
   initials: "AK",
-  // Inherited sections are still visible for local design reference. Never deploy yet.
+  // Keep the development preview noindex until the owner approves release.
   referencePreview: true,
   contactFormEnabled: false,
   intro: "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments.",
@@ -51,19 +51,6 @@ export const portfolio = {
     codechef: "",
   },
 
-  /**
-   * Guestbook, backed by GitHub Discussions via giscus. Entries live as
-   * comments in your repo, so there is no database and no spam - signing
-   * requires a GitHub account. Get these from giscus.app after installing the
-   * giscus app on the repo. Leave `repoId` empty to hide the guestbook.
-   */
-  giscus: {
-    repo: "ThunderKhan/portfolio" as `${string}/${string}`,
-    repoId: "",
-    category: "Announcements",
-    categoryId: "",
-  },
-
   /** This site's own source, linked in the footer. Set to "" to hide the link. */
   repo: "https://github.com/ThunderKhan/portfolio",
 
@@ -80,13 +67,9 @@ export const portfolio = {
    */
   googleSiteVerification: "",
 
-  /**
-   * Toggle optional sections off without deleting their code. The components
-   * and routes stay in place, so flipping one back to true is the whole job.
-   */
+  /** Optional technical writing section. */
   sections: {
     blog: true,
-    anime: false,
   },
 
   /**

@@ -1,92 +1,40 @@
-# Portfolio
+# Ayan Khan — MARK I
 
-A developer portfolio built with Next.js 16, React 19, TypeScript and Tailwind v4.
+Personal engineering portfolio for Ayan Khan: systems, developer tools and applied AI. Built with Next.js, React, TypeScript and Tailwind CSS.
 
-**Live:** [parascodes.is-a.dev](https://parascodes.is-a.dev)
+**Status:** Development preview. The current live portfolio is [ayankhan.me](https://ayankhan.me); this redesign must not replace it until release approval and verification.
 
-MIT licensed — fork it, drop in your own details, ship it. Everything personal
-lives in one config file and a folder of typed data, so you should not need to
-touch a component to make it yours.
+## Local development
 
-## Why fork this one
-
-- **Real numbers, not hardcoded ones.** LeetCode, Codeforces, CodeChef and
-  GitHub are fetched at build time and revalidated every six hours. Each request
-  carries its own timeout and falls back to a committed snapshot, so a dead
-  upstream degrades a stat instead of blanking a section or hanging the build.
-- **One config file.** Name, tagline, handles, email, resume, booking link and
-  bios all live in [`portfolio.config.ts`](portfolio.config.ts). Change it and
-  the hero, page titles, Open Graph tags, every profile link and the sitemap all
-  follow.
-- **Social card generated from that config.** No design tool, no committed PNG.
-- **Content as data.** Experience, projects, skills, education, hackathons and
-  highlights are typed modules in [`src/data/`](src/data). Array order is
-  display order.
-- **Sections you can switch off.** Not writing a blog yet? One boolean hides the
-  section, the nav entry and the command-palette item without deleting code.
-- **⌘K command palette**, dark/light themes, a GitHub contribution heatmap, and
-  `sitemap.xml` / `robots.txt` that generate themselves.
-
-## Quick start
-
-```bash
-git clone https://github.com/Paras-ydv/portfolio.git
+```powershell
+git clone https://github.com/ThunderKhan/portfolio.git
 cd portfolio
-npm install
-npm run dev          # http://localhost:3000
+npm ci
+npm run dev
 ```
 
-It runs with **no environment variables**. Add a GitHub token only if you want
-the live contribution graph:
+Open http://localhost:3000.
 
-```bash
-# .env.local
-GITHUB_TOKEN=github_pat_...   # needs read:user
+## Content and configuration
+
+- `portfolio.config.ts`: identity, links, site origin and release preview.
+- `src/data/`: projects, experience, upstream contributions, hackathons, writing, education, certifications and milestones.
+- `public/`: approved artwork, photographs, project screenshots, institution logos, credential evidence and résumé.
+- `DESIGN.md`, `ENGINEERING.md` and `AGENTS.md`: project design and engineering standards.
+
+GitHub activity requires a server-side `GITHUB_TOKEN` or an account-matched snapshot. Missing or mismatched statistics are not treated as verified activity. See [SETUP.md](SETUP.md) for maintenance and checks.
+
+## Verification
+
+```powershell
+npm test
+npm run typecheck
+npm run lint
+npm run build
 ```
 
-Without it the graph renders from the committed snapshot when the account matches, with the historical window labeled. If no matching snapshot exists, activity is shown as unavailable.
+Review responsive layouts in both themes before deployment.
 
-## Making it yours
+## License and attribution
 
-1. Edit [`portfolio.config.ts`](portfolio.config.ts) — this is the one file that
-   matters.
-2. Replace the content in [`src/data/`](src/data) with your own.
-3. Swap the images in [`public/`](public) and your resume PDF.
-
-**[SETUP.md](SETUP.md) walks through every file**, including the two gotchas
-that bite hardest: project screenshots must be **1.6 aspect** or the card frame
-crops them, and you should **rename image files when replacing them** or Next's
-optimiser will keep serving the old one.
-
-That guide is written to be handed to a coding agent along with your resume.
-
-## Scripts
-
-| Command | What it does |
-|---|---|
-| `npm run dev` | Dev server |
-| `npm run build` | Production build |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm test` | Focused regression tests (Node 22) |
-| `npm run refresh-stats` | Re-snapshot LeetCode/Codeforces/CodeChef/GitHub |
-| `npm run refresh-music` | Resolve album titles and covers from Spotify oEmbed |
-
-## Deploying
-
-Import the repo on Vercel — it builds with no configuration. Point `url` in the
-config (or `NEXT_PUBLIC_SITE_URL`) at your domain so canonical URLs, the sitemap
-and the social card all agree.
-
-For a free subdomain, [is-a.dev](https://github.com/is-a-dev/register) works
-well with Vercel; SETUP.md has the exact steps including the `_vercel`
-verification record.
-
-## License
-
-MIT — see [LICENSE](LICENSE). The code is yours to reuse.
-
-The **content** is not: `src/data/`, `public/` and the resume PDF are someone's
-actual career. Replace them with your own rather than shipping a stranger's
-history. Please also swap the social links before deploying — the whole point is
-that it is one file.
+Based on [Paras-ydv/portfolio](https://github.com/Paras-ydv/portfolio), under the MIT license. The original copyright notice is retained in [LICENSE](LICENSE). The personal content and owner-supplied assets are separate from the software license; third-party marks and artwork remain subject to their respective rights.

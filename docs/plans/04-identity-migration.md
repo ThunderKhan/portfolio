@@ -86,3 +86,7 @@ Added GCI World (Matsuo-Iwasawa Laboratory, University of Tokyo) and IEEE Comput
 ## Education logos
 
 Owner will supply original full-color institution logos. Configured optional local PNG paths under public/education-image: ddugu.png, gci-world.png and ieee.png. Reuse existing 40px tile footprint; contain images on white for contrast and retain existing gold icons on image failure. No downloaded or generated logos, no external requests or new dependencies. Assets themselves and browser/build verification pending.
+
+## Reference content cleanup
+
+Owner authorized removal of inherited personal material. Removed 98 public assets (6519798 bytes), inactive anime/music and guestbook features, old visitor baseline and refresh scripts, obsolete blog-like metrics code and old banner particles. Contact uses the same approved animated banner as home; removed inherited remote image allowlist. README/SETUP rewritten for the owner. Restored missing neutral company-logo fallback SVGs (owner company names, not official marks). All 33 existing retained public files preserved, including owner certificates, logos, images and résumé. Existing generic shared components, dependencies, engineering skills, original MIT copyright and historical migration records remain. Preview/noindex stays enabled. The owner-selected character avatar and approved mosaic remain; third-party artwork and logo reuse rights still require review before public release. No history rewrite, no deployment. Static source and remote tree checks only; runtime validation pending.

@@ -1,0 +1,77 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { existsSync, readFileSync } from "node:fs";
+import { portfolio } from "../portfolio.config.ts";
+
+const exists = (file) => existsSync(new URL("../" + file, import.meta.url));
+
+test("owner assets remain in the public tree", () => {
+  for (const file of [
+  "public/Ayan_Khan_Resume.pdf",
+  "public/Experience-image/micro1.jpg",
+  "public/Experience-image/vsph.jpg",
+  "public/banner/starry-night.png",
+  "public/certificates/community/hacktoberfest-completionist-plus-plus.png",
+  "public/certificates/community/hacktoberfest-host.png",
+  "public/certificates/community/osci-2026.png",
+  "public/certificates/experience/micro1-ai-interview.jpg",
+  "public/certificates/hackathons/hackblox-2026-finalist.png",
+  "public/certificates/hackathons/hackblox-2026.pdf",
+  "public/certificates/hackathons/sih-2026.jpg",
+  "public/certificates/hackathons/trustume-2026.png",
+  "public/certificates/hackathons/zero-dependency-2026.png",
+  "public/certificates/training/aws-prompt-engineering.pdf",
+  "public/certificates/training/ibm-ai-fundamentals.pdf",
+  "public/certificates/training/isro-geodata-analytics.pdf",
+  "public/certificates/training/nasa-remote-sensing.pdf",
+  "public/certificates/training/stanford-supervised-ml.pdf",
+  "public/education-image/README.md",
+  "public/education-image/ddugu.png",
+  "public/education-image/gci-world.png",
+  "public/education-image/ieee.png",
+  "public/profile/avatar.jpg",
+  "public/profile/ayan-monogram.svg",
+  "public/profile/iron-man.jpg",
+  "public/project-image/diff2test.png",
+  "public/project-image/frame.png",
+  "public/project-image/grantly.png",
+  "public/project-image/iet-grid.png",
+  "public/project-image/oasis.png",
+  "public/project-image/pareto.png",
+  "public/project-image/refute.png",
+  "public/project-image/webclerk.png"
+]) {
+    assert.ok(exists(file), file);
+  }
+  assert.equal(portfolio.name, "Ayan Khan");
+  assert.equal(portfolio.handles.github, "ThunderKhan");
+});
+
+test("retired reference assets and inactive personal sections are absent", () => {
+  for (const file of [
+  "public/Paras_Resume.pdf",
+  "public/avatar.png",
+  "public/banner-light.jpg",
+  "public/banner-dark.jpg",
+  "public/banner.png",
+  "public/anime",
+  "public/music",
+  "public/highlights",
+  "public/project-video",
+  "public/googlede8ed406ba240dfa.html",
+  "src/data/visitors-baseline.json",
+  "src/data/anime.json",
+  "src/data/music.json",
+  "src/app/anime",
+  "src/app/guestbook",
+  "src/app/api/guestbook"
+]) {
+    // Empty directories are not tracked by Git; check files for old local folders.
+    if (["public/anime","public/music","public/highlights","public/project-video","src/app/anime","src/app/guestbook","src/app/api/guestbook"].includes(file)) continue;
+    assert.ok(!exists(file), file);
+  }
+  const contact = readFileSync(new URL("../src/app/contact/page.tsx", import.meta.url), "utf8");
+  assert.ok(contact.includes("<StarryNightBanner />"));
+  assert.ok(!contact.includes("banner-light.jpg") && !contact.includes("banner-dark.jpg"));
+  assert.ok(exists("LICENSE"));
+});

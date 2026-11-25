@@ -13,7 +13,7 @@ export function RightNavbar() {
 
   useEffect(() => {
     // Derived from `links`, so a new section can never be missed the way
-    // hackathons, dsa, education and anime were by a hardcoded list.
+    // Navigation follows the ordered homepage section data.
     const ids = links.map((l) => l.href.slice(1));
 
     // Plain geometry rather than an observer band: a short section can sit

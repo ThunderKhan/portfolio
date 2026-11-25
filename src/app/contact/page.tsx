@@ -11,8 +11,7 @@ import DisplacementText from "@/components/DisplacementText";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
-import { BannerParticles } from "@/components/BannerParticles";
-import Image from "next/image";
+import { StarryNightBanner } from "@/components/StarryNightBanner";
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -106,29 +105,11 @@ export default function ContactPage() {
       {/* Cell 1: Dot Matrix Background */}
       {/* Cell 1: Banner */}
 <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-black shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
-  <Image
-    src="/banner-light.jpg"
-    alt=""
-    fill
-    fetchPriority="high"
-    sizes="(min-width: 768px) 40vw, 100vw"
-    quality={100}
-    className="object-cover object-center dark:hidden"
-  />
-  <Image
-    src="/banner-dark.jpg"
-    alt=""
-    fill
-    fetchPriority="high"
-    sizes="(min-width: 768px) 40vw, 100vw"
-    quality={100}
-    className="hidden object-cover object-center dark:block"
-  />
-  <BannerParticles />
+  <StarryNightBanner />
   <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/90 to-transparent dark:from-black/50 dark:to-transparent" />
   <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
   <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-  <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
+  <div className="absolute bottom-3 right-2 z-30 pointer-events-auto rounded-md bg-black/85 px-2 py-1">
     <CurrentTime />
   </div>
 </div>
