@@ -76,3 +76,25 @@ Owner-supplied reports at 897244a45e8af188023089671db572b0a540386d, same browser
 Mesh probe five-second steady-state long-task durations: running 100, 0, 350 ms (median 100; counts 2, 0, 7); paused 0, 0, 0 ms. Paused total since navigation is higher (median 970 vs 405 ms) but includes startup, readiness, and click/settling before the comparable observation window. Do not compare the cumulative totals as steady-state costs. The probe supports animation-related CPU overhead but profiles were sequential, not randomized and GPU hardware acceleration is unknown.
 
 Next slice: existing full-screen WebGL draw shades the center even though CSS mask is exactly transparent there. Use the same CSS boundary for a hidden zero-height measurement span and both mask stops. Convert to backing-buffer pixels with outward rounding and a two-pixel interpolation guard. Draw two scissored strips in the original full viewport (one full draw if measurements are missing, invalid, mask unsupported or strips overlap). Keep same canvas resolution, palette, grain, shader, speed, 30 FPS draw cap, preserved drawing buffer and all pause/reduced-motion/visibility behavior. Cache geometry at sync/resize/DPR changes rather than reading layout on each draw; write ready attribute only when it changes. At 1440px, theoretical omitted width is about 42% before guard; this is not a measured GPU or CPU saving. Actual browser and visual verification pending. Add boundary and source regressions. Re-run normal and mesh samplers and compare before/after, visually check gutter fade at 1280/1440/1920 and resizing, pause/resume and reduced motion; run full code gates and browser accessibility suite. No deployment, no dependency change. Animation-performance skill consulted for this slice. No claim of measured shader improvement yet.
+
+
+## Verified shader slice and next bundle attribution
+
+Owner provided build/test transcript and both complete JSON reports for b7a3defb915c57e51414e9367335d15b1141c5be. Source checks 61/61, TypeScript and ESLint clean, production build 31/31. Same Chromium 159.0.8154.6 and Node 22.16.0, unthrottled loopback headless sampling. All 18 measured navigations have zero HTTP errors, zero page errors and CLS 0; home GitHub responses 200. Shader ready in all eligible samples.
+
+| Profile | Median LCP ms (range) | JS transfer bytes | Image bytes | Font bytes | Long-task ms (range) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Home mobile light | 196 (196–196) | 448246 | 152166 | 85340 | 0 |
+| Home desktop light | 184 (180–188) | 456915 | 69774 | 85340 | 0 |
+| Home desktop dark | 188 (184–208) | 456915 | 69774 | 85340 | 193 (190–197) |
+| Projects mobile light | 128 (104–128) | 314485 | 76204 | 102180 | 0 |
+
+Dark navigation-window long-task median decreased from 420 to 312 to 193 ms (54.0% below original baseline; 38.1% below immediate predecessor). Running mesh steady-state probe: 0/0/0 ms and zero long tasks (previous 100/0/350 ms); paused 0/0/0. Cumulative running probe median 180 ms (178–241), paused 193 ms (180–194). These remain small sequential samples; no hardware GPU utilization or INP claim. LCP medians rose relative to the first slice; retain results rather than claim universal improvements. JS +313 bytes per profile, image and font bytes unchanged. No additional shader change indicated by current evidence. Visual resize/fade and hardware GPU checks are still pending owner confirmation; final browser accessibility regression pending.
+
+Next: attribute the 136253-byte homepage JS chunk and shared route JS before refactoring. Next.js 16.4.6 uses Turbopack; use its built-in experimental analyzer (available from 16.1), no new package or Webpack switch. Stop local production server first, then run from repository root:
+
+```powershell
+node .\node_modules\next\dist\bin\next experimental-analyze --output
+```
+
+The official guide https://nextjs.org/docs/app/guides/package-bundling and CLI reference https://nextjs.org/docs/app/api-reference/cli/next document the output directory .next/diagnostics/analyze. Analyze client JavaScript for / and /projects; inspect module sizes and import chains, not just filenames or installed package sizes. Owner can share reviewed analyzer output or screenshots of the route-filtered client treemap and largest module import chains. Do not share .env.local, the whole .next directory, or unrelated build files. Analyzer data may contain source paths/module names; review before sharing. Analyzer does not create a production build; rebuild before subsequent production checks if necessary. No app code changes in this documentation-only checkpoint. No deployment.
