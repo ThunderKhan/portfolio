@@ -120,3 +120,25 @@ Home motion chunk includes projection node, drag controls and other unused featu
 BlogList has no client hooks or event handlers; both home and blog archive are Server Components. Remove its unnecessary client boundary; article source (5875 estimated compressed bytes) and list renderer (1111) need not be shipped as client JS merely to show summaries. Link behavior remains Next Link. See https://nextjs.org/docs/app/getting-started/server-and-client-components. The social-card banner static import causes an emitted copy of the existing public asset; use the same public URL as the hero, keep sizing/quality and on-open loading. This avoids redundant build artwork, not an additional 1.73 MB measured network saving. All changes preserve content and intended appearance. No dependency edits, no deployment, no claims of measured savings yet.
 
 Verification: run full source/typecheck/lint/build, normal performance sampler (prior reference 448246/456915/456915/314485 JS bytes), browser accessibility suite, and manually check project hover/tooltip, social hover banner, article links and reduced motion. Re-run analyzer only after verifying build and runtime behavior; compare estimated JS groups separately from actual transfer. Prior shader visual checks and GPU profiling still pending; Lighthouse and production checks remain outstanding.
+
+
+## Verified bundle slice and clean Lighthouse diagnosis
+
+Owner reports 64/64 source tests, typecheck, lint and 31/31 production pages at local 88a68ed. Local unthrottled performance sampler medians: home mobile 427506 JS bytes, home desktop light/dark 436175, projects mobile 293787 (reductions 20740/20740/20698 respectively vs b7a3def). Image/font transfers unchanged, CLS 0 across all samples. Dark long-task median 217 ms (193–330); no claim that LCP improved universally. Full sampler JSON and visual interaction checks still outstanding.
+
+Owner supplied Lighthouse 13.5.0 JSON for http://127.0.0.1:4173/ on Chrome 158 (2026-11-25 17:00:42Z mobile, 17:01:17Z desktop). Both warning-free, zero extension requests and zero third-party transfer. Earlier extension-contaminated run excluded from baseline. Navigation mode, simulated throttling, mobile RTT 150 ms / 1638.4 Kbps / 4x CPU, desktop RTT 40 ms / 10240 Kbps / 1x CPU. One sample each, no field data.
+
+| Metric | Mobile | Desktop |
+| --- | ---: | ---: |
+| Performance score | 78 | 99 |
+| Simulated FCP ms | 1512 | 371 |
+| Simulated LCP ms | 4531 | 901 |
+| TBT ms | 277 | 19 |
+| CLS | 0.00014654 | 0.00002956 |
+| Speed index ms | 1512 | 621 |
+| Total transfer bytes | 743697 | 740153 |
+| Script bytes | 429181 | 429181 |
+
+Both LCP elements are the hero starry-night image (768w q90, 53978 bytes). LCP discovery checklist: high priority and initial-document discovery pass; eager loading fails because fetchPriority alone leaves Next Image's default lazy loading. Observed trace subparts (not simulated LCP): mobile TTFB 10.532 ms, request delay 221.794, download 4.906, render delay 68.881; desktop 10.703/214.536/8.592/72.862. Simulated LCP and observed trace times must not be added or conflated. First targeted fix: explicit loading="eager" on this image only, retain fetchPriority="high", image dimensions, crop, quality, original artwork and animation. No new preload or additional competing high priority images. Official Next Image docs https://nextjs.org/docs/app/api-reference/components/image and https://web.dev/articles/optimize-lcp support this approach; installed Next docs are not accessible through the repository connector. Core-web-vitals and verification-before-completion skills plus LCP and measurement references consulted. New source assertion; full build and browser verification pending.
+
+Image delivery estimated savings mobile 55138 bytes (banner 40008, diff2test screenshot 15130), desktop 43361 (banner). Defer compression/sizing adjustments pending isolated eager-loading rerun and visual assessment; do not trade artwork detail for an unmeasured score. Unused JS estimated ~145 KiB, mostly three existing chunks; coverage during navigation does not imply safe removal. No unused CSS finding; three render-blocking stylesheets total 20922 bytes, not sufficient evidence to restructure critical CSS. No need for preconnect. Rerun clean mobile 3 times under same conditions, record median/range and LCP discovery pass, then desktop, source/browser regressions and visual review. No deployment. Remote main still e57b767 at inspection; preserve the existing local fast-forward by creating a successor branch from 88a68ed rather than altering main.

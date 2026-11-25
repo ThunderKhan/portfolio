@@ -129,6 +129,7 @@ export function StarryNightBanner() {
         src="/banner/starry-night.png"
         alt=""
         fill
+        loading="eager"
         fetchPriority="high"
         sizes="(min-width: 768px) 40vw, 100vw"
         quality={90}

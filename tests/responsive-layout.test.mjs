@@ -67,3 +67,12 @@ test("project and social card motion use only the required feature bundle", () =
     assert.ok(source.includes("<AnimatePresence>"));
   }
 });
+
+test("above-fold hero artwork is eagerly loaded with high fetch priority", () => {
+  const source = read("src/components/StarryNightBanner.tsx");
+  const image = source.match(/<Image\s+src="\/banner\/starry-night\.png"[\s\S]*?\/>/)?.[0];
+  assert.ok(image);
+  assert.match(image, /loading="eager"/);
+  assert.match(image, /fetchPriority="high"/);
+  assert.doesNotMatch(image, /loading="lazy"/);
+});
