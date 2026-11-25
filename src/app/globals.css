@@ -230,3 +230,69 @@ body {
     html { scroll-behavior: auto; }
   }
 }
+
+/* Approved brand primitives. Supporting homepage surfaces are a review preview. */
+:root {
+  --mark-red: #AA0505;
+  --mark-deep-red: #6A0C0B;
+  --mark-gold: #B97D10;
+  --mark-bright-gold: #FBCA03;
+  --mark-arc-blue: #67C7EB;
+  --mark-reactor-white: #F4FBFF;
+}
+
+.mark-home {
+  --mark-page: #F4F3EF;
+  --mark-panel: #FFFFFF;
+  --mark-ink: #171A20;
+  --mark-muted: #575D65;
+  --mark-interaction: #12536B;
+  --mark-seam: #C9CBD0;
+  background-color: var(--mark-page);
+  color: var(--mark-ink);
+}
+.dark .mark-home {
+  --mark-page: #0B0D10;
+  --mark-panel: #14171B;
+  --mark-ink: #F4FBFF;
+  --mark-muted: #A6ADB7;
+  --mark-interaction: var(--mark-arc-blue);
+  --mark-seam: #2A3038;
+}
+.mark-home .mark-section-title {
+  color: var(--mark-ink);
+}
+.mark-home .mark-display {
+  color: var(--mark-ink);
+}
+.mark-home .mark-surface {
+  background-color: var(--mark-panel);
+  border-color: var(--mark-seam);
+}
+.mark-home .mark-surface:hover {
+  border-color: var(--mark-interaction);
+}
+.mark-home .mark-nav-link {
+  color: var(--mark-muted);
+}
+.mark-home .mark-nav-link:hover,
+.mark-home .mark-nav-link[aria-current="location"] {
+  color: var(--mark-ink);
+}
+.mark-home .mark-nav-link[aria-current="location"] .mark-nav-indicator {
+  background-color: var(--mark-gold);
+}
+.mark-home :focus-visible {
+  outline: 2px solid var(--mark-interaction);
+  outline-offset: 3px;
+}
+.mark-primary-action {
+  background-color: var(--mark-red);
+  color: var(--mark-reactor-white);
+  border: 1px solid var(--mark-deep-red);
+  transition: background-color 150ms ease;
+}
+.mark-primary-action:hover,
+.mark-primary-action:active {
+  background-color: var(--mark-deep-red);
+}

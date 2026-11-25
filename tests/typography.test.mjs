@@ -21,3 +21,11 @@ test("primary page headings no longer use inherited RGB glitch shadows", () => {
     assert.ok(source.includes("mark-display") || source.includes("mark-page-title"), path);
   }
 });
+
+test("MARK I homepage preview uses the approved brand primitives", () => {
+  const css = read("src/app/globals.css");
+  for (const color of ["#AA0505", "#6A0C0B", "#B97D10", "#FBCA03", "#67C7EB", "#F4FBFF"]) assert.ok(css.includes(color));
+  assert.ok(read("src/app/page.tsx").includes("mark-home min-h-screen"));
+  assert.ok(read("src/components/pixel-perfect/soft-pill-button.tsx").includes("mark-primary-action"));
+  assert.ok(read("src/components/RightNavbar.tsx").includes('aria-current={isActive ? "location" : undefined}'));
+});

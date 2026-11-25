@@ -53,21 +53,10 @@ export function RightNavbar() {
             <Link
               key={link.name}
               href={link.href}
-              // Inactive sits at zinc-500 in both themes. It used to be
-              // zinc-600 on black (2.7:1) against an active link at 16.6:1 - a
-              // six-fold gap that made the list that is meant to be scannable
-              // the hardest thing on the page to read. zinc-500 clears AA in
-              // light (4.8:1), lands at 4.4:1 in dark, and still reads as
-              // clearly subordinate to the active entry.
-              className={`text-[12px] font-medium tracking-[0.05em] transition-all duration-300 ease-out flex items-center gap-3 ${isActive
-                  ? "text-zinc-800 dark:text-zinc-200"
-                  : "text-zinc-500 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
-                }`}
+              aria-current={isActive ? "location" : undefined}
+              className="mark-nav-link flex items-center gap-3 rounded-sm text-[12px] font-medium tracking-[0.05em] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2"
             >
-              <span className={`h-[1px] transition-all duration-300 ease-out ${isActive
-                  ? "w-3 bg-zinc-400 dark:bg-zinc-600"
-                  : "w-0 bg-transparent"
-                }`} />
+              <span aria-hidden="true" className="mark-nav-indicator h-[2px] w-3 shrink-0 bg-transparent transition-colors duration-150" />
               {link.name}
             </Link>
           );

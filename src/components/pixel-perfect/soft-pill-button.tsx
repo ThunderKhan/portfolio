@@ -16,13 +16,20 @@ interface SoftPillButtonProps
 const SoftPillButton = React.forwardRef<HTMLButtonElement, SoftPillButtonProps>(
   ({ className, children, variant = "secondary", as: Comp = "button", ...props }, ref) => {
     const isPrimary = variant === "primary";
+    if (isPrimary) {
+      return (
+        <Comp ref={ref} className={cn("group mark-primary-action relative block rounded-[6px] text-center px-5 py-2.5 text-[13px] font-medium tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2", className)} {...props}>
+          {children}
+        </Comp>
+      );
+    }
     return (
       <Comp
         ref={ref}
         className={cn(
           "group relative block rounded-[4px] text-center px-5 py-2.5 text-[13px] font-medium tracking-tight transition-[transform] duration-200 active:scale-[0.99] active:duration-[50ms]",
           "[backdrop-filter:blur(6px)]",
-          isPrimary ? "text-neutral-50 dark:text-neutral-950" : "text-neutral-900 dark:text-neutral-300",
+          "text-neutral-900 dark:text-neutral-300",
           className,
         )}
         {...props}
