@@ -3,12 +3,7 @@ import { portfolio } from "~/portfolio.config";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  Calendar,
-  Clock,
-} from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
 import { FooterBackground } from "@/components/FooterBackground";
@@ -229,7 +224,7 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
                     {item.description}
                   </p>
                 </div>
-                <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 transition-colors group-hover:text-zinc-900 dark:text-zinc-600 dark:group-hover:text-zinc-200" />
+                
               </div>
             </a>
           ))}
@@ -263,10 +258,10 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/blogs"
-              className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+              className="group flex h-8 min-w-8 px-2.5 text-[12px] font-medium shrink-0 items-center justify-center rounded-md border border-zinc-200/50 bg-zinc-100 text-zinc-400 transition-all hover:bg-zinc-200 hover:text-zinc-900 dark:border-zinc-800/50 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
               aria-label="Back to blogs"
             >
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+              Back
             </Link>
             <div className="flex min-w-0 flex-col justify-center">
               <p className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
@@ -342,7 +337,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
             </section>
           )}
           <BlueprintDivider className="mt-2" />
-          <Link href="/blogs" className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-400"><ArrowLeft className="size-3.5" aria-hidden="true" /> All articles</Link>
+          <Link href="/blogs" className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-400"> All articles</Link>
         </article>
 
         <div className="relative mt-12 h-[220px] w-[calc(100%+32px)] -mx-4 overflow-hidden">

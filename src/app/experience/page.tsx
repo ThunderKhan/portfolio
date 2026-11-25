@@ -7,7 +7,7 @@ import { RightNavbar } from "@/components/RightNavbar";
 import { FooterBackground } from "@/components/FooterBackground";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+
 import Image from "next/image";
 
 import { experiences } from "@/data/experienceData";
@@ -71,9 +71,9 @@ export default function AllExperiencePage() {
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/"
-              className="group flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+              Back
             </Link>
             <div className="flex min-w-0 flex-col justify-center">
               <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
@@ -171,16 +171,7 @@ export default function AllExperiencePage() {
                     <span className="flex shrink-0 flex-col items-start gap-0.5 pr-5 pl-[52px] text-left sm:pl-[56px] 2xl:items-end 2xl:pl-0 2xl:text-right">
                       <span className="relative flex items-center text-[13px] font-medium text-zinc-900 dark:text-zinc-100 sm:text-[14px]">
                         <span>{item.dates}</span>
-                        <svg
-                          viewBox="0 0 24 24"
-                          className={`w-3.5 h-3.5 text-zinc-500 absolute -right-5 top-1/2 -translate-y-1/2 motion-safe:transition-transform motion-safe:duration-[240ms] ${isOpen ? "rotate-180" : ""
-                            }`}
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                        >
-                          <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
+                        <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
                       </span>
                       <span className="text-[13px] text-zinc-500 dark:text-zinc-400 sm:text-[14px]">
                         {item.location}
@@ -298,16 +289,7 @@ export default function AllExperiencePage() {
                                 className="group/link inline-flex items-center gap-1.5 rounded-[6px] border border-zinc-300 bg-white px-2.5 py-1 text-[11.5px] font-semibold text-zinc-700 shadow-sm transition-all hover:border-zinc-400 hover:text-zinc-950 dark:border-zinc-700 dark:bg-[#18181b] dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-white"
                               >
                                 {link.label}
-                                <svg
-                                  viewBox="0 0 24 24"
-                                  className="h-2.5 w-2.5 transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2.5"
-                                >
-                                  <line x1="7" y1="17" x2="17" y2="7" />
-                                  <polyline points="7 7 17 7 17 17" />
-                                </svg>
+                                
                               </a>
                             ))}
                           </div>

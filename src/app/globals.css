@@ -345,11 +345,6 @@ body {
   border-radius: 1px;
   background: var(--mark-gold-seam);
 }
-.mark-hero-avatar {
-  outline: 1px solid var(--mark-gold-seam);
-  outline-offset: 2px;
-  border-color: var(--mark-seam);
-}
 .mark-project-frame {
   border-color: var(--mark-seam);
   background-color: var(--mark-panel);

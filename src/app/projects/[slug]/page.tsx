@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ProjectPreview } from "@/components/ProjectPreview";
 import { CertificateLink } from "@/components/CertificateLink";
 import { notFound } from "next/navigation";
-import { ExternalLink, ArrowLeft } from "lucide-react";
+
 import { SiGithub } from "react-icons/si";
 
 export async function generateStaticParams() {
@@ -89,9 +89,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/"
-              className="group flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+              Back
             </Link>
             <div className="flex min-w-0 flex-col justify-center">
               <p className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">
@@ -163,7 +163,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
           {project.live ? (
             <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-              <ExternalLink className="w-4 h-4" /> Website
+               Website
             </a>
           ) : <div />}
           
@@ -219,7 +219,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ) : null}
         {project.caseStudy && (
           <a href={project.caseStudy} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-fit items-center gap-1.5 text-[13px] font-medium text-zinc-700 underline-offset-4 hover:underline dark:text-zinc-200">
-            Read the case study <ExternalLink className="size-3.5" aria-hidden="true" />
+            Read the case study 
           </a>
         )}
 

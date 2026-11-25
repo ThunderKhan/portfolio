@@ -8,7 +8,7 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { ProjectCard } from "@/components/ProjectsGrid";
 import { projectsData } from "@/data/projectsData";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+
 
 export default function AllProjectsPage() {
   return (
@@ -56,9 +56,9 @@ export default function AllProjectsPage() {
             <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
               <Link
                 href="/"
-                className="group flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
               >
-                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+                Back
               </Link>
               <div className="flex min-w-0 flex-col justify-center">
                 <h1 className="mark-page-title mb-0.5 text-zinc-900 dark:text-zinc-100">

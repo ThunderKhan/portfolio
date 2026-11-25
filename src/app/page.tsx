@@ -77,7 +77,7 @@ export default async function Home() {
         <div className="flex w-full items-center justify-between">
 
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-            <div className="mark-hero-avatar relative rounded-[5px] p-[3px] border-[1.5px] shrink-0">
+            <div className="relative shrink-0">
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
@@ -87,7 +87,7 @@ export default async function Home() {
                   height={240}
                   quality={90}
                   sizes="(min-width: 640px) 80px, 64px"
-                  className="h-full w-full object-cover grayscale"
+                  className="h-full w-full object-cover"
                 />
               </div>
             </div>
@@ -192,11 +192,6 @@ export default async function Home() {
           </div>
         </div>
 
-        {portfolio.referencePreview && (
-          <p className="mt-5 border-l-2 border-[#B97D10] pl-3 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Development preview — content, accessibility and release checks are still in progress.
-          </p>
-        )}
 
         {/* Projects */}
         <div id="projects" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
@@ -232,10 +227,7 @@ export default async function Home() {
               <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
               <div className="relative flex items-center gap-1.5 px-4 py-2 mark-surface text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
                 View All
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
+                
               </div>
             </Link>
           </div>
@@ -284,10 +276,7 @@ export default async function Home() {
                 <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
                 <div className="relative flex items-center gap-1.5 px-4 py-2 mark-surface text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
                   View All
-                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
+                  
                 </div>
               </Link>
             </div>
@@ -360,10 +349,7 @@ export default async function Home() {
                 <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
                 <div className="relative flex items-center gap-1.5 px-4 py-2 mark-surface text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
                   Read More
-                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
+                  
                 </div>
               </Link>
             </div>

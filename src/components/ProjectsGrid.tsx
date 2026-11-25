@@ -176,10 +176,7 @@ export const ProjectCard = ({
           {externalUrl && (
             <a href={externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} ${project.live ? "live project" : "repository"} in a new tab`} className="relative z-40 inline-flex min-h-8 shrink-0 items-center gap-1 rounded-sm text-[12px] font-medium mark-reactor-text">
               {project.live ? "Live project" : "Repository"}
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7 7 17 7 17 17" />
-              </svg>
+              
             </a>
           )}
         </div>
