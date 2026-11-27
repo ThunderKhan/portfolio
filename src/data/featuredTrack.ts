@@ -3,5 +3,5 @@ export const featuredTrack = {
   title: "Loser",
   artist: "Tame Impala",
   spotifyId: "7bxaFZ1O3cHkgLKMsdC3xR",
-  cover: "/music/loser-cover.png",
+  cover: "/music/loser-cover.jpg",
 } as const;

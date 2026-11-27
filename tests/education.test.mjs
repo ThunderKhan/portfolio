@@ -24,6 +24,6 @@ test("additional learning programs are separate from degree grades and completed
 });
 
 test("education logo paths are stable and distinct", () => {
-  assert.equal(education.logo, "/education-image/ddugu.png");
-  assert.deepEqual(learningPrograms.map(p => p.logo), ["/education-image/gci-world.png", "/education-image/ieee.png"]);
+  assert.equal(education.logo, "/education-image/ddugu.jpg");
+  assert.deepEqual(learningPrograms.map(p => p.logo), ["/education-image/gci-world.jpg", "/education-image/ieee.jpg"]);
 });
