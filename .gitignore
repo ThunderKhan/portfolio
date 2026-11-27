@@ -30,8 +30,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# Private environment and credential files; only the empty template is public.
 .env*
+!/.env.example
+.npmrc
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
 
 # vercel
 .vercel

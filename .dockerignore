@@ -18,3 +18,11 @@ coverage
 **/.npmrc
 npm-debug.log*
 *.tsbuildinfo
+*.p12
+**/*.p12
+*.pfx
+**/*.pfx
+id_rsa
+**/id_rsa
+id_ed25519
+**/id_ed25519

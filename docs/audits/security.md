@@ -42,3 +42,11 @@ Owner reported 83/83 source tests, successful typecheck/lint/build at 9ba75d6, b
 ### Calendar compatibility correction
 
 Owner's diagnostic at 774b0ae returned 502 with day-count-limit. That category combined a 367-day cap and safe-integer overflow; the former is the likely cause, not a confirmed exact upstream day count. Remove the redundant cap, retaining the existing 54-week and 7-day-per-week bounds (at most 378 entries), date order/validity, count/total checks and 256 KiB response ceiling. Separate total-overflow diagnosis. Add synthetic 371/378-day acceptance tests, oversized week/calendar rejection and overflow rejection. Expected 86 source tests, live diagnostic still required. No token change or deployment.
+
+### SEC-02 local verification
+
+Owner reported diagnostic status 200/live true/no reasons, 86/86 source tests, clean typecheck/lint and 31/31 generated pages at c988c02. Actual POST smoke returned stale=false and 6612 contributions. Main synchronized. Distributed rate limits and post-API browser regression remain pending.
+
+## SEC-03 — Secrets and environment boundaries
+
+Remote current tree at c988c02: 4637 tracked blobs, no .env/.npmrc/private-key filename matches; no .github workflows. Existing route reads GITHUB_TOKEN server-side; canonical URL override is intentionally public. Existing Docker ignore excluded env and npmrc files. Extend Git/Docker ignores for common credential paths and provide empty root .env.example (still excluded from Docker context). Add local-only targeted history/current text and generated client-output audit, with exact current GitHub token bytes checked locally only. No credentials accessed by connector. No token scopes or GitHub scanning settings verified, no full history scan performed remotely, no secret rotation or deployment. Run a fresh build, npm run audit:secrets, and inspect results; expect 91 source tests. Pattern hits are candidates, not confirmed leaks. The audit is not a substitute for full secret scanning, manual asset review, or host-side verification. Runtime-only token injection and least privilege documented; release checks remain pending.
