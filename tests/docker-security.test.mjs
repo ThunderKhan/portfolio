@@ -40,3 +40,12 @@ test("Docker verification builds a committed archive and uses constrained local 
   for (const value of ['"archive", "--format=tar"', '"--pull"', '"--cap-drop=ALL"', '"--security-opt=no-new-privileges:true"', '"--pids-limit=256"', '"--memory=1g"', '"--cpus=1.5"', '"127.0.0.1::3000"', '"/api/github"', '"/_next/image?']) assert.ok(audit.includes(value) || (value === '"/api/github"' && audit.includes('"/api/github"')), value);
   assert.doesNotMatch(audit, /"--env-file"|"-v"|"--privileged"/);
 });
+
+test("runner patches installed PAM and excludes runtime package managers", () => {
+  assert.match(runner, /apt-get install -y --no-install-recommends --only-upgrade libpam0g libpam-modules libpam-modules-bin libpam-runtime/);
+  assert.ok(runner.includes("1.5.2-6+deb12u3"));
+  for (const path of ["/usr/local/lib/node_modules/npm", "/usr/local/lib/node_modules/corepack", "/usr/local/bin/npm", "/usr/local/bin/yarn", "/opt/yarn-v*"]) assert.ok(runner.includes(path));
+  assert.ok(audit.includes('"--no-cache-filter", "runner"'));
+  assert.ok(audit.includes("runtimePackageManagersAbsent: true"));
+  assert.ok(audit.includes('"dpkg", "--compare-versions"'));
+});

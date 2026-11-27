@@ -25,6 +25,17 @@ ENV NODE_ENV=production \
     HOSTNAME=0.0.0.0 \
     PORT=3000
 
+# Patch the installed PAM packages and omit development package managers from
+# the runtime filesystem. The standalone server runs directly with Node.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends --only-upgrade libpam0g libpam-modules libpam-modules-bin libpam-runtime \
+    && dpkg --compare-versions "$(dpkg-query -W -f='${Version}' libpam0g)" ge 1.5.2-6+deb12u3 \
+    && rm -rf /var/lib/apt/lists/* \
+        /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+        /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
+        /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/pnpm /usr/local/bin/pnpx \
+        /opt/yarn-v*
+
 # Keep application entry point, dependencies and public/static assets root-owned.
 COPY --from=builder --chown=0:0 /app/.next/standalone ./
 COPY --from=builder --chown=0:0 /app/.next/static ./.next/static
