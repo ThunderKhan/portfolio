@@ -64,3 +64,12 @@ test("ridgeline motion is bounded and respects visibility and reduced motion", (
   const scene = read("src/components/RidgelineScene.tsx");
   for (const marker of ["MAX_PIXELS = 80_000", "1000 / 24", "REVEAL_MS = 2800", "prefers-reduced-motion: reduce", "document.hidden", "intersection.disconnect()", "cancelAnimationFrame", "aria-hidden"]) assert.ok(scene.includes(marker), marker);
 });
+
+
+test("footer social icons reuse supported GitHub and inline SVG markup", () => {
+  const footer = read("src/components/PortfolioFooter.tsx");
+  assert.ok(footer.includes('import { SiGithub } from "react-icons/si"'));
+  assert.doesNotMatch(footer, /SiLinkedin|from "lucide-react"/);
+  assert.match(footer, /aria-label="LinkedIn profile"><svg aria-hidden="true"/);
+  assert.match(footer, /aria-label="Email"><svg aria-hidden="true"/);
+});
