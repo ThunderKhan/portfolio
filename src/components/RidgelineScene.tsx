@@ -31,11 +31,14 @@ export function RidgelineScene() {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    const root = rootRef.current;
-    const canvas = canvasRef.current;
-    if (!root || !canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const element = rootRef.current;
+    const surface = canvasRef.current;
+    if (!element || !surface) return;
+    const context = surface.getContext("2d");
+    if (!context) return;
+    const root: HTMLDivElement = element;
+    const canvas: HTMLCanvasElement = surface;
+    const ctx: CanvasRenderingContext2D = context;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     let width = 0, height = 0;
     let image: ImageData | null = null;
@@ -52,7 +55,7 @@ export function RidgelineScene() {
     };
 
     function draw(now: number, settled = false) {
-      if (!image || !ctx) return;
+      if (!image) return;
       const still = media.matches || settled;
       const age = still ? REVEAL_MS : Math.max(0, now - (start ?? now));
       pointer += (target - pointer) * .13;
@@ -119,11 +122,10 @@ export function RidgelineScene() {
       width = Math.max(1, Math.floor(box.width / pixel));
       height = Math.max(1, Math.floor(box.height / pixel));
       canvas.width = width; canvas.height = height;
-      if (!ctx) return;
       image = ctx.createImageData(width, height);
       for (let l = 0; l < LAYERS; l++) tops[l] = new Float32Array(width);
       colors();
-      if (visible) { draw(performance.now(), media.matches); wake(); }
+      if (visible && !document.hidden) { draw(performance.now(), media.matches); wake(); }
     }
 
     function move(event: PointerEvent) {
@@ -136,7 +138,7 @@ export function RidgelineScene() {
     function leave() { target = 0; clearTarget = 0; wake(); }
     function gustAt(event: PointerEvent) {
       if (media.matches) return;
-      gust = event.clientX < root!.getBoundingClientRect().left + root!.clientWidth / 2 ? 2 : -2;
+      gust = event.clientX < root.getBoundingClientRect().left + root.clientWidth / 2 ? 2 : -2;
       gustUntil = performance.now() + 900; wake();
     }
     function motionChange() {
@@ -149,9 +151,9 @@ export function RidgelineScene() {
       visible = entry.isIntersecting;
       if (!visible) { stop(); return; }
       start ??= performance.now();
-      draw(performance.now(), media.matches); wake();
+      if (!document.hidden) { draw(performance.now(), media.matches); wake(); }
     });
-    const theme = new MutationObserver(() => { colors(); if (visible) draw(performance.now(), media.matches); });
+    const theme = new MutationObserver(() => { colors(); if (visible && !document.hidden) draw(performance.now(), media.matches); });
     resize(); resizeObserver.observe(root); intersection.observe(root);
     theme.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     media.addEventListener("change", motionChange);
