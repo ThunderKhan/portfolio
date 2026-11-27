@@ -18,3 +18,7 @@ References: https://nextjs.org/docs/app/guides/content-security-policy ; https:/
 ## Verification and promotion
 
 Run source tests (expected 75), typecheck, lint, build (retain static generation), focused security browser tests (8) and full browser suite (120 including existing 112). Review all CSP violations, including normal non-reduced motion/manual interactions and actual Spotify on local preview; release telemetry and deployed headers pending approved preview. Confirm candidate report-only and base-uri enforcement positive controls. After evidence, promote resource CSP in separate commit and repeat verification; no automatic widening. No runtime tests executed in connector session. API rate/caching, secrets, container, public assets and hosting/TLS remain separate security review tasks.
+
+## First local verification
+
+Owner reported 75/75 source tests, clean typecheck/lint, successful build (31/31 static pages) and four passing HTTP header tests at 5f6dec5. All four candidate CSP interaction tests reached the accordion assertion and stopped because the locator filtered by aria-expanded=false, then re-resolved after the click. Pin the target by its stable aria-controls value, matching the existing accessibility suite. No application or policy change. The remaining interaction checks and positive controls are not yet verified. Rerun directly with `node .\\node_modules\\@playwright\\test\\cli.js test security.spec.mjs` from tests/browser; this avoids the observed npm flag-forwarding issue.

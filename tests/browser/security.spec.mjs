@@ -71,7 +71,13 @@ test("candidate CSP observes page loads and interactive states without violation
   await page.getByRole("button", { name: /Open command menu/ }).click();
   await expect(page.getByRole("dialog", { name: "Command Palette" })).toBeVisible();
   await page.keyboard.press("Escape");
-  const disclosure = page.locator('button[aria-controls^="home-experience-panel-"][aria-expanded="false"]').first();
+  const collapsed = page.locator('button[aria-controls^="home-experience-panel-"][aria-expanded="false"]').first();
+  await expect(collapsed).toBeVisible();
+  const panelId = await collapsed.getAttribute("aria-controls");
+  // The initial selector stops matching as soon as the disclosure opens.
+  // Anchor assertions to the same button's stable panel relationship.
+  const disclosure = page.locator('button[aria-controls="' + panelId + '"]');
+  await expect(disclosure).toHaveAttribute("aria-expanded", "false");
   await disclosure.click();
   await expect(disclosure).toHaveAttribute("aria-expanded", "true");
   await page.getByRole("button", { name: "Listen here" }).click();
