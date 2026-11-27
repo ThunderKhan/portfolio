@@ -125,3 +125,44 @@ test("diagnostics contain only controlled failure categories, never upstream tex
     assert.deepEqual(result, { status: 502, body: { error: "Failed to fetch from GitHub" } });
   }
 });
+
+// GitHub returns week-aligned calendars, not necessarily exactly 365 entries.
+function fullWeeks(length) {
+  return {
+    totalContributions: length * 7,
+    months: [{ name: "Nov" }],
+    weeks: Array.from({ length }, (_, week) => ({
+      contributionDays: Array.from({ length: 7 }, (_, day) => ({
+        date: new Date(Date.UTC(2025, 10, 23 + week * 7 + day)).toISOString().slice(0, 10),
+        contributionCount: 1,
+      })),
+    })),
+  };
+}
+
+test("week-aligned calendars accept 371 days and retain the existing 54-week bound", async () => {
+  for (const weeks of [53, 54]) {
+    const data = fullWeeks(weeks);
+    assert.deepEqual(validateCalendar(data), data);
+    assert.deepEqual(await make(async () => json(data)).get(), { status: 200, body: { calendar: data, stale: false } });
+  }
+  assert.equal(validateCalendar(fullWeeks(55)), null);
+  const oversizedWeek = fullWeeks(1);
+  oversizedWeek.weeks[0].contributionDays.push({ date: "2025-11-30", contributionCount: 1 });
+  oversizedWeek.totalContributions++;
+  assert.equal(validateCalendar(oversizedWeek), null);
+});
+
+test("calendar total overflow is rejected independently of week bounds", () => {
+  const reasons = [];
+  const data = {
+    ...calendar,
+    totalContributions: Number.MAX_SAFE_INTEGER,
+    weeks: [{ contributionDays: [
+      { date: "2026-11-26", contributionCount: Number.MAX_SAFE_INTEGER },
+      { date: "2026-11-27", contributionCount: 1 },
+    ] }],
+  };
+  assert.equal(validateCalendar(data, reason => reasons.push(reason)), null);
+  assert.deepEqual(reasons, ["total-overflow"]);
+});

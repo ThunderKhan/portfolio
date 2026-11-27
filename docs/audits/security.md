@@ -38,3 +38,7 @@ Baseline: fixed server-owned query already removed arbitrary GraphQL forwarding;
 ### SEC-02 live smoke check
 
 Owner reported 83/83 source tests, successful typecheck/lint/build at 9ba75d6, but live POST returned 502. Root cause unconfirmed. Add fixed diagnostic categories (HTTP status, GraphQL error, timeout, fetch/body failure, calendar validation reason) and a local diagnostic script that calls the same service with no snapshot. No raw payload, token, exception text or request headers emitted. No security checks relaxed. Run `node --env-file=.env.local --experimental-strip-types scripts/diagnose-github.mjs` from project root; one upstream request, no server restart required. The route logs only fixed categories on actual refresh failures, not on every cached/cooldown request. Expected 84 source tests; live verification pending.
+
+### Calendar compatibility correction
+
+Owner's diagnostic at 774b0ae returned 502 with day-count-limit. That category combined a 367-day cap and safe-integer overflow; the former is the likely cause, not a confirmed exact upstream day count. Remove the redundant cap, retaining the existing 54-week and 7-day-per-week bounds (at most 378 entries), date order/validity, count/total checks and 256 KiB response ceiling. Separate total-overflow diagnosis. Add synthetic 371/378-day acceptance tests, oversized week/calendar rejection and overflow rejection. Expected 86 source tests, live diagnostic still required. No token change or deployment.

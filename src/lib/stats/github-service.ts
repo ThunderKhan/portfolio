@@ -4,6 +4,8 @@ export const FRESH_MS = 60 * 60 * 1000;
 export const STALE_MS = 24 * FRESH_MS;
 export const RETRY_MS = 5 * 60 * 1000;
 export const MAX_RESPONSE_BYTES = 256 * 1024;
+const MAX_WEEKS = 54;
+const MAX_DAYS_PER_WEEK = 7;
 
 const QUERY = `
   query Contributions($login: String!) {
@@ -30,7 +32,7 @@ function count(value: unknown): value is number {
 
 // Rebuild only the public display fields, rejecting malformed or oversized
 // calendars instead of forwarding arbitrary upstream objects to browsers.
-type CalendarFailure = "calendar-shape" | "month-name" | "week-shape" | "day-shape" | "day-date-or-order" | "day-count-limit" | "total-mismatch";
+type CalendarFailure = "calendar-shape" | "month-name" | "week-shape" | "day-shape" | "day-date-or-order" | "total-overflow" | "total-mismatch";
 
 export function validateCalendar(value: unknown, onInvalid?: (reason: CalendarFailure) => void): ContributionCalendar | null {
   const reject = (reason: CalendarFailure) => {
@@ -40,7 +42,7 @@ export function validateCalendar(value: unknown, onInvalid?: (reason: CalendarFa
   const input = record(value);
   if (!input || !count(input.totalContributions) ||
       !Array.isArray(input.months) || !input.months.length || input.months.length > 13 ||
-      !Array.isArray(input.weeks) || !input.weeks.length || input.weeks.length > 54) return reject("calendar-shape");
+      !Array.isArray(input.weeks) || !input.weeks.length || input.weeks.length > MAX_WEEKS) return reject("calendar-shape");
   const months: ContributionCalendar["months"] = [];
   const weeks: ContributionCalendar["weeks"] = [];
   for (const value of input.months) {
@@ -49,11 +51,10 @@ export function validateCalendar(value: unknown, onInvalid?: (reason: CalendarFa
     months.push({ name: month.name });
   }
   let previous = "";
-  let days = 0;
   let total = 0;
   for (const value of input.weeks) {
     const week = record(value);
-    if (!week || !Array.isArray(week.contributionDays) || !week.contributionDays.length || week.contributionDays.length > 7) return reject("week-shape");
+    if (!week || !Array.isArray(week.contributionDays) || !week.contributionDays.length || week.contributionDays.length > MAX_DAYS_PER_WEEK) return reject("week-shape");
     const contributionDays: ContributionCalendar["weeks"][number]["contributionDays"] = [];
     for (const item of week.contributionDays) {
       const day = record(item);
@@ -62,7 +63,9 @@ export function validateCalendar(value: unknown, onInvalid?: (reason: CalendarFa
       if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== day.date || day.date <= previous) return reject("day-date-or-order");
       previous = day.date;
       total += day.contributionCount;
-      if (++days > 367 || !Number.isSafeInteger(total)) return reject("day-count-limit");
+      // The week and day-array limits already cap the calendar at 378 entries.
+      // Do not impose a second, incompatible bound on week-aligned calendars.
+      if (!Number.isSafeInteger(total)) return reject("total-overflow");
       contributionDays.push({ date: day.date, contributionCount: day.contributionCount });
     }
     weeks.push({ contributionDays });
