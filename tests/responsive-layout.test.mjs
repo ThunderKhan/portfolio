@@ -27,7 +27,7 @@ test("unavailable activity does not render an empty calendar as actual history",
   const graph = read("src/components/GithubGraph.tsx");
   assert.ok(graph.includes("!loading && weeks.length === 0 ? ("));
   assert.ok(graph.includes("View activity on GitHub"));
-  assert.ok(read("src/app/api/github/route.ts").includes('fallback(503, "GitHub is not configured")'));
+  assert.ok(read("src/lib/stats/github-service.ts").includes('fallback(503, "GitHub is not configured")'));
 });
 
 
