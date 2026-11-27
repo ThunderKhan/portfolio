@@ -58,7 +58,9 @@ test("closing footer replaces empty filler with real navigation outside main", (
   assert.match(footer, /<footer className=.*aria-label="Portfolio footer"/);
   assert.ok(footer.includes('href={portfolio.resume}') && footer.includes('href={portfolio.repo}'));
   assert.ok(!footer.includes('href="#"'));
-  assert.match(read("src/components/FallingSilhouette.tsx"), /aria-hidden="true" focusable="false"/);
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.match(art, /alt=""\s+aria-hidden="true"/);
+  assert.ok(art.includes('src="/art/falling-armor.webp"') && art.includes('loading="lazy"'));
 });
 test("ridgeline motion is bounded and respects visibility and reduced motion", () => {
   const scene = read("src/components/RidgelineScene.tsx");

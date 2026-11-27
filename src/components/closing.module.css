@@ -2,25 +2,24 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  place-items: center;
-  min-height: 200px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 32%);
+  align-items: center;
+  justify-items: center;
+  min-height: 248px;
   margin-top: 16px;
-  padding: 36px 0;
+  padding: 16px 0 24px;
   overflow: hidden;
 }
 .figure {
-  position: absolute;
+  display: block;
   pointer-events: none;
-  width: clamp(104px, 25%, 220px);
+  width: min(100%, 250px);
   height: auto;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #8b99a7;
-  opacity: .17;
-  mask-image: radial-gradient(ellipse at 50% 50%, black 25%, transparent 76%);
+  max-height: 280px;
+  object-fit: contain;
+  opacity: .76;
 }
-:global(.dark) .figure { color: #657482; opacity: .36; }
+:global(.dark) .figure { opacity: .92; }
 .footer {
   position: relative;
   z-index: 10;
@@ -83,9 +82,8 @@
 .scene canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; z-index: 1; opacity: 0; }
 .scene canvas[data-ready="true"] { opacity: 1; }
 @media (max-width: 639px) {
-  .motto { min-height: 168px; padding: 28px 0; }
-  .figure { width: 110px; right: -22px; opacity: .10; }
-  :global(.dark) .figure { opacity: .16; }
+  .motto { grid-template-columns: minmax(0, 1fr); gap: 8px; min-height: 0; padding: 28px 0 20px; }
+  .figure { width: 150px; max-height: 180px; justify-self: end; margin-right: 12px; }
   .footerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding: 28px 16px 20px; }
   .identity { grid-column: 1 / -1; }
   .credit { padding-inline: 16px; }

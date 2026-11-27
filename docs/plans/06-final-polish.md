@@ -23,3 +23,7 @@ Tightened the quote to 1.3 line height, created original SVG armored falling fig
 ## Terrain fidelity correction
 
 Owner rejected the simplified terrain. Replaced periodic sine-wave profiles and 4×4 thresholds with the supplied Ridgeline Dither Footer's seeded lattice hash, smooth value noise, ridged fractal profiles, seven-layer Northwall demo seed 23, 8×8 Bayer thresholds, slope shading, valley mist pools and warped half-resolution fog. Preserve existing MARK I theme palettes, footer links, finite reveal, visibility and reduced-motion guards. Slightly taller scene for depth. This is adapted from the user-provided reference rather than the earlier independent approximation; upstream redistribution/license provenance remains to verify before production. Silhouette unchanged at owner's request while they work on their own artwork. Local render and full CI pending.
+
+## Closing artwork replacement
+
+Owner approved the generated red falling-armored illustration. Extracted the figure without rendered lettering into a transparent 533×640 WebP, to be placed at public/art/falling-armor.webp. Replaced the geometric SVG with a lazy decorative Next Image and a two-column desktop layout that stacks on mobile, preserving live quote text. No external image URL, no new dependencies, no change to the footer terrain. Binary transfer to GitHub requires the owner's local copy and commit; local visual/build checks and artwork-reference provenance review remain pending.
