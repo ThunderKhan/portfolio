@@ -47,3 +47,20 @@ test("closing motto uses the owner-selected two-line text without a translation"
   assert.ok(!home.includes("Labor omnia vincit") && !home.includes("WORK CONQUERS ALL"));
   assert.match(home, /<p className="[^"]*mark-gold-text italic"/);
 });
+
+
+test("closing footer replaces empty filler with real navigation outside main", () => {
+  const home = read("src/app/page.tsx");
+  const footer = read("src/components/PortfolioFooter.tsx");
+  assert.ok(home.indexOf("</main>") < home.indexOf("<PortfolioFooter />"));
+  assert.ok(!home.includes("<FooterBackground />"));
+  assert.ok(home.includes("<FallingSilhouette />") && home.includes("leading-[1.3]"));
+  assert.match(footer, /<footer className=.*aria-label="Portfolio footer"/);
+  assert.ok(footer.includes('href={portfolio.resume}') && footer.includes('href={portfolio.repo}'));
+  assert.ok(!footer.includes('href="#"'));
+  assert.match(read("src/components/FallingSilhouette.tsx"), /aria-hidden="true" focusable="false"/);
+});
+test("ridgeline motion is bounded and respects visibility and reduced motion", () => {
+  const scene = read("src/components/RidgelineScene.tsx");
+  for (const marker of ["MAX_PIXELS = 80_000", "1000 / 24", "REVEAL_MS = 2800", "prefers-reduced-motion: reduce", "document.hidden", "intersection.disconnect()", "cancelAnimationFrame", "aria-hidden"]) assert.ok(scene.includes(marker), marker);
+});

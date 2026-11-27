@@ -183,3 +183,22 @@ test('reduced motion and keyboard theme toggle', async ({ page }, info) => {
   await expect(page.locator('.mark-mesh-background canvas')).toBeHidden();
   await expect(theme).toBeFocused();
 });
+
+
+test('closing footer has usable links and a static reduced-motion scene', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
+  await expect(footer).toHaveCount(1);
+  await expect(footer.getByRole('link', { name: 'Projects', exact: true })).toHaveAttribute('href', '/projects');
+  await expect(footer.getByRole('link', { name: 'Get in touch' })).toHaveAttribute('href', '/contact');
+  await footer.getByRole('link', { name: 'Résumé' }).focus();
+  await expect(footer.getByRole('link', { name: 'Résumé' })).toBeFocused();
+  const canvas = footer.locator('canvas');
+  await canvas.scrollIntoViewIfNeeded();
+  await expect(canvas).toHaveAttribute('data-ready', 'true');
+  const before = await canvas.evaluate(c => c.toDataURL());
+  await page.waitForTimeout(400);
+  expect(await canvas.evaluate(c => c.toDataURL())).toBe(before);
+  await audit(page, info, 'footer');
+});
