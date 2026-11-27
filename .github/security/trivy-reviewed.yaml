@@ -1,0 +1,8 @@
+# Applied only after the runtime evidence step confirms exact Bookworm version.
+# Full inventory and fixable-high gate do not use this file.
+vulnerabilities:
+  - id: CVE-2023-45853
+    purls:
+      - "pkg:deb/debian/zlib1g"
+    expired_at: 2026-12-27
+    statement: "Debian Bookworm zlib1g 1:1.2.13.dfsg-1 does not build affected MiniZip; runtime inspection required. https://security-tracker.debian.org/tracker/CVE-2023-45853"

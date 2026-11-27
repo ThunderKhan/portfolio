@@ -33,7 +33,7 @@ npm run lint
 npm run build
 ```
 
-GitHub Actions runs credential-free code, dependency, browser and Docker isolation checks on pull requests and main pushes. See [CI engineering](docs/plans/ci-cd.md). Run `npm run audit:final` locally with the private GitHub token and Docker Scout for the additional release checks. Review responsive layouts in both themes before deployment.
+GitHub Actions runs credential-free code, dependency, browser and Docker isolation checks on pull requests and main pushes. Separate security automation scans Git history and container vulnerabilities; weekly audits and Dependabot version-update proposals run after default-branch activation. See [CI engineering](docs/plans/ci-cd.md). Run `npm run audit:final` locally with the private GitHub token and Docker Scout for the additional release checks. Review responsive layouts in both themes before deployment.
 
 ## License and attribution
 
