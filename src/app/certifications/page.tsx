@@ -8,7 +8,6 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { Certifications } from "@/components/Certifications";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { certifications } from "@/data/certificationsData";
-import { portfolio } from "~/portfolio.config";
 
 export const metadata: Metadata = archiveMetadata("/certifications");
 

@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   ...(portfolio.googleSiteVerification
     ? { verification: { google: portfolio.googleSiteVerification } }
     : {}),
-
 };
 
 export default function RootLayout({

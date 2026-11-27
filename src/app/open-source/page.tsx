@@ -8,7 +8,6 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { OpenSourceList } from "@/components/OpenSourceList";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { openSourceWork, contributionTotals } from "@/data/openSourceData";
-import { portfolio } from "~/portfolio.config";
 
 export const metadata: Metadata = archiveMetadata("/open-source");
 

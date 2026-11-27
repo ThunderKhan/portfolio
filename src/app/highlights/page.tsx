@@ -9,7 +9,6 @@ import { HighlightCard } from "@/components/Highlights";
 import { EventHighlights } from "@/components/EventHighlights";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { highlightsData } from "@/data/highlightsData";
-import { portfolio } from "~/portfolio.config";
 
 export const metadata: Metadata = archiveMetadata("/highlights");
 

@@ -8,7 +8,6 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { BlogList } from "@/components/BlogList";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { blogsData } from "@/data/blogsData";
-import { portfolio } from "~/portfolio.config";
 
 export const metadata: Metadata = archiveMetadata("/blogs");
 
