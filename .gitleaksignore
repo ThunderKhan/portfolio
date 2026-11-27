@@ -1,0 +1,9 @@
+# Reviewed 2026-11-27: exact historical documentation placeholders only.
+# Two intentionally fake keys in anti-pattern examples; four YOUR_API_TOKEN examples.
+# No directory, rule or future-commit exclusions. See docs/plans/ci-cd.md.
+a31c5dfc459658efee71005b54a119f5e814a24b:.agents/skills/18-devops/cloudflare-deploy/references/bindings/patterns.md:generic-api-key:82
+a31c5dfc459658efee71005b54a119f5e814a24b:.agents/skills/18-devops/cloudflare-deploy/references/bindings/patterns.md:generic-api-key:182
+a31c5dfc459658efee71005b54a119f5e814a24b:.agents/skills/18-devops/cloudflare-deploy/references/argo-smart-routing/README.md:curl-auth-header:13
+a31c5dfc459658efee71005b54a119f5e814a24b:.agents/skills/18-devops/cloudflare-deploy/references/argo-smart-routing/api.md:curl-auth-header:27
+a31c5dfc459658efee71005b54a119f5e814a24b:.agents/skills/18-devops/cloudflare-deploy/references/argo-smart-routing/api.md:curl-auth-header:84
+a31c5dfc459658efee71005b54a119f5e814a24b:.agents/skills/18-devops/cloudflare-deploy/references/pipelines/api.md:curl-auth-header:113

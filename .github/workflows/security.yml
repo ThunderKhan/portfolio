@@ -87,15 +87,35 @@ jobs:
           tar -xzf "$archive" -C "$RUNNER_TEMP/trivy-bin" trivy
           "$RUNNER_TEMP/trivy-bin/trivy" --version
       - name: Inspect runtime zlib and MiniZip package evidence
+        id: minizip
         shell: bash
         run: |
-          docker run --rm --network none --cap-drop ALL --security-opt no-new-privileges:true --entrypoint sh mark-i:security-check -ec '
-            dpkg-query -W zlib1g
-            dpkg-query -L zlib1g
-            dpkg-query -W > /tmp/installed-packages
-            grep -i minizip /tmp/installed-packages || test "$?" -eq 1
-            find /usr /opt /app -iname "*minizip*" -print
-          '
+          set -euo pipefail
+          # The exception is valid only for this exact reviewed Debian binary.
+          # No evidence, changed version, or MiniZip presence => strict scan.
+          evidence="$(docker run --rm --network none --cap-drop ALL --security-opt no-new-privileges:true --entrypoint sh mark-i:security-check -ec '
+            . /etc/os-release
+            version="$(dpkg-query -W -f="\${Version}" zlib1g)"
+            packages="$(dpkg-query -W)"
+            files="$(find /usr /opt /app -iname "*minizip*" -print)"
+            printf "OS: %s %s\\nVersion: %s\\n" "$ID" "$VERSION_CODENAME" "$version" >&2
+            dpkg-query -L zlib1g >&2
+            if [ "$ID" = debian ] && [ "$VERSION_CODENAME" = bookworm ] &&
+               [ "$version" = "1:1.2.13.dfsg-1" ] &&
+               ! printf "%s\\n" "$packages" | grep -qi minizip &&
+               [ -z "$files" ]; then
+              printf "eligible"
+            else
+              printf "not-eligible"
+            fi
+          ')"
+          if [[ "$evidence" == eligible ]]; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+            echo "Reviewed Debian zlib binary; no MiniZip package or named file found."
+          else
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+            echo "Reviewed exception does not apply; retaining strict scan."
+          fi
       - name: Report all image vulnerabilities
         id: inventory
         working-directory: ${{ runner.temp }}
@@ -103,10 +123,17 @@ jobs:
         run: |
           "$RUNNER_TEMP/trivy-bin/trivy" image --image-src docker --scanners vuln --timeout 10m --exit-code 0 --format table mark-i:security-check
       - name: Block critical vulnerabilities
+        env:
+          REVIEWED_ZLIB: ${{ steps.minizip.outputs.eligible }}
         working-directory: ${{ runner.temp }}
         shell: bash
         run: |
-          "$RUNNER_TEMP/trivy-bin/trivy" image --image-src docker --scanners vuln --timeout 10m --skip-db-update --severity CRITICAL --exit-code 1 mark-i:security-check
+          set -euo pipefail
+          extra=()
+          if [[ "$REVIEWED_ZLIB" == true ]]; then
+            extra+=(--ignorefile "$GITHUB_WORKSPACE/.github/security/trivy-reviewed.yaml" --show-suppressed)
+          fi
+          "$RUNNER_TEMP/trivy-bin/trivy" image --image-src docker --scanners vuln --timeout 10m --skip-db-update --severity CRITICAL --exit-code 1 "${extra[@]}" mark-i:security-check
       - name: Block fixable high vulnerabilities
         if: ${{ !cancelled() && steps.inventory.outcome == 'success' }}
         working-directory: ${{ runner.temp }}
