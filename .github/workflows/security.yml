@@ -44,7 +44,21 @@ jobs:
       - name: Scan reachable Git history (redacted)
         shell: bash
         run: |
-          "$RUNNER_TEMP/gitleaks-bin/gitleaks" git --log-opts="--all" --redact=100 --exit-code=1 .
+          set -euo pipefail
+          umask 077
+          report_dir="$(mktemp -d "$RUNNER_TEMP/gitleaks-report.XXXXXXXX")"
+          trap 'rm -rf "$report_dir"' EXIT
+          report="$report_dir/findings.json"
+          status=0
+          "$RUNNER_TEMP/gitleaks-bin/gitleaks" git --log-opts="--all" --redact=100 --exit-code=1 --report-format=json --report-path="$report" . || status=$?
+          # Do not print match, secret, commit message or author fields.
+          if [[ -f "$report" ]]; then
+            jq -a -c '.[] | {RuleID, File, StartLine, EndLine, Commit, Fingerprint}' "$report"
+          elif [[ "$status" -eq 0 ]]; then
+            echo "::error::Secret scanner did not write the expected report"
+            exit 1
+          fi
+          exit "$status"
 
   image:
     name: Container vulnerability scan
@@ -72,7 +86,18 @@ jobs:
           printf '%s  %s\n' 'bc0fc726e017b8927a62b2d3531d7a84ee01769daf5c99ed866dced54089fdbf' "$archive" | sha256sum --check --strict
           tar -xzf "$archive" -C "$RUNNER_TEMP/trivy-bin" trivy
           "$RUNNER_TEMP/trivy-bin/trivy" --version
+      - name: Inspect runtime zlib and MiniZip package evidence
+        shell: bash
+        run: |
+          docker run --rm --network none --cap-drop ALL --security-opt no-new-privileges:true --entrypoint sh mark-i:security-check -ec '
+            dpkg-query -W zlib1g
+            dpkg-query -L zlib1g
+            dpkg-query -W > /tmp/installed-packages
+            grep -i minizip /tmp/installed-packages || test "$?" -eq 1
+            find /usr /opt /app -iname "*minizip*" -print
+          '
       - name: Report all image vulnerabilities
+        id: inventory
         working-directory: ${{ runner.temp }}
         shell: bash
         run: |
@@ -83,6 +108,7 @@ jobs:
         run: |
           "$RUNNER_TEMP/trivy-bin/trivy" image --image-src docker --scanners vuln --timeout 10m --skip-db-update --severity CRITICAL --exit-code 1 mark-i:security-check
       - name: Block fixable high vulnerabilities
+        if: ${{ !cancelled() && steps.inventory.outcome == 'success' }}
         working-directory: ${{ runner.temp }}
         shell: bash
         run: |
