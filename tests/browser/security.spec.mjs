@@ -118,3 +118,49 @@ test("enforced CSP allows normal interactions and blocks unauthorized resources"
   await expect.poll(async () => (await violations()).some(v => v.directive === "base-uri" && v.disposition === "enforce")).toBe(true);
   await info.attach("csp-positive-controls.json", { body: JSON.stringify(await violations(), null, 2), contentType: "application/json" });
 });
+
+test("actual GitHub endpoint is bounded to POST and returns non-cacheable public data", async ({ request }) => {
+  const method = await request.get("/api/github");
+  expect(method.status()).toBe(405);
+  await method.dispose();
+  // The route ignores caller input, including a malformed JSON body.
+  const response = await request.post("/api/github", {
+    headers: { "content-type": "application/json" },
+    data: "{",
+    timeout: 20_000,
+  });
+  expect(response.headers()["cache-control"]).toContain("no-store");
+  expect(response.headers()["x-powered-by"]).toBeUndefined();
+  expect([200, 502, 503]).toContain(response.status());
+  const body = await response.json();
+  if (process.env.PORTFOLIO_REQUIRE_LIVE_GITHUB === "1") {
+    expect(response.status(), "final audit requires live GitHub data").toBe(200);
+    expect(body.stale).toBe(false);
+  }
+  if (response.status() === 200) {
+    expect(typeof body.stale).toBe("boolean");
+    expect(Number.isSafeInteger(body.calendar.totalContributions)).toBe(true);
+    expect(body.calendar.totalContributions).toBeGreaterThanOrEqual(0);
+    expect(Array.isArray(body.calendar.weeks)).toBe(true);
+  } else {
+    expect(typeof body.error).toBe("string");
+    expect(body.calendar).toBeUndefined();
+  }
+  await response.dispose();
+});
+
+test("corrected public assets and optimized images are served with matching media types", async ({ request }) => {
+  for (const path of ["/education-image/ddugu.jpg", "/education-image/gci-world.jpg", "/education-image/ieee.jpg", "/music/loser-cover.jpg"]) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(200);
+    expect(response.headers()["content-type"], path).toContain("image/jpeg");
+    expect(response.headers()["x-content-type-options"], path).toBe("nosniff");
+    const bytes = await response.body();
+    expect(bytes.subarray(0, 2).toString("hex")).toBe("ffd8");
+    await response.dispose();
+  }
+  const optimized = await request.get("/_next/image?url=%2Fprofile%2Firon-man.jpg&w=640&q=80");
+  expect(optimized.status()).toBe(200);
+  expect(optimized.headers()["content-type"]).toMatch(/^image\//);
+  await optimized.dispose();
+});
