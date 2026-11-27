@@ -1,0 +1,20 @@
+# Security audit — MARK I
+
+## Verified baseline
+
+- SEO local rendered verification: 24 content pages, social images, preview robots/sitemap, 3 redirects, 3 missing routes at e12d9b6; post-SEO browser matrix 112/112 (1.9m), owner reported.
+- Dependency audit initially found one minimatch advisory propagated through four dev packages (GHSA-g3hv-75wg-m249); production audit zero. Owner applied normal npm audit fix and reviewed exact lockfile diff: shadcn 4.23.1, ts-morph 28.0.0, @ts-morph/common 0.29.1, minimatch 11.0.9, brace-expansion 5.1.0, @shadcn/registry 0.2.2, nested fast-glob/glob-parent removed. No manifest changes. Both audits zero, 71/71 tests, typecheck/lint/build pass. Main f26141f contains the remediation. Known-advisory scans do not establish absence of vulnerabilities.
+
+## SEC-01 — HTTP response headers and CSP
+
+Source baseline f26141f: next.config.ts has no explicit response headers or poweredByHeader setting. Hosting-edge policy is not verified. Add baseline headers across paths, disable framework header, enforce framing/object/base/form restrictions immediately in application configuration. Restrict unused camera, microphone, geolocation and payment. Retain Spotify's embedded playback permissions. Referrer policy preserves cross-origin origin only, not full path. No global CORS grants.
+
+Production-build resource CSP is initially report-only: self-hosted scripts, styles, fonts, media, same-origin network; data images for embedded placeholders; Spotify frame origin only. Existing Next.js App Router and next-themes inline scripts plus layout/motion styles require a compatibility allowance. No unsafe-eval, wildcard or broad https: source. Script attribute handlers are disallowed in candidate. Server-side GitHub/LeetCode/social fetches are not browser CSP destinations. Contact form remains disabled; enabling it requires a new security review and explicit CSP update. Release telemetry may need platform-specific validation; do not whitelist speculative domains.
+
+Report-only has no network collector; local browser event monitoring plus a synthetic intercepted image probe verify observation. Structural CSP is enforced separately. Candidate does not yet block resource loads, and inline scripts weaken XSS mitigation even after enforcement. Strict nonce CSP would force dynamic rendering; preserve static/ISR routes, evaluate build-specific hashes separately if feasible. Do not declare full CSP hardening complete until runtime verification and promotion. No HSTS until real HTTPS/hosting and subdomain implications verified; avoid COEP/COOP restrictions without integration need. No change to live site, preview flag, dependency tree, or DNS.
+
+References: https://nextjs.org/docs/app/guides/content-security-policy ; https://nextjs.org/docs/app/api-reference/config/next-config-js/headers ; https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/CSP . Repository security-best-practices skill and relevant Next/React/general frontend header/CSP reference sections; verification-before-completion skill reviewed in project. Installed Next docs are not accessible from repository connector; official v16.4.6 guide consulted.
+
+## Verification and promotion
+
+Run source tests (expected 75), typecheck, lint, build (retain static generation), focused security browser tests (8) and full browser suite (120 including existing 112). Review all CSP violations, including normal non-reduced motion/manual interactions and actual Spotify on local preview; release telemetry and deployed headers pending approved preview. Confirm candidate report-only and base-uri enforcement positive controls. After evidence, promote resource CSP in separate commit and repeat verification; no automatic widening. No runtime tests executed in connector session. API rate/caching, secrets, container, public assets and hosting/TLS remain separate security review tasks.

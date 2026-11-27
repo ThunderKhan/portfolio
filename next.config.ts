@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
+import { securityHeaders } from "./src/lib/security-headers";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders(process.env.NODE_ENV === "production") }];
+  },
   // Keep the existing npm workflow; emit a traced server only for container builds.
   ...(process.env.PORTFOLIO_DOCKER_BUILD === "1" ? { output: "standalone" as const } : {}),
   async redirects() {
