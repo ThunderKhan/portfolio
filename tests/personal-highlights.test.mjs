@@ -36,3 +36,14 @@ test("custom cover has a graceful missing-image fallback and full-track link", (
   assert.ok(player.includes("Close player"));
   assert.ok(player.includes("Listen here"));
 });
+
+
+test("closing motto uses the owner-selected two-line text without a translation", () => {
+  const home = read("src/app/page.tsx");
+  const config = read("portfolio.config.ts");
+  assert.ok(config.includes('motto: ["If I must fall,", "let it be from a great height."]'));
+  assert.ok(home.includes("{portfolio.motto[0]}<br />"));
+  assert.ok(home.includes("{portfolio.motto[1]}"));
+  assert.ok(!home.includes("Labor omnia vincit") && !home.includes("WORK CONQUERS ALL"));
+  assert.match(home, /<p className="[^"]*mark-gold-text italic"/);
+});

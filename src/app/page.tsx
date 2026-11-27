@@ -519,19 +519,12 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Minimal Quote Section */}
-        <div className="mt-2 flex flex-col items-center justify-center relative py-6">
-          <div className="max-w-[480px] w-full flex flex-col items-center">
-            <p className="text-[16px] font-medium text-center leading-relaxed mark-gold-text mb-6 italic">
-              Labor omnia vincit.
-            </p>
-
-            <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] mark-muted uppercase">
-              <div className="w-4 h-[1px] mark-gold-detail" />
-              WORK CONQUERS ALL
-              <div className="w-4 h-[1px] mark-gold-detail" />
-            </div>
-          </div>
+        {/* Closing motto */}
+        <div className="mt-2 flex flex-col items-center justify-center relative py-8">
+          <p className="max-w-[480px] text-[18px] sm:text-[20px] font-medium text-center leading-relaxed mark-gold-text italic">
+            {portfolio.motto[0]}<br />
+            {portfolio.motto[1]}
+          </p>
         </div>
 
         {/* Source and contact links */}

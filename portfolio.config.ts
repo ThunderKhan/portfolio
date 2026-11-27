@@ -29,6 +29,8 @@ export const portfolio = {
     "I care about deterministic behavior, explainability, testing and public proof of work.",
     "I contribute upstream when I can, including fixes and regression coverage in CLI11, Manim and OpenTrace.",
   ],
+  /** Two-line closing motto, selected by the owner. */
+  motto: ["If I must fall,", "let it be from a great height."],
   publishedLeetCodeSolved: "220+",
   /** IANA zone for the live clock in the banner. */
   timeZone: "Asia/Kolkata",
