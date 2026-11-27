@@ -29,22 +29,10 @@ export const metadata: Metadata = {
   title: portfolio.name,
   description: portfolio.description,
   ...(portfolio.referencePreview ? { robots: { index: false, follow: false } } : {}),
-  openGraph: {
-    title: portfolio.name,
-    description: portfolio.tagline,
-    url: SITE_URL,
-    siteName: portfolio.name,
-    type: "website",
-  },
   ...(portfolio.googleSiteVerification
     ? { verification: { google: portfolio.googleSiteVerification } }
     : {}),
-  twitter: {
-    card: "summary_large_image",
-    title: portfolio.name,
-    description: portfolio.tagline,
-    ...(portfolio.handles.x ? { site: `@${portfolio.handles.x}`, creator: `@${portfolio.handles.x}` } : {}),
-  },
+
 };
 
 export default function RootLayout({

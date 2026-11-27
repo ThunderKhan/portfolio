@@ -1,3 +1,6 @@
+import { pageMetadata } from "@/lib/seo";
+import { articleStructuredData } from "@/lib/structured-data";
+import { JsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 import { portfolio } from "~/portfolio.config";
 import Image from "next/image";
@@ -45,39 +48,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
 
-  if (!post) {
-    return {
-      title: `Posts | ${portfolio.name}`,
-    };
-  }
+  if (!post) notFound();
 
-  return {
-    title: `${post.title} | ${portfolio.name}`,
-    description: post.description,
-    alternates: { canonical: post.link },
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: "article",
-      url: post.link,
-      publishedTime: post.publishedAt,
-      authors: [portfolio.name],
-      images: [
-        {
-          url: "/opengraph-image",
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.description,
-      images: ["/opengraph-image"],
-    },
-  };
+  return pageMetadata({
+    path: post.link,
+    title: post.title,
+    description: post.description ?? post.title,
+    publishedAt: post.publishedAt,
+  });
 }
 
 function BlueprintFrame() {
@@ -243,6 +221,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 
   return (
     <div className="mark-page relative min-h-screen w-full overflow-x-hidden transition-colors duration-300">
+      <JsonLd data={articleStructuredData(post)} />
       <RightNavbar />
       <BlueprintFrame />
 

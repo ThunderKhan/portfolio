@@ -1,3 +1,4 @@
+import { archiveMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -9,10 +10,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { blogsData } from "@/data/blogsData";
 import { portfolio } from "~/portfolio.config";
 
-export const metadata: Metadata = {
-  title: `Technical Writing | ${portfolio.name}`,
-  description: `Engineering articles, experiments and technical case studies by ${portfolio.name}.`,
-};
+export const metadata: Metadata = archiveMetadata("/blogs");
 
 const horizontalDots = {
   maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",

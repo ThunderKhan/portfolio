@@ -5,7 +5,8 @@
     "test": "playwright test",
     "install:browser": "playwright install chromium",
     "report": "playwright show-report",
-    "perf": "node performance.mjs"
+    "perf": "node performance.mjs",
+    "seo": "node --experimental-strip-types seo.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

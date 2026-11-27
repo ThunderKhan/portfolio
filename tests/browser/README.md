@@ -34,3 +34,7 @@ Axe runs available WCAG A/AA tagged rules without disabling findings. Each scan 
 See [audit findings and remaining checks](../../docs/audits/accessibility.md). Record the exact tested commit, commands, results and unresolved issues. Do not mark findings closed based solely on this suite.
 
 For the separate local performance observation runner, see [performance audit](../../docs/audits/performance.md). It uses the same pinned browser dependencies and does not run as part of the accessibility suite.
+
+## Rendered SEO checks
+
+Build the application, then start the local production server from the root with `node .\\node_modules\\next\\dist\\bin\\next start --hostname 127.0.0.1 --port 4173`. From a second terminal inside tests/browser, run `npm run seo`. The script checks all currently authored detail routes, unique titles/descriptions, canonical URLs, social metadata and image responses, server-rendered JSON-LD with JavaScript disabled, preview indexing policy, redirects and 404s. The canonical origin must match the build's NEXT_PUBLIC_SITE_URL (or portfolio.url); set the same override in the test terminal if used. No public deployment or external service is contacted. Re-run after preview is explicitly disabled for release to validate the populated sitemap. Stop the manual server before running npm test.

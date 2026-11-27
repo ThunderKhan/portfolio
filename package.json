@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/github-calendar.test.mjs tests/banner-animation.test.mjs tests/open-source.test.mjs tests/blogs.test.mjs tests/education.test.mjs tests/certifications.test.mjs tests/identity-cleanup.test.mjs tests/personal-highlights.test.mjs tests/typography.test.mjs tests/interaction-accessibility.test.mjs tests/responsive-layout.test.mjs tests/mesh-drift.test.mjs",
+    "test": "node --experimental-strip-types --test tests/github-calendar.test.mjs tests/banner-animation.test.mjs tests/open-source.test.mjs tests/blogs.test.mjs tests/education.test.mjs tests/certifications.test.mjs tests/identity-cleanup.test.mjs tests/personal-highlights.test.mjs tests/typography.test.mjs tests/interaction-accessibility.test.mjs tests/responsive-layout.test.mjs tests/mesh-drift.test.mjs tests/seo.test.mjs",
     "refresh-stats": "node --experimental-strip-types scripts/refresh-stats.mjs"
   },
   "dependencies": {

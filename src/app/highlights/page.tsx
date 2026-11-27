@@ -1,3 +1,4 @@
+import { archiveMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -10,10 +11,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { highlightsData } from "@/data/highlightsData";
 import { portfolio } from "~/portfolio.config";
 
-export const metadata: Metadata = {
-  title: `Highlights | ${portfolio.name}`,
-  description: `A complete archive of ${portfolio.name}'s highlights and milestones.`,
-};
+export const metadata: Metadata = archiveMetadata("/highlights");
 
 const horizontalDots = {
   maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",

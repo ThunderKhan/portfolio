@@ -1,3 +1,6 @@
+import { homeMetadata } from "@/lib/seo";
+import { profileStructuredData } from "@/lib/structured-data";
+import { JsonLd } from "@/components/JsonLd";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { GithubGraph } from "@/components/GithubGraph";
 import { CurrentTime } from "@/components/CurrentTime";
@@ -28,11 +31,14 @@ import Image from "next/image";
 import { SiGithub, SiLeetcode } from "react-icons/si";
 
 
+export const metadata = homeMetadata;
+
 export default async function Home() {
   const socialProfiles = await getSocialProfiles();
 
   return (
     <div className="mark-home min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
+      <JsonLd data={profileStructuredData()} />
       <MeshDriftBackground />
       <CleanHash />
 

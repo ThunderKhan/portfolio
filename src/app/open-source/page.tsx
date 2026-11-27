@@ -1,3 +1,4 @@
+import { archiveMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -9,10 +10,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { openSourceWork, contributionTotals } from "@/data/openSourceData";
 import { portfolio } from "~/portfolio.config";
 
-export const metadata: Metadata = {
-  title: `OSS Contributions | ${portfolio.name}`,
-  description: `Selected upstream contributions, technical details and pull request links by ${portfolio.name}.`,
-};
+export const metadata: Metadata = archiveMetadata("/open-source");
 
 const horizontalDots = {
   maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",

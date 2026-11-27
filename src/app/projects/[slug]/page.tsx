@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
@@ -15,6 +17,18 @@ export async function generateStaticParams() {
   return projectsData.map((project) => ({
     slug: project.slug,
   }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projectsData.find((item) => item.slug === slug);
+  if (!project) notFound();
+
+  return pageMetadata({
+    path: `/projects/${project.slug}`,
+    title: project.title,
+    description: project.description,
+  });
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
