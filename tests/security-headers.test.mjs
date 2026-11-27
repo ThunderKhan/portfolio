@@ -21,16 +21,20 @@ test("baseline headers deny framing, MIME sniffing and unused browser permission
   }
 });
 
-test("production candidate is report-only; development keeps hot reload", () => {
+test("production enforces all reviewed directives; development keeps hot reload", () => {
   const prod = headers(true);
   const dev = headers(false);
-  assert.equal(prod["content-security-policy-report-only"], resourcePolicy);
+  const production = directives(prod["content-security-policy"]);
+  for (const [name, values] of Object.entries(directives(resourcePolicy))) {
+    assert.deepEqual(production[name], values, name);
+    assert.equal(directives(dev["content-security-policy"])[name], undefined, name);
+  }
+  assert.equal(prod["content-security-policy-report-only"], undefined);
   assert.equal(dev["content-security-policy-report-only"], undefined);
-  assert.equal(directives(prod["content-security-policy"])["script-src"], undefined);
   assert.equal(prod["strict-transport-security"], undefined);
 });
 
-test("candidate restricts resource origins without unsafe-eval or wildcard grants", () => {
+test("resource policy restricts resource origins without unsafe-eval or wildcard grants", () => {
   const csp = directives(resourcePolicy);
   for (const key of ["default-src", "connect-src", "font-src", "media-src", "worker-src", "manifest-src"]) {
     assert.deepEqual(csp[key], ["'self'"]);

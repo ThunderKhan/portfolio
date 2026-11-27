@@ -31,11 +31,11 @@ export function securityHeaders(isProduction: boolean): SecurityHeader[] {
     { key: "X-Frame-Options", value: "DENY" },
     { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
     { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
-    { key: "Content-Security-Policy", value: structuralPolicy },
-    // Observe production resource loads locally before moving to enforcement.
-    // No reporting endpoint or external collection service is introduced.
-    ...(isProduction
-      ? [{ key: "Content-Security-Policy-Report-Only", value: resourcePolicy }]
-      : []),
+    // Production enforces the resource policy verified in report-only mode.
+    // Development retains structural restrictions without breaking hot reload.
+    {
+      key: "Content-Security-Policy",
+      value: isProduction ? `${structuralPolicy}; ${resourcePolicy}` : structuralPolicy,
+    },
   ];
 }

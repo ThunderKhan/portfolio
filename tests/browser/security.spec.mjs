@@ -16,16 +16,18 @@ test("security response headers on pages, assets and missing routes", async ({ r
     expect(h["content-security-policy"], path).toContain("object-src 'none'");
     expect(h["content-security-policy"], path).toContain("base-uri 'none'");
     expect(h["content-security-policy"], path).toContain("form-action 'self'");
-    expect(h["content-security-policy-report-only"], path).toContain("script-src 'self' 'unsafe-inline'");
-    expect(h["content-security-policy-report-only"], path).toContain("frame-src https://open.spotify.com");
-    expect(h["content-security-policy-report-only"], path).not.toContain("unsafe-eval");
+    expect(h["content-security-policy"], path).toContain("script-src 'self' 'unsafe-inline'");
+    expect(h["content-security-policy"], path).toContain("frame-src https://open.spotify.com");
+    expect(h["content-security-policy"], path).not.toContain("unsafe-eval");
+    expect(h["content-security-policy-report-only"], path).toBeUndefined();
     expect(h["x-powered-by"], path).toBeUndefined();
     await response.dispose();
   }
 });
 
-test("candidate CSP observes page loads and interactive states without violations", async ({ page }, info) => {
+test("enforced CSP allows normal interactions and blocks unauthorized resources", async ({ page }, info) => {
   const errors = [];
+  let probeRequests = 0;
   page.on("pageerror", error => errors.push(error.message));
   await page.addInitScript(() => {
     window.__cspAudit = [];
@@ -48,6 +50,7 @@ test("candidate CSP observes page loads and interactive states without violation
       return route.fulfill({ contentType: "text/html", body: "<!doctype html><html><body>Player fixture</body></html>" });
     }
     if (url.href === probe) {
+      probeRequests += 1;
       return route.fulfill({ contentType: "image/svg+xml", body: '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>' });
     }
     return route.abort();
@@ -88,8 +91,8 @@ test("candidate CSP observes page loads and interactive states without violation
   expect(await violations(), "normal interactions").toEqual([]);
   expect(errors, "page errors").toEqual([]);
 
-  // Positive control: a disallowed external image triggers a report-only
-  // event but still loads from the local fixture. No external traffic.
+  // The intercepted fixture would succeed if requested. Enforcement must
+  // block the image before any request and dispatch an enforced violation.
   const loaded = await page.evaluate(src => new Promise(resolve => {
     const image = new Image();
     image.onload = () => resolve(true);
@@ -97,8 +100,9 @@ test("candidate CSP observes page loads and interactive states without violation
     image.src = src;
     document.body.append(image);
   }), probe);
-  expect(loaded).toBe(true);
-  await expect.poll(async () => (await violations()).some(v => v.directive === "img-src" && v.disposition === "report" && v.blocked.startsWith("https://csp-probe.invalid"))).toBe(true);
+  expect(loaded).toBe(false);
+  await expect.poll(async () => (await violations()).some(v => v.directive === "img-src" && v.disposition === "enforce" && v.blocked.startsWith("https://csp-probe.invalid"))).toBe(true);
+  expect(probeRequests, "CSP must block the probe before a network request").toBe(0);
 
   // Verify that base-uri is enforced, not just present in the header.
   const originalBase = await page.evaluate(() => document.baseURI);
