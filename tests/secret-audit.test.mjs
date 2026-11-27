@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { credentialPath, publicSecretName, containsSecret, isPublicBuildFile } from "../scripts/lib/secret-audit.mjs";
+import { credentialPath, publicSecretName, containsSecret, isPublicBuildFile, secretAuditMode, knownSecretRequirementMet } from "../scripts/lib/secret-audit.mjs";
 
 const read = path => readFileSync(new URL("../" + path, import.meta.url), "utf8");
 
@@ -42,4 +42,14 @@ test("credential ignores cover local env and private keys without exposing the t
   assert.ok(gitignore.includes("!/.env.example"));
   assert.match(read(".env.example"), /^GITHUB_TOKEN=$/m);
   assert.doesNotMatch(read(".env.example"), /^GITHUB_TOKEN=.+$/m);
+});
+
+test("credential-free CI is explicit and does not weaken the default local gate", () => {
+  assert.equal(secretAuditMode([]), "local");
+  assert.equal(secretAuditMode(["--ci-no-token"]), "ci-no-token");
+  assert.throws(() => secretAuditMode(["--unknown"]));
+  assert.equal(knownSecretRequirementMet("local", 0), false);
+  assert.equal(knownSecretRequirementMet("local", 1), true);
+  assert.equal(knownSecretRequirementMet("ci-no-token", 0), true);
+  assert.equal(knownSecretRequirementMet("unknown", 1), false);
 });

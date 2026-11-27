@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseEnv } from "node:util";
-import { tokenPattern, credentialPath, publicSecretName, containsSecret, isPublicBuildFile } from "./lib/secret-audit.mjs";
+import { tokenPattern, credentialPath, publicSecretName, containsSecret, isPublicBuildFile, secretAuditMode, knownSecretRequirementMet } from "./lib/secret-audit.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 function git(args, allowNoMatch = false) {
@@ -40,6 +40,7 @@ function safePath(path) {
   return clean.replace(new RegExp(tokenPattern, "g"), "[REDACTED]");
 }
 try {
+  const mode = secretAuditMode(process.argv.slice(2));
   const tracked = git(["ls-files", "-z"]).split("\0").filter(Boolean);
   const trackedCredentials = tracked.filter(credentialPath);
   const historyPaths = lines(git(["log", "--all", "--root", "-m", "--format=", "--name-only", "--no-renames"]));
@@ -55,6 +56,7 @@ try {
   const template = parseEnv(readFileSync(join(root, ".env.example"), "utf8"));
   const templateValid = Object.keys(template).every(key => key === "GITHUB_TOKEN" || key === "NEXT_PUBLIC_SITE_URL") && template.GITHUB_TOKEN === "";
   const result = {
+    mode,
     trackedCredentialPaths: trackedCredentials.map(safePath),
     historicalCredentialPaths: historicalCredentials.map(safePath),
     currentPatternMatches: currentMatches.map(safePath),
@@ -67,7 +69,7 @@ try {
     templateValid,
   };
   console.log(JSON.stringify(result, null, 2));
-  if (!built || !localSecrets.size || !templateValid || trackedCredentials.length || historicalCredentials.length || currentMatches.length || historyMatches.length || riskyPublicNames.size || outputMatches.length) process.exitCode = 1;
+  if (!built || !knownSecretRequirementMet(mode, localSecrets.size) || !templateValid || trackedCredentials.length || historicalCredentials.length || currentMatches.length || historyMatches.length || riskyPublicNames.size || outputMatches.length) process.exitCode = 1;
 } catch {
   console.error("Secret audit incomplete; no sensitive details emitted.");
   process.exitCode = 1;

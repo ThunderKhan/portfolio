@@ -1,0 +1,90 @@
+name: Portfolio CI
+
+on:
+  push:
+    branches: [main, 'ci/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: 'true'
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  quality:
+    name: Quality and browser checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Node.js 22
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: |
+          npm ci
+          npm --prefix tests/browser ci
+      - name: Dependency security
+        run: |
+          npm audit
+          npm audit --omit=dev
+          npm --prefix tests/browser audit
+      - name: Source tests
+        run: npm test
+      - name: Generate route types
+        run: npm exec -- next typegen
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Production build
+        run: npm run build
+      - name: Targeted secret checks (no live credential)
+        run: node scripts/audit-secrets.mjs --ci-no-token
+      - name: Public asset inventory
+        run: npm run audit:assets
+      - name: Install Chromium and system dependencies
+        run: npm --prefix tests/browser exec -- playwright install --with-deps chromium
+      - name: Browser regression (credential-free)
+        run: npm --prefix tests/browser run test
+      - name: Retain browser failure report
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: browser-failure-report
+          path: |
+            tests/browser/playwright-report/
+            tests/browser/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  container:
+    name: Docker build and isolation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Node.js 22
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Build pinned image and verify runtime
+        run: node scripts/audit-docker.mjs

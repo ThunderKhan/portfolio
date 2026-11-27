@@ -23,3 +23,14 @@ export function isPublicBuildFile(path) {
   return p.startsWith(".next/static/") || p.startsWith("public/") ||
     (p.startsWith(".next/server/app/") && /\.(?:html|rsc|body|json|txt|xml)$/i.test(p));
 }
+
+// CI may deliberately run without a real credential; local verification remains strict.
+export function secretAuditMode(args) {
+  if (args.length === 0) return "local";
+  if (args.length === 1 && args[0] === "--ci-no-token") return "ci-no-token";
+  throw new Error("Unknown secret audit arguments");
+}
+
+export function knownSecretRequirementMet(mode, count) {
+  return mode === "ci-no-token" || (mode === "local" && count > 0);
+}
