@@ -42,7 +42,7 @@ export function PortfolioFooter() {
       </div>
       <div className={styles.credit}>
         <p>© {new Date().getFullYear()} {portfolio.name}</p>
-        <p>Designed and built by {portfolio.name}.</p>
+        <p>Built with the indomitable human spirit.</p>
       </div>
       <RidgelineScene />
     </footer>
