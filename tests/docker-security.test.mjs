@@ -49,3 +49,9 @@ test("runner patches installed PAM and excludes runtime package managers", () =>
   assert.ok(audit.includes("runtimePackageManagersAbsent: true"));
   assert.ok(audit.includes('"dpkg", "--compare-versions"'));
 });
+
+test("all Docker stages share an immutable Node base image index", () => {
+  const bases = [...dockerfile.matchAll(/^FROM (node:22-bookworm-slim@sha256:[a-f0-9]{64}) AS (deps|builder|runner)$/gm)];
+  assert.deepEqual(bases.map(match => match[2]), ["deps", "builder", "runner"]);
+  assert.equal(new Set(bases.map(match => match[1])).size, 1);
+});

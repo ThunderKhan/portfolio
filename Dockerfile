@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
-FROM node:22-bookworm-slim AS deps
+FROM node:22-bookworm-slim@sha256:be979e5523c76fa4d5ca4ebd3099078f220aa47ec39c48ad5b5df9314debd6eb AS deps
 WORKDIR /app
 COPY --chown=node:node package.json package-lock.json ./
 RUN chown node:node /app
 USER node
 RUN npm ci --no-audit --no-fund
 
-FROM node:22-bookworm-slim AS builder
+FROM node:22-bookworm-slim@sha256:be979e5523c76fa4d5ca4ebd3099078f220aa47ec39c48ad5b5df9314debd6eb AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN chown node:node /app
@@ -18,7 +18,7 @@ COPY LICENSE ./LICENSE
 USER node
 RUN PORTFOLIO_DOCKER_BUILD=1 npm run build
 
-FROM node:22-bookworm-slim AS runner
+FROM node:22-bookworm-slim@sha256:be979e5523c76fa4d5ca4ebd3099078f220aa47ec39c48ad5b5df9314debd6eb AS runner
 WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
