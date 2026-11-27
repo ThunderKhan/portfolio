@@ -109,3 +109,19 @@ test("public route does not accept query or caller-controlled cache keys", () =>
   assert.match(route, /"Cache-Control": "no-store"/);
   assert.doesNotMatch(route, /request\.json|request\.body|NEXT_PUBLIC_GITHUB_TOKEN/);
 });
+
+test("diagnostics contain only controlled failure categories, never upstream text", async () => {
+  const cases = [
+    [() => new Response("private diagnostic", { status: 401 }), "upstream-http-401"],
+    [() => Response.json({ errors: [{ message: "private diagnostic" }] }), "graphql-errors"],
+    [() => json({ ...calendar, totalContributions: 4 }), "total-mismatch"],
+    [() => new Response("private diagnostic"), "response-body-failed"],
+    [() => { throw new Error("private diagnostic"); }, "fetch-failed"],
+  ];
+  for (const [fetcher, reason] of cases) {
+    const observed = [];
+    const result = await make(async () => fetcher(), { onFailure: value => observed.push(value) }).get();
+    assert.deepEqual(observed, [reason]);
+    assert.deepEqual(result, { status: 502, body: { error: "Failed to fetch from GitHub" } });
+  }
+});

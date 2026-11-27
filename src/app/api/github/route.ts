@@ -8,6 +8,7 @@ const service = createGithubService({
   login: portfolio.handles.github,
   token: () => process.env.GITHUB_TOKEN,
   snapshot: snapshotCalendar(snapshot.github, portfolio.handles.github),
+  onFailure: reason => console.warn("[github-calendar]", reason),
 });
 
 // Compatibility: the existing client uses POST. No request input is read,

@@ -30,16 +30,22 @@ function count(value: unknown): value is number {
 
 // Rebuild only the public display fields, rejecting malformed or oversized
 // calendars instead of forwarding arbitrary upstream objects to browsers.
-export function validateCalendar(value: unknown): ContributionCalendar | null {
+type CalendarFailure = "calendar-shape" | "month-name" | "week-shape" | "day-shape" | "day-date-or-order" | "day-count-limit" | "total-mismatch";
+
+export function validateCalendar(value: unknown, onInvalid?: (reason: CalendarFailure) => void): ContributionCalendar | null {
+  const reject = (reason: CalendarFailure) => {
+    onInvalid?.(reason);
+    return null;
+  };
   const input = record(value);
   if (!input || !count(input.totalContributions) ||
       !Array.isArray(input.months) || !input.months.length || input.months.length > 13 ||
-      !Array.isArray(input.weeks) || !input.weeks.length || input.weeks.length > 54) return null;
+      !Array.isArray(input.weeks) || !input.weeks.length || input.weeks.length > 54) return reject("calendar-shape");
   const months: ContributionCalendar["months"] = [];
   const weeks: ContributionCalendar["weeks"] = [];
   for (const value of input.months) {
     const month = record(value);
-    if (!month || typeof month.name !== "string" || !/^[A-Za-z]{3,9}$/.test(month.name)) return null;
+    if (!month || typeof month.name !== "string" || !/^[A-Za-z]{3,9}$/.test(month.name)) return reject("month-name");
     months.push({ name: month.name });
   }
   let previous = "";
@@ -47,21 +53,21 @@ export function validateCalendar(value: unknown): ContributionCalendar | null {
   let total = 0;
   for (const value of input.weeks) {
     const week = record(value);
-    if (!week || !Array.isArray(week.contributionDays) || !week.contributionDays.length || week.contributionDays.length > 7) return null;
+    if (!week || !Array.isArray(week.contributionDays) || !week.contributionDays.length || week.contributionDays.length > 7) return reject("week-shape");
     const contributionDays: ContributionCalendar["weeks"][number]["contributionDays"] = [];
     for (const item of week.contributionDays) {
       const day = record(item);
-      if (!day || typeof day.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(day.date) || !count(day.contributionCount)) return null;
+      if (!day || typeof day.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(day.date) || !count(day.contributionCount)) return reject("day-shape");
       const date = new Date(day.date + "T00:00:00Z");
-      if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== day.date || day.date <= previous) return null;
+      if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== day.date || day.date <= previous) return reject("day-date-or-order");
       previous = day.date;
       total += day.contributionCount;
-      if (++days > 367 || !Number.isSafeInteger(total)) return null;
+      if (++days > 367 || !Number.isSafeInteger(total)) return reject("day-count-limit");
       contributionDays.push({ date: day.date, contributionCount: day.contributionCount });
     }
     weeks.push({ contributionDays });
   }
-  if (total !== input.totalContributions) return null;
+  if (total !== input.totalContributions) return reject("total-mismatch");
   return { totalContributions: total, months, weeks };
 }
 
@@ -106,11 +112,13 @@ type Options = {
   snapshot: ContributionCalendar | null;
   fetcher?: typeof fetch;
   now?: () => number;
+  // Server-only observer; receives controlled categories, never upstream text.
+  onFailure?: (reason: string) => void;
 };
 
 // Single fixed-account cache, bounded to one validated calendar and one
 // in-flight fetch per process. No user-controlled cache keys or IP assumptions.
-export function createGithubService({ login, token, snapshot, fetcher = fetch, now = Date.now }: Options) {
+export function createGithubService({ login, token, snapshot, fetcher = fetch, now = Date.now, onFailure }: Options) {
   const saved = validateCalendar(snapshot);
   let cached: { calendar: ContributionCalendar; at: number } | null = null;
   let pending: Promise<Result> | null = null;
@@ -124,6 +132,8 @@ export function createGithubService({ login, token, snapshot, fetcher = fetch, n
   }
 
   async function refresh(secret: string): Promise<Result> {
+    const signal = AbortSignal.timeout(8000);
+    let stage = "fetch";
     try {
       const response = await fetcher("https://api.github.com/graphql", {
         method: "POST",
@@ -131,23 +141,31 @@ export function createGithubService({ login, token, snapshot, fetcher = fetch, n
         body: JSON.stringify({ query: QUERY, variables: { login } }),
         cache: "no-store",
         redirect: "error",
-        signal: AbortSignal.timeout(8000),
+        signal,
       });
       retryAt = retryDeadline(response.headers, now());
       if (!response.ok) {
+        onFailure?.("upstream-http-" + response.status);
         void response.body?.cancel().catch(() => {});
         return fallback(502, "Failed to fetch from GitHub");
       }
+      stage = "response-body";
       const json = record(await readJson(response));
+      stage = "response-validation";
       const user = record(record(json?.data)?.user);
       const collection = record(user?.contributionsCollection);
       // GraphQL can return HTTP 200 with errors or partial data.
-      const calendar = json && !json.errors ? validateCalendar(collection?.contributionCalendar) : null;
+      if (!json || json.errors) {
+        onFailure?.(json ? "graphql-errors" : "invalid-json-object");
+        return fallback(502, "Failed to fetch from GitHub");
+      }
+      const calendar = validateCalendar(collection?.contributionCalendar, onFailure);
       if (!calendar) return fallback(502, "Failed to fetch from GitHub");
       cached = { calendar, at: now() };
       return { status: 200, body: { calendar, stale: false } };
     } catch {
       // Do not log exception objects, response bodies, headers or credentials.
+      onFailure?.(signal.aborted ? "upstream-timeout" : stage + "-failed");
       retryAt = Math.max(retryAt, now() + RETRY_MS);
       return fallback(502, "Failed to fetch from GitHub");
     }
