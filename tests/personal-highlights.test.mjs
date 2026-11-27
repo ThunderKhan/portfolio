@@ -73,3 +73,24 @@ test("footer social icons reuse supported GitHub and inline SVG markup", () => {
   assert.match(footer, /aria-label="LinkedIn profile"><svg aria-hidden="true"/);
   assert.match(footer, /aria-label="Email"><svg aria-hidden="true"/);
 });
+
+
+test("terrain uses the supplied Northwall reference seed, noise and eight-by-eight dithering", async () => {
+  const { RIDGE_SEED, RIDGE_LAYERS, RIDGE_BAYER, ridgeProfile, ridgeDither, ridgeNoise } = await import("../src/lib/ridgeline.ts");
+  assert.equal(RIDGE_SEED, 23);
+  assert.equal(RIDGE_LAYERS, 7);
+  assert.equal(new Set(RIDGE_BAYER).size, 64);
+  assert.equal(ridgeNoise(2.3, 4.5, 23), ridgeNoise(2.3, 4.5, 23));
+  for (let i = 0; i < RIDGE_LAYERS; i++) {
+    const profile = ridgeProfile(400, 150, i, RIDGE_LAYERS, RIDGE_SEED, 22);
+    assert.equal(profile.length, 444);
+    assert.ok(profile.every(Number.isFinite));
+    assert.deepEqual(profile, ridgeProfile(400, 150, i, RIDGE_LAYERS, RIDGE_SEED, 22));
+    assert.notDeepEqual(profile, ridgeProfile(400, 150, i, RIDGE_LAYERS, 24, 22));
+  }
+  assert.equal(ridgeDither(-1, 7, .9), 0);
+  assert.equal(ridgeDither(2, 7, .9), 6);
+  const scene = read("src/components/RidgelineScene.tsx");
+  assert.ok(scene.includes("ridgeProfile(") && scene.includes("ridgeFbm("));
+  assert.ok(scene.includes("RIDGE_BAYER[(y & 7) * 8 + (x & 7)]"));
+});
