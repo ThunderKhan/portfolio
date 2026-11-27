@@ -16,3 +16,7 @@ References: https://nextjs.org/docs/app/api-reference/functions/generate-metadat
 ## Verification gates
 
 Run npm test, npm run typecheck, npm run lint, npm run build. Start local production server and run npm run seo inside tests/browser. Review all assertions; check generated social preview visually and validate JSON-LD against Schema.org validator using markup without exposing secrets. Stop local server, rerun 112 accessibility tests. Before launch, explicitly authorize release, verify production sitemap and crawlable/indexable canonical URLs, redirects, domain and HTTPS, and confirm Search Console ownership. Rendered checks and release validation pending.
+
+## First rendered verification
+
+Owner reports 71/71 source checks, clean typecheck and lint, 31/31 generated pages and successful production server startup at 3cb4250. Rendered SEO runner stopped on the first homepage canonical check: Next serialized https://ayankhan.me without the root slash; the expected URL was https://ayankhan.me/. Both parse to the same absolute URL. Normalize absolute URLs for canonical, OG URL and sitemap comparisons, retaining path, query, fragment and origin checks. Eight focused Node URL comparison cases passed, accepting both equivalent forms and rejecting different origins, paths, queries, fragments, relative URLs and null. No application code change; remaining rendered checks have not yet run. Reuse the existing production build and rerun npm run seo.

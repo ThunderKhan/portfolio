@@ -6,6 +6,12 @@ import { portfolio } from "../../portfolio.config.ts";
 const origin = "http://127.0.0.1:4173";
 const canonicalOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || portfolio.url).origin;
 const absolute = path => new URL(path, canonicalOrigin).href;
+// Next may omit the slash at the origin. Compare parsed absolute URLs
+// while retaining checks for origin, path, query and fragment.
+const normalized = value => {
+  assert.equal(typeof value, "string", "Expected an absolute metadata URL");
+  return new URL(value).href;
+};
 const read = path => readFileSync(new URL("../../" + path, import.meta.url), "utf8");
 // Data files contain literal project slugs and stable article IDs.
 // Use the actual source list so new detail pages cannot escape this check.
@@ -28,14 +34,14 @@ try {
     const meta = (name, property = "name") => page.locator(`head meta[${property}="${name}"]`).getAttribute("content");
     const canonical = page.locator('head link[rel="canonical"]');
     assert.equal(await canonical.count(), 1, path);
-    assert.equal(await canonical.getAttribute("href"), absolute(path), path);
+    assert.equal(normalized(await canonical.getAttribute("href")), absolute(path), path);
     const title = await page.title();
     assert.ok(title.includes(portfolio.name) && !titles.has(title), path + " title");
     titles.add(title);
     const description = await meta("description");
     assert.ok(description && !descriptions.has(description), path + " description");
     descriptions.add(description);
-    assert.equal(await meta("og:url", "property"), absolute(path), path);
+    assert.equal(normalized(await meta("og:url", "property")), absolute(path), path);
     assert.equal(await meta("og:title", "property"), title, path);
     assert.equal(await meta("og:description", "property"), description, path);
     assert.equal(await meta("twitter:title"), title, path);
@@ -84,7 +90,7 @@ try {
     assert.equal(urls.length, 0);
   } else {
     assert.match(robots, /Sitemap:/i);
-    assert.deepEqual(urls.sort(), paths.map(absolute).sort());
+    assert.deepEqual(urls.map(normalized).sort(), paths.map(absolute).sort());
   }
   for (const old of ["/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", "/blog/cpp-test-impact-analysis-zero-runtime-dependencies", "/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies"]) {
     const response = await fetch(origin + old, { redirect: "manual" });
