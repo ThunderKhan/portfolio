@@ -1,3 +1,18 @@
+# Default deny: only required build inputs. Re-exclude credential patterns last.
+**
+!Dockerfile
+!.dockerignore
+!package.json
+!package-lock.json
+!next.config.ts
+!portfolio.config.ts
+!postcss.config.mjs
+!tsconfig.json
+!LICENSE
+!src/
+!src/**
+!public/
+!public/**
 .git
 .github
 .agents
@@ -26,3 +41,8 @@ id_rsa
 **/id_rsa
 id_ed25519
 **/id_ed25519
+**/node_modules
+**/.next
+**/.git
+**/.vercel
+**/*.tsbuildinfo

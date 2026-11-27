@@ -41,7 +41,7 @@ Exact dependency ranges and resolutions remain in package.json and package-lock.
 
 **Decision:** Use a single Linux container, based on Node.js 22 Debian slim. Install locked dependencies in a build stage and generate Next.js standalone output only when PORTFOLIO_DOCKER_BUILD=1. Copy traced runtime files, public assets and static chunks to the final image, run as the non-root node user, and listen on port 3000. No Compose, separate database container, Kubernetes or registry is necessary at this stage.
 
-The base image uses a maintained major-version tag rather than an immutable digest; pin a tested digest when establishing production CI. Keep secrets outside the image and build context. Runtime credentials may be passed through an ignored environment file when actually needed. The build requires network access for npm, Google fonts and existing upstream data requests; missing optional integrations should use existing fallbacks. Runtime secrets do not retroactively change pages prerendered at build time; verify refresh behavior before publishing.
+The base image uses a maintained major-version tag rather than an immutable digest; the audit pulls the current base and records the resulting image ID. Pin a tested digest when establishing production CI. Keep secrets outside the image and build context. Runtime credentials may be passed through an ignored environment file when actually needed. The build requires network access for npm, Google fonts and existing upstream data requests; missing optional integrations should use existing fallbacks. Runtime secrets do not retroactively change pages prerendered at build time; verify refresh behavior before publishing.
 
 **Local development (unchanged):**
 
@@ -53,8 +53,9 @@ npm run dev
 **Local production preview (Docker Desktop / Linux containers):**
 
 ```powershell
-docker build -t mark-i:local .
-docker run --rm --name mark-i -p 127.0.0.1:3000:3000 mark-i:local
+npm run audit:docker
+# Optional interactive preview of the verified image:
+docker run --rm --init --name mark-i --cap-drop=ALL --security-opt=no-new-privileges:true --pids-limit=256 --memory=1g --cpus=1.5 -p 127.0.0.1:3000:3000 mark-i:security-check
 ```
 
 Stop the npm development server before using the same port. Open http://localhost:3000. If optional integration credentials are needed, use an existing private .env.local file with the run command's --env-file option before the image name. Never supply credentials via Dockerfile ARG or commit the file.
