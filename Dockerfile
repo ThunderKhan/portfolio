@@ -25,11 +25,12 @@ ENV NODE_ENV=production \
     HOSTNAME=0.0.0.0 \
     PORT=3000
 
-# Patch the installed PAM packages and omit development package managers from
+# Patch installed PAM and Zstandard packages and omit development package managers from
 # the runtime filesystem. The standalone server runs directly with Node.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends --only-upgrade libpam0g libpam-modules libpam-modules-bin libpam-runtime \
+    && apt-get install -y --no-install-recommends --only-upgrade libpam0g libpam-modules libpam-modules-bin libpam-runtime libzstd1 \
     && dpkg --compare-versions "$(dpkg-query -W -f='${Version}' libpam0g)" ge 1.5.2-6+deb12u3 \
+    && dpkg --compare-versions "$(dpkg-query -W -f='${Version}' libzstd1)" ge 1.5.4+dfsg2-5+deb12u1 \
     && rm -rf /var/lib/apt/lists/* \
         /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
         /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \

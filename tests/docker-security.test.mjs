@@ -55,3 +55,11 @@ test("all Docker stages share an immutable Node base image index", () => {
   assert.deepEqual(bases.map(match => match[2]), ["deps", "builder", "runner"]);
   assert.equal(new Set(bases.map(match => match[1])).size, 1);
 });
+
+
+test("runtime upgrades Zstandard and asserts the patched binary version", () => {
+  assert.match(runner, /apt-get install -y --no-install-recommends --only-upgrade[^\n]*libzstd1/);
+  assert.ok(runner.includes("1.5.4+dfsg2-5+deb12u1"));
+  assert.ok(audit.includes('"-f=${Version}", "libzstd1"'));
+  assert.ok(audit.includes('zstdVersion, "ge", "1.5.4+dfsg2-5+deb12u1"'));
+});

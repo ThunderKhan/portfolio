@@ -82,6 +82,10 @@ async function sample(browser, profile) {
         return {
           observedLcpMs: lcp ? Math.round(lcp.startTime) : null,
           lcpElement: lcp?.element?.tagName ?? null,
+          lcpResource: lcp?.url ? (() => { const url = new URL(lcp.url, location.href); return url.pathname + (url.pathname === '/_next/image' ? url.search : ''); })() : null,
+          lcpElementRect: lcp?.element ? (() => { const r = lcp.element.getBoundingClientRect(); return { top: Math.round(r.top), bottom: Math.round(r.bottom), width: Math.round(r.width), height: Math.round(r.height) }; })() : null,
+          armorInInitialViewport: (() => { const img = document.querySelector('img[src="/art/falling-armor.webp"]'); if (!img) return null; const rect = img.getBoundingClientRect(); return rect.bottom > 0 && rect.top < innerHeight; })(),
+          scrollY: Math.round(window.scrollY),
           observedCls: cls === null ? null : Number(cls.toFixed(4)),
           fcpMs: Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? 0) || null,
           documentTtfbMs: nav ? Math.round(nav.responseStart - nav.startTime) : null,
@@ -176,6 +180,8 @@ try {
       fontTransferBytes: summarize(samples, s => s.resourceTransferBytesByKind.font ?? 0),
       observedLongTaskMs: summarize(samples, s => s.observedLongTaskMs),
       meshReady: samples.map(s => s.meshReady),
+      lcpResources: samples.map(s => s.lcpResource),
+      armorInInitialViewport: samples.map(s => s.armorInInitialViewport),
       ...(meshProbe ? {
         windowLongTaskMs: summarize(samples, s => s.meshWindow.longTaskMs),
         windowLongTaskCount: summarize(samples, s => s.meshWindow.longTaskCount),

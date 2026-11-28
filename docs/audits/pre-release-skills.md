@@ -49,3 +49,14 @@ Relative luminance computed using declared solid sRGB token values, not rendered
 ## Verification limits
 
 GitHub connector reads/writes committed sources. Local clone failed because github.com cannot resolve from the shell; installed Next docs, browser rendering, typecheck/lint/build and npm scripts are not available in this environment. Source and browser regression assertions added, not executed here. Earlier successful checks are historical, not a release sign-off. No new dependencies. Audit verdict: verification incomplete; keep preview noindex and main untouched.
+
+## Pass 2 — CI findings and remediation (2026-11-28)
+
+Baseline 750490e. Quality workflow 46121074494: source tests, dependency audits, typecheck, lint, build, asset inventory and container isolation succeeded; browser suite 176 passed, 6 failed, 2 intentionally skipped. Security workflow 46121074482: secret scan succeeded; fixable HIGH gate failed for libzstd1 CVE-2026-124851 (installed 1.5.4+dfsg2-5; scanner reports fix 1.5.4+dfsg2-5+deb12u1).
+
+- Patch libzstd1 in the pinned runtime image alongside existing PAM updates. Assert minimum patched version both at build and in container audit. No scanner exception or security gate weakening.
+- Correct command palette source-code item's search value to match its displayed phrase and preserve search aliases using cmdk keywords. Existing failed browser test retained.
+- Dark 404 numerals use readable crimson #E2524B (5.54:1 against black), not dark armor-red text fill with a thin outline. Light mode retains exact armor red. Approved layout, terrain and artwork unchanged. Existing axe test retained.
+- Footer armor is lazy-loaded and below the fold by design; 404 armor already eager. User's development LCP warning does not establish a production bottleneck. Extend performance harness to capture actual LCP resource, element geometry, scroll position and footer visibility. No speculative eager loading. Production measurement outstanding.
+
+Skills consulted: systematic-debugging and verification-before-completion; previous performance, accessibility and security source review context retained. New CI results required before sign-off.

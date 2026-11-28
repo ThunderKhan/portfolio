@@ -137,7 +137,8 @@ test("cinematic 404 reuses the approved art and stays within its viewport", () =
   assert.ok(page.includes('src="/art/falling-armor.webp"'));
   assert.ok(!page.includes("<Link") && !page.includes("<nav") && !page.includes("<svg"));
   assert.ok(css.includes("height: 100dvh") && css.includes("overflow: hidden"));
-  assert.ok(css.includes("-webkit-text-fill-color: var(--mark-red)"));
+  assert.match(css, /:global\(\.dark\) \.errorCode\s*\{[^}]*color: #E2524B;/);
+  assert.ok(!css.includes("-webkit-text-fill-color: var(--mark-red)"));
   assert.ok(css.includes("@media (prefers-reduced-motion: no-preference)"));
   assert.ok(scene.includes('layout = "footer"') && scene.includes("data-ridgeline-layout={layout}"));
   assert.match(read("src/components/closing.module.css"), /\.scene\[data-ridgeline-layout="viewport"\]\s*\{[^}]*margin-inline: 0/);
@@ -217,4 +218,10 @@ test("command links use one native navigation with opener isolation", () => {
   assert.ok(helper.includes('link.target = "_blank"') && helper.includes("link.click()"));
   assert.ok(helper.includes('url.startsWith("mailto:")'));
   assert.ok(!helper.includes("if (!opened)") && !helper.includes("window.open("));
+});
+
+
+test("portfolio source command matches its displayed label and retains search aliases", () => {
+  const menu = read("src/components/command-menu.tsx");
+  assert.ok(menu.includes('value="Portfolio source code" keywords={["system", "repository", "github", "architecture"]}'));
 });

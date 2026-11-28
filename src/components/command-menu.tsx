@@ -363,7 +363,7 @@ export function CommandMenu() {
                             <Laptop aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>System appearance</span>
                         </CommandItem>
-                        {portfolio.repo && <CommandItem value="system source code repository github portfolio architecture" onSelect={() => runCommand(() => openExternal(portfolio.repo))} className={itemClass}>
+                        {portfolio.repo && <CommandItem value="Portfolio source code" keywords={["system", "repository", "github", "architecture"]} onSelect={() => runCommand(() => openExternal(portfolio.repo))} className={itemClass}>
                             <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Portfolio source code</span>
                         </CommandItem>}
