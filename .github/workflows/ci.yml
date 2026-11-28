@@ -59,6 +59,39 @@ jobs:
         run: npm run audit:assets
       - name: Install Chromium and system dependencies
         run: npm --prefix tests/browser exec -- playwright install --with-deps chromium
+      - name: Production performance observations (credential-free)
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/portfolio-performance-server.log"
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 4173 > "$log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --max-time 3 http://127.0.0.1:4173/robots.txt >/dev/null; then
+              ready=true
+              break
+            fi
+            if ! kill -0 "$server_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          if [[ "$ready" != true ]]; then
+            echo "::error::Production performance server failed readiness"
+            cat "$log"
+            exit 1
+          fi
+          npm --prefix tests/browser run perf
+      - name: Retain performance observations
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: performance-observations
+          path: tests/browser/performance-results/performance-baseline.json
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Browser regression (credential-free)
         run: npm --prefix tests/browser run test
       - name: Retain browser failure report

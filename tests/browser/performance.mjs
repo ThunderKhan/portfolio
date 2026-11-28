@@ -6,7 +6,8 @@ const origin = 'http://127.0.0.1:4173';
 const root = new URL('../../', import.meta.url);
 const meshProbe = process.argv.includes('--mesh-probe');
 const outputName = meshProbe ? 'mesh-probe.json' : 'performance-baseline.json';
-const output = new URL('./test-results/' + outputName, import.meta.url);
+const outputDirectory = new URL(process.env.CI === 'true' ? './performance-results/' : './test-results/', import.meta.url);
+const output = new URL(outputName, outputDirectory);
 const observationMs = 5000;
 const repetitions = 3;
 const baselineProfiles = [
@@ -46,7 +47,10 @@ async function sample(browser, profile) {
       }
       window.__markPerformanceSnapshot = () => {
         for (const [type, observer] of observers) records.get(type).push(...observer.takeRecords());
-        const lcp = records.get('largest-contentful-paint')?.at(-1);
+        const lcpEntries = records.get('largest-contentful-paint') ?? [];
+        const lcp = lcpEntries.at(-1);
+        const lcpRequest = lcp?.url ? performance.getEntriesByName(lcp.url, 'resource').at(-1) : null;
+        const resourcePath = value => { if (!value) return null; const url = new URL(value, location.href); return url.origin === location.origin ? url.pathname + (url.pathname === '/_next/image' ? url.search : '') : null; };
         const shifts = records.get('layout-shift');
         let cls = null;
         if (shifts) {
@@ -82,9 +86,11 @@ async function sample(browser, profile) {
         return {
           observedLcpMs: lcp ? Math.round(lcp.startTime) : null,
           lcpElement: lcp?.element?.tagName ?? null,
-          lcpResource: lcp?.url ? (() => { const url = new URL(lcp.url, location.href); return url.pathname + (url.pathname === '/_next/image' ? url.search : ''); })() : null,
+          lcpResource: resourcePath(lcp?.url),
+          lcpCandidates: lcpEntries.map(e => ({ timeMs: Math.round(e.startTime), size: e.size, resource: resourcePath(e.url), element: e.element?.tagName ?? null })),
+          lcpTiming: lcpRequest ? { requestStartMs: Math.round(lcpRequest.startTime), responseEndMs: Math.round(lcpRequest.responseEnd), renderAfterResponseMs: Math.round(lcp.startTime - lcpRequest.responseEnd), transferBytes: lcpRequest.transferSize } : null,
           lcpElementRect: lcp?.element ? (() => { const r = lcp.element.getBoundingClientRect(); return { top: Math.round(r.top), bottom: Math.round(r.bottom), width: Math.round(r.width), height: Math.round(r.height) }; })() : null,
-          armorInInitialViewport: (() => { const img = document.querySelector('img[src="/art/falling-armor.webp"]'); if (!img) return null; const rect = img.getBoundingClientRect(); return rect.bottom > 0 && rect.top < innerHeight; })(),
+          armorVisibleAtSample: (() => { const img = document.querySelector('img[src="/art/falling-armor.webp"]'); if (!img) return null; const rect = img.getBoundingClientRect(); return rect.bottom > 0 && rect.top < innerHeight; })(),
           scrollY: Math.round(window.scrollY),
           observedCls: cls === null ? null : Number(cls.toFixed(4)),
           fcpMs: Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? 0) || null,
@@ -181,7 +187,12 @@ try {
       observedLongTaskMs: summarize(samples, s => s.observedLongTaskMs),
       meshReady: samples.map(s => s.meshReady),
       lcpResources: samples.map(s => s.lcpResource),
-      armorInInitialViewport: samples.map(s => s.armorInInitialViewport),
+      armorVisibleAtSample: samples.map(s => s.armorVisibleAtSample),
+      lcpTimings: samples.map(s => s.lcpTiming),
+      scrollPositions: samples.map(s => s.scrollY),
+      pageErrors: samples.map(s => s.pageErrors),
+      httpErrors: samples.map(s => s.httpErrors),
+      githubStatuses: samples.map(s => s.githubStatuses),
       ...(meshProbe ? {
         windowLongTaskMs: summarize(samples, s => s.meshWindow.longTaskMs),
         windowLongTaskCount: summarize(samples, s => s.meshWindow.longTaskCount),
@@ -191,9 +202,9 @@ try {
     report.profiles.push({ profile, summary, samples });
     console.log(JSON.stringify({ profile: profile.name, ...summary }));
   }
-  await mkdir(new URL('./test-results/', import.meta.url), { recursive: true });
+  await mkdir(outputDirectory, { recursive: true });
   await writeFile(output, JSON.stringify(report, null, 2) + '\n');
-  console.log('Full report: tests/browser/test-results/' + outputName + ' (local, ignored by Git)');
+  console.log('Full report: ' + (process.env.CI === 'true' ? 'tests/browser/performance-results/' : 'tests/browser/test-results/') + outputName);
 } finally {
   await browser.close();
 }
