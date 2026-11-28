@@ -128,7 +128,7 @@ for (const { path, prefix } of [
 test('activity table exposes fixture counts', async ({ page }, info) => {
   await mockCalendar(page);
   await visit(page, '/', info);
-  const summary = page.locator('summary').filter({ hasText: 'Daily activity' });
+  const summary = page.getByRole('button', { name: 'Daily activity', exact: true });
   await expect(summary).toBeVisible();
   await summary.focus();
   await page.keyboard.press('Enter');
@@ -144,7 +144,7 @@ test('activity unavailable fallback', async ({ page }, info) => {
   await visit(page, '/', info);
   await expect(page.getByText('The contribution calendar is temporarily unavailable.')).toBeVisible();
   await expect(page.getByRole('link', { name: /View activity on GitHub/ })).toBeVisible();
-  await expect(page.locator('summary').filter({ hasText: 'Daily activity' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Daily activity', exact: true })).toHaveCount(0);
   await audit(page, info, 'activity-unavailable');
 });
 
@@ -441,4 +441,29 @@ test('Runtime Conditions role and disclosure chevrons', async ({ page }, info) =
   await role.click();
   await expect(role).toHaveAttribute('aria-expanded', 'false');
   await audit(page, info, 'runtime-conditions');
+});
+
+
+test('education drawers animate with the same timing and reverse without a jump', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  const toggle = page.getByRole('button', { name: /Semester I coursework/ });
+  const panel = page.locator('[id=' + JSON.stringify(await toggle.getAttribute('aria-controls')) + ']');
+  await expect(panel).toHaveJSProperty('inert', true);
+  await expect(panel).toHaveCSS('transition-duration', '0.24s');
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await expect.poll(() => panel.evaluate(el => el.getBoundingClientRect().height)).toBeGreaterThan(0);
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(panel).toHaveJSProperty('inert', true);
+  await expect.poll(() => panel.evaluate(el => el.getBoundingClientRect().height)).toBeLessThan(1);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(panel).toHaveCSS('transition-duration', '0s');
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(panel).toHaveJSProperty('inert', false);
+  await expect(panel.getByRole('list')).toBeVisible();
+  await audit(page, info, 'education-drawer');
 });

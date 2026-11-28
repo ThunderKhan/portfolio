@@ -2,6 +2,7 @@
 import { portfolio } from "~/portfolio.config";
 
 import { useEffect, useMemo, useState } from "react";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 
 interface ContributionDay {
   contributionCount: number;
@@ -26,6 +27,7 @@ export function GithubGraph() {
   const [months, setMonths] = useState<ContributionMonth[]>([]);
   const [totalContributions, setTotalContributions] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [dailyOpen, setDailyOpen] = useState(false);
   const [snapshotDate, setSnapshotDate] = useState<string | null>(null);
   const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
 
@@ -221,8 +223,10 @@ export function GithubGraph() {
         </div>
 
         {!loading && graphWeeks.length > 0 && (
-          <details className="mt-2 text-[12px] mark-muted">
-            <summary className="min-h-8 cursor-pointer rounded py-2 underline underline-offset-4">Daily activity</summary>
+          <div className="mt-2 text-[12px] mark-muted">
+            <button type="button" aria-expanded={dailyOpen} aria-controls="daily-activity-panel" onClick={() => setDailyOpen(value => !value)} className="flex min-h-8 cursor-pointer items-center rounded py-2 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">Daily activity <DisclosureChevron open={dailyOpen} /></button>
+            <div id="daily-activity-panel" inert={!dailyOpen} aria-hidden={!dailyOpen} className="mark-disclosure-panel">
+              <div className="min-h-0 overflow-hidden">
             <div className="max-h-64 overflow-auto rounded border mark-panel" role="region" aria-label="Daily GitHub contribution counts" tabIndex={0}>
               <table className="w-full text-left">
                 <caption className="sr-only">Daily GitHub contributions</caption>
@@ -237,7 +241,9 @@ export function GithubGraph() {
                 </tbody>
               </table>
             </div>
-          </details>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 

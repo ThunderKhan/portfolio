@@ -41,7 +41,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
               id={panelId}
               inert={!isOpen}
               aria-hidden={!isOpen}
-              className={`grid motion-safe:transition-[grid-template-rows] motion-safe:duration-[240ms] motion-safe:ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+              className="mark-disclosure-panel"
             >
               <div className="min-h-0 overflow-hidden">
                 <div className="pb-4 pl-3 pr-2 sm:pl-[53px]">

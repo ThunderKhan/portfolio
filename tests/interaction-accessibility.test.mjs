@@ -16,7 +16,7 @@ test("experience accordion triggers and closed panels have accessible semantics"
     assert.ok(s.includes("<button") && s.includes('type="button"'));
     assert.ok(s.includes("aria-expanded={isOpen}") && s.includes("aria-controls="));
     assert.ok(s.includes("inert={!isOpen}") && s.includes("aria-hidden={!isOpen}"));
-    assert.ok(s.includes("motion-safe:transition-[grid-template-rows]"));
+    assert.ok(s.includes("mark-disclosure-panel"));
   }
 });
 test("theme transition respects reduced motion and has a larger target", () => {
@@ -57,7 +57,7 @@ test("calendar daily values are available as a native data table", () => {
 test("hackathon disclosure hides closed content and respects reduced motion", () => {
   const s = read("src/components/Hackathons.tsx");
   assert.ok(s.includes("aria-controls=") && s.includes("inert={!isOpen}") && s.includes("aria-hidden={!isOpen}"));
-  assert.ok(s.includes("motion-safe:transition-[grid-template-rows]"));
+  assert.ok(s.includes("mark-disclosure-panel"));
 });
 
 test("education definition list groups contain only terms and descriptions", () => {
@@ -164,4 +164,20 @@ test("all expandable content uses a shared decorative disclosure chevron", () =>
   }
   const icon = read("src/components/DisclosureChevron.tsx");
   assert.ok(icon.includes('aria-hidden="true"') && icon.includes('motion-safe:transition-transform') && icon.includes('group-open:rotate-180'));
+});
+
+
+test("all content disclosures use the same accessible drawer animation", () => {
+  for (const path of ["src/components/ExperienceList.tsx", "src/app/experience/page.tsx", "src/components/Hackathons.tsx", "src/components/OpenSourceList.tsx", "src/components/Education.tsx", "src/components/GithubGraph.tsx", "src/components/SpotifyCard.tsx"]) {
+    const s = read(path);
+    assert.ok(s.includes("mark-disclosure-panel"), path);
+    assert.ok(s.includes("inert=") && s.includes("aria-hidden="), path);
+    assert.ok(s.includes("aria-expanded=") && s.includes("aria-controls="), path);
+  }
+  const css = read("src/app/globals.css");
+  assert.match(css, /\.mark-disclosure-panel\s*\{[^}]*grid-template-rows: 0fr/);
+  assert.ok(css.includes('mark-disclosure-panel[aria-hidden="false"] { grid-template-rows: 1fr; }'));
+  assert.ok(css.includes("transition: grid-template-rows 240ms ease-in-out"));
+  assert.ok(css.includes("transition: opacity 180ms ease-in-out"));
+  assert.ok(read("src/components/Education.tsx").includes("const [isOpen, setIsOpen] = useState(false)"));
 });

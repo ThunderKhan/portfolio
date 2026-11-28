@@ -79,11 +79,11 @@ export function Hackathons() {
                 id={`hackathon-panel-${h.id}`}
                 inert={!isOpen}
                 aria-hidden={!isOpen}
-                className={`grid motion-safe:transition-[grid-template-rows] motion-safe:duration-[240ms] motion-safe:ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                className="mark-disclosure-panel"
               >
                 <div className="min-h-0 overflow-hidden">
                   <div
-                    className={`motion-safe:transition-opacity motion-safe:duration-[180ms] ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "opacity-100" : "opacity-0"}`}
+                    className="min-w-0"
                   >
                     <div className="h-px bg-black/30 dark:bg-white/[0.15]" style={dashedX} />
 

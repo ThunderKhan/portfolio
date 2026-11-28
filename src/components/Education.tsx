@@ -1,3 +1,6 @@
+"use client";
+
+import { useId, useState, type ReactNode } from "react";
 import { BookOpen, GraduationCap } from "lucide-react";
 import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { education, learningPrograms } from "@/data/educationData";
@@ -6,6 +9,30 @@ import { EducationLogo } from "@/components/EducationLogo";
 const resultDate = new Intl.DateTimeFormat("en-GB", {
   day: "numeric", month: "short", year: "numeric", timeZone: "UTC",
 });
+
+/** Independent disclosures preserve the original education interaction model. */
+function EducationDisclosure({ trigger, children, className, buttonClassName }: {
+  trigger: ReactNode;
+  children: ReactNode;
+  className?: string;
+  buttonClassName: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const panelId = useId();
+  return (
+    <div className={className}>
+      <button type="button" aria-expanded={isOpen} aria-controls={panelId}
+        onClick={() => setIsOpen(value => !value)}
+        className={buttonClassName}>
+        {trigger}
+        <DisclosureChevron open={isOpen} />
+      </button>
+      <div id={panelId} inert={!isOpen} aria-hidden={!isOpen} className="mark-disclosure-panel">
+        <div className="min-h-0 overflow-hidden">{children}</div>
+      </div>
+    </div>
+  );
+}
 
 export function Education() {
   return (
@@ -38,21 +65,21 @@ export function Education() {
         </dl>
         <div className="px-4">
           {education.semesters.map((semester) => (
-            <details key={semester.semester} className="group border-b border-dashed border-zinc-200 last:border-b-0 dark:border-zinc-800">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded py-3 text-[13px] font-medium text-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-300 [&::-webkit-details-marker]:hidden">
-                <span>Semester {semester.semester === 1 ? "I" : "II"} coursework</span>
+            <EducationDisclosure key={semester.semester} className="border-b border-dashed border-zinc-200 last:border-b-0 dark:border-zinc-800"
+              buttonClassName="flex w-full cursor-pointer items-center gap-2 rounded py-3 text-left text-[13px] font-medium text-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-300"
+              trigger={<>
+                <span className="flex-1">Semester {semester.semester === 1 ? "I" : "II"} coursework</span>
                 <span className="flex shrink-0 items-center gap-2">
                   <span className="text-[11px] font-normal mark-muted">{semester.result}</span>
-                  <DisclosureChevron />
                 </span>
-              </summary>
+              </>}>
               <ul className="mb-3 flex flex-wrap gap-1.5">
                 {semester.coursework.map((course) => (
                   <li key={course} className="rounded-[4px] border border-zinc-200 px-2 py-1 text-[12px] text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">{course}</li>
                 ))}
               </ul>
               <p className="pb-3 text-[11px] mark-muted">Result declared {resultDate.format(new Date(semester.declaredOn + "T00:00:00Z"))}</p>
-            </details>
+            </EducationDisclosure>
           ))}
         </div>
       </article>
@@ -62,8 +89,8 @@ export function Education() {
         <div className="space-y-3">
           {learningPrograms.map((program) => (
             <article key={program.id} className="rounded-[6px] border mark-panel">
-              <details className="group">
-                <summary className="flex cursor-pointer list-none items-start gap-3 rounded-[6px] px-4 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden">
+              <EducationDisclosure buttonClassName="flex w-full cursor-pointer items-start gap-3 rounded-[6px] px-4 py-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2"
+                trigger={<>
                   <EducationLogo src={program.logo}>
                     <BookOpen aria-hidden="true" className="size-5 mark-gold-text" />
                   </EducationLogo>
@@ -73,8 +100,7 @@ export function Education() {
                     <span className="mt-1 block text-[11px] leading-relaxed mark-muted">{program.period} · {program.format}</span>
                     <span className="mt-1 block text-[11px] font-medium text-zinc-600 dark:text-zinc-400">{program.status}</span>
                   </span>
-                  <DisclosureChevron />
-                </summary>
+                </>}>
                 <div className="border-t border-dashed border-zinc-200 px-4 py-3 dark:border-zinc-800">
                   <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{program.description}</p>
                   <p className="mt-3 text-[11px] font-medium mark-muted">Published curriculum</p>
@@ -85,7 +111,7 @@ export function Education() {
                   </ul>
                   <a href={program.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-zinc-600 underline decoration-dotted underline-offset-4 dark:text-zinc-300">Official curriculum <span className="sr-only"> (opens in a new tab)</span></a>
                 </div>
-              </details>
+              </EducationDisclosure>
             </article>
           ))}
         </div>

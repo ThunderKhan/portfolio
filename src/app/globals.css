@@ -470,3 +470,19 @@ body {
   -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0, #000 1px, transparent 1px, transparent 6px), linear-gradient(to bottom, #000 0, #000 calc(100% - clamp(220px, 34vw, 350px) - 160px), transparent calc(100% - clamp(220px, 34vw, 350px)));
   -webkit-mask-composite: source-in;
 }
+
+
+/* Shared disclosure motion: the original Experience drawer is the baseline.
+   A zero-fraction grid keeps intrinsic sizing and supports interrupted toggles.
+   The clipped direct child fades independently while closed content stays inert. */
+.mark-disclosure-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+}
+.mark-disclosure-panel[aria-hidden="false"] { grid-template-rows: 1fr; }
+.mark-disclosure-panel > div { min-height: 0; overflow: hidden; opacity: 0; }
+.mark-disclosure-panel[aria-hidden="false"] > div { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .mark-disclosure-panel { transition: grid-template-rows 240ms ease-in-out; }
+  .mark-disclosure-panel > div { transition: opacity 180ms ease-in-out; }
+}
