@@ -218,7 +218,7 @@ test('centered motto and footer background artwork remain legible with reduced m
   await expect.poll(() => art.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
   const destinationError = () => art.evaluate(el => {
     const terrain = el.closest('footer').querySelector('[data-ridgeline-scene]').getBoundingClientRect();
-    return Math.abs(el.getBoundingClientRect().bottom - terrain.top - terrain.height * .42);
+    return Math.abs(el.getBoundingClientRect().bottom - terrain.top - terrain.height * .70);
   });
   await expect.poll(destinationError).toBeLessThan(2);
   const [g, q] = await Promise.all([group.boundingBox(), quote.boundingBox()]);
@@ -255,7 +255,7 @@ test('falling artwork reaches the ridgeline and stays static with reduced motion
   await expect.poll(y).toBeGreaterThan(first + 30);
   await expect.poll(() => art.evaluate(el => {
     const terrain = el.closest('footer').querySelector('[data-ridgeline-scene]').getBoundingClientRect();
-    return Math.abs(el.getBoundingClientRect().bottom - terrain.top - terrain.height * .42);
+    return Math.abs(el.getBoundingClientRect().bottom - terrain.top - terrain.height * .70);
   })).toBeLessThan(2);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const last = await y();

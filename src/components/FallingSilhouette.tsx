@@ -26,7 +26,7 @@ export function FallingSilhouette() {
     const measure = () => {
       // Anchor the bottom of the transparent cutout in the visible ridge field,
       // rather than to a fixed number of pixels below the navigation.
-      const destination = terrain.offsetTop + terrain.offsetHeight * .42;
+      const destination = terrain.offsetTop + terrain.offsetHeight * .70;
       travel = Math.max(0, destination - image.offsetTop - image.offsetHeight);
       footerHeight = footer.offsetHeight;
     };

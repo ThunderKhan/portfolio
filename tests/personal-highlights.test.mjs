@@ -104,7 +104,7 @@ test("falling art belongs to the footer background and uses bounded scroll trans
   const art = read("src/components/FallingSilhouette.tsx");
   assert.ok(!home.includes("<FallingSilhouette />"));
   assert.ok(footer.indexOf("<FallingSilhouette />") < footer.indexOf("styles.footerGrid"));
-  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "terrain.offsetHeight * .42"]) assert.ok(art.includes(marker), marker);
+  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "terrain.offsetHeight * .70"]) assert.ok(art.includes(marker), marker);
   assert.ok(!art.includes("useState"));
 });
 

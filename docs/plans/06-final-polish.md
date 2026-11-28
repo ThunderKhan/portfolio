@@ -47,3 +47,7 @@ Removed opaque text rectangles in favor of a glyph-level theme-colored shadow; l
 ## Full-bleed ember landscape
 
 Owner delegated the palette and boundary treatment. Chose graphite/ember/bronze instead of saturated gold or red to keep the falling crimson figure distinct. Seven theme-specific palette stops; warm mineral tones for light mode. The scene alone breaks out using inverse existing gutters and an atmospheric vertical alpha mask, allowing the existing mesh shader to remain visible through the upper mist. The main/footer text grid, armor scroll destination, terrain seed, dither, noise, pointer interaction and rendering budget remain unchanged. Homepage rails dissolve before the scene. The mesh artwork and its pause control now use separate fixed stacking planes to keep the control usable over full-bleed terrain. New source and browser geometry checks; actual visuals, focus contrast over terrain and runtime validation pending.
+
+## Foreground ridge arrival
+
+Owner approved the full-width ember landscape and annotated a deeper arrival near the foreground crest. Changed the falling artwork's destination from 42% to 70% of terrain height (roughly 120 screen pixels lower in the supplied desktop screenshot). Start position, horizontal placement, opacity curve, responsive measurement and reduced-motion behavior remain unchanged. Updated source and browser geometry assertions; visual confirmation pending.
