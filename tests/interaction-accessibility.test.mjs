@@ -100,5 +100,22 @@ test("MARK I palette keeps accessible commands and prioritizes navigation", () =
   assert.ok(menu.includes('portfolio.sections.blog && <CommandItem'));
   assert.match(css, /\[data-selected="true"\]\s*\{[^}]*box-shadow: inset 2px 0 var\(--mark-interaction\)/);
   assert.match(css, /\.dialog\s*\{[^}]*animation: none !important/);
-  assert.ok(!menu.includes('"/blueprint"'));
+  assert.ok(menu.includes('router.push("/blueprint")'));
+});
+
+
+test("terminal accepts only explicit commands and never interprets shell syntax", async () => {
+  const { resolveTerminalCommand: resolve, terminalReply } = await import("../src/lib/terminal-commands.ts");
+  for (const [input, command] of [["sudo hire Ayan", "hire"], ["  SUDO   HIRE   AYAN ", "hire"], ["whoami", "identity"], ["ls", "list"], ["cat resume.pdf", "resume"], ["git log --oneline", "source"], ["sudo make coffee", "coffee"], ["jarvis", "terminal"], ["help", "help"], ["man mark-i", "blueprint"], ["sudo inspect mark-i", "blueprint"], ["clear", "clear"], ["exit", "exit"]]) assert.equal(resolve(input), command);
+  for (const input of ["sudo hire ayan; ls", "sudo hire ayan && whoami", "cat /etc/passwd", "ls | cat", "constructor", "__proto__", "javascript:alert(1)", "x".repeat(161)]) assert.equal(resolve(input), null);
+  assert.match(terminalReply("identity", "Owner", "Developer", []), /Owner\nDeveloper/);
+  assert.match(terminalReply("list", "", "", ["projects/"]), /projects\/.*contact\//);
+  assert.equal(terminalReply(null, "", "", []), "Command not found. Try help.");
+  const menu = read("src/components/command-menu.tsx");
+  assert.ok(menu.includes('router.push("/contact")') && menu.includes('router.push("/blueprint")'));
+  assert.ok(menu.includes("hiddenCommand ?") && menu.includes("forceMount"));
+  assert.ok(menu.includes('aria-label="Open hidden terminal"'));
+  const terminal = read("src/components/MarkTerminal.tsx");
+  assert.ok(terminal.includes("entries.slice(-39)") && terminal.includes('maxLength={160}'));
+  assert.ok(terminal.includes('role="log"') && !terminal.includes("dangerouslySetInnerHTML"));
 });

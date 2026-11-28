@@ -42,6 +42,8 @@ import { projectsData } from "@/data/projectsData"
 import { handles, bookingLink, email, resume } from "@/data/links"
 import { portfolio } from "~/portfolio.config"
 import styles from "./command-menu.module.css"
+import { MarkTerminal } from "./MarkTerminal"
+import { resolveTerminalCommand, type TerminalCommand } from "@/lib/terminal-commands"
 
 const itemClass = "cursor-pointer"
 
@@ -60,6 +62,10 @@ const PROFILES = [
 
 export function CommandMenu() {
     const [open, setOpen] = React.useState(false)
+    const [query, setQuery] = React.useState("")
+    const [terminal, setTerminal] = React.useState<string | null>(null)
+    const searchRef = React.useRef<HTMLInputElement>(null)
+    const hiddenCommand = resolveTerminalCommand(query)
     const triggerRef = React.useRef<HTMLButtonElement>(null)
     const { setTheme } = useTheme()
     const router = useRouter()
@@ -69,23 +75,55 @@ export function CommandMenu() {
         if (!opened) window.location.assign(url)
     }, [])
 
+    const changeOpen = React.useCallback((next: boolean) => {
+        setOpen(next)
+        if (!next) { setQuery(""); setTerminal(null) }
+    }, [])
+
+    React.useEffect(() => {
+        if (open && terminal === null) searchRef.current?.focus()
+    }, [open, terminal])
+
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault()
-                setOpen((open) => !open)
+                changeOpen(!open)
             }
         }
 
         document.addEventListener("keydown", down)
         return () => document.removeEventListener("keydown", down)
-    }, [])
+    }, [open, changeOpen])
 
     const runCommand = React.useCallback((command: () => unknown) => {
-        setOpen(false)
+        changeOpen(false)
         command()
-    }, [])
+    }, [changeOpen])
 
+
+    function terminalAction(command: TerminalCommand): boolean {
+        switch (command) {
+            case "hire": runCommand(() => router.push("/contact")); return true
+            case "blueprint": runCommand(() => router.push("/blueprint")); return true
+            case "resume": runCommand(() => window.location.assign(resume)); return true
+            case "source":
+                if (portfolio.repo) { runCommand(() => window.location.assign(portfolio.repo)); return true }
+                return false
+            default: return false
+        }
+    }
+
+    function runHidden() {
+        if (!hiddenCommand) return
+        if (terminalAction(hiddenCommand)) return
+        if (hiddenCommand === "clear") { setQuery(""); return }
+        if (hiddenCommand === "exit") { changeOpen(false); return }
+        setTerminal(hiddenCommand === "terminal" ? "" : query.trim())
+        setQuery("")
+    }
+
+    function exitTerminal() { setTerminal(null); setQuery("") }
 
     return (
         <>
@@ -95,7 +133,7 @@ export function CommandMenu() {
                 aria-keyshortcuts="Control+k Meta+k"
                 aria-haspopup="dialog"
                 aria-expanded={open}
-                onClick={() => setOpen(true)}
+                onClick={() => changeOpen(true)}
                 className="relative group flex min-h-8 shrink-0 items-center cursor-pointer focus-visible:outline-2 motion-safe:transition-colors"
             >
                 {/* Outer border wrapper matching View All style */}
@@ -108,29 +146,38 @@ export function CommandMenu() {
                 </div>
             </button>
 
-            <CommandDialog className={styles.dialog} open={open} onOpenChange={setOpen} onCloseAutoFocus={(event) => {
+            <CommandDialog className={styles.dialog} open={open} onOpenChange={changeOpen} onCloseAutoFocus={(event) => {
                 if (triggerRef.current?.isConnected) {
                     event.preventDefault()
                     triggerRef.current.focus({ preventScroll: true })
                 }
             }}>
                 <div className={styles.header}>
+                    <button type="button" className={styles.reactorButton} aria-label="Open hidden terminal" onClick={() => { setTerminal(""); setQuery("") }}>
                     <svg className={styles.reactor} viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
                         <circle cx="20" cy="20" r="17" stroke="currentColor" strokeWidth="1.2" />
                         <circle cx="20" cy="20" r="12.5" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 3" />
                         <path d="M20 11.5 27.4 24.3H12.6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                         <circle cx="20" cy="20" r="3" fill="currentColor" />
                     </svg>
+                    </button>
                     <div className={styles.heading}>
                         <h3>MARK I</h3>
-                        <p>Command palette</p>
+                        <p>{terminal === null ? "Command palette" : "Terminal"}</p>
                     </div>
                 </div>
 
-                <CommandInput aria-label="Search commands" placeholder="Find a project, page or action..." />
+                {terminal !== null ? <MarkTerminal initialInput={terminal} onAction={terminalAction} onExit={exitTerminal} /> : <>
+                <CommandInput ref={searchRef} value={query} onValueChange={setQuery} aria-label="Search commands" placeholder="Find a project, page or action..." />
 
                 <CommandList className={styles.list}>
                     <CommandEmpty>No matching commands. Try a different search.</CommandEmpty>
+                    {hiddenCommand ? <CommandGroup heading="Command">
+                        <CommandItem value={query.trim()} forceMount onSelect={runHidden} className={itemClass}>
+                            <Code aria-hidden="true" className="mr-2 h-4 w-4" />
+                            <span>Run {query.trim()}</span>
+                        </CommandItem>
+                    </CommandGroup> : <>
 
                     <CommandGroup heading="Navigate">
                         <CommandItem value="page all projects" onSelect={() => runCommand(() => router.push("/projects"))} className={itemClass}>
@@ -268,6 +315,7 @@ export function CommandMenu() {
                             <span>Portfolio source code</span>
                         </CommandItem>}
                     </CommandGroup>
+                    </>}
                 </CommandList>
 
                 <div className={styles.footer}>
@@ -275,6 +323,7 @@ export function CommandMenu() {
                     <span><kbd>Enter</kbd> Select</span>
                     <span><kbd>Esc</kbd> Close</span>
                 </div>
+                </>}
             </CommandDialog>
         </>
     )
