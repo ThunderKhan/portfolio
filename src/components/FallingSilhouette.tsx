@@ -11,7 +11,7 @@ export function FallingSilhouette() {
       className={styles.figure}
       width={533}
       height={640}
-      sizes="(max-width: 639px) 150px, 280px"
+      sizes="(max-width: 639px) 132px, 190px"
       loading="lazy"
       unoptimized
     />

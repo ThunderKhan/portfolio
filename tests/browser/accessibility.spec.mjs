@@ -202,3 +202,26 @@ test('closing footer has usable links and a static reduced-motion scene', async 
   expect(await canvas.evaluate(c => c.toDataURL())).toBe(before);
   await audit(page, info, 'footer');
 });
+
+
+test('closing quote and artwork form a centered responsive composition', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const art = page.locator('img[src="/art/falling-armor.webp"]');
+  await art.scrollIntoViewIfNeeded();
+  await expect(art).toBeVisible();
+  await expect.poll(() => art.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
+  const group = art.locator('..');
+  const quote = group.locator('p');
+  const [g, q, a] = await Promise.all([group.boundingBox(), quote.boundingBox(), art.boundingBox()]);
+  expect(g.width).toBeLessThanOrEqual(561);
+  expect(a.x).toBeGreaterThanOrEqual(g.x - 1);
+  expect(a.x + a.width).toBeLessThanOrEqual(g.x + g.width + 1);
+  if (info.project.use.viewport.width < 640) {
+    expect(Math.abs((a.x + a.width / 2) - (q.x + q.width / 2))).toBeLessThan(2);
+    expect(a.y).toBeGreaterThanOrEqual(q.y + q.height - 1);
+  } else {
+    expect(Math.abs((a.y + a.height / 2) - (q.y + q.height / 2))).toBeLessThan(2);
+    expect(a.x - (q.x + q.width)).toBeLessThan(95);
+  }
+});
