@@ -39,3 +39,7 @@ Owner clarified that the artwork should actually enter the footer behind its nav
 ## Armor / terrain seam correction
 
 Owner observed the head being abruptly cut by the ridgeline's opaque canvas. Put the terrain in stacking layer 0, art in layer 1 and footer text in layer 2; moved the image up 24px and toward center, reduced size to 220px desktop / 142px mobile, softened the lower alpha edge and reduced scroll travel to 56px / 18px. Existing quote and landscape algorithms unchanged. Source and browser regression assertions updated; actual visual and runtime verification pending.
+
+## Continuous descent into terrain
+
+Removed opaque text rectangles in favor of a glyph-level theme-colored shadow; lowered armor opacity while passing through navigation and restored it near the landscape. Replaced fixed travel with measured geometry targeting the image bottom at 42% of terrain height by footer end. The head stays visible: the lower mask was removed and only the upper trail feathers out. ResizeObserver recalculates geometry for both layouts; reduced motion displays the static final position. No idle motion, new dependency, layout animation or changes to terrain generation. Updated regression assertions for transparent links and terrain-relative arrival. Runtime and visual validation pending.

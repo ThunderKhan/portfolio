@@ -19,10 +19,12 @@
   aspect-ratio: 533 / 640;
   object-fit: contain;
   transform: translate3d(-50%, 0, 0);
-  opacity: .82;
-  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgb(0 0 0 / 88%) 80%, rgb(0 0 0 / 45%) 92%, transparent 100%);
+  --armor-base: .28;
+  --armor-gain: .40;
+  opacity: calc(var(--armor-base) + var(--armor-arrival, 0) * var(--armor-gain));
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 100%);
 }
-:global(.dark) .figure { opacity: .94; }
+:global(.dark) .figure { --armor-base: .40; --armor-gain: .48; }
 .footer {
   position: relative;
   /* Artwork crosses the seam in the footer's own background plane. */
@@ -49,11 +51,12 @@
 .column h2 { font-size: 12px; font-weight: 500; color: var(--mark-muted); margin-bottom: 10px; }
 .column ul { display: grid; gap: 2px; }
 .column a { display: inline-flex; align-items: center; min-height: 30px; font-size: 14px; line-height: 1.4; }
-/* Local opaque backing preserves legibility even where the artwork crosses text. */
-.footerGrid .brand, .footerGrid .identity p, .column h2, .column a, .socials a, .credit p {
-  background-color: var(--mark-page);
-  border-radius: 2px;
+/* A glyph-level halo preserves depth without rectangular cutouts.
+   The artwork also dims while it travels through the navigation plane. */
+.footerGrid, .credit {
+  text-shadow: 0 1px 3px var(--mark-page), 0 0 7px var(--mark-page);
 }
+.socials svg { filter: drop-shadow(0 1px 2px var(--mark-page)); }
 .column h2 { width: fit-content; }
 .footer a:hover { color: var(--mark-gold-ink); }
 .footer a:focus-visible { outline: 2px solid var(--mark-interaction); outline-offset: 3px; }

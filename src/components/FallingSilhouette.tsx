@@ -11,59 +11,85 @@ export function FallingSilhouette() {
   useEffect(() => {
     const image = ref.current;
     const footer = image?.closest("footer");
-    if (!image || !footer) return;
+    const terrain = footer?.querySelector<HTMLElement>("[data-ridgeline-scene]");
+    if (!image || !footer || !terrain) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const compact = window.matchMedia("(max-width: 639px)");
     let near = false;
     let frame = 0;
+    let travel = 0;
+    let footerHeight = 0;
 
     const cancel = () => {
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
+    };
+    const measure = () => {
+      // Anchor the bottom of the transparent cutout in the visible ridge field,
+      // rather than to a fixed number of pixels below the navigation.
+      const destination = terrain.offsetTop + terrain.offsetHeight * .42;
+      travel = Math.max(0, destination - image.offsetTop - image.offsetHeight);
+      footerHeight = footer.offsetHeight;
+    };
+    const paint = (progress: number) => {
+      // No animated layout properties; only the decorative image is transformed.
+      image.style.transform = `translate3d(-50%, ${(travel * progress).toFixed(2)}px, 0)`;
+      // Keep the art restrained behind the links, then restore color near the ridges.
+      const arrival = Math.min(1, Math.max(0, (progress - .62) / .38));
+      image.style.setProperty("--armor-arrival", arrival.toFixed(3));
     };
     const draw = () => {
       frame = 0;
       if (!near || document.hidden || reduced.matches) return;
       const vh = window.innerHeight;
       const top = footer.getBoundingClientRect().top;
-      const progress = Math.min(1, Math.max(0, (vh * .95 - top) / (vh * .65)));
-      const travel = compact.matches ? 18 : 56;
-      // Direct transform only: no React render, layout animation or idle loop.
-      image.style.transform = `translate3d(-50%, ${(travel * progress).toFixed(2)}px, 0)`;
+      const startTop = vh * .95;
+      // Full descent by the time the footer bottom reaches the viewport bottom.
+      const endTop = vh - footerHeight;
+      const progress = Math.min(1, Math.max(0, (startTop - top) / Math.max(1, startTop - endTop)));
+      paint(progress);
     };
     const schedule = () => {
       if (!frame && near && !document.hidden && !reduced.matches) frame = requestAnimationFrame(draw);
     };
+    const layoutChange = () => {
+      measure();
+      if (reduced.matches) paint(1);
+      else schedule();
+    };
     const observer = new IntersectionObserver(([entry]) => {
       near = entry.isIntersecting;
-      if (near) schedule();
+      if (near) layoutChange();
       else cancel();
     }, { rootMargin: "160px 0px" });
+    const resize = new ResizeObserver(layoutChange);
     const motionChange = () => {
       cancel();
-      if (reduced.matches) image.style.removeProperty("transform");
-      else schedule();
+      layoutChange();
     };
     const visibilityChange = () => {
       if (document.hidden) cancel();
-      else schedule();
+      else layoutChange();
     };
 
     observer.observe(footer);
+    resize.observe(footer);
+    resize.observe(terrain);
+    resize.observe(image);
+    layoutChange();
     window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule, { passive: true });
+    window.addEventListener("resize", layoutChange, { passive: true });
     reduced.addEventListener("change", motionChange);
-    compact.addEventListener("change", schedule);
     document.addEventListener("visibilitychange", visibilityChange);
     return () => {
       cancel();
       observer.disconnect();
+      resize.disconnect();
       window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
+      window.removeEventListener("resize", layoutChange);
       reduced.removeEventListener("change", motionChange);
-      compact.removeEventListener("change", schedule);
       document.removeEventListener("visibilitychange", visibilityChange);
       image.style.removeProperty("transform");
+      image.style.removeProperty("--armor-arrival");
     };
   }, []);
 

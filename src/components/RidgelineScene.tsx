@@ -204,5 +204,5 @@ export function RidgelineScene() {
       root.removeEventListener("pointerdown", gustAt);
     };
   }, []);
-  return <div ref={rootRef} className={styles.scene} aria-hidden="true"><canvas ref={canvasRef} /></div>;
+  return <div ref={rootRef} className={styles.scene} data-ridgeline-scene aria-hidden="true"><canvas ref={canvasRef} /></div>;
 }

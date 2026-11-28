@@ -209,33 +209,36 @@ test('centered motto and footer background artwork remain legible with reduced m
   await visit(page, '/', info);
   const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
   const art = footer.locator('img[src="/art/falling-armor.webp"]');
+  const terrain = footer.locator('[data-ridgeline-scene]');
   const group = page.locator('#closing-motto');
   const quote = group.locator('p');
   const link = footer.getByRole('link', { name: 'Projects', exact: true });
   await art.scrollIntoViewIfNeeded();
   await expect(art).toBeVisible();
   await expect.poll(() => art.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
-  const [g, q, a, f] = await Promise.all([group.boundingBox(), quote.boundingBox(), art.boundingBox(), footer.boundingBox()]);
+  const destinationError = () => art.evaluate(el => {
+    const terrain = el.closest('footer').querySelector('[data-ridgeline-scene]').getBoundingClientRect();
+    return Math.abs(el.getBoundingClientRect().bottom - terrain.top - terrain.height * .42);
+  });
+  await expect.poll(destinationError).toBeLessThan(2);
+  const [g, q] = await Promise.all([group.boundingBox(), quote.boundingBox()]);
   const mobile = info.project.use.viewport.width < 640;
   expect(Math.abs(q.x + q.width / 2 - g.x - g.width / 2)).toBeLessThan(2);
   expect(Math.abs(q.y + q.height / 2 - g.y - g.height / 2)).toBeLessThan(2);
-  expect(a.y).toBeLessThan(f.y);
-  expect(a.y + a.height - f.y).toBeGreaterThan(mobile ? 90 : 135);
   expect(await quote.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(mobile ? 22 : 30);
   expect(await art.evaluate(el => getComputedStyle(el).pointerEvents)).toBe('none');
   expect(await link.evaluate(el => getComputedStyle(el.closest('nav').parentElement).zIndex)).toBe('2');
-  const layers = await art.evaluate(el => {
-    const footer = el.closest('footer');
-    const scene = footer.querySelector('canvas').parentElement;
-    return [Number(getComputedStyle(scene).zIndex), Number(getComputedStyle(el).zIndex)];
-  });
-  expect(layers).toEqual([0, 1]);
+  expect(await link.evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
+  expect(await link.evaluate(el => getComputedStyle(el).textShadow)).not.toBe('none');
+  expect(await terrain.evaluate(el => Number(getComputedStyle(el).zIndex))).toBe(0);
+  expect(await art.evaluate(el => Number(getComputedStyle(el).zIndex))).toBe(1);
+  const transform = await art.evaluate(el => getComputedStyle(el).transform);
   await link.click({ trial: true });
-  await expect(art).not.toHaveAttribute('style', /translate3d/);
+  expect(await art.evaluate(el => getComputedStyle(el).transform)).toBe(transform);
   await audit(page, info, 'closing-composition');
 });
 
-test('falling artwork descends with scroll and returns to a static reduced-motion state', async ({ page }, info) => {
+test('falling artwork reaches the ridgeline and stays static with reduced motion', async ({ page }, info) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await mockCalendar(page);
   await visit(page, '/', info);
@@ -248,9 +251,14 @@ test('falling artwork descends with scroll and returns to a static reduced-motio
   await moveTo(.85);
   await expect.poll(y).toBeGreaterThan(0);
   const first = await y();
-  await moveTo(.35);
-  await expect.poll(y).toBeGreaterThan(first + 6);
-  expect(await y()).toBeLessThanOrEqual(info.project.use.viewport.width < 640 ? 18 : 56);
+  await footer.evaluate(el => window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().bottom - window.innerHeight, behavior: 'instant' }));
+  await expect.poll(y).toBeGreaterThan(first + 30);
+  await expect.poll(() => art.evaluate(el => {
+    const terrain = el.closest('footer').querySelector('[data-ridgeline-scene]').getBoundingClientRect();
+    return Math.abs(el.getBoundingClientRect().bottom - terrain.top - terrain.height * .42);
+  })).toBeLessThan(2);
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect.poll(y).toBe(0);
+  const last = await y();
+  await moveTo(.85);
+  expect(await y()).toBeCloseTo(last, 0);
 });

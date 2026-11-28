@@ -104,7 +104,7 @@ test("falling art belongs to the footer background and uses bounded scroll trans
   const art = read("src/components/FallingSilhouette.tsx");
   assert.ok(!home.includes("<FallingSilhouette />"));
   assert.ok(footer.indexOf("<FallingSilhouette />") < footer.indexOf("styles.footerGrid"));
-  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "compact.matches ? 18 : 56"]) assert.ok(art.includes(marker), marker);
+  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "terrain.offsetHeight * .42"]) assert.ok(art.includes(marker), marker);
   assert.ok(!art.includes("useState"));
 });
 
@@ -114,5 +114,16 @@ test("falling armor is composited between terrain and footer foreground", () => 
   assert.match(css, /\.figure\s*\{[^}]*z-index: 1;/);
   assert.match(css, /\.scene\s*\{[^}]*z-index: 0;/);
   assert.match(css, /\.footerGrid\s*\{[^}]*z-index: 2;/);
-  assert.match(css, /\.figure\s*\{[^}]*mask-image: [^;]*transparent 100%/);
+  assert.match(css, /\.figure\s*\{[^}]*mask-image: [^;]*#000 100%/);
+});
+
+
+test("footer text has no opaque backing and armor destination is terrain-relative", () => {
+  const css = read("src/components/closing.module.css");
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.match(css, /\.footerGrid, \.credit\s*\{[^}]*text-shadow:/);
+  assert.doesNotMatch(css, /background-color: var\(--mark-page\)/);
+  assert.ok(art.includes("destination - image.offsetTop - image.offsetHeight"));
+  assert.ok(art.includes("vh - footerHeight"));
+  assert.ok(art.includes("if (reduced.matches) paint(1)"));
 });
