@@ -525,3 +525,25 @@ test('home title is concise and project archive retains its specific title', asy
   await visit(page, '/projects', info);
   await expect(page).toHaveTitle('Projects | Ayan Khan');
 });
+
+test('featured engineering case studies expose decisions, evidence and honest boundaries', async ({ page }, info) => {
+  for (const [slug, title, expected] of [
+    ['diff2test', 'diff2test', 'The verified MVP targets Linux'],
+    ['webclerk', 'webclerk', 'The demo uses fictional, pre-extracted structured evidence'],
+  ]) {
+    await visit(page, '/projects/' + slug, info);
+    const main = page.getByRole('main');
+    await expect(main.getByRole('heading', { level: 1, name: title, exact: true })).toBeVisible();
+    const study = main.locator('[data-engineering-case-study]');
+    for (const name of ['Design principle', 'How it works', 'Engineering decisions', 'Verification and evidence', 'Scope and limitations']) {
+      await expect(study.getByRole('heading', { name, exact: true })).toBeVisible();
+    }
+    await expect(study.getByRole('list').first().getByRole('listitem')).toHaveCount(4);
+    await expect(study).toContainText(expected);
+    await expect(study.getByRole('link').first()).toHaveAttribute('href', /github\.com\/ThunderKhan\/.+\/blob\/[a-f0-9]{40}\//);
+    await audit(page, info, 'engineering-case-study-' + slug);
+  }
+  await visit(page, '/projects/frame', info);
+  await expect(page.getByRole('heading', { name: 'Technical highlights' })).toBeVisible();
+  await expect(page.locator('[data-engineering-case-study]')).toHaveCount(0);
+});

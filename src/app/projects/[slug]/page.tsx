@@ -9,6 +9,8 @@ import { projectsData, iconMap, techNames, TechItem, TechKey } from "@/data/proj
 import Link from "next/link";
 import { ProjectPreview } from "@/components/ProjectPreview";
 import { CertificateLink } from "@/components/CertificateLink";
+import { engineeringCaseStudies } from "@/data/engineeringCaseStudies";
+import { ProjectCaseStudy } from "@/components/ProjectCaseStudy";
 import { notFound } from "next/navigation";
 
 import { SiGithub } from "react-icons/si";
@@ -58,6 +60,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) {
     notFound();
   }
+  const study = engineeringCaseStudies[project.slug];
 
   return (
     <div className="mark-page min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
@@ -128,7 +131,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {/* Content Section */}
       <main id="main-content" tabIndex={-1} className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative">
 
-        {/* Media (Video or Image) right at the top */}
+        {/* Title and Status */}
+        <div className="flex flex-wrap items-center justify-between gap-3 w-full mt-8 mb-4">
+          <h1 className="mark-display text-zinc-900 dark:text-zinc-50">
+            {project.title}
+          </h1>
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              {project.status === "live" && (
+                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              )}
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${statusDot}`} />
+            </span>
+            <span className={`text-[13px] font-medium ${statusText}`}>{statusLabel}</span>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-[14px] sm:text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
+          {project.description}
+        </p>
+
+        {project.statusDetail && (
+          <p className="mt-3 text-xs mark-muted">{project.statusDetail}</p>
+        )}
+        {/* Project preview after the summary, before the engineering narrative. */}
         <div className="w-full aspect-[16/10] relative mt-8 rounded-lg overflow-hidden border border-black/10 dark:border-white/[0.15] shadow-sm bg-zinc-100 dark:bg-[#0a0a0a] z-20">
           {project.video ? (
             // Narrated, so it waits to be played rather than autoplaying muted -
@@ -165,19 +192,19 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
 
         {/* Action Links Grid */}
-        <div className="grid grid-cols-2 items-center justify-between py-4 relative">
+        <div className={`grid ${project.github && project.live ? "grid-cols-2" : "grid-cols-1"} items-center justify-between py-4 relative`}>
           {project.github ? (
             <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-              <SiGithub aria-hidden="true" className="w-4 h-4" /> Github
+              <SiGithub aria-hidden="true" className="w-4 h-4" /> GitHub
             </a>
-          ) : <div />}
+          ) : null}
           
           {/* Vertical Divider 1 */}
-          <div className="mark-workshop-rule hidden md:block absolute left-1/2 top-0 bottom-0 w-0 border-l border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+          {project.github && project.live && <div className="mark-workshop-rule hidden md:block absolute left-1/2 top-0 bottom-0 w-0 border-l border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />}
 
           {project.live ? (
             <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-               Website
+               Live demo
             </a>
           ) : <div />}
           
@@ -190,37 +217,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="absolute right-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
         </div>
 
-        {/* Title and Status */}
-        <div className="flex items-center justify-between w-full mb-4">
-          <h1 className="mark-display text-zinc-900 dark:text-zinc-50">
-            {project.title}
-          </h1>
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              {project.status === "live" && (
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              )}
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${statusDot}`} />
-            </span>
-            <span className={`text-[13px] font-medium ${statusText}`}>{statusLabel}</span>
-          </div>
-        </div>
-
-        {/* Description */}
-        <p className="text-[14px] sm:text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-          {project.description}
-        </p>
-
-        {project.statusDetail && (
-          <p className="mt-3 text-xs mark-muted">{project.statusDetail}</p>
-        )}
         {project.problem && (
           <section className="mt-6">
             <h2 className="mb-2 mark-section-title text-zinc-900 dark:text-zinc-50">Problem</h2>
             <p className="text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-300">{project.problem}</p>
           </section>
         )}
-        {project.highlights?.length ? (
+        {study ? <ProjectCaseStudy study={study} /> : project.highlights?.length ? (
           <section className="mt-6">
             <h2 className="mb-2 mark-section-title text-zinc-900 dark:text-zinc-50">Technical highlights</h2>
             <ul className="list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-zinc-600 dark:text-zinc-300">
@@ -233,7 +236,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ) : null}
         {project.caseStudy && (
           <a href={project.caseStudy} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-fit items-center gap-1.5 text-[13px] font-medium text-zinc-700 underline-offset-4 hover:underline dark:text-zinc-200">
-            Read the case study 
+            Read the full technical article
           </a>
         )}
 
