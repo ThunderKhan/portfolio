@@ -181,3 +181,30 @@ test("all content disclosures use the same accessible drawer animation", () => {
   assert.ok(css.includes("transition: opacity 180ms ease-in-out"));
   assert.ok(read("src/components/Education.tsx").includes("const [isOpen, setIsOpen] = useState(false)"));
 });
+
+
+test("contact only confirms an explicitly accepted response", async () => {
+  const { contactSubmissionAccepted: accepted } = await import("../src/lib/contact-submission.ts");
+  assert.equal(accepted(true, { success: true }), true);
+  assert.equal(accepted(true, { success: "true" }), true);
+  for (const payload of [null, {}, { success: false }, { success: "false" }, { success: 1 }, "success"]) assert.equal(accepted(true, payload), false);
+  assert.equal(accepted(false, { success: true }), false);
+  const contact = read("src/app/contact/page.tsx");
+  assert.ok(contact.includes("submitting.current = true") && contact.includes("readOnly={isSubmitting}"));
+  assert.ok(contact.includes("contactSubmissionAccepted(response.ok, payload)") && contact.includes("controller.abort()"));
+  assert.ok(contact.includes('data-submit-outcome={submitOutcome}'));
+});
+
+test("interaction polish preserves real feedback and reduced motion", () => {
+  const command = read("src/components/command-menu.tsx");
+  assert.ok(command.includes("await navigator.clipboard.writeText(value)") && command.includes("Could not copy."));
+  assert.ok(command.includes('role="status"') && command.includes("clearTimeout(feedbackTimer.current)"));
+  const nav = read("src/components/RightNavbar.tsx");
+  assert.ok(nav.includes('className="mark-nav-glider"') && nav.includes("nav.scrollTop") && nav.includes("requestAnimationFrame"));
+  assert.ok(nav.includes('aria-current={isActive ? "location" : undefined}'));
+  const css = read("src/app/globals.css");
+  assert.ok(css.includes("transition: transform 180ms ease-out") && css.includes("scale: .97"));
+  assert.ok(css.includes("(hover: hover) and (pointer: fine)"));
+  assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-interactive-card"));
+  assert.ok(read("src/components/BlogList.tsx").includes("mark-card-title"));
+});

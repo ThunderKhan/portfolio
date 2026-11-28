@@ -467,3 +467,50 @@ test('education drawers animate with the same timing and reverse without a jump'
   await expect(panel.getByRole('list')).toBeVisible();
   await audit(page, info, 'education-drawer');
 });
+
+
+test('clipboard feedback confirms success and handles rejection', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: {
+      writeText: async value => {
+        if (window.__rejectCopy) throw new Error('Denied');
+        window.__copiedValue = value;
+      }
+    } });
+  });
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const trigger = page.getByRole('button', { name: /Open command menu/ });
+  const dialog = page.getByRole('dialog', { name: 'Command Palette' });
+  await trigger.click();
+  await dialog.getByRole('combobox').fill('copy email');
+  await dialog.getByRole('option', { name: 'Copy email', exact: true }).click();
+  await expect(page.locator('[data-copy-feedback="success"]')).toContainText('Email address copied.');
+  expect(await page.evaluate(() => window.__copiedValue)).toMatch(/@/);
+  await expect(trigger).toBeFocused();
+  await page.evaluate(() => { window.__rejectCopy = true; });
+  await trigger.click();
+  await dialog.getByRole('combobox').fill('copy link');
+  await dialog.getByRole('option', { name: 'Copy link to page', exact: true }).click();
+  await expect(page.locator('[data-copy-feedback="error"]')).toContainText('Could not copy.');
+  await audit(page, info, 'copy-feedback');
+});
+
+test('desktop index uses a single marker aligned with the active section', async ({ page }, info) => {
+  test.skip(info.project.use.viewport.width < 1280, 'Desktop-only index');
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const nav = page.getByRole('navigation', { name: 'Portfolio sections' });
+  const marker = nav.locator('.mark-nav-glider');
+  await expect(marker).toHaveCount(1);
+  await page.locator('#education').evaluate(el => window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 100, behavior: 'instant' }));
+  await expect(nav.getByRole('link', { name: 'Education', exact: true })).toHaveAttribute('aria-current', 'location');
+  await expect.poll(() => marker.evaluate(el => {
+    const m = el.getBoundingClientRect();
+    const link = el.parentElement.querySelector('[aria-current="location"]').getBoundingClientRect();
+    return Math.abs(m.top + m.height / 2 - link.top - link.height / 2);
+  })).toBeLessThan(2);
+  await expect(marker).toHaveCSS('transition-duration', '0s');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect(marker).toHaveCSS('transition-duration', '0.18s');
+});

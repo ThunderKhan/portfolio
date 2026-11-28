@@ -63,8 +63,15 @@ export function RightNavbar() {
       }
       const bounds = current.getBoundingClientRect();
       const y = bounds.top - nav.getBoundingClientRect().top + nav.scrollTop + bounds.height / 2 - 1;
+      const first = marker.dataset.ready !== "true";
+      if (first) marker.style.transition = "none";
       marker.style.transform = "translateY(" + y + "px)";
       marker.dataset.ready = "true";
+      if (first) {
+        // Commit the initial geometry before allowing subsequent glides.
+        marker.getBoundingClientRect();
+        marker.style.removeProperty("transition");
+      }
     };
     update();
     const resize = new ResizeObserver(update);
