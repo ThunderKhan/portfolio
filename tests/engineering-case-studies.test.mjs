@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { engineeringCaseStudies } from "../src/data/engineeringCaseStudies.ts";
 
 test("featured case studies contain traceable evidence, decisions and scope", () => {
-  assert.deepEqual(Object.keys(engineeringCaseStudies), ["diff2test", "webclerk"]);
+  assert.deepEqual(Object.keys(engineeringCaseStudies), ["diff2test", "webclerk", "frame", "refute", "llm-social-selection", "oasis", "iet-grid"]);
   for (const [slug, study] of Object.entries(engineeringCaseStudies)) {
     assert.ok(study.premise && study.verification && study.limitations, slug);
     assert.equal(study.facts.length, 3);
@@ -15,6 +15,10 @@ test("featured case studies contain traceable evidence, decisions and scope", ()
   }
   assert.match(engineeringCaseStudies.diff2test.limitations, /Linux/);
   assert.match(engineeringCaseStudies.webclerk.limitations, /fictional/);
+  assert.match(engineeringCaseStudies.refute.verification, /20% false acceptance/);
+  assert.match(engineeringCaseStudies.oasis.limitations, /no prospective or external clinical validation/);
+  assert.match(engineeringCaseStudies["llm-social-selection"].verification, /no completed behavioral result/);
+  assert.match(engineeringCaseStudies["iet-grid"].verification, /team outcome/);
 });
 
 test("case study data is separate from the client project grid and generic details retain highlights", () => {

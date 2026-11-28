@@ -543,7 +543,25 @@ test('featured engineering case studies expose decisions, evidence and honest bo
     await expect(study.getByRole('link').first()).toHaveAttribute('href', /github\.com\/ThunderKhan\/.+\/blob\/[a-f0-9]{40}\//);
     await audit(page, info, 'engineering-case-study-' + slug);
   }
-  await visit(page, '/projects/frame', info);
+  await visit(page, '/projects/grantly', info);
   await expect(page.getByRole('heading', { name: 'Technical highlights' })).toBeVisible();
   await expect(page.locator('[data-engineering-case-study]')).toHaveCount(0);
 });
+
+for (const [slug, limitation] of [
+  ['frame', 'Dataset Lab rankings are run-relative'],
+  ['refute', 'not a strong OS or container sandbox'],
+  ['llm-social-selection', 'does not establish a completed confirmatory study'],
+  ['oasis', 'no prospective or external clinical validation'],
+  ['iet-grid', 'independent faculty/admin/student acceptance remain outstanding'],
+]) {
+  test('engineering case study: ' + slug, async ({ page }, info) => {
+    await visit(page, '/projects/' + slug, info);
+    const study = page.locator('[data-engineering-case-study]');
+    await expect(study.getByRole('heading', { name: 'Engineering decisions' })).toBeVisible();
+    await expect(study.getByRole('heading', { name: 'Verification and evidence' })).toBeVisible();
+    await expect(study).toContainText(limitation);
+    await expect(study.getByRole('link').first()).toHaveAttribute('href', /github\.com\/ThunderKhan\/.+\/blob\/[a-f0-9]{40}\//);
+    await audit(page, info, 'engineering-case-study-' + slug);
+  });
+}
