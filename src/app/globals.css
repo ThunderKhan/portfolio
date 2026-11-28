@@ -281,9 +281,6 @@ body {
 .mark-home .mark-nav-link[aria-current="location"] {
   color: var(--mark-ink);
 }
-.mark-home .mark-nav-link[aria-current="location"] .mark-nav-indicator {
-  background-color: var(--mark-gold);
-}
 :where(.mark-home, .mark-page) :focus-visible {
   outline: 2px solid var(--mark-interaction);
   outline-offset: 3px;
@@ -485,4 +482,41 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .mark-disclosure-panel { transition: grid-template-rows 240ms ease-in-out; }
   .mark-disclosure-panel > div { transition: opacity 180ms ease-in-out; }
+}
+
+/* Interaction polish: one marker and explicit action feedback. */
+.mark-nav-glider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 2px;
+  background: var(--mark-gold);
+  opacity: 0;
+  pointer-events: none;
+}
+.mark-nav-glider[data-ready="true"] { opacity: 1; }
+.mark-action-feedback {
+  position: fixed;
+  z-index: 60;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  right: 16px;
+  max-width: min(360px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--mark-seam);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: var(--mark-panel);
+  color: var(--mark-ink);
+  font-size: 12px;
+  line-height: 1.5;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 12%);
+  pointer-events: none;
+}
+.mark-error-text { color: var(--mark-red); }
+.dark .mark-error-text { color: #E2524B; }
+@media (prefers-reduced-motion: no-preference) {
+  .mark-nav-glider[data-ready="true"] { transition: transform 180ms ease-out; }
 }

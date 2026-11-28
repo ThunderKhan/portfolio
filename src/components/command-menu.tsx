@@ -24,6 +24,8 @@ import {
     CalendarDays,
     Camera,
     Send,
+    Check,
+    AlertCircle,
 } from "lucide-react"
 import { SiGithub, SiX, SiLeetcode, SiCodeforces, SiCodechef } from "react-icons/si"
 import { FaLinkedin } from "react-icons/fa6"
@@ -63,6 +65,9 @@ const PROFILES = [
 export function CommandMenu() {
     const [open, setOpen] = React.useState(false)
     const [query, setQuery] = React.useState("")
+    const [feedback, setFeedback] = React.useState<{ message: string; error: boolean } | null>(null)
+    const feedbackTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+    const copyAttempt = React.useRef(0)
     const [terminal, setTerminal] = React.useState<string | null>(null)
     const searchRef = React.useRef<HTMLInputElement>(null)
     const hiddenCommand = resolveTerminalCommand(query)
@@ -102,6 +107,28 @@ export function CommandMenu() {
     }, [changeOpen])
 
 
+    React.useEffect(() => () => {
+        copyAttempt.current += 1
+        if (feedbackTimer.current) clearTimeout(feedbackTimer.current)
+    }, [])
+
+    async function copyValue(value: string, label: string) {
+        const attempt = ++copyAttempt.current
+        if (feedbackTimer.current) clearTimeout(feedbackTimer.current)
+        setFeedback(null)
+        changeOpen(false)
+        let result: { message: string; error: boolean }
+        try {
+            await navigator.clipboard.writeText(value)
+            result = { message: label + " copied.", error: false }
+        } catch {
+            result = { message: "Could not copy. Please copy " + label.toLowerCase() + " manually.", error: true }
+        }
+        if (attempt !== copyAttempt.current) return
+        setFeedback(result)
+        feedbackTimer.current = setTimeout(() => setFeedback(null), result.error ? 7000 : 3200)
+    }
+
     function terminalAction(command: TerminalCommand): boolean {
         switch (command) {
             case "hire": runCommand(() => router.push("/contact")); return true
@@ -134,7 +161,7 @@ export function CommandMenu() {
                 aria-haspopup="dialog"
                 aria-expanded={open}
                 onClick={() => changeOpen(true)}
-                className="relative group flex min-h-8 shrink-0 items-center cursor-pointer focus-visible:outline-2 motion-safe:transition-colors"
+                className="mark-press relative group flex min-h-8 shrink-0 items-center cursor-pointer focus-visible:outline-2 motion-safe:transition-colors"
             >
                 {/* Outer border wrapper matching View All style */}
                 <div className="absolute -inset-[4.5px] border border-black/5 dark:border-white/5 rounded-[9px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
@@ -145,6 +172,10 @@ export function CommandMenu() {
                     <span className="sr-only">Open command menu</span>
                 </div>
             </button>
+
+            <div role="status" aria-atomic="true" className={feedback ? "mark-action-feedback" : "sr-only"} data-copy-feedback={feedback?.error ? "error" : feedback ? "success" : undefined}>
+                {feedback && <>{feedback.error ? <AlertCircle aria-hidden="true" className="size-4 shrink-0 mark-error-text" /> : <Check aria-hidden="true" className="size-4 shrink-0 mark-reactor-text" />}<span>{feedback.message}</span></>}
+            </div>
 
             <CommandDialog className={styles.dialog} open={open} onOpenChange={changeOpen} plain={terminal !== null} onOpenAutoFocus={(event) => {
                 if (searchRef.current) {
@@ -224,7 +255,7 @@ export function CommandMenu() {
                     <CommandSeparator className="my-1" />
 
                     <CommandGroup heading="Quick actions">
-                        <CommandItem value="action copy email address" onSelect={() => runCommand(() => navigator.clipboard.writeText(email))} className={itemClass}>
+                        <CommandItem value="action copy email address" onSelect={() => void copyValue(email, "Email address")} className={itemClass}>
                             <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Copy email</span>
                         </CommandItem>
@@ -240,7 +271,7 @@ export function CommandMenu() {
                             <Download aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Download résumé</span>
                         </CommandItem>
-                        <CommandItem value="action copy link url share" onSelect={() => runCommand(() => navigator.clipboard.writeText(window.location.href))} className={itemClass}>
+                        <CommandItem value="action copy link url share" onSelect={() => void copyValue(window.location.href, "Page link")} className={itemClass}>
                             <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Copy link to page</span>
                         </CommandItem>
