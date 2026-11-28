@@ -9,26 +9,26 @@
 export const portfolio = {
   /** Shown in the hero, page titles and social cards. */
   name: "Ayan Khan",
-  /** One line under the name. Keep it short - it is also the meta description. */
-  tagline: "Software developer building systems, developer tools and applied AI.",
+  /** Compact identity used by social cards, the terminal and structured data. */
+  tagline: "Software developer · Open-source contributor",
   /** Longer form, used for Open Graph and the social hover cards. */
   description:
-    "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments with an emphasis on deterministic behavior, explainability, testing, and public proof of work.",
+    "Ayan Khan is a software developer and BCA student in Machine Learning and Data Science, interested in systems, developer tools, open source and applied AI.",
   location: "India",
   /** Professional photograph for social cards and link previews. */
   avatar: "/profile/avatar.jpg",
   /** Decorative homepage avatar, selected by the owner. */
   heroAvatar: "/profile/iron-man.jpg",
   initials: "AK",
-  // Keep the development preview noindex until the owner approves release.
-  referencePreview: true,
   contactFormEnabled: false,
-  intro: "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments.",
+  intro: "I’m a software developer who enjoys understanding how things work, from programming languages to machine learning. I learn by building things, questioning assumptions, and working with other developers.",
   about: [
-    "Second-year BCA student at Deen Dayal Upadhyaya Gorakhpur University, specializing in Machine Learning and Data Science.",
-    "I care about deterministic behavior, explainability, testing and public proof of work.",
-    "I contribute upstream when I can, including fixes and regression coverage in CLI11, Manim and OpenTrace.",
+    "Studying Machine Learning and Data Science as part of my BCA at Deen Dayal Upadhyaya Gorakhpur University.",
+    "I build developer tools in C++ and Python, including diff2test, a test-impact analyzer, and refute, a tool for checking proposed software fixes against executable evidence.",
+    "Currently a software engineering intern at VSPH and a member of Runtime Conditions. My open-source work spans cross-platform testing, numerical correctness and API integrations.",
   ],
+  /** Two-line closing motto, selected by the owner. */
+  motto: ["If I must fall,", "let it be from a great height."],
   publishedLeetCodeSolved: "220+",
   /** IANA zone for the live clock in the banner. */
   timeZone: "Asia/Kolkata",
@@ -78,9 +78,9 @@ export const portfolio = {
    * X and LinkedIn block unauthenticated requests.
    */
   bios: {
-    github: "Systems, developer tools and applied AI.",
+    github: "Systems, developer tools, open source and applied AI.",
     x: "",
-    linkedin: "Software developer and BCA student specializing in Machine Learning and Data Science.",
+    linkedin: "Software developer, open-source contributor and BCA student in Machine Learning and Data Science.",
   },
 
   /**

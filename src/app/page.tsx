@@ -13,7 +13,8 @@ import { Education } from "@/components/Education";
 import { Certifications } from "@/components/Certifications";
 import { EventHighlights } from "@/components/EventHighlights";
 import { SpotifyCard } from "@/components/SpotifyCard";
-import { FooterBackground } from "@/components/FooterBackground";
+import { PortfolioFooter } from "@/components/PortfolioFooter";
+import closingStyles from "@/components/closing.module.css";
 import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
 import Link from "next/link";
@@ -28,10 +29,18 @@ import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
 import { StarryNightBanner } from "@/components/StarryNightBanner";
 import { MeshDriftBackground } from "@/components/MeshDriftBackground";
 import Image from "next/image";
-import { SiGithub, SiLeetcode } from "react-icons/si";
+import { SiLeetcode } from "react-icons/si";
 
 
 export const metadata = homeMetadata;
+
+function renderMottoLine(line: string) {
+  return line.split(/(\bfall\b|\bgreat height\b)/g).map((part, index) =>
+    index % 2 === 1
+      ? <span key={index} className={closingStyles.mottoAccent}>{part}</span>
+      : part
+  );
+}
 
 export default async function Home() {
   const socialProfiles = await getSocialProfiles();
@@ -46,8 +55,8 @@ export default async function Home() {
       <RightNavbar />
 
       {/* Vertical Lines - Ultra-fine Micro Dots */}
-      <div className="mark-workshop-rule absolute top-0 bottom-0 left-[var(--mark-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden sm:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-      <div className="mark-workshop-rule absolute top-0 bottom-0 right-[var(--mark-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden sm:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+      <div className="mark-workshop-rule mark-ending-rail absolute top-0 bottom-0 left-[var(--mark-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden sm:block" />
+      <div className="mark-workshop-rule mark-ending-rail absolute top-0 bottom-0 right-[var(--mark-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden sm:block" />
 
       {/* Horizontal Lines - Ultra-fine Micro Dots */}
       <div className="mark-workshop-rule absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -519,47 +528,16 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Minimal Quote Section */}
-        <div className="mt-2 flex flex-col items-center justify-center relative py-6">
-          <div className="max-w-[480px] w-full flex flex-col items-center">
-            <p className="text-[16px] font-medium text-center leading-relaxed mark-gold-text mb-6 italic">
-              Labor omnia vincit.
-            </p>
-
-            <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] mark-muted uppercase">
-              <div className="w-4 h-[1px] mark-gold-detail" />
-              WORK CONQUERS ALL
-              <div className="w-4 h-[1px] mark-gold-detail" />
-            </div>
-          </div>
+        {/* Closing motto */}
+        <div id="closing-motto" className={closingStyles.motto}>
+          <p className="relative z-10 max-w-[560px] text-[22px] sm:text-[30px] font-medium text-center leading-[1.3] mark-gold-text italic">
+            {renderMottoLine(portfolio.motto[0])}<br />
+            {renderMottoLine(portfolio.motto[1])}
+          </p>
         </div>
-
-        {/* Source and contact links */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pb-6">
-          <a href={`mailto:${portfolio.email}`} className="inline-flex items-center rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300">Get in touch</a>
-          <Link href="/highlights" className="inline-flex items-center rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300">Highlights</Link>
-          <a href={portfolio.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-1.5 text-[11px] text-zinc-600 dark:border-white/10 dark:text-zinc-300"><SiGithub className="size-3" aria-hidden="true" /> Source on GitHub</a>
-        </div>
-
-        {/* Fading Grid Filler */}
-        <div className="flex-grow w-[calc(100%+32px)] -mx-4 h-[300px] relative mt-4">
-          {/* Top full-width line */}
-          <div
-            className="mark-workshop-rule absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none z-10"
-            style={{
-              maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)',
-              WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)'
-            }}
-          />
-          {/* Intersections */}
-          <div className="absolute top-0 left-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
-          <div className="absolute top-0 right-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
-
-          <FooterBackground />
-        </div>
-
       </main>
 
+      <PortfolioFooter />
     </div>
   );
 }

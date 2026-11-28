@@ -35,7 +35,7 @@ export function BlogList({ counts, limit }: { counts?: Record<string, number>; l
             target={blog.isExternal ? "_blank" : undefined}
             rel={blog.isExternal ? "noopener noreferrer" : undefined}
             key={blog.link}
-            className="group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer"
+            className="group mark-interactive-card mark-interactive-row relative block -mx-4 px-4 py-4 cursor-pointer"
           >
             {/* Dashed bottom border for all items except the last one */}
             {!isLast && (
@@ -65,7 +65,7 @@ export function BlogList({ counts, limit }: { counts?: Record<string, number>; l
 
             <div className="flex items-start sm:items-center justify-between w-full">
               <div className="flex flex-col gap-2.5">
-                <h3 className="text-[14px] md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors pr-6">
+                <h3 className="text-[14px] md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 mark-card-title pr-6">
                   {blog.title}
                 </h3>
 

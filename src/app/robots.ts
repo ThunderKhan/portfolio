@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
-import { portfolio } from "~/portfolio.config";
+import { SITE_URL, PUBLIC_RELEASE } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -10,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/",
     },
-    ...(!portfolio.referencePreview ? { sitemap: `${SITE_URL}/sitemap.xml` } : {}),
+    ...(PUBLIC_RELEASE ? { sitemap: `${SITE_URL}/sitemap.xml` } : {}),
   };
 }

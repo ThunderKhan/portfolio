@@ -90,3 +90,19 @@ test("browser icon uses the original arc reactor vector and brand colors", () =>
   assert.ok(icon.includes("stroke-dasharray"));
   assert.ok(!icon.includes("<text") && !icon.includes("<image") && !icon.includes("<script"));
 });
+
+
+test("professional identity stays consistent and avoids time-sensitive year labels", () => {
+  assert.equal(portfolio.name, "Ayan Khan");
+  assert.match(portfolio.tagline, /Software developer/);
+  assert.match(portfolio.tagline, /Open-source contributor/);
+  assert.match(portfolio.description, /BCA student/);
+  assert.match(portfolio.intro, /understanding how things work/);
+  assert.equal(portfolio.about.length, 3);
+  assert.match(portfolio.about[0], /Deen Dayal Upadhyaya Gorakhpur University/);
+  assert.match(portfolio.about[1], /diff2test/);
+  assert.match(portfolio.about[1], /refute/);
+  assert.match(portfolio.about[2], /VSPH/);
+  assert.match(portfolio.about[2], /Runtime Conditions/);
+  assert.ok(!portfolio.about.some(line => /second-year/i.test(line)));
+});

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Barlow_Semi_Condensed, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, PUBLIC_RELEASE, ENABLE_TELEMETRY } from "@/lib/site";
 import { portfolio } from "~/portfolio.config";
 import { ThemeProvider } from "@/components/theme-provider";
+import { DeveloperClue } from "@/components/DeveloperClue";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -28,8 +29,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: portfolio.name,
   description: portfolio.description,
-  ...(portfolio.referencePreview ? { robots: { index: false, follow: false } } : {}),
-  ...(portfolio.googleSiteVerification
+  robots: PUBLIC_RELEASE ? { index: true, follow: true } : { index: false, follow: false },
+  ...(PUBLIC_RELEASE && portfolio.googleSiteVerification
     ? { verification: { google: portfolio.googleSiteVerification } }
     : {}),
 };
@@ -54,9 +55,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <a href="#main-content" className="mark-skip-link">Skip to main content</a>
+          <DeveloperClue />
           {children}
         </ThemeProvider>
-        {!portfolio.referencePreview && (
+        {ENABLE_TELEMETRY && (
           <>
             <Analytics />
             <SpeedInsights />

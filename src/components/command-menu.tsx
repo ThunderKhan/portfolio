@@ -5,7 +5,6 @@ import { homeSections } from "@/data/homeSections";
 import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import {
-    LayoutDashboard,
     FileText,
     Moon,
     Sun,
@@ -25,6 +24,8 @@ import {
     CalendarDays,
     Camera,
     Send,
+    Check,
+    AlertCircle,
 } from "lucide-react"
 import { SiGithub, SiX, SiLeetcode, SiCodeforces, SiCodechef } from "react-icons/si"
 import { FaLinkedin } from "react-icons/fa6"
@@ -41,8 +42,12 @@ import {
 } from "@/components/ui/command"
 import { projectsData } from "@/data/projectsData"
 import { handles, bookingLink, email, resume } from "@/data/links"
+import { portfolio } from "~/portfolio.config"
+import styles from "./command-menu.module.css"
+import { MarkTerminal } from "./MarkTerminal"
+import { resolveTerminalCommand, type TerminalCommand } from "@/lib/terminal-commands"
 
-const itemClass = "rounded-lg py-3 cursor-pointer"
+const itemClass = "cursor-pointer"
 
 const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Award, Binary, Camera } as const;
 const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionIcons[section.icon] })), { id: "contact", label: "Socials", icon: Send, key: "O" }] as const
@@ -59,32 +64,104 @@ const PROFILES = [
 
 export function CommandMenu() {
     const [open, setOpen] = React.useState(false)
+    const [query, setQuery] = React.useState("")
+    const [feedback, setFeedback] = React.useState<{ message: string; error: boolean } | null>(null)
+    const feedbackTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+    const copyAttempt = React.useRef(0)
+    const [terminal, setTerminal] = React.useState<string | null>(null)
+    const searchRef = React.useRef<HTMLInputElement>(null)
+    const hiddenCommand = resolveTerminalCommand(query)
     const triggerRef = React.useRef<HTMLButtonElement>(null)
     const { setTheme } = useTheme()
     const router = useRouter()
 
     const openExternal = React.useCallback((url: string) => {
-        const opened = window.open(url, "_blank", "noopener,noreferrer")
-        if (!opened) window.location.assign(url)
+        // noopener can return null even when the new tab opened successfully.
+        // Use one native navigation action, never a second fallback navigation.
+        if (url.startsWith("mailto:")) {
+            window.location.assign(url)
+            return
+        }
+        const link = document.createElement("a")
+        link.href = url
+        link.target = "_blank"
+        link.rel = "noopener noreferrer"
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
     }, [])
+
+    const changeOpen = React.useCallback((next: boolean) => {
+        setOpen(next)
+        if (!next) { setQuery(""); setTerminal(null) }
+    }, [])
+
+    React.useEffect(() => {
+        if (open && terminal === null) searchRef.current?.focus()
+    }, [open, terminal])
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault()
-                setOpen((open) => !open)
+                changeOpen(!open)
             }
         }
 
         document.addEventListener("keydown", down)
         return () => document.removeEventListener("keydown", down)
-    }, [])
+    }, [open, changeOpen])
 
     const runCommand = React.useCallback((command: () => unknown) => {
-        setOpen(false)
+        changeOpen(false)
         command()
+    }, [changeOpen])
+
+
+    React.useEffect(() => () => {
+        copyAttempt.current += 1
+        if (feedbackTimer.current) clearTimeout(feedbackTimer.current)
     }, [])
 
+    async function copyValue(value: string, label: string) {
+        const attempt = ++copyAttempt.current
+        if (feedbackTimer.current) clearTimeout(feedbackTimer.current)
+        setFeedback(null)
+        changeOpen(false)
+        let result: { message: string; error: boolean }
+        try {
+            await navigator.clipboard.writeText(value)
+            result = { message: label + " copied.", error: false }
+        } catch {
+            result = { message: "Could not copy. Please copy " + label.toLowerCase() + " manually.", error: true }
+        }
+        if (attempt !== copyAttempt.current) return
+        setFeedback(result)
+        feedbackTimer.current = setTimeout(() => setFeedback(null), result.error ? 7000 : 3200)
+    }
+
+    function terminalAction(command: TerminalCommand): boolean {
+        switch (command) {
+            case "hire": runCommand(() => router.push("/contact")); return true
+            case "blueprint": runCommand(() => router.push("/blueprint")); return true
+            case "resume": runCommand(() => window.location.assign(resume)); return true
+            case "source":
+                if (portfolio.repo) { runCommand(() => window.location.assign(portfolio.repo)); return true }
+                return false
+            default: return false
+        }
+    }
+
+    function runHidden() {
+        if (!hiddenCommand) return
+        if (terminalAction(hiddenCommand)) return
+        if (hiddenCommand === "clear") { setQuery(""); return }
+        if (hiddenCommand === "exit") { changeOpen(false); return }
+        setTerminal(query.trim())
+        setQuery("")
+    }
+
+    function exitTerminal() { setTerminal(null); setQuery("") }
 
     return (
         <>
@@ -94,8 +171,8 @@ export function CommandMenu() {
                 aria-keyshortcuts="Control+k Meta+k"
                 aria-haspopup="dialog"
                 aria-expanded={open}
-                onClick={() => setOpen(true)}
-                className="relative group flex min-h-8 shrink-0 items-center cursor-pointer focus-visible:outline-2 motion-safe:transition-colors"
+                onClick={() => changeOpen(true)}
+                className="mark-press relative group flex min-h-8 shrink-0 items-center cursor-pointer focus-visible:outline-2 motion-safe:transition-colors"
             >
                 {/* Outer border wrapper matching View All style */}
                 <div className="absolute -inset-[4.5px] border border-black/5 dark:border-white/5 rounded-[9px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
@@ -107,27 +184,111 @@ export function CommandMenu() {
                 </div>
             </button>
 
-            <CommandDialog open={open} onOpenChange={setOpen} onCloseAutoFocus={(event) => {
+            <div role="status" aria-atomic="true" className={feedback ? "mark-action-feedback" : "sr-only"} data-copy-feedback={feedback?.error ? "error" : feedback ? "success" : undefined}>
+                {feedback && <>{feedback.error ? <AlertCircle aria-hidden="true" className="size-4 shrink-0 mark-error-text" /> : <Check aria-hidden="true" className="size-4 shrink-0 mark-reactor-text" />}<span>{feedback.message}</span></>}
+            </div>
+
+            <CommandDialog className={styles.dialog} open={open} onOpenChange={changeOpen} plain={terminal !== null} onOpenAutoFocus={(event) => {
+                if (searchRef.current) {
+                    event.preventDefault()
+                    searchRef.current.focus()
+                }
+            }} onCloseAutoFocus={(event) => {
                 if (triggerRef.current?.isConnected) {
                     event.preventDefault()
                     triggerRef.current.focus({ preventScroll: true })
                 }
             }}>
-                {/* Header Section */}
-                <div className="flex items-center gap-4 p-4 border-b border-zinc-100 dark:border-zinc-800">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 mark-muted">
-                        <LayoutDashboard className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Navigation Menu</h3>
-                        <p className="text-xs mark-muted">Jump to a section, project, profile or action</p>
+                <div className={styles.header}>
+                    <button type="button" className={styles.reactorButton} aria-label={terminal === null ? "Open hidden terminal" : "Return to command search"} onClick={() => { if (terminal === null) { setTerminal(""); setQuery("") } else exitTerminal() }}>
+                    <svg className={styles.reactor} viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+                        <circle cx="20" cy="20" r="17" stroke="currentColor" strokeWidth="1.2" />
+                        <circle cx="20" cy="20" r="12.5" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 3" />
+                        <path d="M20 11.5 27.4 24.3H12.6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                        <circle cx="20" cy="20" r="3" fill="currentColor" />
+                    </svg>
+                    </button>
+                    <div className={styles.heading}>
+                        <h3>MARK I</h3>
+                        <p>{terminal === null ? "Command palette" : "Terminal"}</p>
                     </div>
                 </div>
 
-                <CommandInput aria-label="Search commands" placeholder="Search sections, projects, profiles..." className="border-none focus:ring-0" />
+                {terminal !== null ? <MarkTerminal initialInput={terminal} onAction={terminalAction} onExit={exitTerminal} /> : <>
+                <CommandInput ref={searchRef} value={query} onValueChange={setQuery} aria-label="Search commands" placeholder="Find a project, page or action..." onKeyDown={event => {
+                    if (event.key === "Enter" && !event.nativeEvent.isComposing && hiddenCommand) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        runHidden()
+                    }
+                }} />
 
-                <CommandList className="p-2">
-                    <CommandEmpty>No results found.</CommandEmpty>
+                <CommandList className={styles.list}>
+                    {!hiddenCommand && <CommandEmpty>No matching commands. Try a different search.</CommandEmpty>}
+                    {hiddenCommand ? <CommandGroup heading="Command">
+                        <CommandItem value={query.trim()} onSelect={runHidden} className={itemClass}>
+                            <Code aria-hidden="true" className="mr-2 h-4 w-4" />
+                            <span>Run {query.trim()}</span>
+                        </CommandItem>
+                    </CommandGroup> : <>
+
+                    <CommandGroup heading="Navigate">
+                        <CommandItem value="page all projects" onSelect={() => runCommand(() => router.push("/projects"))} className={itemClass}>
+                            <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>All projects</span>
+                        </CommandItem>
+                        <CommandItem value="page all experience timeline" onSelect={() => runCommand(() => router.push("/experience"))} className={itemClass}>
+                            <Briefcase aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Experience timeline</span>
+                        </CommandItem>
+                        <CommandItem value="page open source oss contributions archive" onSelect={() => runCommand(() => router.push("/open-source"))} className={itemClass}>
+                            <GitPullRequest aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>OSS Contributions</span>
+                        </CommandItem>
+                        {portfolio.sections.blog && <CommandItem value="page technical writing blogs articles" onSelect={() => runCommand(() => router.push("/blogs"))} className={itemClass}>
+                            <FileText aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Technical writing archive</span>
+                        </CommandItem>}
+                        <CommandItem value="page certifications training credentials" onSelect={() => runCommand(() => router.push("/certifications"))} className={itemClass}>
+                            <Award aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Certifications archive</span>
+                        </CommandItem>
+                        <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
+                            <Sparkles aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Highlights archive</span>
+                        </CommandItem>
+                        <CommandItem value="page contact form" onSelect={() => runCommand(() => router.push("/contact"))} className={itemClass}>
+                            <Send aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Contact page</span>
+                        </CommandItem>
+                    </CommandGroup>
+
+                    <CommandSeparator className="my-1" />
+
+                    <CommandGroup heading="Quick actions">
+                        <CommandItem value="action copy email address" onSelect={() => void copyValue(email, "Email address")} className={itemClass}>
+                            <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Copy email</span>
+                        </CommandItem>
+                        <CommandItem value="action send email write" onSelect={() => runCommand(() => openExternal(`mailto:${email}`))} className={itemClass}>
+                            <Mail aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Send an email</span>
+                        </CommandItem>
+                        {bookingLink && <CommandItem value="action book a call meeting cal" onSelect={() => runCommand(() => openExternal(bookingLink))} className={itemClass}>
+                            <CalendarDays aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Book an intro call</span>
+                        </CommandItem>}
+                        <CommandItem value="action resume cv download" onSelect={() => runCommand(() => openExternal(resume))} className={itemClass}>
+                            <Download aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Download résumé</span>
+                        </CommandItem>
+                        <CommandItem value="action copy link url share" onSelect={() => void copyValue(window.location.href, "Page link")} className={itemClass}>
+                            <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Copy link to page</span>
+                        </CommandItem>
+                    </CommandGroup>
+
+                    <CommandSeparator className="my-1" />
 
                     <CommandGroup heading="Sections">
                         {SECTIONS.map((s) => {
@@ -146,7 +307,7 @@ export function CommandMenu() {
                         })}
                     </CommandGroup>
 
-                    <CommandSeparator className="my-2" />
+                    <CommandSeparator className="my-1" />
 
                     <CommandGroup heading="Projects">
                         {projectsData.map((p) => (
@@ -165,40 +326,7 @@ export function CommandMenu() {
                         ))}
                     </CommandGroup>
 
-                    <CommandSeparator className="my-2" />
-
-                    <CommandGroup heading="Pages">
-                        <CommandItem value="page all projects" onSelect={() => runCommand(() => router.push("/projects"))} className={itemClass}>
-                            <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>All projects</span>
-                        </CommandItem>
-                        <CommandItem value="page all experience timeline" onSelect={() => runCommand(() => router.push("/experience"))} className={itemClass}>
-                            <Briefcase aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Experience timeline</span>
-                        </CommandItem>
-                        <CommandItem value="page open source oss contributions archive" onSelect={() => runCommand(() => router.push("/open-source"))} className={itemClass}>
-                            <GitPullRequest aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>OSS Contributions</span>
-                        </CommandItem>
-                        <CommandItem value="page technical writing blogs articles" onSelect={() => runCommand(() => router.push("/blogs"))} className={itemClass}>
-                            <FileText aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Technical writing archive</span>
-                        </CommandItem>
-                        <CommandItem value="page certifications training credentials" onSelect={() => runCommand(() => router.push("/certifications"))} className={itemClass}>
-                            <Award aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Certifications archive</span>
-                        </CommandItem>
-                        <CommandItem value="page all highlights archive" onSelect={() => runCommand(() => router.push("/highlights"))} className={itemClass}>
-                            <Sparkles aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Highlights archive</span>
-                        </CommandItem>
-                        <CommandItem value="page contact form" onSelect={() => runCommand(() => router.push("/contact"))} className={itemClass}>
-                            <Send aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Contact page</span>
-                        </CommandItem>
-                    </CommandGroup>
-
-                    <CommandSeparator className="my-2" />
+                    <CommandSeparator className="my-1" />
 
                     <CommandGroup heading="Profiles">
                         {PROFILES.filter(p => Boolean(p.handle)).map((p) => {
@@ -220,66 +348,35 @@ export function CommandMenu() {
                         })}
                     </CommandGroup>
 
-                    <CommandSeparator className="my-2" />
+                    <CommandSeparator className="my-1" />
 
-                    <CommandGroup heading="Actions">
-                        <CommandItem value="action copy email address" onSelect={() => runCommand(() => navigator.clipboard.writeText(email))} className={itemClass}>
-                            <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Copy email</span>
-                        </CommandItem>
-                        <CommandItem value="action send email write" onSelect={() => runCommand(() => openExternal(`mailto:${email}`))} className={itemClass}>
-                            <Mail aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Send an email</span>
-                        </CommandItem>
-                        {bookingLink && <CommandItem value="action book a call meeting cal" onSelect={() => runCommand(() => openExternal(bookingLink))} className={itemClass}>
-                            <CalendarDays aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Book an intro call</span>
-                        </CommandItem>}
-                        <CommandItem value="action resume cv download" onSelect={() => runCommand(() => openExternal(resume))} className={itemClass}>
-                            <Download aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Download résumé</span>
-                        </CommandItem>
-                        <CommandItem value="action copy link url share" onSelect={() => runCommand(() => navigator.clipboard.writeText(window.location.href))} className={itemClass}>
-                            <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Copy link to page</span>
-                        </CommandItem>
-                    </CommandGroup>
-
-                    <CommandSeparator className="my-2" />
-
-                    <CommandGroup heading="Theme">
+                    <CommandGroup heading="System">
                         <CommandItem value="theme light" onSelect={() => runCommand(() => setTheme("light"))} className={itemClass}>
                             <Sun aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Light Mode</span>
+                            <span>Light mode</span>
                         </CommandItem>
                         <CommandItem value="theme dark" onSelect={() => runCommand(() => setTheme("dark"))} className={itemClass}>
                             <Moon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Dark Mode</span>
+                            <span>Dark mode</span>
                         </CommandItem>
                         <CommandItem value="theme system auto" onSelect={() => runCommand(() => setTheme("system"))} className={itemClass}>
                             <Laptop aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>System</span>
+                            <span>System appearance</span>
                         </CommandItem>
+                        {portfolio.repo && <CommandItem value="Portfolio source code" keywords={["system", "repository", "github", "architecture"]} onSelect={() => runCommand(() => openExternal(portfolio.repo))} className={itemClass}>
+                            <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Portfolio source code</span>
+                        </CommandItem>}
                     </CommandGroup>
+                    </>}
                 </CommandList>
 
-                {/* Footer */}
-                <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
-                    <div className="flex items-center gap-4 text-[10px] mark-muted">
-                        <div className="flex items-center gap-1">
-                            <span className="font-mono">Up / Down</span>
-                            <span>to navigate</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-mono">Enter</span>
-                            <span>to select</span>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-[10px] mark-muted">
-                        <span className="font-mono">esc</span>
-                        <span>to close</span>
-                    </div>
+                <div className={styles.footer}>
+                    <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+                    <span><kbd>Enter</kbd> Select</span>
+                    <span><kbd>Esc</kbd> Close</span>
                 </div>
+                </>}
             </CommandDialog>
         </>
     )

@@ -36,3 +36,138 @@ test("custom cover has a graceful missing-image fallback and full-track link", (
   assert.ok(player.includes("Close player"));
   assert.ok(player.includes("Listen here"));
 });
+
+
+test("closing motto uses the owner-selected two-line text without a translation", () => {
+  const home = read("src/app/page.tsx");
+  const config = read("portfolio.config.ts");
+  assert.ok(config.includes('motto: ["If I must fall,", "let it be from a great height."]'));
+  assert.ok(home.includes("{renderMottoLine(portfolio.motto[0])}<br />"));
+  assert.ok(home.includes("{renderMottoLine(portfolio.motto[1])}"));
+  assert.ok(!home.includes("Labor omnia vincit") && !home.includes("WORK CONQUERS ALL"));
+  assert.match(home, /<p className="[^"]*mark-gold-text italic"/);
+});
+
+
+test("closing footer replaces empty filler with real navigation outside main", () => {
+  const home = read("src/app/page.tsx");
+  const footer = read("src/components/PortfolioFooter.tsx");
+  assert.ok(home.indexOf("</main>") < home.indexOf("<PortfolioFooter />"));
+  assert.ok(!home.includes("<FooterBackground />"));
+  assert.ok(footer.includes("<FallingSilhouette />") && home.includes("leading-[1.3]"));
+  assert.match(footer, /<footer className=.*aria-label="Portfolio footer"/);
+  assert.ok(footer.includes('href={portfolio.resume}') && footer.includes('href={portfolio.repo}'));
+  assert.ok(!footer.includes('href="#"'));
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.match(art, /alt=""\s+aria-hidden="true"/);
+  assert.ok(art.includes('src="/art/falling-armor.webp"') && art.includes('loading="lazy"'));
+});
+test("ridgeline motion is bounded and respects visibility and reduced motion", () => {
+  const scene = read("src/components/RidgelineScene.tsx");
+  for (const marker of ["MAX_PIXELS = 80_000", "1000 / 24", "REVEAL_MS = 2800", "prefers-reduced-motion: reduce", "document.hidden", "intersection.disconnect()", "cancelAnimationFrame", "aria-hidden"]) assert.ok(scene.includes(marker), marker);
+});
+
+
+test("footer social icons reuse supported GitHub and inline SVG markup", () => {
+  const footer = read("src/components/PortfolioFooter.tsx");
+  assert.ok(footer.includes('import { SiGithub } from "react-icons/si"'));
+  assert.doesNotMatch(footer, /SiLinkedin|from "lucide-react"/);
+  assert.match(footer, /aria-label="LinkedIn profile"><svg aria-hidden="true"/);
+  assert.match(footer, /aria-label="Email"><svg aria-hidden="true"/);
+});
+
+
+test("terrain uses the supplied Northwall reference seed, noise and eight-by-eight dithering", async () => {
+  const { RIDGE_SEED, RIDGE_LAYERS, RIDGE_BAYER, ridgeProfile, ridgeDither, ridgeNoise } = await import("../src/lib/ridgeline.ts");
+  assert.equal(RIDGE_SEED, 23);
+  assert.equal(RIDGE_LAYERS, 7);
+  assert.equal(new Set(RIDGE_BAYER).size, 64);
+  assert.equal(ridgeNoise(2.3, 4.5, 23), ridgeNoise(2.3, 4.5, 23));
+  for (let i = 0; i < RIDGE_LAYERS; i++) {
+    const profile = ridgeProfile(400, 150, i, RIDGE_LAYERS, RIDGE_SEED, 22);
+    assert.equal(profile.length, 444);
+    assert.ok(profile.every(Number.isFinite));
+    assert.deepEqual(profile, ridgeProfile(400, 150, i, RIDGE_LAYERS, RIDGE_SEED, 22));
+    assert.notDeepEqual(profile, ridgeProfile(400, 150, i, RIDGE_LAYERS, 24, 22));
+  }
+  assert.equal(ridgeDither(-1, 7, .9), 0);
+  assert.equal(ridgeDither(2, 7, .9), 6);
+  const scene = read("src/components/RidgelineScene.tsx");
+  assert.ok(scene.includes("ridgeProfile(") && scene.includes("ridgeFbm("));
+  assert.ok(scene.includes("RIDGE_BAYER[(y & 7) * 8 + (x & 7)]"));
+});
+
+
+test("falling art belongs to the footer background and uses bounded scroll transforms", () => {
+  const home = read("src/app/page.tsx");
+  const footer = read("src/components/PortfolioFooter.tsx");
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.ok(!home.includes("<FallingSilhouette />"));
+  assert.ok(footer.indexOf("<FallingSilhouette />") < footer.indexOf("styles.footerGrid"));
+  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "terrain.offsetHeight * .70"]) assert.ok(art.includes(marker), marker);
+  assert.ok(!art.includes("useState"));
+});
+
+
+test("falling armor is composited between terrain and footer foreground", () => {
+  const css = read("src/components/closing.module.css");
+  assert.match(css, /\.figure\s*\{[^}]*z-index: 1;/);
+  assert.match(css, /\.scene\s*\{[^}]*z-index: 0;/);
+  assert.match(css, /\.footerGrid\s*\{[^}]*z-index: 2;/);
+  assert.match(css, /\.figure\s*\{[^}]*mask-image: [^;]*#000 100%/);
+});
+
+
+test("footer text has no opaque backing and armor destination is terrain-relative", () => {
+  const css = read("src/components/closing.module.css");
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.match(css, /\.footerGrid, \.credit\s*\{[^}]*text-shadow:/);
+  assert.doesNotMatch(css, /background-color: var\(--mark-page\)/);
+  assert.ok(art.includes("destination - image.offsetTop - image.offsetHeight"));
+  assert.ok(read("src/lib/armor-scroll.ts").includes("viewportHeight - footerHeight"));
+  assert.ok(art.includes("if (reduced.matches) paint(1)"));
+});
+
+
+test("full-bleed ember terrain preserves content gutters and feathers into the shader", () => {
+  const css = read("src/components/closing.module.css");
+  const global = read("src/app/globals.css");
+  const page = read("src/app/page.tsx");
+  assert.match(css, /\.footer\s*\{[^}]*margin-inline: var\(--mark-gutter\)/);
+  assert.match(css, /\.scene\s*\{[^}]*margin-inline: calc\(-1 \* var\(--mark-gutter\)\)/);
+  assert.match(css, /\.scene\s*\{[^}]*mask-image: linear-gradient\(to bottom, transparent 0%/);
+  assert.match(css, /:global\(\.dark\) \.scene\s*\{[^}]*--ridge-6: #98703f/);
+  assert.equal((page.match(/mark-ending-rail/g) || []).length, 2);
+  assert.match(global, /\.mark-home \.mark-ending-rail\s*\{[^}]*mask-composite: intersect/);
+  assert.match(global, /\.mark-mesh-toggle\s*\{[^}]*position: fixed;[^}]*z-index: 20/);
+});
+
+
+test("closing motto accents remain readable in both themes", () => {
+  const css = read("src/components/closing.module.css");
+  const home = read("src/app/page.tsx");
+  assert.match(css, /\.mottoAccent\s*\{ color: var\(--mark-red\); \}/);
+  assert.match(css, /:global\(\.dark\) \.mottoAccent\s*\{ color: #E2524B; \}/);
+  assert.ok(home.includes('line.split(/(\\bfall\\b|\\bgreat height\\b)/g)'));
+  const luminance = hex => hex.match(/../g).map(x => parseInt(x, 16) / 255).map(x => x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4).reduce((sum, x, i) => sum + x * [.2126, .7152, .0722][i], 0);
+  assert.ok((luminance("E2524B") + .05) / .05 >= 4.5);
+  assert.ok((luminance("F4F3EF") + .05) / (luminance("AA0505") + .05) >= 4.5);
+});
+
+
+test("armor begins moving before the quote enters and preserves ridge arrival", async () => {
+  const { armorScrollOffset, armorScrollProgress } = await import("../src/lib/armor-scroll.ts");
+  for (const [vh, gap, footerHeight, width, travel] of [[800, 272, 650, 220, 390], [844, 190, 680, 142, 420]]) {
+    const p = top => armorScrollProgress(vh, top, top + gap, footerHeight);
+    assert.equal(p(vh * 1.2), 0);
+    assert.ok(p(vh * 1.05) > 0);
+    assert.ok(p(vh) > p(vh * 1.05));
+    assert.ok(p(vh * .5) > p(vh));
+    assert.equal(p(vh - footerHeight - gap), 1);
+    assert.ok(armorScrollOffset(travel, width, 0) < 0);
+    assert.ok(Math.abs(armorScrollOffset(travel, width, 1) - travel) < 1e-8);
+  }
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.ok(art.includes("observer.observe(closing)") && art.includes("observer.observe(footer)"));
+  assert.ok(art.includes("nearby.size > 0"));
+});

@@ -127,7 +127,7 @@ export const projectsData: Project[] = [
     ],
     "github": "https://github.com/ThunderKhan/diff2test",
     "caseStudy": "/blogs/001",
-    "statusDetail": "Completed · C++20 CLI"
+    "statusDetail": "Completed · C++20 CLI · team std::zero"
   },
   {
     "slug": "webclerk",
@@ -211,7 +211,7 @@ export const projectsData: Project[] = [
       "Built as a Next.js frontend with a FastAPI backend, persisted assessment history, dashboard views, referral workflow, and evidence/model documentation"
     ],
     "github": "https://github.com/ThunderKhan/oasis",
-    "statusDetail": "Hackathon prototype · completed phase"
+    "statusDetail": "SIH 2026 university internal nomination · prototype"
   },
   {
     "slug": "llm-social-selection",
@@ -340,7 +340,7 @@ export const projectsData: Project[] = [
     "slug": "iet-grid",
     "title": "IET Grid",
     "status": "prototype",
-    "statusDetail": "Campus scheduling hackathon · team project",
+    "statusDetail": "Build With AI: DevOps Season 1 · second runner-up · team project",
     "imageTitle": "IET Grid project preview",
     "src": "/project-image/iet-grid.png",
     "description": "Campus room scheduling and classroom management with floor plans, role-scoped access, conflict-safe booking and academic notices.",
@@ -468,12 +468,12 @@ export const projectsData: Project[] = [
     "status": "completed",
     "statusDetail": "Educational systems project · experimental compiler",
     "imageTitle": "Prometheus Compiler project preview",
-    "description": "A minimal C++23 compiler exploring lexing, recursive-descent parsing, AST construction, semantic validation and deterministic code generation.",
+    "description": "A minimal C++23 language experiment with token-based ELF64 assembly generation for an emit statement and a separate recursive-descent parser and AST prototype.",
     "problem": "A small language implementation makes the translation pipeline explicit and inspectable.",
     "highlights": [
-      "Explicit AST node hierarchy and recursive-descent parser.",
-      "Semantic validation of symbol usage and deterministic code generation.",
-      "CMake build and line-numbered error reporting."
+      "Separate expression and emit AST nodes with a small recursive-descent parser.",
+      "The executable validates emit statements and generates assembly directly from tokens; the AST parser is not yet integrated.",
+      "CMake build with NASM and ld required by the executable’s assemble/link path."
     ],
     "tech": [
       "cpp",

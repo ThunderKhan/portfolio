@@ -15,7 +15,9 @@ export function SpotifyCard() {
 
   return (
     <article className="overflow-hidden rounded-[8px] border mark-panel p-3">
-      <div id="featured-music-player">
+      <div id="featured-music-player" inert={!showPlayer} aria-hidden={!showPlayer} className="mark-disclosure-panel">
+        <div className="min-h-0 overflow-hidden">
+          <div className="h-[152px]">
       {showPlayer ? (
         <iframe
           title={`Spotify player: ${title} by ${artist}`}
@@ -27,7 +29,12 @@ export function SpotifyCard() {
           allowFullScreen
           className="block w-full rounded-[6px] border-0"
         />
-      ) : (
+      ) : null}
+          </div>
+        </div>
+      </div>
+      <div inert={showPlayer} aria-hidden={showPlayer} className="mark-disclosure-panel">
+        <div className="min-h-0 overflow-hidden">
         <div className="flex items-center gap-3">
           <div className="relative grid size-[80px] shrink-0 place-items-center overflow-hidden rounded-[6px] bg-zinc-100 dark:bg-zinc-900">
             {coverFailed ? (
@@ -43,7 +50,7 @@ export function SpotifyCard() {
           </div>
           <SiSpotify aria-hidden="true" className="size-5 shrink-0 text-[#16833e] dark:text-[#1ED760]" />
         </div>
-      )}
+        </div>
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
         <button
@@ -52,7 +59,7 @@ export function SpotifyCard() {
           aria-expanded={showPlayer}
           aria-controls="featured-music-player"
           onClick={() => setShowPlayer(value => !value)}
-          className="inline-flex min-h-10 items-center gap-2 rounded-[6px] border mark-surface mark-control px-3 text-[12px] font-medium focus-visible:outline-2"
+          className="mark-press inline-flex min-h-10 items-center gap-2 rounded-[6px] border mark-surface mark-control px-3 text-[12px] font-medium focus-visible:outline-2"
         >
           {showPlayer ? <X aria-hidden="true" className="size-4" /> : <Play aria-hidden="true" className="size-4" />}
           {showPlayer ? "Close player" : "Listen here"}
@@ -61,7 +68,9 @@ export function SpotifyCard() {
           Open in Spotify <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </div>
-      {showPlayer && <p className="mt-2 text-[11px] leading-relaxed mark-muted">Press play in the player. Spotify may provide a preview.</p>}
+      <div inert={!showPlayer} aria-hidden={!showPlayer} className="mark-disclosure-panel">
+        <div className="min-h-0 overflow-hidden"><p className="mt-2 text-[11px] leading-relaxed mark-muted">Press play in the player. Spotify may provide a preview.</p></div>
+      </div>
     </article>
   );
 }

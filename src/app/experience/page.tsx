@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { CommandMenu } from "@/components/command-menu";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { RightNavbar } from "@/components/RightNavbar";
@@ -171,7 +172,7 @@ export default function AllExperiencePage() {
                     <span className="flex shrink-0 flex-col items-start gap-0.5 pr-5 pl-[52px] text-left sm:pl-[56px] 2xl:items-end 2xl:pl-0 2xl:text-right">
                       <span className="relative flex items-center text-[13px] font-medium text-zinc-900 dark:text-zinc-100 sm:text-[14px]">
                         <span>{item.dates}</span>
-                        <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
+                        <DisclosureChevron open={isOpen} />
                       </span>
                       <span className="text-[13px] mark-muted sm:text-[14px]">
                         {item.location}
@@ -184,13 +185,11 @@ export default function AllExperiencePage() {
                     id={`archive-experience-panel-${idx}`}
               inert={!isOpen}
               aria-hidden={!isOpen}
-              className={`-mx-4 grid motion-safe:transition-[grid-template-rows] motion-safe:duration-[240ms] motion-safe:ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                      }`}
+              className="-mx-4 mark-disclosure-panel"
                   >
                     <div className="min-h-0 overflow-hidden">
                       <div
-                        className={`${isOpen ? "pb-4 pt-0 opacity-100" : "pb-0 pt-0 opacity-0"
-                          } motion-safe:transition-opacity motion-safe:duration-[180ms] pl-6 pr-8 text-[14px] text-zinc-600 dark:text-zinc-400`}
+                        className="pb-4 pt-0 pl-6 pr-8 text-[14px] text-zinc-600 dark:text-zinc-400"
                       >
                         {item.metrics && (
                           <div className="relative -ml-6 -mr-8 mb-4">

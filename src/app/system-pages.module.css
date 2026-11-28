@@ -1,0 +1,106 @@
+.page {
+  width: min(100%, 800px);
+  margin-inline: auto;
+  padding: 28px 20px 64px;
+  color: var(--mark-ink);
+}
+.header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--mark-seam); }
+.header a, .link { color: var(--mark-interaction); text-decoration: underline; text-underline-offset: 4px; }
+.controls { display: flex; align-items: center; gap: 16px; }
+.intro { padding: 40px 0 28px; }
+.label { font-family: var(--font-geist-mono), monospace; font-size: 12px; color: var(--mark-gold-ink); margin-bottom: 12px; }
+.intro > p:last-child, .section > p { line-height: 1.7; color: var(--mark-muted); margin-top: 12px; }
+.section { margin-bottom: 32px; }
+.diagram { margin: 20px 0; padding: 20px; border: 1px solid var(--mark-seam); color: var(--mark-interaction); background-image: linear-gradient(to right, color-mix(in srgb, var(--mark-seam) 45%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--mark-seam) 45%, transparent) 1px, transparent 1px); background-size: 20px 20px; }
+.diagram svg { width: min(100%, 520px); height: auto; margin: auto; display: block; }
+.diagram figcaption { font-size: 12px; color: var(--mark-muted); text-align: center; margin-top: 12px; }
+.systems > div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--mark-seam); }
+.systems dt { font-weight: 600; }
+.systems dd { line-height: 1.6; color: var(--mark-muted); }
+/* One-screen cinematic error scene. Only the error route locks scrolling. */
+:global(html):has(.lost), :global(body):has(.lost) {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+.lost {
+  --lost-terrain-height: min(39dvh, 350px);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) var(--lost-terrain-height);
+  width: 100%;
+  height: 100dvh;
+  flex: none;
+  overflow: hidden;
+  background: var(--mark-page);
+}
+.lostInner {
+  position: relative;
+  z-index: 2;
+  place-self: center;
+  width: min(100%, 680px);
+  padding: 12px 20px;
+  text-align: center;
+}
+.errorCode {
+  font-family: var(--font-barlow), sans-serif;
+  font-weight: 700;
+  font-size: clamp(60px, min(13vw, 20dvh), 156px);
+  line-height: .92;
+  margin: 0 0 10px;
+  color: var(--mark-red);
+}
+:global(.dark) .errorCode {
+  /* Use readable crimson for dark-mode text, preserving the armor primitive elsewhere. */
+  color: #E2524B;
+}
+.lostTitle {
+  color: var(--mark-ink);
+  font-size: clamp(27px, min(6vw, 8dvh), 58px);
+  line-height: 1.05;
+  margin: 0;
+}
+.lostCopy {
+  margin: 12px auto 0;
+  color: var(--mark-muted);
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.5;
+  text-wrap: balance;
+}
+.lostLandscape {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 0;
+  grid-row: 2;
+  pointer-events: none;
+}
+.lostArmor {
+  position: absolute;
+  z-index: 1;
+  left: calc(50% + 12px);
+  bottom: 30%;
+  height: min(270px, 32dvh, 52vw);
+  width: auto;
+  object-fit: contain;
+  transform: translate3d(-50%, 0, 0);
+  opacity: .88;
+  filter: drop-shadow(0 0 9px rgb(170 5 5 / 22%));
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lostArmor { animation: lostDescent 1600ms cubic-bezier(.35, .12, .65, 1) both; }
+}
+@keyframes lostDescent {
+  from { transform: translate3d(-50%, -5dvh, 0); opacity: .62; }
+  to { transform: translate3d(-50%, 0, 0); opacity: .88; }
+}
+@media (max-height: 450px) {
+  .errorCode { font-size: clamp(40px, 15dvh, 68px); margin-bottom: 4px; }
+  .lostTitle { font-size: clamp(20px, 6dvh, 30px); }
+  .lostCopy { margin-top: 6px; font-size: 13px; }
+}
+.link { display: inline-flex; align-items: center; min-height: 40px; }
+@media (max-width: 639px) { .systems > div { grid-template-columns: 1fr; gap: 6px; } .diagram { padding: 10px; } }

@@ -37,7 +37,7 @@ Set `GITHUB_TOKEN` in a local private environment file for GitHub contribution a
 
 ## Validation and release
 
-Run `npm test`, `npm run typecheck`, `npm run lint` and `npm run build`. Review both themes at 320, 360, 768 and 1440px, including navigation, accordion behavior, article pages, images, credentials and keyboard access. Retain preview/noindex until the owner authorizes deployment. See `ENGINEERING.md` for full verification gates.
+Run `npm test`, `npm run typecheck`, `npm run lint` and `npm run build`. Review both themes at 320, 360, 768 and 1440px, including navigation, accordion behavior, article pages, images, credentials and keyboard access. Preview/noindex is the default; indexing requires the explicit release policy described in [the production runbook](docs/plans/12-production-release.md). See `ENGINEERING.md` for full verification gates.
 
 The source code retains the upstream MIT attribution. Do not copy the upstream owner's personal data back into this repository.
 

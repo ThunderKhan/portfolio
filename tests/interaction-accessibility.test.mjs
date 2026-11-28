@@ -16,7 +16,7 @@ test("experience accordion triggers and closed panels have accessible semantics"
     assert.ok(s.includes("<button") && s.includes('type="button"'));
     assert.ok(s.includes("aria-expanded={isOpen}") && s.includes("aria-controls="));
     assert.ok(s.includes("inert={!isOpen}") && s.includes("aria-hidden={!isOpen}"));
-    assert.ok(s.includes("motion-safe:transition-[grid-template-rows]"));
+    assert.ok(s.includes("mark-disclosure-panel"));
   }
 });
 test("theme transition respects reduced motion and has a larger target", () => {
@@ -57,7 +57,7 @@ test("calendar daily values are available as a native data table", () => {
 test("hackathon disclosure hides closed content and respects reduced motion", () => {
   const s = read("src/components/Hackathons.tsx");
   assert.ok(s.includes("aria-controls=") && s.includes("inert={!isOpen}") && s.includes("aria-hidden={!isOpen}"));
-  assert.ok(s.includes("motion-safe:transition-[grid-template-rows]"));
+  assert.ok(s.includes("mark-disclosure-panel"));
 });
 
 test("education definition list groups contain only terms and descriptions", () => {
@@ -87,4 +87,151 @@ test("lint ignores generated browser artifacts but not browser test source", () 
   assert.ok(config.includes('"tests/browser/playwright-report/**"'));
   assert.ok(config.includes('"tests/browser/test-results/**"'));
   assert.ok(!config.includes('"tests/browser/**"'));
+});
+
+
+test("MARK I palette keeps accessible commands and prioritizes navigation", () => {
+  const menu = read("src/components/command-menu.tsx");
+  const css = read("src/components/command-menu.module.css");
+  assert.ok(menu.includes("MARK I") && menu.includes('aria-label="Search commands"'));
+  assert.ok(menu.indexOf('heading="Navigate"') < menu.indexOf('heading="Sections"'));
+  assert.ok(menu.indexOf('heading="Quick actions"') < menu.indexOf('heading="Projects"'));
+  assert.ok(menu.includes('portfolio.repo && <CommandItem') && menu.includes('openExternal(portfolio.repo)'));
+  assert.ok(menu.includes('portfolio.sections.blog && <CommandItem'));
+  assert.match(css, /\[data-selected="true"\]\s*\{[^}]*box-shadow: inset 2px 0 var\(--mark-interaction\)/);
+  assert.match(css, /\.dialog\s*\{[^}]*animation: none !important/);
+  assert.ok(menu.includes('router.push("/blueprint")'));
+});
+
+
+test("terminal accepts only explicit commands and never interprets shell syntax", async () => {
+  const { resolveTerminalCommand: resolve, terminalReply } = await import("../src/lib/terminal-commands.ts");
+  for (const [input, command] of [["sudo hire Ayan", "hire"], ["  SUDO   HIRE   AYAN ", "hire"], ["whoami", "identity"], ["ls", "list"], ["cat resume.pdf", "resume"], ["git log --oneline", "source"], ["sudo make coffee", "coffee"], ["jarvis", "terminal"], ["help", "help"], ["man mark-i", "blueprint"], ["sudo inspect mark-i", "blueprint"], ["clear", "clear"], ["exit", "exit"]]) assert.equal(resolve(input), command);
+  for (const input of ["sudo hire ayan; ls", "sudo hire ayan && whoami", "cat /etc/passwd", "ls | cat", "constructor", "__proto__", "javascript:alert(1)", "x".repeat(161)]) assert.equal(resolve(input), null);
+  assert.match(terminalReply("identity", "Owner", "Developer", []), /Owner\nDeveloper/);
+  assert.match(terminalReply("list", "", "", ["projects/"]), /projects\/.*contact\//);
+  assert.equal(terminalReply(null, "", "", []), "Command not found. Try help.");
+  const menu = read("src/components/command-menu.tsx");
+  assert.ok(menu.includes('router.push("/contact")') && menu.includes('router.push("/blueprint")'));
+  assert.ok(menu.includes("hiddenCommand ?") && menu.includes("event.nativeEvent.isComposing"));
+  assert.ok(menu.includes('"Open hidden terminal"'));
+  const terminal = read("src/components/MarkTerminal.tsx");
+  assert.ok(terminal.includes("entries.slice(-39)") && terminal.includes('maxLength={160}'));
+  assert.ok(terminal.includes('role="log"') && !terminal.includes("dangerouslySetInnerHTML"));
+});
+
+test("hidden blueprint and lost-signal recovery exist without public indexing", () => {
+  const blueprint = read("src/app/blueprint/page.tsx");
+  assert.ok(blueprint.includes("robots: { index: false, follow: false }") && blueprint.includes('id="main-content"'));
+  assert.ok(!read("src/lib/seo.ts").includes('"/blueprint"'));
+  assert.ok(read("src/app/not-found.tsx").includes("Signal lost."));
+  assert.ok(read("src/app/layout.tsx").includes("<DeveloperClue />"));
+});
+
+
+test("cinematic 404 reuses the approved art and stays within its viewport", () => {
+  const page = read("src/app/not-found.tsx");
+  const css = read("src/app/system-pages.module.css");
+  const scene = read("src/components/RidgelineScene.tsx");
+  assert.ok(page.includes('<RidgelineScene layout="viewport" />'));
+  assert.ok(page.includes('src="/art/falling-armor.webp"'));
+  assert.ok(!page.includes("<Link") && !page.includes("<nav") && !page.includes("<svg"));
+  assert.ok(css.includes("height: 100dvh") && css.includes("overflow: hidden"));
+  assert.match(css, /:global\(\.dark\) \.errorCode\s*\{[^}]*color: #E2524B;/);
+  assert.ok(!css.includes("-webkit-text-fill-color: var(--mark-red)"));
+  assert.ok(css.includes("@media (prefers-reduced-motion: no-preference)"));
+  assert.ok(scene.includes('layout = "footer"') && scene.includes("data-ridgeline-layout={layout}"));
+  assert.match(read("src/components/closing.module.css"), /\.scene\[data-ridgeline-layout="viewport"\]\s*\{[^}]*margin-inline: 0/);
+});
+
+
+test("Runtime Conditions is the latest experience with a local JPG and fallback", async () => {
+  const { experiences } = await import("../src/data/experienceData.ts");
+  const entry = experiences[0];
+  assert.equal(entry.title, "Runtime Conditions");
+  assert.equal(entry.role, "Member & Open Source Contributor");
+  assert.equal(entry.startMonth, "2026-11");
+  assert.equal(entry.type, "Open source");
+  assert.equal(entry.src, "/Experience-image/runtime-conditions.jpg");
+  assert.ok(existsSync(new URL("../public" + entry.fallbackSrc, import.meta.url)));
+  assert.ok(entry.links.some(link => link.href === "https://github.com/runtimeconditions"));
+});
+
+test("all expandable content uses a shared decorative disclosure chevron", () => {
+  for (const path of ["src/components/ExperienceList.tsx", "src/app/experience/page.tsx", "src/components/Hackathons.tsx", "src/components/OpenSourceList.tsx", "src/components/Education.tsx"]) {
+    const s = read(path);
+    assert.ok(s.includes("<DisclosureChevron"), path);
+    assert.ok(!s.includes('isOpen ? "−" : "+"'), path);
+  }
+  const icon = read("src/components/DisclosureChevron.tsx");
+  assert.ok(icon.includes('aria-hidden="true"') && icon.includes('motion-safe:transition-transform') && icon.includes('group-open:rotate-180'));
+});
+
+
+test("all content disclosures use the same accessible drawer animation", () => {
+  for (const path of ["src/components/ExperienceList.tsx", "src/app/experience/page.tsx", "src/components/Hackathons.tsx", "src/components/OpenSourceList.tsx", "src/components/Education.tsx", "src/components/GithubGraph.tsx", "src/components/SpotifyCard.tsx"]) {
+    const s = read(path);
+    assert.ok(s.includes("mark-disclosure-panel"), path);
+    assert.ok(s.includes("inert=") && s.includes("aria-hidden="), path);
+    assert.ok(s.includes("aria-expanded=") && s.includes("aria-controls="), path);
+  }
+  const css = read("src/app/globals.css");
+  assert.match(css, /\.mark-disclosure-panel\s*\{[^}]*grid-template-rows: 0fr/);
+  assert.ok(css.includes('mark-disclosure-panel[aria-hidden="false"] { grid-template-rows: 1fr; }'));
+  assert.ok(css.includes("transition: grid-template-rows 240ms ease-in-out"));
+  assert.ok(css.includes("transition: opacity 180ms ease-in-out"));
+  assert.ok(read("src/components/Education.tsx").includes("const [isOpen, setIsOpen] = useState(false)"));
+});
+
+
+test("contact only confirms an explicitly accepted response", async () => {
+  const { contactSubmissionAccepted: accepted } = await import("../src/lib/contact-submission.ts");
+  assert.equal(accepted(true, { success: true }), true);
+  assert.equal(accepted(true, { success: "true" }), true);
+  for (const payload of [null, {}, { success: false }, { success: "false" }, { success: 1 }, "success"]) assert.equal(accepted(true, payload), false);
+  assert.equal(accepted(false, { success: true }), false);
+  const contact = read("src/app/contact/page.tsx");
+  assert.ok(contact.includes("submitting.current = true") && contact.includes("readOnly={isSubmitting}"));
+  assert.ok(contact.includes("contactSubmissionAccepted(response.ok, payload)") && contact.includes("controller.abort()"));
+  assert.ok(contact.includes('data-submit-outcome={submitOutcome}'));
+});
+
+test("interaction polish preserves real feedback and reduced motion", () => {
+  const command = read("src/components/command-menu.tsx");
+  assert.ok(command.includes("await navigator.clipboard.writeText(value)") && command.includes("Could not copy."));
+  assert.ok(command.includes('role="status"') && command.includes("clearTimeout(feedbackTimer.current)"));
+  const nav = read("src/components/RightNavbar.tsx");
+  assert.ok(nav.includes('className="mark-nav-glider"') && nav.includes("nav.scrollTop") && nav.includes("requestAnimationFrame"));
+  assert.ok(nav.includes('aria-current={isActive ? "location" : undefined}'));
+  const css = read("src/app/globals.css");
+  assert.ok(css.includes("transition: transform 180ms ease-out") && css.includes("scale: .97"));
+  assert.ok(css.includes("(hover: hover) and (pointer: fine)"));
+  assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-interactive-card"));
+  assert.ok(read("src/components/BlogList.tsx").includes("mark-card-title"));
+});
+
+
+test("command links use one native navigation with opener isolation", () => {
+  const menu = read("src/components/command-menu.tsx");
+  const helper = menu.slice(menu.indexOf("const openExternal"), menu.indexOf("const changeOpen"));
+  assert.ok(helper.includes('link.rel = "noopener noreferrer"'));
+  assert.ok(helper.includes('link.target = "_blank"') && helper.includes("link.click()"));
+  assert.ok(helper.includes('url.startsWith("mailto:")'));
+  assert.ok(!helper.includes("if (!opened)") && !helper.includes("window.open("));
+});
+
+
+test("portfolio source command matches its displayed label and retains search aliases", () => {
+  const menu = read("src/components/command-menu.tsx");
+  assert.ok(menu.includes('value="Portfolio source code" keywords={["system", "repository", "github", "architecture"]}'));
+});
+
+
+test("experience distinguishes test-only changes, contract work and scoped internal metrics", async () => {
+  const { experiences } = await import("../src/data/experienceData.ts");
+  const runtime = experiences.find(item => item.title === "Runtime Conditions");
+  assert.match(runtime.description, /no production profiler behavior changed/);
+  assert.ok(runtime.links.some(link => link.href.endsWith("/pull/9")));
+  assert.equal(experiences.find(item => item.title === "micro1").type, "Contract");
+  assert.match(experiences.find(item => item.title === "VSPH").description, /not a measured latency claim/);
 });

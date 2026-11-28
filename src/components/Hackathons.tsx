@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { hackathonsData } from "@/data/hackathonsData";
 
 const dashedX = {
@@ -46,7 +47,7 @@ export function Hackathons() {
                   </span>
                   <span className="ml-auto flex items-center gap-2 text-[12px] font-medium mark-muted whitespace-nowrap">
                     {h.dates}
-                    <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
+                    <DisclosureChevron open={isOpen} />
                   </span>
                 </span>
 
@@ -78,11 +79,11 @@ export function Hackathons() {
                 id={`hackathon-panel-${h.id}`}
                 inert={!isOpen}
                 aria-hidden={!isOpen}
-                className={`grid motion-safe:transition-[grid-template-rows] motion-safe:duration-[240ms] motion-safe:ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                className="mark-disclosure-panel"
               >
                 <div className="min-h-0 overflow-hidden">
                   <div
-                    className={`motion-safe:transition-opacity motion-safe:duration-[180ms] ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "opacity-100" : "opacity-0"}`}
+                    className="min-w-0"
                   >
                     <div className="h-px bg-black/30 dark:bg-white/[0.15]" style={dashedX} />
 

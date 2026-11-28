@@ -29,3 +29,13 @@ test("redacted credentials are linked", () => {
   assert.equal(certifications.find(c => c.id === "isro-geodata-analytics").file, "/certificates/training/isro-geodata-analytics.pdf");
   assert.ok(hackathonsData.find(h => h.id === "hackblox-2026").links.some(l => l.href === "/certificates/hackathons/hackblox-2026-finalist.png"));
 });
+
+
+test("cross-section achievement scope and evidence links remain consistent", () => {
+  const iet = hackathonsData.find(h => h.id === "build-with-ai-devops-2026");
+  assert.equal(iet.placement, "Second Runner-Up");
+  assert.equal(iet.metrics.find(m => m.label === "Placement").value, "3rd");
+  assert.equal(hackathonsData.find(h => h.id === "sih-2026-internal").placement, "Internal nomination");
+  assert.equal(certifications.find(c => c.id === "stanford-supervised-ml").kind, "Course completion");
+  assert.match(certifications.find(c => c.id === "stanford-supervised-ml").note, /Course 1/);
+});

@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { AlertCircle, Check, LoaderCircle } from "lucide-react";
+import { contactSubmissionAccepted } from "@/lib/contact-submission";
 import { portfolio } from "~/portfolio.config";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -19,15 +21,21 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const [submitOutcome, setSubmitOutcome] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const submitting = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmitting || !portfolio.contactFormEnabled) return;
+    if (submitting.current || !portfolio.contactFormEnabled) return;
+    submitting.current = true;
     setIsSubmitting(true);
+    setSubmitOutcome("sending");
     setSubmitStatus("Sending message…");
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15000);
 
     try {
       const response = await fetch(
@@ -35,20 +43,28 @@ export default function ContactPage() {
         {
           method: "POST",
           body: data,
+          signal: controller.signal,
+          headers: { Accept: "application/json" },
         }
       );
 
-      if (response.ok) {
+      const payload: unknown = await response.json().catch(() => null);
+      if (contactSubmissionAccepted(response.ok, payload)) {
         form.reset();
         setFormData({ name: "", email: "", message: "" });
+        setSubmitOutcome("success");
         setSubmitStatus("Message sent.");
       } else {
+        setSubmitOutcome("error");
         setSubmitStatus("Message could not be sent. Please try again or contact me by email.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setSubmitStatus("Message could not be sent. Please try again or contact me by email.");
+      setSubmitOutcome("error");
+        setSubmitStatus("Message could not be sent. Please try again or contact me by email.");
     } finally {
+      window.clearTimeout(timeout);
+      submitting.current = false;
       setIsSubmitting(false);
     }
   };
@@ -120,7 +136,7 @@ export default function ContactPage() {
           <div className="flex min-w-0 flex-1 items-center gap-2 pt-7 sm:gap-5 sm:pt-0">
             <Link
               href="/"
-              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 mark-muted hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+              className="group flex items-center justify-center min-w-8 h-8 px-2.5 text-[12px] font-medium shrink-0 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 mark-muted hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
               Back
             </Link>
@@ -145,7 +161,7 @@ export default function ContactPage() {
       {/* Content Section */}
       <main id="main-content" tabIndex={-1} className="ml-[var(--mark-gutter)] mr-[var(--mark-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative">
         {/* Form */}
-        {portfolio.contactFormEnabled ? <form onSubmit={handleSubmit} className="mt-12 -mx-4 space-y-10">
+        {portfolio.contactFormEnabled ? <form onSubmit={handleSubmit} aria-busy={isSubmitting} className="mt-12 -mx-4 space-y-10">
           {/* FormSubmit Configuration */}
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
@@ -158,6 +174,7 @@ export default function ContactPage() {
             </label>
             <input
               required
+              readOnly={isSubmitting}
               id="contact-name"
               name="name"
               autoComplete="name"
@@ -166,7 +183,7 @@ export default function ContactPage() {
                 setFormData({ ...formData, name: e.target.value })
               }
               placeholder="Tyler Durden"
-              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-zinc-500 transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400"
+              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-[var(--mark-interaction)] transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400"
             />
           </div>
 
@@ -176,6 +193,7 @@ export default function ContactPage() {
             </label>
             <input
               required
+              readOnly={isSubmitting}
               type="email"
               id="contact-email"
               name="email"
@@ -185,7 +203,7 @@ export default function ContactPage() {
                 setFormData({ ...formData, email: e.target.value })
               }
               placeholder="tyler@projectmayhem.com"
-              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-zinc-500 transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400"
+              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-[var(--mark-interaction)] transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400"
             />
           </div>
 
@@ -195,6 +213,7 @@ export default function ContactPage() {
             </label>
             <textarea
               required
+              readOnly={isSubmitting}
               id="contact-message"
               name="message"
               rows={4}
@@ -203,7 +222,7 @@ export default function ContactPage() {
                 setFormData({ ...formData, message: e.target.value })
               }
               placeholder="You're crazy good, never change."
-              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-zinc-500 transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400 resize-none"
+              className="w-full bg-transparent border-b border-zinc-500 dark:border-zinc-500 py-3 px-4 text-[14px] text-zinc-900 dark:text-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus:border-[var(--mark-interaction)] transition-colors placeholder:text-zinc-600 dark:placeholder:text-zinc-400 resize-none"
             />
           </div>
 
@@ -211,10 +230,14 @@ export default function ContactPage() {
           <div className="flex justify-center w-full pt-4">
             <div className="relative group">
               <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
-              <button type="submit" disabled={isSubmitting} className="mark-surface mark-control min-h-10 rounded-[6px] border px-4 py-2 text-[13px] font-medium disabled:cursor-not-allowed disabled:opacity-70">{isSubmitting ? "Sending…" : "Send Message"}</button>
+              <button type="submit" disabled={isSubmitting} className="mark-press mark-surface mark-control inline-flex min-h-10 min-w-[132px] items-center justify-center gap-2 rounded-[6px] border px-4 py-2 text-[13px] font-medium disabled:cursor-not-allowed disabled:opacity-70">{isSubmitting && <LoaderCircle aria-hidden="true" className="size-4 motion-safe:animate-spin" />}{isSubmitting ? "Sending…" : "Send Message"}</button>
             </div>
           </div>
-          <p role="status" className="px-4 text-[13px] mark-muted">{submitStatus}</p>
+          <p role="status" aria-atomic="true" data-submit-outcome={submitOutcome} className="mark-submit-feedback px-4 text-[13px] mark-muted">
+            {submitOutcome === "success" && <Check aria-hidden="true" className="size-4 shrink-0 mark-reactor-text" />}
+            {submitOutcome === "error" && <AlertCircle aria-hidden="true" className="size-4 shrink-0 mark-error-text" />}
+            {submitStatus}
+          </p>
         </form> : (
           <div className="py-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
             <p>For now, please contact me directly by email.</p>

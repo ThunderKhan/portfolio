@@ -67,6 +67,8 @@ try {
     docker("exec", name, "dpkg", "--compare-versions", version, "ge", "1.5.2-6+deb12u3");
     pamVersions[pkg] = version;
   }
+  const zstdVersion = docker("exec", name, "dpkg-query", "-W", "-f=${Version}", "libzstd1");
+  docker("exec", name, "dpkg", "--compare-versions", zstdVersion, "ge", "1.5.4+dfsg2-5+deb12u1");
   docker("exec", name, "sh", "-c", "for tool in npm npx yarn yarnpkg corepack pnpm pnpx; do if command -v \"$tool\" >/dev/null 2>&1; then exit 1; fi; done; test ! -e /usr/local/lib/node_modules/npm && test ! -e /usr/local/lib/node_modules/corepack");
   const responses = [];
   for (const [path, type] of [["/", "text/html"], ["/projects/diff2test", "text/html"], ["/blogs/001", "text/html"], ["/robots.txt", "text/plain"], ["/Ayan_Khan_Resume.pdf", "application/pdf"], ["/education-image/ddugu.jpg", "image/jpeg"], ["/_next/image?url=%2Fprofile%2Firon-man.jpg&w=640&q=80", "image/"]]) {
@@ -79,7 +81,7 @@ try {
   const api = await fetch(origin + "/api/github", { method: "POST", signal: AbortSignal.timeout(10000) });
   const payload = await api.json();
   check((api.status === 503 && typeof payload.error === "string") || (api.ok && payload.stale === true && payload.calendar), "Missing-token fallback failed");
-  console.log(JSON.stringify({ revision, imageId, health, runtime, pamVersions, runtimePackageManagersAbsent: true, http: responses, missingTokenApiStatus: api.status, isolationChecksPassed: true }, null, 2));
+  console.log(JSON.stringify({ revision, imageId, health, runtime, pamVersions, zstdVersion, runtimePackageManagersAbsent: true, http: responses, missingTokenApiStatus: api.status, isolationChecksPassed: true }, null, 2));
 } catch (error) {
   console.error("Docker audit failed: " + error.message);
   process.exitCode = 1;

@@ -57,8 +57,44 @@ jobs:
         run: node scripts/audit-secrets.mjs --ci-no-token
       - name: Public asset inventory
         run: npm run audit:assets
+      - name: Resume content indicators (no extracted text in logs)
+        run: python3 scripts/check-resume-indicators.py
       - name: Install Chromium and system dependencies
         run: npm --prefix tests/browser exec -- playwright install --with-deps chromium
+      - name: Production performance observations (credential-free)
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/portfolio-performance-server.log"
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 4173 > "$log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --max-time 3 http://127.0.0.1:4173/robots.txt >/dev/null; then
+              ready=true
+              break
+            fi
+            if ! kill -0 "$server_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          if [[ "$ready" != true ]]; then
+            echo "::error::Production performance server failed readiness"
+            cat "$log"
+            exit 1
+          fi
+          npm --prefix tests/browser run seo
+          npm --prefix tests/browser run perf
+      - name: Retain performance observations
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: performance-observations
+          path: tests/browser/performance-results/performance-baseline.json
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Browser regression (credential-free)
         run: npm --prefix tests/browser run test
       - name: Retain browser failure report
@@ -88,3 +124,55 @@ jobs:
           package-manager-cache: false
       - name: Build pinned image and verify runtime
         run: node scripts/audit-docker.mjs
+
+  release-metadata:
+    name: Production release metadata (isolated simulation)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      VERCEL_ENV: production
+      VERCEL_GIT_COMMIT_REF: main
+      PORTFOLIO_PUBLIC_RELEASE: '1'
+      NEXT_PUBLIC_SITE_URL: https://ayankhan.me
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Node.js 22
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: |
+          npm ci
+          npm --prefix tests/browser ci
+      - name: Build release candidate (no deployment)
+        run: npm run build
+      - name: Install Chromium
+        run: npm --prefix tests/browser exec -- playwright install --with-deps chromium
+      - name: Verify rendered release metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/portfolio-release-server.log"
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 4173 > "$log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --max-time 3 http://127.0.0.1:4173/robots.txt >/dev/null; then
+              ready=true
+              break
+            fi
+            if ! kill -0 "$server_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          if [[ "$ready" != true ]]; then
+            cat "$log"
+            exit 1
+          fi
+          npm --prefix tests/browser run seo

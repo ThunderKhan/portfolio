@@ -1,10 +1,11 @@
 import type { ElementType } from "react";
 import { Database, Terminal, Network, FlaskConical, Boxes, Webhook, Cable, ScanSearch, Binary, Shuffle, Cpu, RefreshCw, Search, CircleDot } from "lucide-react";
-import { SiCplusplus, SiC, SiPython, SiTypescript, SiJavascript, SiOpenjdk, SiLinux, SiReact, SiNextdotjs, SiTailwindcss, SiNodedotjs, SiFastapi, SiPostgresql, SiSupabase, SiMongodb, SiScikitlearn, SiGit, SiGithubactions, SiDocker } from "react-icons/si";
+import { SiCplusplus, SiC, SiPython, SiTypescript, SiJavascript, SiOpenjdk, SiLinux, SiReact, SiNextdotjs, SiTailwindcss, SiNodedotjs, SiFastapi, SiPostgresql, SiSupabase, SiScikitlearn, SiGit, SiGithubactions, SiDocker } from "react-icons/si";
 
 export type Skill = { name: string; icon: ElementType };
 export type SkillGroup = { group: string; skills: Skill[] };
 
+// Selected tools and practices demonstrated in projects or coursework; not proficiency ratings.
 export const skillGroups: SkillGroup[] = [
   { group: "Languages", skills: [
     { name: "C++", icon: SiCplusplus },
@@ -31,7 +32,7 @@ export const skillGroups: SkillGroup[] = [
     { name: "FastAPI", icon: SiFastapi },
     { name: "PostgreSQL", icon: SiPostgresql },
     { name: "Supabase", icon: SiSupabase },
-    { name: "MongoDB", icon: SiMongodb },
+    { name: "Prisma", icon: Database },
     { name: "REST APIs", icon: Webhook },
   ] },
   { group: "Applied AI & research", skills: [
@@ -48,6 +49,7 @@ export const skillGroups: SkillGroup[] = [
     { name: "GitHub Actions", icon: SiGithubactions },
     { name: "Docker", icon: SiDocker },
     { name: "Automated testing", icon: FlaskConical },
+    { name: "Playwright", icon: ScanSearch },
     { name: "CI/CD", icon: RefreshCw },
     { name: "Debugging", icon: Search },
     { name: "Data validation", icon: CircleDot },
