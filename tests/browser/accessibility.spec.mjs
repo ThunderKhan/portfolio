@@ -204,7 +204,7 @@ test('closing footer has usable links and a static reduced-motion scene', async 
 });
 
 
-test('closing quote and artwork form a centered responsive composition', async ({ page }, info) => {
+test('centered closing quote leads into falling artwork without obscuring footer links', async ({ page }, info) => {
   await mockCalendar(page);
   await visit(page, '/', info);
   const art = page.locator('img[src="/art/falling-armor.webp"]');
@@ -213,15 +213,22 @@ test('closing quote and artwork form a centered responsive composition', async (
   await expect.poll(() => art.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
   const group = art.locator('..');
   const quote = group.locator('p');
-  const [g, q, a] = await Promise.all([group.boundingBox(), quote.boundingBox(), art.boundingBox()]);
-  expect(g.width).toBeLessThanOrEqual(561);
+  const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
+  const footerLink = footer.getByRole('link', { name: 'Projects', exact: true });
+  const [g, q, a, f, link] = await Promise.all([
+    group.boundingBox(), quote.boundingBox(), art.boundingBox(), footer.boundingBox(), footerLink.boundingBox()
+  ]);
+  const center = box => box.x + box.width / 2;
+  expect(Math.abs(center(q) - center(g))).toBeLessThan(2);
+  expect(a.y).toBeGreaterThanOrEqual(q.y + q.height + 8);
   expect(a.x).toBeGreaterThanOrEqual(g.x - 1);
   expect(a.x + a.width).toBeLessThanOrEqual(g.x + g.width + 1);
-  if (info.project.use.viewport.width < 640) {
-    expect(Math.abs((a.x + a.width / 2) - (q.x + q.width / 2))).toBeLessThan(2);
-    expect(a.y).toBeGreaterThanOrEqual(q.y + q.height - 1);
-  } else {
-    expect(Math.abs((a.y + a.height / 2) - (q.y + q.height / 2))).toBeLessThan(2);
-    expect(a.x - (q.x + q.width)).toBeLessThan(95);
-  }
+  const mobile = info.project.use.viewport.width < 640;
+  const overlap = a.y + a.height - f.y;
+  expect(overlap).toBeGreaterThan(mobile ? 4 : 20);
+  expect(overlap).toBeLessThan(mobile ? 12 : 36);
+  expect(Math.abs(center(a) - center(g) - (mobile ? 0 : 44))).toBeLessThan(2);
+  expect(a.y + a.height).toBeLessThan(link.y);
+  expect(await quote.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(mobile ? 20 : 26);
+  await audit(page, info, 'closing-composition');
 });

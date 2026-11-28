@@ -523,7 +523,7 @@ export default async function Home() {
 
         {/* Closing motto */}
         <div className={closingStyles.motto}>
-          <p className="relative z-10 max-w-[480px] text-[18px] sm:text-[20px] font-medium text-center leading-[1.3] mark-gold-text italic">
+          <p className="relative z-10 max-w-[560px] text-[20px] sm:text-[26px] font-medium text-center leading-[1.3] mark-gold-text italic">
             {portfolio.motto[0]}<br />
             {portfolio.motto[1]}
           </p>

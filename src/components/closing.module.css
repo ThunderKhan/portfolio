@@ -1,30 +1,30 @@
 .motto {
   position: relative;
   isolation: isolate;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 190px);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-items: center;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
-  max-width: 560px;
   margin: 16px auto 0;
-  padding: 16px 0 20px;
+  padding: 36px 0 0;
 }
 .figure {
   display: block;
   pointer-events: none;
-  width: 100%;
-  max-width: 190px;
+  width: min(100%, 190px);
   height: auto;
   aspect-ratio: 533 / 640;
   object-fit: contain;
   opacity: .76;
+  transform: translateX(44px);
+  margin-bottom: -28px;
 }
 :global(.dark) .figure { opacity: .92; }
 .footer {
   position: relative;
-  z-index: 10;
+  /* The main content (z-10) owns the falling artwork across this seam. */
+  z-index: 9;
   margin-inline: var(--mark-gutter);
   background: var(--mark-page);
   color: var(--mark-ink);
@@ -35,7 +35,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) repeat(2, minmax(0, 1fr));
   gap: 28px;
-  padding: 38px 24px 26px;
+  padding: 46px 24px 26px;
 }
 .identity { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .brand { font-family: var(--font-barlow), sans-serif; font-size: 25px; font-weight: 700; line-height: 1.1; }
@@ -84,8 +84,8 @@
 .scene canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; z-index: 1; opacity: 0; }
 .scene canvas[data-ready="true"] { opacity: 1; }
 @media (max-width: 639px) {
-  .motto { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 24px 0 16px; }
-  .figure { width: 132px; justify-self: center; }
+  .motto { gap: 12px; padding: 28px 0 0; }
+  .figure { width: 132px; transform: none; margin-bottom: -8px; }
   .footerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding: 28px 16px 20px; }
   .identity { grid-column: 1 / -1; }
   .credit { padding-inline: 16px; }

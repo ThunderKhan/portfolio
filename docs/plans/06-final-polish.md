@@ -27,3 +27,7 @@ Owner rejected the simplified terrain. Replaced periodic sine-wave profiles and 
 ## Closing artwork replacement
 
 Owner approved the generated red falling-armored illustration. Extracted the figure without rendered lettering into a transparent 533×640 WebP, to be placed at public/art/falling-armor.webp. Replaced the geometric SVG with a lazy decorative Next Image and a two-column desktop layout that stacks on mobile, preserving live quote text. No external image URL, no new dependencies, no change to the footer terrain. Binary transfer to GitHub requires the owner's local copy and commit; local visual/build checks and artwork-reference provenance review remain pending.
+
+## Centered cinematic composition
+
+Owner approved the vertical composition: centered live gold motto enlarged from 18/20px to 20/26px, falling armor below and offset 44px right on desktop. The artwork stays in normal flex flow with a negative bottom margin for a 28px footer seam overlap (8px and centered on mobile). Footer stacks below main, with sufficient top padding to keep its identity and navigation clear. No new animation or artwork changes. Updated browser regression for alignment, overlap, image load, typography and footer link clearance; visual and runtime validation pending.
