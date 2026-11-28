@@ -468,12 +468,12 @@ export const projectsData: Project[] = [
     "status": "completed",
     "statusDetail": "Educational systems project · experimental compiler",
     "imageTitle": "Prometheus Compiler project preview",
-    "description": "A minimal C++23 compiler exploring lexing, recursive-descent parsing, AST construction, semantic validation and deterministic code generation.",
+    "description": "A minimal C++23 language experiment with token-based ELF64 assembly generation for an emit statement and a separate recursive-descent parser and AST prototype.",
     "problem": "A small language implementation makes the translation pipeline explicit and inspectable.",
     "highlights": [
-      "Explicit AST node hierarchy and recursive-descent parser.",
-      "Semantic validation of symbol usage and deterministic code generation.",
-      "CMake build and line-numbered error reporting."
+      "Separate expression and emit AST nodes with a small recursive-descent parser.",
+      "The executable validates emit statements and generates assembly directly from tokens; the AST parser is not yet integrated.",
+      "CMake build with NASM and ld required by the executable’s assemble/link path."
     ],
     "tech": [
       "cpp",

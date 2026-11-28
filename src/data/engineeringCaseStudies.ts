@@ -476,5 +476,480 @@ export const engineeringCaseStudies: Partial<Record<string, EngineeringCaseStudy
         "href": "https://github.com/ThunderKhan/iet-grid/blob/2d5d2a6d380a7e68fbefce31c237465d60134d8f/README.md"
       }
     ]
+  },
+  "pareto": {
+    "premise": "Interpret hiring intent with a model, but let reviewable criteria and candidate evidence determine the search.",
+    "facts": [
+      {
+        "value": "48",
+        "label": "Fictional demo candidate records"
+      },
+      {
+        "value": "3",
+        "label": "Evidence states: match, fail, unknown"
+      },
+      {
+        "value": "2",
+        "label": "Model providers in the gateway"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Interpret the hiring brief",
+        "detail": "Gemini or Groq produces a structured, validated draft of the recruiter’s requirements."
+      },
+      {
+        "title": "Confirm criteria",
+        "detail": "The recruiter edits and explicitly approves the draft before candidate retrieval."
+      },
+      {
+        "title": "Evaluate candidate evidence",
+        "detail": "The backend queries recruiter-scoped PostgreSQL records and deterministically evaluates each requirement."
+      },
+      {
+        "title": "Explore trade-offs",
+        "detail": "Review near matches, unknown attributes, Pareto-frontier alternatives and saved search revisions without silently changing confirmed criteria."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Human confirmation precedes retrieval",
+        "detail": "A model-generated draft does not automatically become a candidate search."
+      },
+      {
+        "title": "Unknown is not a match",
+        "detail": "Missing candidate facts remain unknown rather than becoming invented qualifications or eligibility guarantees."
+      },
+      {
+        "title": "Separate interpretation and evidence",
+        "detail": "Provider fallback is confined to the language interpretation layer; deterministic matching and counts come from database records."
+      }
+    ],
+    "verification": "The team repository documents a deterministic fictional seed, repeatable demo scenarios, Vitest and Playwright checks, and a deployment architecture separating the Vercel frontend from a Railway application/API service. The demo illustrates the workflow rather than measuring hiring outcomes.",
+    "limitations": "This is a team hackathon project with fictional candidates. Resume ingestion requires separately configured private storage and a running worker. No production recruitment accuracy, fairness validation or real hiring outcome is established.",
+    "sources": [
+      {
+        "label": "Architecture and trust boundaries",
+        "href": "https://github.com/ThunderKhan/pareto/blob/0c3ba193f16eec9e02aff53a95216618d10cfe73/README.md#architecture"
+      },
+      {
+        "label": "Repeatable demo scenarios",
+        "href": "https://github.com/ThunderKhan/pareto/blob/0c3ba193f16eec9e02aff53a95216618d10cfe73/docs/DEMO-SCRIPT.md"
+      },
+      {
+        "label": "Resume ingestion scope",
+        "href": "https://github.com/ThunderKhan/pareto/blob/0c3ba193f16eec9e02aff53a95216618d10cfe73/docs/RESUME-INGESTION.md"
+      },
+      {
+        "label": "Deployment topology",
+        "href": "https://github.com/ThunderKhan/pareto/blob/0c3ba193f16eec9e02aff53a95216618d10cfe73/docs/VERCEL-RAILWAY-FRONTEND.md"
+      }
+    ]
+  },
+  "grantly": {
+    "premise": "Scholarship discovery should turn uncertain eligibility into practical next steps, not a fabricated probability of success.",
+    "facts": [
+      {
+        "value": "12",
+        "label": "Clearly labeled illustrative listings"
+      },
+      {
+        "value": "3",
+        "label": "Source-linked programme listings"
+      },
+      {
+        "value": "Local",
+        "label": "Workspace persistence; no backend"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Discover opportunities",
+        "detail": "Combine search, filters and ordering across source-linked programme information and explicitly illustrative examples."
+      },
+      {
+        "title": "Explain eligibility",
+        "detail": "Compare known profile facts against stated requirements; preserve missing answers as unknown."
+      },
+      {
+        "title": "Prepare and track",
+        "detail": "Save opportunities, maintain document checklists and notes, compare options and update application stages."
+      },
+      {
+        "title": "Hand off to the provider",
+        "detail": "Export calendar events or a validated workspace backup and use the actual provider portal for submissions."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "No invented match percentages",
+        "detail": "Deterministic matched, unknown and mismatch explanations remain inspectable."
+      },
+      {
+        "title": "Separate samples from sources",
+        "detail": "Illustrative listings carry no invented official application links; source-linked listings are dated rather than presented as live availability."
+      },
+      {
+        "title": "Keep storage local",
+        "detail": "A versioned React workspace stores validated local state and requires confirmation before destructive reset or replacement."
+      }
+    ],
+    "verification": "The repository describes a guided fictional profile walkthrough, refresh persistence checks, unit/build checks and Playwright acceptance with axe scans across six viewport widths. Its documentation records the frontend-only journey and known boundaries.",
+    "limitations": "No backend, accounts, uploads, cloud synchronization or application submission are implemented. The source-linked programme information is a reviewed snapshot, not a real-time eligibility or deadline guarantee.",
+    "sources": [
+      {
+        "label": "Working experience and privacy",
+        "href": "https://github.com/ThunderKhan/grantly/blob/40d101fbeac5b2039e3131349d91a4c83ddde7e0/README.md"
+      },
+      {
+        "label": "Frontend completion and data sources",
+        "href": "https://github.com/ThunderKhan/grantly/blob/40d101fbeac5b2039e3131349d91a4c83ddde7e0/docs/FRONTEND_COMPLETION.md"
+      },
+      {
+        "label": "Design specification",
+        "href": "https://github.com/ThunderKhan/grantly/blob/40d101fbeac5b2039e3131349d91a4c83ddde7e0/docs/design.md"
+      }
+    ]
+  },
+  "axiom": {
+    "premise": "A research product must establish trustworthy infrastructure before presenting generated market intelligence as observed evidence.",
+    "facts": [
+      {
+        "value": "M0",
+        "label": "Documented foundation milestone"
+      },
+      {
+        "value": "Idle",
+        "label": "Worker lifecycle; no durable jobs"
+      },
+      {
+        "value": "2",
+        "label": "Web and API foundations"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Define product boundaries",
+        "detail": "Specify source-backed research, workspace isolation and the distinction between observed facts and model interpretation."
+      },
+      {
+        "title": "Establish the web foundation",
+        "detail": "The current Next.js status page describes foundation readiness; ordinary page rendering does not fetch the API."
+      },
+      {
+        "title": "Establish service boundaries",
+        "detail": "FastAPI provides health endpoints and an explicitly bounded idle worker with no business queue."
+      },
+      {
+        "title": "Verify integration and outages",
+        "detail": "The documented smoke harness exercises a native web build, container API/worker, browser-origin CORS and deliberate service failure/recovery."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Do not fake readiness",
+        "detail": "A configured database URL cannot become a successful readiness claim while database integration is unverified."
+      },
+      {
+        "title": "Separate public configuration from secrets",
+        "detail": "Only a browser-safe API origin belongs in frontend configuration; provider and database credentials remain server-only."
+      },
+      {
+        "title": "Bound the foundation",
+        "detail": "The idle worker is intentionally not presented as durable job processing. Planned product features remain specifications."
+      }
+    ],
+    "verification": "The repository documents locked developer environments, service-health checks, integrated Chromium/CORS smoke coverage and bounded worker cleanup. The milestone establishes a foundation, not a completed startup-intelligence product.",
+    "limitations": "Authentication, workspaces, research, CRM, durable job processing and production deployment remain unimplemented or unverified in the reviewed revision. No live market research or founder outcome is claimed.",
+    "sources": [
+      {
+        "label": "Foundation status and smoke workflow",
+        "href": "https://github.com/ThunderKhan/axiom/blob/f419ed47e0948b4cd763f9f3406dbcc87e00a220/README.md"
+      },
+      {
+        "label": "Product requirements",
+        "href": "https://github.com/ThunderKhan/axiom/blob/f419ed47e0948b4cd763f9f3406dbcc87e00a220/docs/02-PRD.md"
+      },
+      {
+        "label": "System architecture",
+        "href": "https://github.com/ThunderKhan/axiom/blob/f419ed47e0948b4cd763f9f3406dbcc87e00a220/docs/05-SYSTEM-ARCHITECTURE.md"
+      }
+    ]
+  },
+  "feynman-in-a-loop": {
+    "premise": "The learner should demonstrate understanding by explaining and transferring a concept, rather than judging an AI explanation by its fluency.",
+    "facts": [
+      {
+        "value": "Text",
+        "label": "Kernel awaiting live end-to-end verification"
+      },
+      {
+        "value": "Voice",
+        "label": "Planned interaction with typed fallback"
+      },
+      {
+        "value": "Auth",
+        "label": "Live-verified session shell, per project record"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Start a learning session",
+        "detail": "The documented Next.js and Supabase shell establishes identity and session boundaries."
+      },
+      {
+        "title": "Teach the AI student",
+        "detail": "The intended learning loop takes a learner explanation rather than asking the model to act as the primary tutor."
+      },
+      {
+        "title": "Repair misunderstandings",
+        "detail": "The planned student behavior exposes gaps, asks targeted questions and allows the learner to correct their explanation."
+      },
+      {
+        "title": "Test transfer",
+        "detail": "The intended final stage challenges the learner with a new case and records a structured evidence-based mastery result."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Reverse the tutoring relationship",
+        "detail": "The design prioritizes learner-generated explanations and repair, rather than passive consumption."
+      },
+      {
+        "title": "Treat model output as untrusted",
+        "detail": "The security specification calls for schema validation, protection against mastery manipulation and scoped session data."
+      },
+      {
+        "title": "Verify the learning kernel before voice",
+        "detail": "The text kernel is documented as ready for live verification; the Web Speech API path is a planned capability, not a delivered claim."
+      }
+    ],
+    "verification": "The reviewed README records a live-verified authentication/session shell, an approved scope and architecture, provider selection through a Slice 3 benchmark and a text-learning kernel awaiting live end-to-end verification.",
+    "limitations": "The project is in progress. The intended voice-first loop and persisted mastery workflow are not established as complete. No educational effectiveness, learning gain or validated assessment result is claimed.",
+    "sources": [
+      {
+        "label": "Implementation status and learning loop",
+        "href": "https://github.com/ThunderKhan/feynman-in-a-loop/blob/02215a43aeaa9bcf63162a92ceae0daf7c7161e8/README.md"
+      },
+      {
+        "label": "AI system design",
+        "href": "https://github.com/ThunderKhan/feynman-in-a-loop/blob/02215a43aeaa9bcf63162a92ceae0daf7c7161e8/docs/AI_SYSTEM.md"
+      },
+      {
+        "label": "Architecture and scope",
+        "href": "https://github.com/ThunderKhan/feynman-in-a-loop/blob/02215a43aeaa9bcf63162a92ceae0daf7c7161e8/docs/ARCHITECTURE.md"
+      },
+      {
+        "label": "Testing plan",
+        "href": "https://github.com/ThunderKhan/feynman-in-a-loop/blob/02215a43aeaa9bcf63162a92ceae0daf7c7161e8/docs/TESTING.md"
+      }
+    ]
+  },
+  "vani": {
+    "premise": "Offline voice communication requires independently verified speech, transport and meaning preservation, not just a functioning local connection.",
+    "facts": [
+      {
+        "value": "10",
+        "label": "Target languages; not verified coverage"
+      },
+      {
+        "value": "M0–M6",
+        "label": "Documented engineering roadmap"
+      },
+      {
+        "value": "Android",
+        "label": "Feasibility and protocol probe platform"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Capture and transcribe",
+        "detail": "The target pipeline uses push-to-talk, endpointing and offline speech recognition on the device."
+      },
+      {
+        "title": "Validate critical information",
+        "detail": "Normalize transcript content and check critical meaning before constructing a semantic message."
+      },
+      {
+        "title": "Transport a semantic bundle",
+        "detail": "The protocol design separates authenticated messages from replaceable local transport; the repository contains Android transport and delivery components."
+      },
+      {
+        "title": "Reconstruct and acknowledge",
+        "detail": "The target loop verifies the message, performs offline speech synthesis and records truthful acknowledgement and delivery state."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Measure critical meaning",
+        "detail": "Average transcription quality alone cannot establish that important numbers or instructions survive the communication path."
+      },
+      {
+        "title": "Keep transport replaceable",
+        "detail": "Semantic bundle and delivery semantics are designed independently of specific links or relay mechanisms."
+      },
+      {
+        "title": "Require evidence per milestone",
+        "detail": "The roadmap requires individual language checks, real offline operation and measured device behavior before broader claims."
+      }
+    ],
+    "verification": "The repository tree contains an Android feasibility module, link and speech probes, critical-information guard and bundle tests, delivery-state and durable-store components, and protocol test vectors. These are implementation artifacts, not independent evidence of complete multilingual device operation.",
+    "limitations": "The complete two-phone offline speech-to-speech loop, all ten language requirements and resilient multi-hop behavior remain unverified here. No emergency communications reliability, safety certification or field deployment is claimed.",
+    "sources": [
+      {
+        "label": "Target pipeline and language requirements",
+        "href": "https://github.com/ThunderKhan/vani/blob/f42a1b666afc76bd0cf2ea86622b480084f6d39b/README.md"
+      },
+      {
+        "label": "Canonical roadmap and evidence gates",
+        "href": "https://github.com/ThunderKhan/vani/blob/f42a1b666afc76bd0cf2ea86622b480084f6d39b/docs/ROADMAP.md"
+      },
+      {
+        "label": "Android feasibility module",
+        "href": "https://github.com/ThunderKhan/vani/blob/f42a1b666afc76bd0cf2ea86622b480084f6d39b/android/feasibility-probe/build.gradle.kts"
+      },
+      {
+        "label": "Protocol test vectors",
+        "href": "https://github.com/ThunderKhan/vani/blob/f42a1b666afc76bd0cf2ea86622b480084f6d39b/protocol/test-vectors/README.md"
+      }
+    ]
+  },
+  "prometheus-compiler": {
+    "premise": "Implementing a deliberately small language makes each translation boundary inspectable.",
+    "facts": [
+      {
+        "value": "C++23",
+        "label": "Implementation language"
+      },
+      {
+        "value": "emit",
+        "label": "Implemented statement form"
+      },
+      {
+        "value": "ELF64",
+        "label": "Assembly/link target in the driver"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Read and tokenize source",
+        "detail": "The compiler driver reads a source file and invokes its tokenizer."
+      },
+      {
+        "title": "Explore parsing separately",
+        "detail": "The parser header defines expression and emit nodes and validates the small grammar; the current executable does not call this parser."
+      },
+      {
+        "title": "Emit assembly",
+        "detail": "The current token-to-assembly routine validates an emit integer statement and generates x86-64 Linux exit-system-call instructions."
+      },
+      {
+        "title": "Assemble and link",
+        "detail": "The driver writes out.asm, invokes NASM with ELF64 output and links with ld, propagating tool failure."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Keep the grammar small",
+        "detail": "An integer-literal emit statement provides a narrow, inspectable first translation target."
+      },
+      {
+        "title": "Distinguish parser work from executable behavior",
+        "detail": "AST structures and a parser exist, but the driver currently emits from tokens instead of traversing an AST."
+      },
+      {
+        "title": "Use external native tools",
+        "detail": "NASM and ld perform assembly and linking; they are required by the current executable rather than implemented in the compiler."
+      }
+    ],
+    "verification": "The reviewed main.cpp and parser.hpp establish the actual driver and separate parser behavior. The README describes the intended larger compiler architecture; the source does not establish an integrated semantic-symbol-analysis stage or general AST code generation.",
+    "limitations": "This is an educational experimental compiler, not a general-purpose language implementation. The current driver targets ELF64 and depends on NASM and ld. The AST parser is not wired into executable code generation; wider language support and semantic analysis are not established.",
+    "sources": [
+      {
+        "label": "Executable driver and code generation",
+        "href": "https://github.com/ThunderKhan/prometheus-compiler/blob/532ac1f94373c8a22719f6e46a6e020952e544cf/src/main.cpp"
+      },
+      {
+        "label": "Parser and AST structures",
+        "href": "https://github.com/ThunderKhan/prometheus-compiler/blob/532ac1f94373c8a22719f6e46a6e020952e544cf/src/parser.hpp"
+      },
+      {
+        "label": "Tokenizer",
+        "href": "https://github.com/ThunderKhan/prometheus-compiler/blob/532ac1f94373c8a22719f6e46a6e020952e544cf/src/tokenization.hpp"
+      },
+      {
+        "label": "Build definition",
+        "href": "https://github.com/ThunderKhan/prometheus-compiler/blob/532ac1f94373c8a22719f6e46a6e020952e544cf/CMakeLists.txt"
+      }
+    ]
+  },
+  "tab-jumper": {
+    "premise": "Navigation through recently visited tabs is a state-management problem, not a tab-strip ordering problem.",
+    "facts": [
+      {
+        "value": "100",
+        "label": "Maximum visit entries per session"
+      },
+      {
+        "value": "2",
+        "label": "Navigation modes"
+      },
+      {
+        "value": "1",
+        "label": "Requested Chrome permission: storage"
+      }
+    ],
+    "flow": [
+      {
+        "title": "Observe tab activation",
+        "detail": "A Manifest V3 service worker connects Chrome tab events and commands to the history model."
+      },
+      {
+        "title": "Update the visit trail",
+        "detail": "Pure transitions maintain ordered tab/window IDs, a cursor and two recent distinct tabs; a new manual visit truncates the forward path."
+      },
+      {
+        "title": "Navigate or toggle",
+        "detail": "History commands move the cursor while recent mode selects the previous distinct tab."
+      },
+      {
+        "title": "Maintain valid local state",
+        "detail": "Closed or replaced tabs are reconciled, old visits are bounded and preferences persist independently of session history."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Separate pure state transitions",
+        "detail": "The history model is testable without driving a browser and the background module handles platform events."
+      },
+      {
+        "title": "Store identifiers, not browsing content",
+        "detail": "Only tab/window identifiers and the selected mode are required; the manifest requests storage and no history or host permissions."
+      },
+      {
+        "title": "Make history session-scoped",
+        "detail": "Temporary history resets on browser exit while the selected mode survives in local storage."
+      }
+    ],
+    "verification": "The manifest and history model confirm a storage-only permission set, session-history cap, cursor operations, branching, pruning and recent-tab toggle logic. The repository documents tests for navigation, tab replacement, cleanup and the size limit.",
+    "limitations": "The extension is installed unpacked, not claimed as a published Chrome Web Store product. Actual visit history resets when Chrome closes, and suggested shortcuts can conflict with existing browser or extension commands.",
+    "sources": [
+      {
+        "label": "Manifest and permissions",
+        "href": "https://github.com/ThunderKhan/tab-jumper/blob/f578119b21368a559d4f0181d31041d6bc9c44ec/manifest.json"
+      },
+      {
+        "label": "Pure history state model",
+        "href": "https://github.com/ThunderKhan/tab-jumper/blob/f578119b21368a559d4f0181d31041d6bc9c44ec/history-model.js"
+      },
+      {
+        "label": "History model tests",
+        "href": "https://github.com/ThunderKhan/tab-jumper/blob/f578119b21368a559d4f0181d31041d6bc9c44ec/test/history-model.test.js"
+      },
+      {
+        "label": "Privacy and installation",
+        "href": "https://github.com/ThunderKhan/tab-jumper/blob/f578119b21368a559d4f0181d31041d6bc9c44ec/README.md"
+      }
+    ]
   }
 };

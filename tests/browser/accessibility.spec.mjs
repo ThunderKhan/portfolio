@@ -543,7 +543,7 @@ test('featured engineering case studies expose decisions, evidence and honest bo
     await expect(study.getByRole('link').first()).toHaveAttribute('href', /github\.com\/ThunderKhan\/.+\/blob\/[a-f0-9]{40}\//);
     await audit(page, info, 'engineering-case-study-' + slug);
   }
-  await visit(page, '/projects/grantly', info);
+  await visit(page, '/projects/heatops', info);
   await expect(page.getByRole('heading', { name: 'Technical highlights' })).toBeVisible();
   await expect(page.locator('[data-engineering-case-study]')).toHaveCount(0);
 });
@@ -556,6 +556,26 @@ for (const [slug, limitation] of [
   ['iet-grid', 'independent faculty/admin/student acceptance remain outstanding'],
 ]) {
   test('engineering case study: ' + slug, async ({ page }, info) => {
+    await visit(page, '/projects/' + slug, info);
+    const study = page.locator('[data-engineering-case-study]');
+    await expect(study.getByRole('heading', { name: 'Engineering decisions' })).toBeVisible();
+    await expect(study.getByRole('heading', { name: 'Verification and evidence' })).toBeVisible();
+    await expect(study).toContainText(limitation);
+    await expect(study.getByRole('link').first()).toHaveAttribute('href', /github\.com\/ThunderKhan\/.+\/blob\/[a-f0-9]{40}\//);
+    await audit(page, info, 'engineering-case-study-' + slug);
+  });
+}
+
+for (const [slug, limitation] of [
+  ['pareto', 'fictional candidates'],
+  ['grantly', 'No backend, accounts, uploads'],
+  ['axiom', 'unimplemented or unverified'],
+  ['feynman-in-a-loop', 'project is in progress'],
+  ['vani', 'remain unverified here'],
+  ['prometheus-compiler', 'AST parser is not wired'],
+  ['tab-jumper', 'installed unpacked'],
+]) {
+  test('remaining engineering case study: ' + slug, async ({ page }, info) => {
     await visit(page, '/projects/' + slug, info);
     const study = page.locator('[data-engineering-case-study]');
     await expect(study.getByRole('heading', { name: 'Engineering decisions' })).toBeVisible();

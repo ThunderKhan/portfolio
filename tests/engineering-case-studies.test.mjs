@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { engineeringCaseStudies } from "../src/data/engineeringCaseStudies.ts";
 
 test("featured case studies contain traceable evidence, decisions and scope", () => {
-  assert.deepEqual(Object.keys(engineeringCaseStudies), ["diff2test", "webclerk", "frame", "refute", "llm-social-selection", "oasis", "iet-grid"]);
+  assert.deepEqual(Object.keys(engineeringCaseStudies), ["diff2test","webclerk","frame","refute","llm-social-selection","oasis","iet-grid","pareto","grantly","axiom","feynman-in-a-loop","vani","prometheus-compiler","tab-jumper"]);
   for (const [slug, study] of Object.entries(engineeringCaseStudies)) {
     assert.ok(study.premise && study.verification && study.limitations, slug);
     assert.equal(study.facts.length, 3);
@@ -19,6 +19,11 @@ test("featured case studies contain traceable evidence, decisions and scope", ()
   assert.match(engineeringCaseStudies.oasis.limitations, /no prospective or external clinical validation/);
   assert.match(engineeringCaseStudies["llm-social-selection"].verification, /no completed behavioral result/);
   assert.match(engineeringCaseStudies["iet-grid"].verification, /team outcome/);
+  assert.match(engineeringCaseStudies.axiom.limitations, /unimplemented or unverified/);
+  assert.match(engineeringCaseStudies.pareto.limitations, /fictional candidates/);
+  assert.match(engineeringCaseStudies.vani.limitations, /remain unverified/);
+  assert.match(engineeringCaseStudies["prometheus-compiler"].limitations, /not wired/);
+  assert.match(engineeringCaseStudies["tab-jumper"].limitations, /installed unpacked/);
 });
 
 test("case study data is separate from the client project grid and generic details retain highlights", () => {
