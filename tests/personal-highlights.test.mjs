@@ -54,7 +54,7 @@ test("closing footer replaces empty filler with real navigation outside main", (
   const footer = read("src/components/PortfolioFooter.tsx");
   assert.ok(home.indexOf("</main>") < home.indexOf("<PortfolioFooter />"));
   assert.ok(!home.includes("<FooterBackground />"));
-  assert.ok(home.includes("<FallingSilhouette />") && home.includes("leading-[1.3]"));
+  assert.ok(footer.includes("<FallingSilhouette />") && home.includes("leading-[1.3]"));
   assert.match(footer, /<footer className=.*aria-label="Portfolio footer"/);
   assert.ok(footer.includes('href={portfolio.resume}') && footer.includes('href={portfolio.repo}'));
   assert.ok(!footer.includes('href="#"'));
@@ -95,4 +95,15 @@ test("terrain uses the supplied Northwall reference seed, noise and eight-by-eig
   const scene = read("src/components/RidgelineScene.tsx");
   assert.ok(scene.includes("ridgeProfile(") && scene.includes("ridgeFbm("));
   assert.ok(scene.includes("RIDGE_BAYER[(y & 7) * 8 + (x & 7)]"));
+});
+
+
+test("falling art belongs to the footer background and uses bounded scroll transforms", () => {
+  const home = read("src/app/page.tsx");
+  const footer = read("src/components/PortfolioFooter.tsx");
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.ok(!home.includes("<FallingSilhouette />"));
+  assert.ok(footer.indexOf("<FallingSilhouette />") < footer.indexOf("styles.footerGrid"));
+  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "compact.matches ? 32 : 84"]) assert.ok(art.includes(marker), marker);
+  assert.ok(!art.includes("useState"));
 });

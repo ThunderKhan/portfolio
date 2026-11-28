@@ -204,31 +204,46 @@ test('closing footer has usable links and a static reduced-motion scene', async 
 });
 
 
-test('centered closing quote leads into falling artwork without obscuring footer links', async ({ page }, info) => {
+test('centered motto and footer background artwork remain legible with reduced motion', async ({ page }, info) => {
   await mockCalendar(page);
   await visit(page, '/', info);
-  const art = page.locator('img[src="/art/falling-armor.webp"]');
+  const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
+  const art = footer.locator('img[src="/art/falling-armor.webp"]');
+  const group = page.locator('#closing-motto');
+  const quote = group.locator('p');
+  const link = footer.getByRole('link', { name: 'Projects', exact: true });
   await art.scrollIntoViewIfNeeded();
   await expect(art).toBeVisible();
   await expect.poll(() => art.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
-  const group = art.locator('..');
-  const quote = group.locator('p');
-  const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
-  const footerLink = footer.getByRole('link', { name: 'Projects', exact: true });
-  const [g, q, a, f, link] = await Promise.all([
-    group.boundingBox(), quote.boundingBox(), art.boundingBox(), footer.boundingBox(), footerLink.boundingBox()
-  ]);
-  const center = box => box.x + box.width / 2;
-  expect(Math.abs(center(q) - center(g))).toBeLessThan(2);
-  expect(a.y).toBeGreaterThanOrEqual(q.y + q.height + 8);
-  expect(a.x).toBeGreaterThanOrEqual(g.x - 1);
-  expect(a.x + a.width).toBeLessThanOrEqual(g.x + g.width + 1);
+  const [g, q, a, f] = await Promise.all([group.boundingBox(), quote.boundingBox(), art.boundingBox(), footer.boundingBox()]);
   const mobile = info.project.use.viewport.width < 640;
-  const overlap = a.y + a.height - f.y;
-  expect(overlap).toBeGreaterThan(mobile ? 4 : 20);
-  expect(overlap).toBeLessThan(mobile ? 12 : 36);
-  expect(Math.abs(center(a) - center(g) - (mobile ? 0 : 44))).toBeLessThan(2);
-  expect(a.y + a.height).toBeLessThan(link.y);
-  expect(await quote.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(mobile ? 20 : 26);
+  expect(Math.abs(q.x + q.width / 2 - g.x - g.width / 2)).toBeLessThan(2);
+  expect(Math.abs(q.y + q.height / 2 - g.y - g.height / 2)).toBeLessThan(2);
+  expect(a.y).toBeLessThan(f.y);
+  expect(a.y + a.height - f.y).toBeGreaterThan(mobile ? 90 : 160);
+  expect(await quote.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(mobile ? 22 : 30);
+  expect(await art.evaluate(el => getComputedStyle(el).pointerEvents)).toBe('none');
+  expect(await link.evaluate(el => getComputedStyle(el.closest('nav').parentElement).zIndex)).toBe('2');
+  await link.click({ trial: true });
+  await expect(art).not.toHaveAttribute('style', /translate3d/);
   await audit(page, info, 'closing-composition');
+});
+
+test('falling artwork descends with scroll and returns to a static reduced-motion state', async ({ page }, info) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
+  const art = footer.locator('img[src="/art/falling-armor.webp"]');
+  const moveTo = fraction => footer.evaluate((el, part) => {
+    window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * part, behavior: 'instant' });
+  }, fraction);
+  const y = () => art.evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m42);
+  await moveTo(.85);
+  await expect.poll(y).toBeGreaterThan(0);
+  const first = await y();
+  await moveTo(.35);
+  await expect.poll(y).toBeGreaterThan(first + 6);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect.poll(y).toBe(0);
 });

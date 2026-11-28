@@ -14,7 +14,6 @@ import { Certifications } from "@/components/Certifications";
 import { EventHighlights } from "@/components/EventHighlights";
 import { SpotifyCard } from "@/components/SpotifyCard";
 import { PortfolioFooter } from "@/components/PortfolioFooter";
-import { FallingSilhouette } from "@/components/FallingSilhouette";
 import closingStyles from "@/components/closing.module.css";
 import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
@@ -522,12 +521,11 @@ export default async function Home() {
         </section>
 
         {/* Closing motto */}
-        <div className={closingStyles.motto}>
-          <p className="relative z-10 max-w-[560px] text-[20px] sm:text-[26px] font-medium text-center leading-[1.3] mark-gold-text italic">
+        <div id="closing-motto" className={closingStyles.motto}>
+          <p className="relative z-10 max-w-[560px] text-[22px] sm:text-[30px] font-medium text-center leading-[1.3] mark-gold-text italic">
             {portfolio.motto[0]}<br />
             {portfolio.motto[1]}
           </p>
-          <FallingSilhouette />
         </div>
       </main>
 

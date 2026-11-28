@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiGithub } from "react-icons/si";
 import { portfolio } from "~/portfolio.config";
 import { RidgelineScene } from "./RidgelineScene";
+import { FallingSilhouette } from "./FallingSilhouette";
 import styles from "./closing.module.css";
 
 const explore = [
@@ -14,6 +15,7 @@ const explore = [
 export function PortfolioFooter() {
   return (
     <footer className={styles.footer} aria-label="Portfolio footer">
+      <FallingSilhouette />
       <div className={styles.footerGrid}>
         <div className={styles.identity}>
           <Link href="/" className={styles.brand}>{portfolio.name}</Link>
