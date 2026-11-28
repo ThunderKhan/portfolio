@@ -66,7 +66,9 @@ Stop the npm development server before using the same port. Open http://localhos
 
 ## D-003 — Production infrastructure and domain
 
-**Status:** Pending. No provider or DNS migration approved.
+**Status:** Accepted and implemented on 2026-11-28 (IST). Vercel hosts the full Next.js application using Node.js 22; Namecheap remains DNS provider. The canonical apex `ayankhan.me` is assigned to the approved production deployment from `main`; `www` redirects with 308 and the separately mapped staging branch remains protected. GitHub Pages is retained for rollback observation. See [release runbook](plans/12-production-release.md) and [maintenance handoff](maintenance.md).
+
+The following infrastructure evidence, options and drivers record the pre-cutover evaluation.
 
 **Verified existing infrastructure:** [ThunderKhan/ThunderKhan.github.io](https://github.com/ThunderKhan/ThunderKhan.github.io/tree/a7b674d6fb028ed2d9de173f7a4f9dc32e2bbc14) uses React/Vite, Node.js 22, npm, GitHub Actions and GitHub Pages. Its CNAME is ayankhan.me. Its deploy workflow builds dist/, publishes a Pages artifact on main pushes, and refreshes GitHub contribution data daily; CI includes lint, tests, build/link checks, dependency audit and Lighthouse. The weekly dependency audit is a separate workflow. DNS provider, registrar and account-level Pages settings were not verified.
 

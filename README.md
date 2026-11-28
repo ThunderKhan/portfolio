@@ -2,7 +2,7 @@
 
 Personal engineering portfolio for Ayan Khan: systems, developer tools and applied AI. Built with Next.js, React, TypeScript and Tailwind CSS.
 
-**Status:** Development preview. The current live portfolio is [ayankhan.me](https://ayankhan.me); this redesign must not replace it until release approval and verification.
+**Status:** MARK I in production since 28 November 2026. Live site: [ayankhan.me](https://ayankhan.me). Release baseline: [`8f10264`](https://github.com/ThunderKhan/portfolio/commit/8f10264d4d195c6ea89d115df155ffec50b04447).
 
 ## Local development
 
@@ -34,6 +34,16 @@ npm run build
 ```
 
 GitHub Actions runs credential-free code, dependency, browser and Docker isolation checks on pull requests and main pushes. Separate security automation scans Git history and container vulnerabilities; weekly audits and Dependabot version-update proposals run after default-branch activation. See [CI engineering](docs/plans/ci-cd.md). Run `npm run audit:final` locally with the private GitHub token and Docker Scout for the additional release checks. Review responsive layouts in both themes before deployment.
+
+## Deployment and maintenance
+
+- Production: Vercel, Node.js 22, Git integration from `main`; canonical HTTPS domain `ayankhan.me`.
+- Protected staging: `staging.ayankhan.me`, currently mapped to `design/mark-i-final-polish`. Retain the branch until the staging mapping is deliberately changed.
+- Namecheap hosts DNS; preserve ownership and mail records. `www` redirects permanently to the apex.
+- Keep server-only `GITHUB_TOKEN` separately configured in Production and Preview. `PORTFOLIO_PUBLIC_RELEASE=1` belongs only in approved Production; telemetry remains opt-in.
+- Open a focused branch/PR, wait for CI and security gates, review the protected preview, then merge an approved revision. Validate the deployed commit, HTTPS, routes and optional integrations after merge.
+
+See [release and rollback runbook](docs/plans/12-production-release.md) and [maintenance handoff](docs/maintenance.md).
 
 ## License and attribution
 

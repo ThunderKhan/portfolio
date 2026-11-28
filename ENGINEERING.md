@@ -135,10 +135,7 @@ without modifying generated files by hand. For a production-like browser check, 
 `npm run build` followed by `npm run start` (or the Docker preview) rather than treating
 a successful dev server as production verification.
 
-The baseline now includes a dependency-free Node 22 regression suite (`npm test`). There is
-**no configured Playwright suite or new-repo CI**. Do not claim those exist. Expand coverage
-as needed without introducing unapproved dependencies. The old portfolio's quality gates are a useful reference,
-not proof that this fork passes them.
+The baseline includes a Node 22 regression suite (`npm test`), a Chromium Playwright suite in `tests/browser/`, and Portfolio CI and Security workflows. CI covers source tests, typecheck, lint, production build, browser regression, performance observations, rendered SEO, Docker isolation, secret scanning and container vulnerability gates. Inspect current workflow results for the exact revision; past success does not prove a new revision passes. See [maintenance handoff](docs/maintenance.md).
 
 Record each required check as PASS, FAIL, BLOCKED or NOT RUN, with command/observation and reason.
 Separate baseline failures from introduced regressions. A skipped or blocked check is not a pass.
