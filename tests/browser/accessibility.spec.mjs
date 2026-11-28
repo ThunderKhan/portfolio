@@ -514,3 +514,14 @@ test('desktop index uses a single marker aligned with the active section', async
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await expect(marker).toHaveCSS('transition-duration', '0.18s');
 });
+
+
+test('home title is concise and project archive retains its specific title', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  await expect(page).toHaveTitle('Ayan Khan');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Ayan Khan');
+  await expect(page.getByText('diff2test, a test-impact analyzer', { exact: false })).toBeVisible();
+  await visit(page, '/projects', info);
+  await expect(page).toHaveTitle('Projects | Ayan Khan');
+});

@@ -76,8 +76,19 @@ export function CommandMenu() {
     const router = useRouter()
 
     const openExternal = React.useCallback((url: string) => {
-        const opened = window.open(url, "_blank", "noopener,noreferrer")
-        if (!opened) window.location.assign(url)
+        // noopener can return null even when the new tab opened successfully.
+        // Use one native navigation action, never a second fallback navigation.
+        if (url.startsWith("mailto:")) {
+            window.location.assign(url)
+            return
+        }
+        const link = document.createElement("a")
+        link.href = url
+        link.target = "_blank"
+        link.rel = "noopener noreferrer"
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
     }, [])
 
     const changeOpen = React.useCallback((next: boolean) => {

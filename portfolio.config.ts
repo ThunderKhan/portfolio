@@ -9,11 +9,11 @@
 export const portfolio = {
   /** Shown in the hero, page titles and social cards. */
   name: "Ayan Khan",
-  /** One line under the name. Keep it short - it is also the meta description. */
-  tagline: "Software developer building systems, developer tools and applied AI.",
+  /** Compact identity used by social cards, the terminal and structured data. */
+  tagline: "Software developer and open-source contributor.",
   /** Longer form, used for Open Graph and the social hover cards. */
   description:
-    "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments with an emphasis on deterministic behavior, explainability, testing, and public proof of work.",
+    "Ayan Khan is a software developer, ML and data science student, and open-source contributor working on developer tools, software reliability and applied AI.",
   location: "India",
   /** Professional photograph for social cards and link previews. */
   avatar: "/profile/avatar.jpg",
@@ -23,11 +23,11 @@ export const portfolio = {
   // Keep the development preview noindex until the owner approves release.
   referencePreview: true,
   contactFormEnabled: false,
-  intro: "I build developer tools, data-intensive systems, full-stack products, and applied-AI experiments.",
+  intro: "I’m a software developer drawn to the parts of software that are easy to get wrong: correctness, reliability, and how systems behave when things fail.",
   about: [
-    "Second-year BCA student at Deen Dayal Upadhyaya Gorakhpur University, specializing in Machine Learning and Data Science.",
-    "I care about deterministic behavior, explainability, testing and public proof of work.",
-    "I contribute upstream when I can, including fixes and regression coverage in CLI11, Manim and OpenTrace.",
+    "Second-year BCA student specializing in Machine Learning and Data Science at Deen Dayal Upadhyaya Gorakhpur University.",
+    "Building developer tools in C++ and Python, including diff2test, a test-impact analyzer that uses build evidence to select tests.",
+    "Software engineering intern at VSPH and member of Runtime Conditions, with upstream contributions in cross-platform testing, numerical correctness and developer tooling.",
   ],
   /** Two-line closing motto, selected by the owner. */
   motto: ["If I must fall,", "let it be from a great height."],

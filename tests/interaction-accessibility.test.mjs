@@ -208,3 +208,13 @@ test("interaction polish preserves real feedback and reduced motion", () => {
   assert.ok(read("src/components/ProjectsGrid.tsx").includes("mark-interactive-card"));
   assert.ok(read("src/components/BlogList.tsx").includes("mark-card-title"));
 });
+
+
+test("command links use one native navigation with opener isolation", () => {
+  const menu = read("src/components/command-menu.tsx");
+  const helper = menu.slice(menu.indexOf("const openExternal"), menu.indexOf("const changeOpen"));
+  assert.ok(helper.includes('link.rel = "noopener noreferrer"'));
+  assert.ok(helper.includes('link.target = "_blank"') && helper.includes("link.click()"));
+  assert.ok(helper.includes('url.startsWith("mailto:")'));
+  assert.ok(!helper.includes("if (!opened)") && !helper.includes("window.open("));
+});

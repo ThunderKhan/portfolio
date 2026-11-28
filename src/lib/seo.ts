@@ -24,7 +24,7 @@ export function pageMetadata({
   description: string;
   publishedAt?: string;
 }): Metadata {
-  const fullTitle = `${title} | ${portfolio.name}`;
+  const fullTitle = path === "/" ? portfolio.name : `${title} | ${portfolio.name}`;
   const url = absoluteUrl(path);
   const common = {
     title: fullTitle,
@@ -53,7 +53,7 @@ export function pageMetadata({
 
 export const homeMetadata = pageMetadata({
   path: "/",
-  title: "Software Developer · Systems and Applied AI",
+  title: portfolio.name,
   description: portfolio.description,
 });
 

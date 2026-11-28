@@ -46,3 +46,11 @@ test("structured data is rendered on the relevant server pages with safe seriali
   }
   assert.ok(read("src/components/JsonLd.tsx").includes('JSON.stringify(data).replace(/</g, "\\\\u003c")'));
 });
+
+
+test("homepage browser and social title is the owner's name only", () => {
+  const seo = read("src/lib/seo.ts");
+  assert.ok(seo.includes('const fullTitle = path === "/" ? portfolio.name :'));
+  assert.match(seo, /homeMetadata = pageMetadata\(\{\s*path: "\/",\s*title: portfolio.name,/);
+  assert.ok(!seo.includes("Software Developer · Systems and Applied AI"));
+});

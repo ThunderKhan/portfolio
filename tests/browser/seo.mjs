@@ -36,6 +36,7 @@ try {
     assert.equal(await canonical.count(), 1, path);
     assert.equal(normalized(await canonical.getAttribute("href")), absolute(path), path);
     const title = await page.title();
+    if (path === "/") assert.equal(title, portfolio.name);
     assert.ok(title.includes(portfolio.name) && !titles.has(title), path + " title");
     titles.add(title);
     const description = await meta("description");
