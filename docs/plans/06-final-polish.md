@@ -51,3 +51,7 @@ Owner delegated the palette and boundary treatment. Chose graphite/ember/bronze 
 ## Foreground ridge arrival
 
 Owner approved the full-width ember landscape and annotated a deeper arrival near the foreground crest. Changed the falling artwork's destination from 42% to 70% of terrain height (roughly 120 screen pixels lower in the supplied desktop screenshot). Start position, horizontal placement, opacity curve, responsive measurement and reduced-motion behavior remain unchanged. Updated source and browser geometry assertions; visual confirmation pending.
+
+## Gold and crimson motto
+
+Owner requested selective red emphasis. Highlighted `fall` and `great height` with text-only spans while preserving the configured quote, line break, font and alignment. Light theme uses existing armor red; dark uses #E2524B for readable contrast (5.54:1 against black; light red 6.92:1 against the light page color). No motion or glow added. Source and browser assertions updated; runtime and visual verification pending.

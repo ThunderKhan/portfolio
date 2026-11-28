@@ -7,6 +7,10 @@
   margin: 16px auto 0;
   padding: 24px 0;
 }
+/* Crimson is text-specific; the darker armor red is too dim on black. */
+.mottoAccent { color: var(--mark-red); }
+:global(.dark) .mottoAccent { color: #E2524B; }
+
 .figure {
   position: absolute;
   z-index: 1;

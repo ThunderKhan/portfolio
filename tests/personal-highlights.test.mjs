@@ -42,8 +42,8 @@ test("closing motto uses the owner-selected two-line text without a translation"
   const home = read("src/app/page.tsx");
   const config = read("portfolio.config.ts");
   assert.ok(config.includes('motto: ["If I must fall,", "let it be from a great height."]'));
-  assert.ok(home.includes("{portfolio.motto[0]}<br />"));
-  assert.ok(home.includes("{portfolio.motto[1]}"));
+  assert.ok(home.includes("{renderMottoLine(portfolio.motto[0])}<br />"));
+  assert.ok(home.includes("{renderMottoLine(portfolio.motto[1])}"));
   assert.ok(!home.includes("Labor omnia vincit") && !home.includes("WORK CONQUERS ALL"));
   assert.match(home, /<p className="[^"]*mark-gold-text italic"/);
 });
@@ -140,4 +140,16 @@ test("full-bleed ember terrain preserves content gutters and feathers into the s
   assert.equal((page.match(/mark-ending-rail/g) || []).length, 2);
   assert.match(global, /\.mark-home \.mark-ending-rail\s*\{[^}]*mask-composite: intersect/);
   assert.match(global, /\.mark-mesh-toggle\s*\{[^}]*position: fixed;[^}]*z-index: 20/);
+});
+
+
+test("closing motto accents remain readable in both themes", () => {
+  const css = read("src/components/closing.module.css");
+  const home = read("src/app/page.tsx");
+  assert.match(css, /\.mottoAccent\s*\{ color: var\(--mark-red\); \}/);
+  assert.match(css, /:global\(\.dark\) \.mottoAccent\s*\{ color: #E2524B; \}/);
+  assert.ok(home.includes('line.split(/(\\bfall\\b|\\bgreat height\\b)/g)'));
+  const luminance = hex => hex.match(/../g).map(x => parseInt(x, 16) / 255).map(x => x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4).reduce((sum, x, i) => sum + x * [.2126, .7152, .0722][i], 0);
+  assert.ok((luminance("E2524B") + .05) / .05 >= 4.5);
+  assert.ok((luminance("F4F3EF") + .05) / (luminance("AA0505") + .05) >= 4.5);
 });

@@ -34,6 +34,14 @@ import { SiLeetcode } from "react-icons/si";
 
 export const metadata = homeMetadata;
 
+function renderMottoLine(line: string) {
+  return line.split(/(\bfall\b|\bgreat height\b)/g).map((part, index) =>
+    index % 2 === 1
+      ? <span key={index} className={closingStyles.mottoAccent}>{part}</span>
+      : part
+  );
+}
+
 export default async function Home() {
   const socialProfiles = await getSocialProfiles();
 
@@ -523,8 +531,8 @@ export default async function Home() {
         {/* Closing motto */}
         <div id="closing-motto" className={closingStyles.motto}>
           <p className="relative z-10 max-w-[560px] text-[22px] sm:text-[30px] font-medium text-center leading-[1.3] mark-gold-text italic">
-            {portfolio.motto[0]}<br />
-            {portfolio.motto[1]}
+            {renderMottoLine(portfolio.motto[0])}<br />
+            {renderMottoLine(portfolio.motto[1])}
           </p>
         </div>
       </main>

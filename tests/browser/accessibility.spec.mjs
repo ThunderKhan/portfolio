@@ -290,3 +290,17 @@ test('terrain spans the viewport without widening footer navigation or document'
   await footer.getByRole('link', { name: 'Projects', exact: true }).click({ trial: true });
   await audit(page, info, 'full-bleed-terrain');
 });
+
+
+test('closing motto retains its wording and two crimson accents', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const quote = page.locator('#closing-motto p');
+  await expect(quote).toHaveText(/If I must fall,\s*let it be from a great height\./);
+  const accents = quote.locator('span');
+  await expect(accents).toHaveText(['fall', 'great height']);
+  const color = info.project.use.colorScheme === 'dark' ? 'rgb(226, 82, 75)' : 'rgb(170, 5, 5)';
+  await expect(accents.first()).toHaveCSS('color', color);
+  await expect(accents.last()).toHaveCSS('color', color);
+  await audit(page, info, 'motto-accent');
+});
