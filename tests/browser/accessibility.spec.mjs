@@ -424,3 +424,21 @@ test('original sudo hiring command works directly from palette', async ({ page }
   await search.press('Enter');
   await expect(page).toHaveURL(/\/contact$/);
 });
+
+
+test('Runtime Conditions role and disclosure chevrons', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const role = page.locator('button[aria-controls^="home-experience-panel-"]').filter({ hasText: 'Runtime Conditions' });
+  await expect(role).toHaveCount(1);
+  await expect(role).toContainText('Member & Open Source Contributor');
+  const icon = role.locator('[data-disclosure-chevron]');
+  await expect(icon).toHaveCount(1);
+  const closed = await icon.evaluate(el => getComputedStyle(el).rotate + ' ' + getComputedStyle(el).transform);
+  await role.click();
+  await expect(role).toHaveAttribute('aria-expanded', 'true');
+  await expect.poll(() => icon.evaluate(el => getComputedStyle(el).rotate + ' ' + getComputedStyle(el).transform)).not.toBe(closed);
+  await role.click();
+  await expect(role).toHaveAttribute('aria-expanded', 'false');
+  await audit(page, info, 'runtime-conditions');
+});

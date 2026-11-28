@@ -22,6 +22,36 @@ export type ExperienceData = {
 
 export const experiences: ExperienceData[] = [
   {
+    "title": "Runtime Conditions",
+    "role": "Member & Open Source Contributor",
+    "dates": "Nov 2026 - Present",
+    "startMonth": "2026-11",
+    "location": "Remote",
+    "src": "/Experience-image/runtime-conditions.jpg",
+    "fallbackSrc": "/Experience-image/runtime-conditions-monogram.svg",
+    "type": "Open source",
+    "imageFit": "contain",
+    "imageBleed": true,
+    "description": "Member of the Runtime Conditions GitHub organization, contributing to an open specification for machine-readable application runtime dependencies and requirements.\nResolved source encoding and Windows path handling issues in the Python runtime profiler, bringing the reported local suite from 101 passing / 18 failing to 119 passing.\nImplemented Windows CI coverage to prevent cross-platform regressions.",
+    "tech": [
+      "Python",
+      "Cloud Native Computing",
+      "CI/CD",
+      "GitHub Actions",
+      "Software Testing"
+    ],
+    "links": [
+      {
+        "label": "GitHub organization",
+        "href": "https://github.com/runtimeconditions"
+      },
+      {
+        "label": "Python runtime profiler",
+        "href": "https://github.com/runtimeconditions/python-rc-profiler"
+      }
+    ]
+  },
+  {
     "title": "micro1",
     "role": "AI Training Expert",
     "dates": "Oct 2026 - Present",

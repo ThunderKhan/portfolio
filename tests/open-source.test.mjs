@@ -17,3 +17,10 @@ test("archive has unique repository IDs and pull request links", () => {
   assert.ok(links.every((link) => ["Merged", "Open", "Closed"].includes(link.status)));
   assert.ok(openSourceWork.some((item) => item.id === "osci"));
 });
+
+
+test("both Runtime Conditions profiler contributions are merged", () => {
+  const entry = openSourceWork.find(item => item.id === "runtime-conditions");
+  assert.equal(entry.links.length, 2);
+  assert.ok(entry.links.every(link => link.status === "Merged"));
+});

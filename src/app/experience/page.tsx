@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { CommandMenu } from "@/components/command-menu";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { RightNavbar } from "@/components/RightNavbar";
@@ -171,7 +172,7 @@ export default function AllExperiencePage() {
                     <span className="flex shrink-0 flex-col items-start gap-0.5 pr-5 pl-[52px] text-left sm:pl-[56px] 2xl:items-end 2xl:pl-0 2xl:text-right">
                       <span className="relative flex items-center text-[13px] font-medium text-zinc-900 dark:text-zinc-100 sm:text-[14px]">
                         <span>{item.dates}</span>
-                        <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
+                        <DisclosureChevron open={isOpen} />
                       </span>
                       <span className="text-[13px] mark-muted sm:text-[14px]">
                         {item.location}

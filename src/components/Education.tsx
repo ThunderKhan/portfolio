@@ -1,4 +1,5 @@
 import { BookOpen, GraduationCap } from "lucide-react";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { education, learningPrograms } from "@/data/educationData";
 import { EducationLogo } from "@/components/EducationLogo";
 
@@ -42,7 +43,7 @@ export function Education() {
                 <span>Semester {semester.semester === 1 ? "I" : "II"} coursework</span>
                 <span className="flex shrink-0 items-center gap-2">
                   <span className="text-[11px] font-normal mark-muted">{semester.result}</span>
-                  <span aria-hidden="true" className="inline-block w-4 shrink-0 text-center font-mono mark-muted"><span className="group-open:hidden">+</span><span className="hidden group-open:inline">−</span></span>
+                  <DisclosureChevron />
                 </span>
               </summary>
               <ul className="mb-3 flex flex-wrap gap-1.5">
@@ -72,7 +73,7 @@ export function Education() {
                     <span className="mt-1 block text-[11px] leading-relaxed mark-muted">{program.period} · {program.format}</span>
                     <span className="mt-1 block text-[11px] font-medium text-zinc-600 dark:text-zinc-400">{program.status}</span>
                   </span>
-                  <span aria-hidden="true" className="inline-block w-4 shrink-0 text-center font-mono mark-muted"><span className="group-open:hidden">+</span><span className="hidden group-open:inline">−</span></span>
+                  <DisclosureChevron />
                 </summary>
                 <div className="border-t border-dashed border-zinc-200 px-4 py-3 dark:border-zinc-800">
                   <p className="text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-400">{program.description}</p>

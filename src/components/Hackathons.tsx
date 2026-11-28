@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { hackathonsData } from "@/data/hackathonsData";
 
 const dashedX = {
@@ -46,7 +47,7 @@ export function Hackathons() {
                   </span>
                   <span className="ml-auto flex items-center gap-2 text-[12px] font-medium mark-muted whitespace-nowrap">
                     {h.dates}
-                    <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
+                    <DisclosureChevron open={isOpen} />
                   </span>
                 </span>
 

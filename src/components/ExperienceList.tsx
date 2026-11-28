@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import Image from "next/image";
 
 import { experiences } from "@/data/experienceData";
@@ -93,7 +94,7 @@ export function ExperienceList() {
               <span className="flex flex-col items-start gap-0.5 text-left pr-5 pl-[52px] shrink-0 sm:pl-[56px] 2xl:mt-0 2xl:items-end 2xl:pl-0 2xl:text-right">
                 <span className="flex items-center text-[13px] sm:text-[14px] font-medium text-zinc-900 dark:text-zinc-100 relative">
                   <span>{item.dates}</span>
-                  <span aria-hidden="true" className="ml-2 inline-block w-3 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
+                  <DisclosureChevron open={isOpen} />
                 </span>
                 {item.location && <span className="text-[13px] sm:text-[14px] mark-muted">{item.location}</span>}
               </span>

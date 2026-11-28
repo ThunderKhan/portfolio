@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { DisclosureChevron } from "@/components/DisclosureChevron";
 import { GitPullRequest } from "lucide-react";
 import type { OpenSourceEntry } from "@/data/openSourceData";
 import { CertificateLink } from "@/components/CertificateLink";
@@ -33,7 +34,7 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                   <span className="mt-1 block text-[12px] font-normal leading-snug text-zinc-600 dark:text-zinc-400">{item.summary}</span>
                   <span className="mt-1 block text-[11px] font-normal mark-muted">{item.links.length ? `${item.links.length} PR${item.links.length === 1 ? "" : "s"} · ${merged} merged` : "Community"}</span>
                 </span>
-                <span aria-hidden="true" className="inline-block w-4 shrink-0 text-center font-mono mark-muted">{isOpen ? "−" : "+"}</span>
+                <DisclosureChevron open={isOpen} />
               </button>
             </h3>
             <div

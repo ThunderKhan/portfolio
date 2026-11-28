@@ -142,3 +142,26 @@ test("cinematic 404 reuses the approved art and stays within its viewport", () =
   assert.ok(scene.includes('layout = "footer"') && scene.includes("data-ridgeline-layout={layout}"));
   assert.match(read("src/components/closing.module.css"), /\.scene\[data-ridgeline-layout="viewport"\]\s*\{[^}]*margin-inline: 0/);
 });
+
+
+test("Runtime Conditions is the latest experience with a local JPG and fallback", async () => {
+  const { experiences } = await import("../src/data/experienceData.ts");
+  const entry = experiences[0];
+  assert.equal(entry.title, "Runtime Conditions");
+  assert.equal(entry.role, "Member & Open Source Contributor");
+  assert.equal(entry.startMonth, "2026-11");
+  assert.equal(entry.type, "Open source");
+  assert.equal(entry.src, "/Experience-image/runtime-conditions.jpg");
+  assert.ok(existsSync(new URL("../public" + entry.fallbackSrc, import.meta.url)));
+  assert.ok(entry.links.some(link => link.href === "https://github.com/runtimeconditions"));
+});
+
+test("all expandable content uses a shared decorative disclosure chevron", () => {
+  for (const path of ["src/components/ExperienceList.tsx", "src/app/experience/page.tsx", "src/components/Hackathons.tsx", "src/components/OpenSourceList.tsx", "src/components/Education.tsx"]) {
+    const s = read(path);
+    assert.ok(s.includes("<DisclosureChevron"), path);
+    assert.ok(!s.includes('isOpen ? "−" : "+"'), path);
+  }
+  const icon = read("src/components/DisclosureChevron.tsx");
+  assert.ok(icon.includes('aria-hidden="true"') && icon.includes('motion-safe:transition-transform') && icon.includes('group-open:rotate-180'));
+});

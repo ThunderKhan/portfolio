@@ -101,7 +101,7 @@ export const openSourceWork: OpenSourceEntry[] = [
     "id": "runtime-conditions",
     "summary": "Python profiler · Windows compatibility",
     "title": "Runtime Conditions — Python profiler",
-    "description": "Resolved Windows test failures caused by source encoding and path separators, taking the reported local suite from 101 passing / 18 failing to 119 passing. Proposed permanent Windows CI coverage with canonical schema line endings.",
+    "description": "Resolved Windows test failures caused by source encoding and path separators, taking the reported local suite from 101 passing / 18 failing to 119 passing. Added permanent Windows CI coverage with canonical schema line endings. Both changes were merged upstream.",
     "links": [
       {
         "label": "#9 · Cross-platform tests",
@@ -111,7 +111,7 @@ export const openSourceWork: OpenSourceEntry[] = [
       {
         "label": "#10 · Windows CI",
         "href": "https://github.com/runtimeconditions/python-rc-profiler/pull/10",
-        "status": "Open"
+        "status": "Merged"
       }
     ]
   },
