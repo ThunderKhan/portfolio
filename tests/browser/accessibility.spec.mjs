@@ -262,3 +262,31 @@ test('falling artwork reaches the ridgeline and stays static with reduced motion
   await moveTo(.85);
   expect(await y()).toBeCloseTo(last, 0);
 });
+
+
+test('terrain spans the viewport without widening footer navigation or document', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const footer = page.getByRole('contentinfo', { name: 'Portfolio footer' });
+  const terrain = footer.locator('[data-ridgeline-scene]');
+  await terrain.scrollIntoViewIfNeeded();
+  await expect(terrain.locator('canvas')).toHaveAttribute('data-ready', 'true');
+  const geometry = await terrain.evaluate(el => {
+    const r = el.getBoundingClientRect();
+    const f = el.closest('footer').getBoundingClientRect();
+    const main = document.querySelector('main').getBoundingClientRect();
+    return { left: r.left, right: r.right, viewport: document.documentElement.clientWidth,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      footerLeft: f.left, mainLeft: main.left,
+      mask: getComputedStyle(el).maskImage,
+      foreground: getComputedStyle(el).getPropertyValue('--ridge-6').trim() };
+  });
+  expect(Math.abs(geometry.left)).toBeLessThan(2);
+  expect(Math.abs(geometry.right - geometry.viewport)).toBeLessThan(2);
+  expect(geometry.overflow).toBeLessThanOrEqual(1);
+  expect(Math.abs(geometry.footerLeft - geometry.mainLeft)).toBeLessThan(2);
+  expect(geometry.mask).toContain('linear-gradient');
+  expect(geometry.foreground.toLowerCase()).toBe(info.project.use.colorScheme === 'dark' ? '#98703f' : '#584238');
+  await footer.getByRole('link', { name: 'Projects', exact: true }).click({ trial: true });
+  await audit(page, info, 'full-bleed-terrain');
+});

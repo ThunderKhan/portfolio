@@ -63,26 +63,33 @@
 .credit { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; padding: 10px 24px 4px; font-size: 12px; color: var(--mark-muted); }
 .scene {
   --ridge-0: #F4F3EF;
-  --ridge-1: #e0e6e9;
-  --ridge-2: #bccbd5;
-  --ridge-3: #8fa7b8;
-  --ridge-4: #607d91;
-  --ridge-5: #3c566b;
-  --ridge-6: #23394b;
+  --ridge-1: #e8e2db;
+  --ridge-2: #d2c6b8;
+  --ridge-3: #b6a18a;
+  --ridge-4: #92785f;
+  --ridge-5: #755942;
+  --ridge-6: #584238;
   position: relative;
   z-index: 0;
+  /* Break only the landscape out of the footer's reading column.
+     Negative existing gutters avoid the scrollbar overflow of 100vw. */
+  margin-inline: calc(-1 * var(--mark-gutter));
   height: clamp(220px, 34vw, 350px);
   overflow: hidden;
   background: var(--ridge-0);
+  /* Let the live page shader show through the atmosphere, then settle
+     into solid terrain. The mask also covers the no-canvas fallback. */
+  mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 12%) 12%, rgb(0 0 0 / 62%) 32%, #000 66%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 12%) 12%, rgb(0 0 0 / 62%) 32%, #000 66%);
 }
 :global(.dark) .scene {
   --ridge-0: #000000;
-  --ridge-1: #0c151d;
-  --ridge-2: #142632;
-  --ridge-3: #223b4b;
-  --ridge-4: #355266;
-  --ridge-5: #4e7187;
-  --ridge-6: #7594a7;
+  --ridge-1: #121114;
+  --ridge-2: #211b1c;
+  --ridge-3: #35282a;
+  --ridge-4: #50372d;
+  --ridge-5: #755037;
+  --ridge-6: #98703f;
 }
 .scene::before, .scene::after {
   content: "";

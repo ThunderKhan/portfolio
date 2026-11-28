@@ -127,3 +127,17 @@ test("footer text has no opaque backing and armor destination is terrain-relativ
   assert.ok(art.includes("vh - footerHeight"));
   assert.ok(art.includes("if (reduced.matches) paint(1)"));
 });
+
+
+test("full-bleed ember terrain preserves content gutters and feathers into the shader", () => {
+  const css = read("src/components/closing.module.css");
+  const global = read("src/app/globals.css");
+  const page = read("src/app/page.tsx");
+  assert.match(css, /\.footer\s*\{[^}]*margin-inline: var\(--mark-gutter\)/);
+  assert.match(css, /\.scene\s*\{[^}]*margin-inline: calc\(-1 \* var\(--mark-gutter\)\)/);
+  assert.match(css, /\.scene\s*\{[^}]*mask-image: linear-gradient\(to bottom, transparent 0%/);
+  assert.match(css, /:global\(\.dark\) \.scene\s*\{[^}]*--ridge-6: #98703f/);
+  assert.equal((page.match(/mark-ending-rail/g) || []).length, 2);
+  assert.match(global, /\.mark-home \.mark-ending-rail\s*\{[^}]*mask-composite: intersect/);
+  assert.match(global, /\.mark-mesh-toggle\s*\{[^}]*position: fixed;[^}]*z-index: 20/);
+});
