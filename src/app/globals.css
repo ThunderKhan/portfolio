@@ -520,3 +520,27 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .mark-nav-glider[data-ready="true"] { transition: transform 180ms ease-out; }
 }
+
+
+/* Deliberate press feedback on compact controls; links remain stable. */
+.mark-interactive-row { border-radius: 4px; }
+.mark-interactive-card:focus-within .mark-card-title { color: var(--mark-interaction); }
+.mark-interactive-card:focus-within .mark-project-frame { border-color: var(--mark-interaction); }
+.mark-interactive-row:focus-visible { background: color-mix(in srgb, var(--mark-interaction) 5%, var(--mark-page)); }
+.mark-press:active:not(:disabled):not([aria-disabled="true"]) { filter: brightness(.94); }
+.mark-submit-feedback { display: flex; align-items: center; gap: 8px; min-height: 20px; }
+@media (hover: hover) and (pointer: fine) {
+  .mark-interactive-card:hover .mark-card-title { color: var(--mark-interaction); }
+  .mark-interactive-card:hover .mark-project-frame { border-color: var(--mark-interaction); }
+  .mark-interactive-row:hover { background: color-mix(in srgb, var(--mark-interaction) 5%, var(--mark-page)); }
+  .mark-interactive-card:hover .mark-project-ambient { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mark-card-title, .mark-interactive-row { transition: color 150ms ease, background-color 150ms ease; }
+  .mark-project-ambient { transition: opacity 180ms ease-out, transform 180ms ease-out; }
+  .mark-press { transition: scale 120ms ease-out, color 150ms ease, background-color 150ms ease, border-color 150ms ease; }
+  .mark-press:active:not(:disabled):not([aria-disabled="true"]) { scale: .97; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .mark-interactive-card:hover .mark-project-ambient { transform: scale(1.03); }
+}

@@ -64,10 +64,10 @@ export const ProjectCard = ({
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <m.article className="relative flex min-w-0 flex-col group rounded-lg" initial="rest" animate="rest" whileHover={reduceMotion ? "rest" : "hover"}>
+      <m.article className="relative flex min-w-0 flex-col group rounded-lg mark-interactive-card" initial="rest" animate="rest" whileHover={reduceMotion ? "rest" : "hover"}>
         {/* Outer Wrapper exactly like screenshot */}
         <m.div
-          className="relative w-full aspect-[1.25] rounded-xl border mark-surface mark-project-frame shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-200 hover:shadow-md sm:aspect-[1.4] sm:p-4 sm:pb-0"
+          className="relative w-full aspect-[1.25] rounded-xl border mark-surface mark-project-frame shadow-sm p-3.5 pb-0 flex flex-col overflow-hidden transition-[border-color,box-shadow] duration-150 sm:aspect-[1.4] sm:p-4 sm:pb-0"
         >
           <div className="flex items-center justify-end z-10 min-h-[24px]">
             {project.hasPin && (
@@ -84,7 +84,7 @@ export const ProjectCard = ({
           {project.backgroundImage && (
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 scale-100 bg-cover bg-center opacity-0 transition-[opacity,transform] duration-200 ease-out motion-safe:group-hover:scale-[1.03] group-hover:opacity-100"
+              className="pointer-events-none absolute inset-0 scale-100 bg-cover bg-center opacity-0 mark-project-ambient"
               style={{ backgroundImage: `url(${project.backgroundImage})` }}
             />
           )}
@@ -121,7 +121,7 @@ export const ProjectCard = ({
         {/* Content Area directly below the wrapper */}
         <div className="mt-4 flex flex-col px-0.5">
           <div className="flex flex-wrap items-start justify-between gap-2">
-            <h3 className="min-w-0 break-words text-[15px] font-bold text-zinc-900 dark:text-zinc-100 leading-tight">
+            <h3 className="min-w-0 break-words text-[15px] font-bold text-zinc-900 dark:text-zinc-100 leading-tight mark-card-title">
               <Link href={`/projects/${project.slug}`} className="rounded-sm after:absolute after:inset-0 after:z-30 after:rounded-lg focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-[var(--mark-interaction)]">
                 {project.title}
               </Link>

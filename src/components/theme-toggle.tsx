@@ -66,7 +66,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         toggleTheme();
       }}
       className={cn(
-        "relative z-50 flex h-8 w-8 rounded-md cursor-pointer items-center justify-center mark-control motion-safe:transition-colors motion-safe:duration-150 focus-visible:outline-2 focus-visible:outline-offset-2",
+        "mark-press relative z-50 flex h-8 w-8 rounded-md cursor-pointer items-center justify-center mark-control motion-safe:transition-colors motion-safe:duration-150 focus-visible:outline-2 focus-visible:outline-offset-2",
         className,
       )}
       aria-label="Toggle theme"

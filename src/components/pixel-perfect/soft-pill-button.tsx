@@ -19,7 +19,7 @@ const SoftPillButton = React.forwardRef<HTMLButtonElement, SoftPillButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          "group relative block rounded-[6px] px-5 py-2.5 text-center text-[13px] font-medium tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-150",
+          "mark-press group relative block rounded-[6px] px-5 py-2.5 text-center text-[13px] font-medium tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-150",
           variant === "primary" ? "mark-primary-action" : "border mark-surface mark-control",
           className,
         )}

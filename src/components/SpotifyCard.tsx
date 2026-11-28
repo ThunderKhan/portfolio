@@ -59,7 +59,7 @@ export function SpotifyCard() {
           aria-expanded={showPlayer}
           aria-controls="featured-music-player"
           onClick={() => setShowPlayer(value => !value)}
-          className="inline-flex min-h-10 items-center gap-2 rounded-[6px] border mark-surface mark-control px-3 text-[12px] font-medium focus-visible:outline-2"
+          className="mark-press inline-flex min-h-10 items-center gap-2 rounded-[6px] border mark-surface mark-control px-3 text-[12px] font-medium focus-visible:outline-2"
         >
           {showPlayer ? <X aria-hidden="true" className="size-4" /> : <Play aria-hidden="true" className="size-4" />}
           {showPlayer ? "Close player" : "Listen here"}
