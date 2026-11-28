@@ -248,8 +248,18 @@ test('falling artwork reaches the ridgeline and stays static with reduced motion
     window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * part, behavior: 'instant' });
   }, fraction);
   const y = () => art.evaluate(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m42);
-  await moveTo(.85);
-  await expect.poll(y).toBeGreaterThan(0);
+  const closing = page.locator('#closing-motto');
+  const moveClosingTo = fraction => closing.evaluate((el, part) => {
+    window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * part, behavior: 'instant' });
+  }, fraction);
+  await moveClosingTo(1.2);
+  const initial = await art.evaluate(el => -el.offsetWidth * .32);
+  await expect.poll(y).toBeCloseTo(initial, 1);
+  await moveClosingTo(1.0);
+  await expect.poll(y).toBeGreaterThan(initial + 1);
+  const beforeQuote = await y();
+  await moveClosingTo(.5);
+  await expect.poll(y).toBeGreaterThan(beforeQuote + 10);
   const first = await y();
   await footer.evaluate(el => window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().bottom - window.innerHeight, behavior: 'instant' }));
   await expect.poll(y).toBeGreaterThan(first + 30);

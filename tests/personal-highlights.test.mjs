@@ -124,7 +124,7 @@ test("footer text has no opaque backing and armor destination is terrain-relativ
   assert.match(css, /\.footerGrid, \.credit\s*\{[^}]*text-shadow:/);
   assert.doesNotMatch(css, /background-color: var\(--mark-page\)/);
   assert.ok(art.includes("destination - image.offsetTop - image.offsetHeight"));
-  assert.ok(art.includes("vh - footerHeight"));
+  assert.ok(read("src/lib/armor-scroll.ts").includes("viewportHeight - footerHeight"));
   assert.ok(art.includes("if (reduced.matches) paint(1)"));
 });
 
@@ -152,4 +152,22 @@ test("closing motto accents remain readable in both themes", () => {
   const luminance = hex => hex.match(/../g).map(x => parseInt(x, 16) / 255).map(x => x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4).reduce((sum, x, i) => sum + x * [.2126, .7152, .0722][i], 0);
   assert.ok((luminance("E2524B") + .05) / .05 >= 4.5);
   assert.ok((luminance("F4F3EF") + .05) / (luminance("AA0505") + .05) >= 4.5);
+});
+
+
+test("armor begins moving before the quote enters and preserves ridge arrival", async () => {
+  const { armorScrollOffset, armorScrollProgress } = await import("../src/lib/armor-scroll.ts");
+  for (const [vh, gap, footerHeight, width, travel] of [[800, 272, 650, 220, 390], [844, 190, 680, 142, 420]]) {
+    const p = top => armorScrollProgress(vh, top, top + gap, footerHeight);
+    assert.equal(p(vh * 1.2), 0);
+    assert.ok(p(vh * 1.05) > 0);
+    assert.ok(p(vh) > p(vh * 1.05));
+    assert.ok(p(vh * .5) > p(vh));
+    assert.equal(p(vh - footerHeight - gap), 1);
+    assert.ok(armorScrollOffset(travel, width, 0) < 0);
+    assert.ok(Math.abs(armorScrollOffset(travel, width, 1) - travel) < 1e-8);
+  }
+  const art = read("src/components/FallingSilhouette.tsx");
+  assert.ok(art.includes("observer.observe(closing)") && art.includes("observer.observe(footer)"));
+  assert.ok(art.includes("nearby.size > 0"));
 });

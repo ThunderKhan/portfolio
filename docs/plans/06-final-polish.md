@@ -55,3 +55,7 @@ Owner approved the full-width ember landscape and annotated a deeper arrival nea
 ## Gold and crimson motto
 
 Owner requested selective red emphasis. Highlighted `fall` and `great height` with text-only spans while preserving the configured quote, line break, font and alignment. Light theme uses existing armor red; dark uses #E2524B for readable contrast (5.54:1 against black; light red 6.92:1 against the light page color). No motion or glow added. Source and browser assertions updated; runtime and visual verification pending.
+
+## Earlier falling motion
+
+Owner requested a fall already in progress as the quote arrives. The scroll timeline begins when the closing section is 15% of a viewport below the screen, with the artwork starting 32% of its own width above its former origin. A gently accelerating progress curve preserves an early visible lead-in and reaches the identical 70%-terrain endpoint at footer end. Observe both closing section and footer using a set of active intersections and 480px pre-entry margin, so scrolling through either cannot suspend the effect prematurely. No new dependencies, idle loop or changes to the footer/quote/terrain. Reduced motion retains static final position. Added geometry unit and browser pre-entry assertions; full browser run pending.
