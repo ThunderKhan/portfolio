@@ -1,21 +1,27 @@
-import Link from "next/link";
+import Image from "next/image";
+import { RidgelineScene } from "@/components/RidgelineScene";
 import styles from "./system-pages.module.css";
 
 export default function NotFound() {
   return (
-    <main id="main-content" tabIndex={-1} className={styles.lost}>
+    <main id="main-content" tabIndex={-1} className={styles.lost} data-lost-page>
       <div className={styles.lostInner}>
-        <svg viewBox="0 0 220 50" aria-hidden="true" className={styles.signal}>
-          <path d="M0 25H65L80 13L93 37L106 25H132L143 25" stroke="currentColor" strokeWidth="1.6" fill="none" />
-          <path d="M158 25H220" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 5" fill="none" opacity=".45" />
-        </svg>
-        <p className={styles.errorCode}>404</p>
-        <h1 className="mark-display">Signal lost.</h1>
-        <p>The page you requested could not be found. You can return home or explore the project archive.</p>
-        <nav aria-label="Recovery navigation" className={styles.recovery}>
-          <Link href="/" className={styles.link}>Return home</Link>
-          <Link href="/projects" className={styles.link}>Explore projects</Link>
-        </nav>
+        <p className={styles.errorCode} aria-hidden="true">404</p>
+        <h1 className={`mark-display ${styles.lostTitle}`}><span className="sr-only">404 — </span>Signal lost.</h1>
+        <p className={styles.lostCopy}>The page you requested could not be found.</p>
+      </div>
+      <div className={styles.lostLandscape} aria-hidden="true">
+        <RidgelineScene layout="viewport" />
+        <Image
+          src="/art/falling-armor.webp"
+          alt=""
+          width={533}
+          height={640}
+          loading="eager"
+          unoptimized
+          className={styles.lostArmor}
+          data-lost-armor
+        />
       </div>
     </main>
   );

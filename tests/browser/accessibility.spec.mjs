@@ -370,7 +370,7 @@ test('hidden terminal discovery, exact commands and contact navigation', async (
   await expect(page.getByRole('heading', { name: 'Contact', exact: true })).toBeVisible();
 });
 
-test('blueprint is discoverable and missing pages have recovery links', async ({ page }, info) => {
+test('blueprint is discoverable and missing pages use the cinematic error scene', async ({ page }, info) => {
   await mockCalendar(page);
   await visit(page, '/', info);
   await page.getByRole('button', { name: /Open command menu/ }).click();
@@ -382,11 +382,35 @@ test('blueprint is discoverable and missing pages have recovery links', async ({
   await expect(page.getByRole('heading', { name: 'Under the Hood' })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   await audit(page, info, 'blueprint');
-  await page.goto('/unknown-mark-i-test-route');
-  await expect(page.getByRole('heading', { name: 'Signal lost.' })).toBeVisible();
+  const response = await page.goto('/unknown-mark-i-test-route');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: '404 — Signal lost.' })).toBeVisible();
+  const lost = page.locator('[data-lost-page]');
+  const terrain = lost.locator('[data-ridgeline-scene]');
+  const armor = lost.locator('[data-lost-armor]');
+  await expect(terrain.locator('canvas')).toHaveAttribute('data-ready', 'true');
+  await expect.poll(() => armor.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
+  await expect(lost.getByRole('link')).toHaveCount(0);
+  const geometry = await lost.evaluate(el => {
+    const bounds = el.getBoundingClientRect();
+    const ridge = el.querySelector('[data-ridgeline-scene]').getBoundingClientRect();
+    const figure = el.querySelector('[data-lost-armor]').getBoundingClientRect();
+    const title = el.querySelector('h1').getBoundingClientRect();
+    return { width: bounds.width, height: bounds.height, viewportWidth: document.documentElement.clientWidth,
+      viewportHeight: window.innerHeight, scrollHeight: document.documentElement.scrollHeight,
+      scrollWidth: document.documentElement.scrollWidth, ridgeLeft: ridge.left, ridgeRight: ridge.right,
+      ridgeBottom: ridge.bottom, armorBottom: figure.bottom, titleBottom: title.bottom, armorTop: figure.top };
+  });
+  expect(Math.abs(geometry.height - geometry.viewportHeight)).toBeLessThan(2);
+  expect(geometry.scrollHeight).toBeLessThanOrEqual(geometry.viewportHeight + 1);
+  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+  expect(Math.abs(geometry.ridgeLeft)).toBeLessThan(2);
+  expect(Math.abs(geometry.ridgeRight - geometry.viewportWidth)).toBeLessThan(2);
+  expect(Math.abs(geometry.ridgeBottom - geometry.viewportHeight)).toBeLessThan(2);
+  expect(geometry.armorBottom).toBeLessThan(geometry.ridgeBottom);
+  expect(geometry.titleBottom).toBeLessThan(geometry.armorTop);
+  await expect(armor).toHaveCSS('animation-name', 'none');
   await audit(page, info, 'not-found');
-  await page.getByRole('link', { name: 'Return home' }).click();
-  await expect(page).toHaveURL(/\/$/);
 });
 
 test('original sudo hiring command works directly from palette', async ({ page }, info) => {

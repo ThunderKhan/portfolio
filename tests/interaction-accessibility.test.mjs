@@ -127,3 +127,18 @@ test("hidden blueprint and lost-signal recovery exist without public indexing", 
   assert.ok(read("src/app/not-found.tsx").includes("Signal lost."));
   assert.ok(read("src/app/layout.tsx").includes("<DeveloperClue />"));
 });
+
+
+test("cinematic 404 reuses the approved art and stays within its viewport", () => {
+  const page = read("src/app/not-found.tsx");
+  const css = read("src/app/system-pages.module.css");
+  const scene = read("src/components/RidgelineScene.tsx");
+  assert.ok(page.includes('<RidgelineScene layout="viewport" />'));
+  assert.ok(page.includes('src="/art/falling-armor.webp"'));
+  assert.ok(!page.includes("<Link") && !page.includes("<nav") && !page.includes("<svg"));
+  assert.ok(css.includes("height: 100dvh") && css.includes("overflow: hidden"));
+  assert.ok(css.includes("-webkit-text-fill-color: var(--mark-red)"));
+  assert.ok(css.includes("@media (prefers-reduced-motion: no-preference)"));
+  assert.ok(scene.includes('layout = "footer"') && scene.includes("data-ridgeline-layout={layout}"));
+  assert.match(read("src/components/closing.module.css"), /\.scene\[data-ridgeline-layout="viewport"\]\s*\{[^}]*margin-inline: 0/);
+});

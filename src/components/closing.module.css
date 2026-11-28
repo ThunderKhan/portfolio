@@ -118,3 +118,6 @@
 @media (prefers-reduced-motion: no-preference) {
   .footer a { transition: color 150ms ease; }
 }
+
+/* Full-viewport error composition uses the same palette, dither and fallback. */
+.scene[data-ridgeline-layout="viewport"] { margin-inline: 0; width: 100%; height: 100%; }

@@ -14,7 +14,7 @@ function rgb(hex: string) {
   return [n >> 16 & 255, n >> 8 & 255, n & 255];
 }
 
-export function RidgelineScene() {
+export function RidgelineScene({ layout = "footer" }: { layout?: "footer" | "viewport" } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -204,5 +204,5 @@ export function RidgelineScene() {
       root.removeEventListener("pointerdown", gustAt);
     };
   }, []);
-  return <div ref={rootRef} className={styles.scene} data-ridgeline-scene aria-hidden="true"><canvas ref={canvasRef} /></div>;
+  return <div ref={rootRef} className={styles.scene} data-ridgeline-scene data-ridgeline-layout={layout} aria-hidden="true"><canvas ref={canvasRef} /></div>;
 }
