@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # MARK I — repository instructions
 
-Ayan Khan's portfolio redesign, forked from Paras-ydv/portfolio (MIT). Preserve the Next.js App Router architecture, layout and routes unless the owner approves structural changes. Stark-inspired red, gold and arc-blue are design inspiration, not permission for fictional branding or unapproved features. Leave the separate live website untouched during development.
+Ayan Khan's portfolio redesign, forked from Paras-ydv/portfolio (MIT). Preserve the Next.js App Router architecture, layout and routes unless the owner approves structural changes. Stark-inspired red, gold and arc-blue are design inspiration, not permission for fictional branding or unapproved features. The canonical website is now served by this repository from Vercel `main`. Develop on focused branches and use protected previews; do not change live infrastructure without approval. Preserve the old GitHub Pages deployment during rollback observation.
 
 ## Commands (repository root)
 
@@ -35,7 +35,7 @@ Run the focused Node regression suite with npm test; add coverage as behavior ch
 - Integrations: `src/lib/stats/`, `src/app/api/`; refresh scripts: `scripts/`; assets: `public/`.
 - Read [SETUP.md](SETUP.md) for content migration and [README.md](README.md) for setup.
 - Next.js 16, React 19, TypeScript, Tailwind CSS 4, npm, Docker. Exact versions: package.json and lockfile.
-- Read [docs/decision.md](docs/decision.md) for accepted stack, container commands and pending production hosting decisions.
+- Read [docs/decision.md](docs/decision.md) for accepted stack, container commands and accepted production hosting decision (D-003), and [maintenance handoff](docs/maintenance.md).
 - Before planning, implementing, debugging or reviewing changes, read [ENGINEERING.md](ENGINEERING.md) for the risk-based workflow, coding standards, verification gates and handoff requirements. Use only sections relevant to the task.
 - Before proposing, implementing or reviewing visual changes, read [DESIGN.md](DESIGN.md). Preserve the approved identity, layout, typography, themes, motion and six exact digital brand colors; validate and obtain approval of supporting theme colors before freezing them.
 

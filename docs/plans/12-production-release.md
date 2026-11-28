@@ -1,6 +1,6 @@
 # MARK I — production release and rollback
 
-Baseline: 6257efc, owner-approved staging acceptance, 28 November 2026. Vercel project portfolio (personal team), Node.js 22.x; staging.ayankhan.me maps to design/mark-i-final-polish. Latest staging redeployment at baseline: dpl_DWDq6B4zR98qyBQhJUkbUaPPc6bD, READY. Existing public apex remains on its existing host. No production release is authorized by this document.
+Baseline: 6257efc, owner-approved staging acceptance, 28 November 2026. Vercel project portfolio (personal team), Node.js 22.x; staging.ayankhan.me maps to design/mark-i-final-polish. Latest staging redeployment at baseline: dpl_DWDq6B4zR98qyBQhJUkbUaPPc6bD, READY. Existing public apex remains on its existing host. No production release is authorized by this document alone. The following cutover sequence is retained as historical release procedure; the owner approved the actual cutover on 2026-11-28. See the current status below.
 
 ## Environment contract
 
@@ -31,3 +31,12 @@ If apex migration breaks, restore exact saved apex/www DNS records to old host a
 ## Verification
 
 Existing default CI builds and browser regression remain preview-safe. Add full rendered SEO checks against the existing local server and a separate isolated simulated production build. Source tests cover missing or wrong target/branch/flag/origin, preview headers and opt-in telemetry. Actual hosted production build, DNS, HTTPS, privacy/licensing, and Search Console still require verification. Dark-mode GPU performance investigation remains deferred by owner.
+
+## Actual release record — 2026-11-28 (IST)
+
+- PR #7 merged into `main` at `8f10264d4d195c6ea89d115df155ffec50b04447`. Post-merge Portfolio CI and Portfolio Security completed successfully.
+- Production deployment `dpl_7eBcSomgK6iPzMxo4179wzQvNf8W` was assigned to the apex; `www` is a 308 redirect. Vercel reports both domains verified and DNS correctly configured. Preview/staging remains separate and owner confirmed authentication in a private browser.
+- Owner confirmed protected production and indexable build acceptance. After cutover, a certificate-date warning was observed; Vercel returned a certificate issuance record. Owner's strict HTTPS request to the Vercel apex IP returned 200 and security headers; WWW HTTPS returned a Vercel 308. Google and Cloudflare DNS returned the new addresses; the owner's ISP still returned the old addresses at last check. Global propagation is not asserted.
+- Google Search Console domain ownership verified, sitemap submitted, homepage live test eligible for indexing with one valid ProfilePage item, and priority indexing requests submitted (owner confirmation). Sitemap processing and actual indexing remain to be checked.
+- Keep the existing Pages site and domain verification records for rollback. The exact pre-cutover A/CNAME/TTL snapshot was recorded in the release conversation; retain a private copy. No token or private DNS verification string is stored here. Do not assume rollback works indefinitely; verify old hosting and HTTPS before switching.
+- See [maintenance handoff](../maintenance.md) for ongoing workflow and known outstanding items. Artwork rights and dark-mode GPU performance remain open review items; this record does not certify them.
