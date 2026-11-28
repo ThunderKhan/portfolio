@@ -50,12 +50,15 @@ export function OpenSourceList({ items }: { items: OpenSourceEntry[] }) {
                   {item.links.length > 0 && (
                     <ul className="mt-3 space-y-2">
                       {item.links.map((link) => (
-                        <li key={link.href} className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                        <li key={link.href} className="min-w-0">
+                          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                           <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-0 items-center gap-1 text-[12px] text-zinc-700 underline decoration-dotted underline-offset-4 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white">
                             <span className="break-words">{link.label}</span>
                             
                           </a>
-                          <span className="shrink-0 text-[11px] mark-muted">{link.status}</span>
+                          <span className="shrink-0 text-[11px] mark-muted">{link.status === "Closed" ? "Closed without merge" : link.status}</span>
+                          </div>
+                          {link.detail && <p className="mt-1 text-[12px] leading-relaxed mark-muted">{link.detail}</p>}
                         </li>
                       ))}
                     </ul>

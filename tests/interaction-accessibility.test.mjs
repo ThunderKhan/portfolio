@@ -225,3 +225,13 @@ test("portfolio source command matches its displayed label and retains search al
   const menu = read("src/components/command-menu.tsx");
   assert.ok(menu.includes('value="Portfolio source code" keywords={["system", "repository", "github", "architecture"]}'));
 });
+
+
+test("experience distinguishes test-only changes, contract work and scoped internal metrics", async () => {
+  const { experiences } = await import("../src/data/experienceData.ts");
+  const runtime = experiences.find(item => item.title === "Runtime Conditions");
+  assert.match(runtime.description, /no production profiler behavior changed/);
+  assert.ok(runtime.links.some(link => link.href.endsWith("/pull/9")));
+  assert.equal(experiences.find(item => item.title === "micro1").type, "Contract");
+  assert.match(experiences.find(item => item.title === "VSPH").description, /not a measured latency claim/);
+});

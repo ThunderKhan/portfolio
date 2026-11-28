@@ -4,27 +4,30 @@ export type OpenSourceEntry = {
   title: string;
   summary: string;
   description: string;
-  links: { label: string; href: string; status: ContributionStatus }[];
+  links: { label: string; href: string; status: ContributionStatus; detail?: string }[];
   evidence?: { label: string; href: string }[];
 };
 
-// Curated PR status snapshot verified against GitHub on 2026-11-25.
+// Curated PR authorship and status snapshot verified against GitHub on 2026-11-28.
+export const contributionVerifiedDate = "28 Nov 2026";
 export const openSourceWork: OpenSourceEntry[] = [
   {
     "id": "corsair",
     "summary": "Service integrations · 178 API operations",
     "title": "Corsair",
-    "description": "Shipped two upstream service integrations covering 178 API operations: Borneo (153 operations across 20 endpoint groups) and Ably (25 REST operations). Added typed input/output schemas, authentication, error handling, provider registration and endpoint tests.",
+    "description": "Implemented and merged Borneo's 153-operation Composio-backed integration and Ably's 25-operation REST integration. Added schema validation, authentication, provider registration, error handling and endpoint tests. The operation count describes supported API surface, not usage or adoption.",
     "links": [
       {
         "label": "#1187 · Borneo integration",
         "href": "https://github.com/corsairdev/corsair/pull/1187",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "153 canonical Composio-backed operations across 20 groups, typed schemas, authentication and risk metadata; PR reports 165/165 plugin tests."
       },
       {
         "label": "#865 · Ably integration",
         "href": "https://github.com/corsairdev/corsair/pull/865",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "25 REST operations for channels, presence, application and push; PR documents a live service-time call and scoped build/test validation."
       }
     ]
   },
@@ -32,12 +35,13 @@ export const openSourceWork: OpenSourceEntry[] = [
     "id": "proofline",
     "summary": "Verified Windows installer",
     "title": "Proofline CLI",
-    "description": "Proposed a Windows PowerShell installer with SHA-256 verification, current-user installation, transactional upgrade recovery, rollback, PATH preservation and Windows PowerShell 5.1/7 test coverage.",
+    "description": "Proposed a current-user Windows installer with verified downloads, recoverable upgrades, rollback and PATH preservation. Fork-only CI and local interruption checks are documented in the PR; the proposal is not merged upstream.",
     "links": [
       {
         "label": "#89 · Verified Windows installer",
         "href": "https://github.com/prooflinedev/cli/pull/89",
-        "status": "Open"
+        "status": "Open",
+        "detail": "SHA-256 verification, transactional staging and recovery; fork preflight covered PowerShell 5.1/7 and ten reported process-interruption checkpoints. Upstream review remains open."
       }
     ]
   },
@@ -50,32 +54,38 @@ export const openSourceWork: OpenSourceEntry[] = [
       {
         "label": "#52 · IPv6 URL encoding",
         "href": "https://github.com/p2r3/ha.mr/pull/52",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Encoded bracketed IPv6 as a 128-bit value using an escape in the existing v0 format, without adding overhead to normal URL encoding."
       },
       {
         "label": "#59 · Reserved URL escapes",
         "href": "https://github.com/p2r3/ha.mr/pull/59",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Preserved percent-encoded reserved characters through compression/decompression, preventing double encoding without turning encoded slashes into path separators."
       },
       {
         "label": "#48 · QR error correction",
         "href": "https://github.com/p2r3/ha.mr/pull/48",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Selected the strongest QR correction level that fits the baseline QR version while retaining manual override."
       },
       {
         "label": "#63 · Nix package layout",
         "href": "https://github.com/p2r3/ha.mr/pull/63",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Restored the expected docs module directory in the Nix package; PR reports successful encode/decode after rebuilding."
       },
       {
         "label": "#45 · System color scheme",
         "href": "https://github.com/p2r3/ha.mr/pull/45",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Respected system color-scheme on both primary and 404 pages; removed hardcoded input background."
       },
       {
         "label": "#47 · QR library license",
         "href": "https://github.com/p2r3/ha.mr/pull/47",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Restored bundled QR library MIT copyright and license notice without changing library implementation."
       }
     ]
   },
@@ -88,12 +98,14 @@ export const openSourceWork: OpenSourceEntry[] = [
       {
         "label": "#1431 · Floating-point precision",
         "href": "https://github.com/CLIUtils/CLI11/pull/1431",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Replaced lossy floating-point string conversion with max_digits10 precision; regression covers 1e-8 defaults."
       },
       {
         "label": "#1439 · Wide-string overloads",
         "href": "https://github.com/CLIUtils/CLI11/pull/1439",
-        "status": "Closed"
+        "status": "Closed",
+        "detail": "Proposed wide-string constructor and usage overloads with Unicode regression coverage. Closed without merge."
       }
     ]
   },
@@ -101,17 +113,19 @@ export const openSourceWork: OpenSourceEntry[] = [
     "id": "runtime-conditions",
     "summary": "Python profiler · Windows compatibility",
     "title": "Runtime Conditions — Python profiler",
-    "description": "Resolved Windows test failures caused by source encoding and path separators, taking the reported local suite from 101 passing / 18 failing to 119 passing. Added permanent Windows CI coverage with canonical schema line endings. Both changes were merged upstream.",
+    "description": "Corrected cross-platform test assumptions without modifying production profiler behavior. Added Windows CI alongside Linux coverage and preserved canonical schema bytes to prevent digest regressions.",
     "links": [
       {
         "label": "#9 · Cross-platform tests",
         "href": "https://github.com/runtimeconditions/python-rc-profiler/pull/9",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Explicit UTF-8 fixture writes and platform-neutral path assertions; reported 119/119 Windows tests. Test-only change."
       },
       {
         "label": "#10 · Windows CI",
         "href": "https://github.com/runtimeconditions/python-rc-profiler/pull/10",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Extended CI to Windows Server 2022/Python 3.12; targeted line-ending rule preserves schema digest. PR reports all five jobs passing."
       }
     ]
   },
@@ -124,12 +138,14 @@ export const openSourceWork: OpenSourceEntry[] = [
       {
         "label": "#10 · XLSX support",
         "href": "https://github.com/AbdaullahAG/OpenTrace/pull/10",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Added separate openpyxl XLSX discovery/parsing, read-only/data-only workbooks, cleanup and regression coverage."
       },
       {
         "label": "#6 · TSV and XLS discovery",
         "href": "https://github.com/AbdaullahAG/OpenTrace/pull/6",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Fixed TSV delimiter and legacy XLS binary discovery using xlrd; PR reports six focused tests passing."
       }
     ]
   },
@@ -142,7 +158,8 @@ export const openSourceWork: OpenSourceEntry[] = [
       {
         "label": "#2503 · TeX conversion errors",
         "href": "https://github.com/3b1b/manim/pull/2503",
-        "status": "Merged"
+        "status": "Merged",
+        "detail": "Raised LatexError with diagnostic stderr for nonzero dvisvgm exits; explicit process failure only, not successful-but-empty SVG output."
       }
     ]
   },
