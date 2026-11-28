@@ -57,6 +57,8 @@ jobs:
         run: node scripts/audit-secrets.mjs --ci-no-token
       - name: Public asset inventory
         run: npm run audit:assets
+      - name: Resume content indicators (no extracted text in logs)
+        run: python3 scripts/check-resume-indicators.py
       - name: Install Chromium and system dependencies
         run: npm --prefix tests/browser exec -- playwright install --with-deps chromium
       - name: Production performance observations (credential-free)

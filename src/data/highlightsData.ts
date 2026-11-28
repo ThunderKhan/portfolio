@@ -30,7 +30,8 @@ export const highlightsData: Highlight[] = [
     "badge": "Open source",
     "image": "",
     "imageWidth": 0,
-    "imageHeight": 0
+    "imageHeight": 0,
+    "link": "/open-source"
   },
   {
     "id": "nasa-arset",
@@ -38,7 +39,8 @@ export const highlightsData: Highlight[] = [
     "badge": "Learning",
     "image": "",
     "imageWidth": 0,
-    "imageHeight": 0
+    "imageHeight": 0,
+    "link": "/certifications"
   },
   {
     "id": "ml-course-1",
@@ -46,7 +48,8 @@ export const highlightsData: Highlight[] = [
     "badge": "Learning",
     "image": "",
     "imageWidth": 0,
-    "imageHeight": 0
+    "imageHeight": 0,
+    "link": "/certifications"
   },
   {
     "id": "sih-internal",
