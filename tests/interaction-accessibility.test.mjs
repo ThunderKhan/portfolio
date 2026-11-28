@@ -119,3 +119,11 @@ test("terminal accepts only explicit commands and never interprets shell syntax"
   assert.ok(terminal.includes("entries.slice(-39)") && terminal.includes('maxLength={160}'));
   assert.ok(terminal.includes('role="log"') && !terminal.includes("dangerouslySetInnerHTML"));
 });
+
+test("hidden blueprint and lost-signal recovery exist without public indexing", () => {
+  const blueprint = read("src/app/blueprint/page.tsx");
+  assert.ok(blueprint.includes("robots: { index: false, follow: false }") && blueprint.includes('id="main-content"'));
+  assert.ok(!read("src/lib/seo.ts").includes('"/blueprint"'));
+  assert.ok(read("src/app/not-found.tsx").includes("Signal lost."));
+  assert.ok(read("src/app/layout.tsx").includes("<DeveloperClue />"));
+});

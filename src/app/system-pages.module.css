@@ -1,0 +1,27 @@
+.page {
+  width: min(100%, 800px);
+  margin-inline: auto;
+  padding: 28px 20px 64px;
+  color: var(--mark-ink);
+}
+.header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--mark-seam); }
+.header a, .link { color: var(--mark-interaction); text-decoration: underline; text-underline-offset: 4px; }
+.controls { display: flex; align-items: center; gap: 16px; }
+.intro { padding: 40px 0 28px; }
+.label { font-family: var(--font-geist-mono), monospace; font-size: 12px; color: var(--mark-gold-ink); margin-bottom: 12px; }
+.intro > p:last-child, .section > p, .lostInner > p:not(.errorCode) { line-height: 1.7; color: var(--mark-muted); margin-top: 12px; }
+.section { margin-bottom: 32px; }
+.diagram { margin: 20px 0; padding: 20px; border: 1px solid var(--mark-seam); color: var(--mark-interaction); background-image: linear-gradient(to right, color-mix(in srgb, var(--mark-seam) 45%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--mark-seam) 45%, transparent) 1px, transparent 1px); background-size: 20px 20px; }
+.diagram svg { width: min(100%, 520px); height: auto; margin: auto; display: block; }
+.diagram figcaption { font-size: 12px; color: var(--mark-muted); text-align: center; margin-top: 12px; }
+.systems > div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--mark-seam); }
+.systems dt { font-weight: 600; }
+.systems dd { line-height: 1.6; color: var(--mark-muted); }
+.lost { min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
+.lostInner { width: min(100%, 480px); }
+.signal { width: min(100%, 220px); color: var(--mark-gold-ink); }
+.errorCode { font-family: var(--font-geist-mono), monospace; color: var(--mark-red); font-size: clamp(50px, 12vw, 90px); line-height: 1; margin: 16px 0; font-weight: 600; }
+:global(.dark) .errorCode { color: #E2524B; }
+.recovery { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 28px; }
+.link { display: inline-flex; align-items: center; min-height: 40px; }
+@media (max-width: 639px) { .systems > div { grid-template-columns: 1fr; gap: 6px; } .diagram { padding: 10px; } }

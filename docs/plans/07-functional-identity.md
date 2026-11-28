@@ -12,6 +12,10 @@ Owner approved starting the command interface after accepting the cinematic home
 
 Skills consulted: frontend-design and verification-before-completion; existing DESIGN.md and ENGINEERING.md constrain scope. Preview branch only.
 
-## Slice 2: Under the Hood (not yet implemented)
+## Slice 2: Under the Hood
 
-Ground the blueprint in actual repository architecture, engineering decisions and verified test evidence. Plan route and metadata, public-safe information, accessible diagram, and command integration after visual approval of slice 1.
+Ground the blueprint in actual repository architecture, engineering decisions and verified test evidence. Owner approved the command palette and all Easter eggs. Implemented /blueprint with noindex metadata, an accessible logical diagram, repository-backed descriptions and source link. Excluded from normal navigation and sitemap; no authentication or secrecy implied.
+
+## Slice 3: Easter eggs (owner-approved)
+
+Exact case-insensitive, whitespace-normalized allowlist, activated on Enter or selection in the normal palette, or via the terminal. Reactor button and jarvis open a simulated terminal; commands are never sent to a server or evaluated as code. Public contact, résumé, source and blueprint routes are fixed actions; history is bounded to 40 entries, input to 160 characters, and clears on close. Exit restores search and keyboard focus. Browser console prints one static hint per loaded document. Custom root not-found page offers functional recovery links. No new dependencies, secrets, persistent history, analytics, or external services. Source and browser coverage added. Installed Next.js docs, build and browser execution are not available through the repository connector; verification is pending.

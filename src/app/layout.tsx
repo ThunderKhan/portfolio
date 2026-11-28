@@ -4,6 +4,7 @@ import "./globals.css";
 import { SITE_URL } from "@/lib/site";
 import { portfolio } from "~/portfolio.config";
 import { ThemeProvider } from "@/components/theme-provider";
+import { DeveloperClue } from "@/components/DeveloperClue";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -54,6 +55,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <a href="#main-content" className="mark-skip-link">Skip to main content</a>
+          <DeveloperClue />
           {children}
         </ThemeProvider>
         {!portfolio.referencePreview && (

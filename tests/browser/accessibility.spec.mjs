@@ -337,3 +337,52 @@ test('MARK I command palette has prioritized commands and accessible selection',
   await expect(page).toHaveURL(/\/projects$/);
   await expect(dialog).toBeHidden();
 });
+
+
+test('hidden terminal discovery, exact commands and contact navigation', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  await page.getByRole('button', { name: /Open command menu/ }).click();
+  const dialog = page.getByRole('dialog', { name: 'Command Palette' });
+  const search = dialog.getByRole('combobox');
+  await search.fill('sudo hire ayan; ls');
+  await expect(dialog.getByText('No matching commands. Try a different search.')).toBeVisible();
+  await search.fill('jarvis');
+  await dialog.getByRole('option', { name: 'Run jarvis' }).click();
+  const input = dialog.getByRole('textbox', { name: 'Terminal command' });
+  await expect(input).toBeFocused();
+  await input.fill('whoami');
+  await input.press('Enter');
+  await expect(dialog.getByRole('log')).toContainText('Ayan Khan');
+  await input.fill('clear');
+  await input.press('Enter');
+  await expect(dialog.getByRole('log')).not.toContainText('Ayan Khan');
+  await input.fill('exit');
+  await input.press('Enter');
+  await expect(search).toBeFocused();
+  await dialog.getByRole('button', { name: 'Open hidden terminal' }).click();
+  await expect(input).toBeFocused();
+  await audit(page, info, 'hidden-terminal');
+  await input.fill('sudo hire Ayan');
+  await input.press('Enter');
+  await expect(page).toHaveURL(/\/contact$/);
+  await expect(page.getByRole('heading', { name: 'Contact', exact: true })).toBeVisible();
+});
+
+test('blueprint is discoverable and missing pages have recovery links', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  await page.getByRole('button', { name: /Open command menu/ }).click();
+  const dialog = page.getByRole('dialog', { name: 'Command Palette' });
+  await dialog.getByRole('combobox').fill('man mark-i');
+  await dialog.getByRole('option', { name: 'Run man mark-i' }).click();
+  await expect(page).toHaveURL(/\/blueprint$/);
+  await expect(page.getByRole('heading', { name: 'Under the Hood' })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  await audit(page, info, 'blueprint');
+  await page.goto('/unknown-mark-i-test-route');
+  await expect(page.getByRole('heading', { name: 'Signal lost.' })).toBeVisible();
+  await audit(page, info, 'not-found');
+  await page.getByRole('link', { name: 'Return home' }).click();
+  await expect(page).toHaveURL(/\/$/);
+});
