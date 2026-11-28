@@ -10,10 +10,10 @@ export const portfolio = {
   /** Shown in the hero, page titles and social cards. */
   name: "Ayan Khan",
   /** Compact identity used by social cards, the terminal and structured data. */
-  tagline: "Software developer and open-source contributor.",
+  tagline: "Software developer · Open-source contributor",
   /** Longer form, used for Open Graph and the social hover cards. */
   description:
-    "Ayan Khan is a software developer, ML and data science student, and open-source contributor working on developer tools, software reliability and applied AI.",
+    "Ayan Khan is a software developer and BCA student in Machine Learning and Data Science, interested in systems, developer tools, open source and applied AI.",
   location: "India",
   /** Professional photograph for social cards and link previews. */
   avatar: "/profile/avatar.jpg",
@@ -23,11 +23,11 @@ export const portfolio = {
   // Keep the development preview noindex until the owner approves release.
   referencePreview: true,
   contactFormEnabled: false,
-  intro: "I’m a software developer drawn to the parts of software that are easy to get wrong: correctness, reliability, and how systems behave when things fail.",
+  intro: "I’m a software developer who enjoys understanding how things work, from programming languages to machine learning. I learn by building things, questioning assumptions, and working with other developers.",
   about: [
-    "Second-year BCA student specializing in Machine Learning and Data Science at Deen Dayal Upadhyaya Gorakhpur University.",
-    "Building developer tools in C++ and Python, including diff2test, a test-impact analyzer that uses build evidence to select tests.",
-    "Software engineering intern at VSPH and member of Runtime Conditions, with upstream contributions in cross-platform testing, numerical correctness and developer tooling.",
+    "Studying Machine Learning and Data Science as part of my BCA at Deen Dayal Upadhyaya Gorakhpur University.",
+    "I build developer tools in C++ and Python, including diff2test, a test-impact analyzer, and refute, a tool for checking proposed software fixes against executable evidence.",
+    "Currently a software engineering intern at VSPH and a member of Runtime Conditions. My open-source work spans cross-platform testing, numerical correctness and API integrations.",
   ],
   /** Two-line closing motto, selected by the owner. */
   motto: ["If I must fall,", "let it be from a great height."],
@@ -80,9 +80,9 @@ export const portfolio = {
    * X and LinkedIn block unauthenticated requests.
    */
   bios: {
-    github: "Systems, developer tools and applied AI.",
+    github: "Systems, developer tools, open source and applied AI.",
     x: "",
-    linkedin: "Software developer and BCA student specializing in Machine Learning and Data Science.",
+    linkedin: "Software developer, open-source contributor and BCA student in Machine Learning and Data Science.",
   },
 
   /**

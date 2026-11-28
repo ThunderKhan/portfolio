@@ -522,6 +522,8 @@ test('home title is concise and project archive retains its specific title', asy
   await expect(page).toHaveTitle('Ayan Khan');
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Ayan Khan');
   await expect(page.getByText('diff2test, a test-impact analyzer', { exact: false })).toBeVisible();
+  await expect(page.getByText('I’m a software developer who enjoys understanding how things work', { exact: false })).toBeVisible();
+  await expect(page.getByText('refute, a tool for checking proposed software fixes', { exact: false })).toBeVisible();
   await visit(page, '/projects', info);
   await expect(page).toHaveTitle('Projects | Ayan Khan');
 });
