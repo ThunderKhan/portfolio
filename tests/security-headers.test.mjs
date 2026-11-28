@@ -50,5 +50,6 @@ test("resource policy restricts resource origins without unsafe-eval or wildcard
 test("Next config applies security headers globally and disables framework disclosure", () => {
   const config = readFileSync(new URL("../next.config.ts", import.meta.url), "utf8");
   assert.match(config, /poweredByHeader: false/);
-  assert.match(config, /source: "\/:path\*", headers: securityHeaders\(process\.env\.NODE_ENV === "production"\)/);
+  assert.match(config, /source: "\/:path\*", headers: \[\.\.\.securityHeaders\(process\.env\.NODE_ENV === "production"\)/);
+  assert.ok(config.includes("...previewIndexHeaders(process.env, portfolio.url)"));
 });

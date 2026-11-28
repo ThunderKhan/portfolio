@@ -20,8 +20,6 @@ export const portfolio = {
   /** Decorative homepage avatar, selected by the owner. */
   heroAvatar: "/profile/iron-man.jpg",
   initials: "AK",
-  // Keep the development preview noindex until the owner approves release.
-  referencePreview: true,
   contactFormEnabled: false,
   intro: "I’m a software developer who enjoys understanding how things work, from programming languages to machine learning. I learn by building things, questioning assumptions, and working with other developers.",
   about: [

@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 import { securityHeaders } from "./src/lib/security-headers";
+import { previewIndexHeaders } from "./src/lib/release-policy";
+import { portfolio } from "./portfolio.config";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders(process.env.NODE_ENV === "production") }];
+    return [{ source: "/:path*", headers: [...securityHeaders(process.env.NODE_ENV === "production"), ...previewIndexHeaders(process.env, portfolio.url)] }];
   },
   // Keep the existing npm workflow; emit a traced server only for container builds.
   ...(process.env.PORTFOLIO_DOCKER_BUILD === "1" ? { output: "standalone" as const } : {}),

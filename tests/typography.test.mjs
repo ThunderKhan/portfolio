@@ -94,8 +94,8 @@ test("avatar renders the original image without a decorative frame or filter", (
   assert.ok(!home.includes("object-cover grayscale"));
   assert.ok(!read("src/app/globals.css").includes(".mark-hero-avatar"));
   assert.ok(!home.includes("Development preview"));
-  assert.ok(read("portfolio.config.ts").includes("referencePreview: true"));
-  assert.ok(read("src/app/layout.tsx").includes("robots: { index: false, follow: false }"));
+  assert.ok(read("src/lib/release-policy.ts").includes('env.PORTFOLIO_PUBLIC_RELEASE !== "1"'));
+  assert.ok(read("src/app/layout.tsx").includes("{ index: false, follow: false }"));
 });
 test("portfolio navigation stays arrow-free while disclosure chevrons indicate expansion", () => {
   for (const path of ["src/app/page.tsx","src/app/projects/page.tsx","src/app/projects/[slug]/page.tsx","src/app/blogs/page.tsx","src/app/blogs/[slug]/page.tsx","src/app/experience/page.tsx","src/app/contact/page.tsx","src/app/certifications/page.tsx","src/app/highlights/page.tsx","src/app/open-source/page.tsx","src/components/ProjectsGrid.tsx","src/components/BlogList.tsx","src/components/OpenSourceList.tsx","src/components/Certifications.tsx","src/components/CertificateLink.tsx","src/components/EventHighlights.tsx","src/components/ExperienceList.tsx","src/components/Hackathons.tsx","src/components/Highlights.tsx","src/components/Education.tsx","src/components/SpotifyCard.tsx","src/components/OpenSourceWork.tsx","src/components/DsaStats.tsx","src/components/command-menu.tsx"]) {

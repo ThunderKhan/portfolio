@@ -32,7 +32,7 @@ test("unavailable activity does not render an empty calendar as actual history",
 
 
 test("preview does not inject production telemetry scripts", () => {
-  assert.match(read("src/app/layout.tsx"), /\{!portfolio\.referencePreview && \([\s\S]*?<Analytics \/>[\s\S]*?<SpeedInsights \/>/);
+  assert.match(read("src/app/layout.tsx"), /\{ENABLE_TELEMETRY && \([\s\S]*?<Analytics \/>[\s\S]*?<SpeedInsights \/>/);
 });
 test("social hover artwork loads only when its card is open", () => {
   const source = read("src/components/pixel-perfect/social-hover-card.tsx");

@@ -2,6 +2,9 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { chromium } from "@playwright/test";
 import { portfolio } from "../../portfolio.config.ts";
+import { isPublicRelease } from "../../src/lib/release-policy.ts";
+// The server is a production Next build even when this Node test has no NODE_ENV.
+const publicRelease = isPublicRelease({ ...process.env, NODE_ENV: "production" }, portfolio.url);
 
 const origin = "http://127.0.0.1:4173";
 const canonicalOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || portfolio.url).origin;
@@ -50,7 +53,15 @@ try {
     assert.equal(await meta("twitter:card"), "summary_large_image", path);
     socialImages.add(await meta("og:image", "property"));
     socialImages.add(await meta("twitter:image"));
-    if (portfolio.referencePreview) assert.match(await meta("robots"), /\bnoindex\b/, path);
+    const indexing = await meta("robots");
+    if (!publicRelease) {
+      assert.match(indexing, /\bnoindex\b/, path);
+      assert.match(response.headers()["x-robots-tag"] || "", /\bnoindex\b/, path);
+    } else {
+      assert.match(indexing, /\bindex\b/, path);
+      assert.doesNotMatch(indexing, /\bnoindex\b/, path);
+      assert.doesNotMatch(response.headers()["x-robots-tag"] || "", /\bnoindex\b/, path);
+    }
     const data = (await page.locator('script[type="application/ld+json"]').allTextContents()).map(text => JSON.parse(text));
     if (path === "/") {
       const graph = data.flatMap(item => item["@graph"] ?? []);
@@ -86,13 +97,23 @@ try {
   assert.equal(sitemapResponse.status, 200);
   const sitemap = await sitemapResponse.text();
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-  if (portfolio.referencePreview) {
+  if (!publicRelease) {
     assert.doesNotMatch(robots, /Sitemap:/i);
     assert.equal(urls.length, 0);
   } else {
     assert.match(robots, /Sitemap:/i);
     assert.deepEqual(urls.map(normalized).sort(), paths.map(absolute).sort());
   }
+  const resume = await fetch(origin + portfolio.resume);
+  assert.equal(resume.status, 200);
+  assert.match(resume.headers.get("content-type"), /application\/pdf/);
+  const resumeRobots = resume.headers.get("x-robots-tag") || "";
+  if (publicRelease) assert.doesNotMatch(resumeRobots, /\bnoindex\b/);
+  else assert.match(resumeRobots, /\bnoindex\b/);
+  await resume.arrayBuffer();
+  const blueprint = await page.goto(origin + "/blueprint", { waitUntil: "domcontentloaded" });
+  assert.equal(blueprint.status(), 200);
+  assert.match(await page.locator('head meta[name="robots"]').getAttribute("content"), /\bnoindex\b/);
   for (const old of ["/blogs/cpp-test-impact-analysis-zero-runtime-dependencies", "/blog/cpp-test-impact-analysis-zero-runtime-dependencies", "/blog/i-built-c-test-impact-analysis-with-zero-runtime-dependencies"]) {
     const response = await fetch(origin + old, { redirect: "manual" });
     assert.equal(response.status, 308, old);
