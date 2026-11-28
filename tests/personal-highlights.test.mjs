@@ -104,6 +104,15 @@ test("falling art belongs to the footer background and uses bounded scroll trans
   const art = read("src/components/FallingSilhouette.tsx");
   assert.ok(!home.includes("<FallingSilhouette />"));
   assert.ok(footer.indexOf("<FallingSilhouette />") < footer.indexOf("styles.footerGrid"));
-  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "compact.matches ? 32 : 84"]) assert.ok(art.includes(marker), marker);
+  for (const marker of ["prefers-reduced-motion: reduce", "requestAnimationFrame", "cancelAnimationFrame", "observer.disconnect()", "document.hidden", "image.style.transform", "compact.matches ? 18 : 56"]) assert.ok(art.includes(marker), marker);
   assert.ok(!art.includes("useState"));
+});
+
+
+test("falling armor is composited between terrain and footer foreground", () => {
+  const css = read("src/components/closing.module.css");
+  assert.match(css, /\.figure\s*\{[^}]*z-index: 1;/);
+  assert.match(css, /\.scene\s*\{[^}]*z-index: 0;/);
+  assert.match(css, /\.footerGrid\s*\{[^}]*z-index: 2;/);
+  assert.match(css, /\.figure\s*\{[^}]*mask-image: [^;]*transparent 100%/);
 });

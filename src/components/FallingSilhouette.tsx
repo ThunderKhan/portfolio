@@ -27,7 +27,7 @@ export function FallingSilhouette() {
       const vh = window.innerHeight;
       const top = footer.getBoundingClientRect().top;
       const progress = Math.min(1, Math.max(0, (vh * .95 - top) / (vh * .65)));
-      const travel = compact.matches ? 32 : 84;
+      const travel = compact.matches ? 18 : 56;
       // Direct transform only: no React render, layout animation or idle loop.
       image.style.transform = `translate3d(-50%, ${(travel * progress).toFixed(2)}px, 0)`;
     };
@@ -76,7 +76,7 @@ export function FallingSilhouette() {
       className={styles.figure}
       width={533}
       height={640}
-      sizes="(max-width: 639px) 150px, 240px"
+      sizes="(max-width: 639px) 142px, 220px"
       loading="lazy"
       unoptimized
     />

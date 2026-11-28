@@ -10,17 +10,17 @@
 .figure {
   position: absolute;
   z-index: 1;
-  top: -88px;
-  left: calc(50% + 60px);
+  top: -112px;
+  left: calc(50% + 24px);
   display: block;
   pointer-events: none;
-  width: 240px;
+  width: 220px;
   height: auto;
   aspect-ratio: 533 / 640;
   object-fit: contain;
   transform: translate3d(-50%, 0, 0);
-  opacity: .72;
-  mask-image: linear-gradient(to bottom, #000 25%, rgb(0 0 0 / 65%) 70%, rgb(0 0 0 / 48%));
+  opacity: .82;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgb(0 0 0 / 88%) 80%, rgb(0 0 0 / 45%) 92%, transparent 100%);
 }
 :global(.dark) .figure { opacity: .94; }
 .footer {
@@ -67,7 +67,7 @@
   --ridge-5: #3c566b;
   --ridge-6: #23394b;
   position: relative;
-  z-index: 2;
+  z-index: 0;
   height: clamp(220px, 34vw, 350px);
   overflow: hidden;
   background: var(--ridge-0);
@@ -96,7 +96,7 @@
 .scene canvas[data-ready="true"] { opacity: 1; }
 @media (max-width: 639px) {
   .motto { min-height: 190px; padding: 24px 0; }
-  .figure { top: -48px; left: calc(50% + 16px); width: 150px; }
+  .figure { top: -56px; left: calc(50% + 8px); width: 142px; }
   .footerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding: 28px 16px 20px; }
   .identity { grid-column: 1 / -1; }
   .credit { padding-inline: 16px; }
