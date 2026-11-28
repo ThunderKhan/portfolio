@@ -113,8 +113,8 @@ test("terminal accepts only explicit commands and never interprets shell syntax"
   assert.equal(terminalReply(null, "", "", []), "Command not found. Try help.");
   const menu = read("src/components/command-menu.tsx");
   assert.ok(menu.includes('router.push("/contact")') && menu.includes('router.push("/blueprint")'));
-  assert.ok(menu.includes("hiddenCommand ?") && menu.includes("forceMount"));
-  assert.ok(menu.includes('aria-label="Open hidden terminal"'));
+  assert.ok(menu.includes("hiddenCommand ?") && menu.includes("event.nativeEvent.isComposing"));
+  assert.ok(menu.includes('"Open hidden terminal"'));
   const terminal = read("src/components/MarkTerminal.tsx");
   assert.ok(terminal.includes("entries.slice(-39)") && terminal.includes('maxLength={160}'));
   assert.ok(terminal.includes('role="log"') && !terminal.includes("dangerouslySetInnerHTML"));

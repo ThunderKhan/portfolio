@@ -348,7 +348,8 @@ test('hidden terminal discovery, exact commands and contact navigation', async (
   await search.fill('sudo hire ayan; ls');
   await expect(dialog.getByText('No matching commands. Try a different search.')).toBeVisible();
   await search.fill('jarvis');
-  await dialog.getByRole('option', { name: 'Run jarvis' }).click();
+  await expect(dialog.getByRole('option', { name: 'Run jarvis' })).toBeVisible();
+  await search.press('Enter');
   const input = dialog.getByRole('textbox', { name: 'Terminal command' });
   await expect(input).toBeFocused();
   await input.fill('whoami');
@@ -375,7 +376,8 @@ test('blueprint is discoverable and missing pages have recovery links', async ({
   await page.getByRole('button', { name: /Open command menu/ }).click();
   const dialog = page.getByRole('dialog', { name: 'Command Palette' });
   await dialog.getByRole('combobox').fill('man mark-i');
-  await dialog.getByRole('option', { name: 'Run man mark-i' }).click();
+  await expect(dialog.getByRole('option', { name: 'Run man mark-i' })).toBeVisible();
+  await dialog.getByRole('combobox').press('Enter');
   await expect(page).toHaveURL(/\/blueprint$/);
   await expect(page.getByRole('heading', { name: 'Under the Hood' })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
@@ -385,4 +387,16 @@ test('blueprint is discoverable and missing pages have recovery links', async ({
   await audit(page, info, 'not-found');
   await page.getByRole('link', { name: 'Return home' }).click();
   await expect(page).toHaveURL(/\/$/);
+});
+
+test('original sudo hiring command works directly from palette', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  await page.keyboard.press('Control+k');
+  const dialog = page.getByRole('dialog', { name: 'Command Palette' });
+  const search = dialog.getByRole('combobox');
+  await expect(search).toBeFocused();
+  await search.fill('sudo hire Ayan');
+  await search.press('Enter');
+  await expect(page).toHaveURL(/\/contact$/);
 });

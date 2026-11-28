@@ -47,7 +47,7 @@ export function MarkTerminal({ initialInput, onAction, onExit }: {
         <span>visitor@mark-i</span>
         <button type="button" onClick={onExit}>Back to search</button>
       </div>
-      <div ref={outputRef} role="log" aria-label="Terminal output" className={styles.transcript}>
+      <div ref={outputRef} role="log" tabIndex={0} aria-label="Terminal output" className={styles.transcript}>
         <p className="mark-muted">MARK I terminal. Type help to begin.</p>
         {history.map((entry, index) => (
           <div key={index} className={styles.entry}>

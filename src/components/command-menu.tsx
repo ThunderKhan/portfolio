@@ -119,7 +119,7 @@ export function CommandMenu() {
         if (terminalAction(hiddenCommand)) return
         if (hiddenCommand === "clear") { setQuery(""); return }
         if (hiddenCommand === "exit") { changeOpen(false); return }
-        setTerminal(hiddenCommand === "terminal" ? "" : query.trim())
+        setTerminal(query.trim())
         setQuery("")
     }
 
@@ -146,14 +146,19 @@ export function CommandMenu() {
                 </div>
             </button>
 
-            <CommandDialog className={styles.dialog} open={open} onOpenChange={changeOpen} onCloseAutoFocus={(event) => {
+            <CommandDialog className={styles.dialog} open={open} onOpenChange={changeOpen} plain={terminal !== null} onOpenAutoFocus={(event) => {
+                if (searchRef.current) {
+                    event.preventDefault()
+                    searchRef.current.focus()
+                }
+            }} onCloseAutoFocus={(event) => {
                 if (triggerRef.current?.isConnected) {
                     event.preventDefault()
                     triggerRef.current.focus({ preventScroll: true })
                 }
             }}>
                 <div className={styles.header}>
-                    <button type="button" className={styles.reactorButton} aria-label="Open hidden terminal" onClick={() => { setTerminal(""); setQuery("") }}>
+                    <button type="button" className={styles.reactorButton} aria-label={terminal === null ? "Open hidden terminal" : "Return to command search"} onClick={() => { if (terminal === null) { setTerminal(""); setQuery("") } else exitTerminal() }}>
                     <svg className={styles.reactor} viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
                         <circle cx="20" cy="20" r="17" stroke="currentColor" strokeWidth="1.2" />
                         <circle cx="20" cy="20" r="12.5" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 3" />
@@ -168,12 +173,18 @@ export function CommandMenu() {
                 </div>
 
                 {terminal !== null ? <MarkTerminal initialInput={terminal} onAction={terminalAction} onExit={exitTerminal} /> : <>
-                <CommandInput ref={searchRef} value={query} onValueChange={setQuery} aria-label="Search commands" placeholder="Find a project, page or action..." />
+                <CommandInput ref={searchRef} value={query} onValueChange={setQuery} aria-label="Search commands" placeholder="Find a project, page or action..." onKeyDown={event => {
+                    if (event.key === "Enter" && !event.nativeEvent.isComposing && hiddenCommand) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        runHidden()
+                    }
+                }} />
 
                 <CommandList className={styles.list}>
-                    <CommandEmpty>No matching commands. Try a different search.</CommandEmpty>
+                    {!hiddenCommand && <CommandEmpty>No matching commands. Try a different search.</CommandEmpty>}
                     {hiddenCommand ? <CommandGroup heading="Command">
-                        <CommandItem value={query.trim()} forceMount onSelect={runHidden} className={itemClass}>
+                        <CommandItem value={query.trim()} onSelect={runHidden} className={itemClass}>
                             <Code aria-hidden="true" className="mr-2 h-4 w-4" />
                             <span>Run {query.trim()}</span>
                         </CommandItem>
