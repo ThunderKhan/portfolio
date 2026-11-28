@@ -88,3 +88,17 @@ test("lint ignores generated browser artifacts but not browser test source", () 
   assert.ok(config.includes('"tests/browser/test-results/**"'));
   assert.ok(!config.includes('"tests/browser/**"'));
 });
+
+
+test("MARK I palette keeps accessible commands and prioritizes navigation", () => {
+  const menu = read("src/components/command-menu.tsx");
+  const css = read("src/components/command-menu.module.css");
+  assert.ok(menu.includes("MARK I") && menu.includes('aria-label="Search commands"'));
+  assert.ok(menu.indexOf('heading="Navigate"') < menu.indexOf('heading="Sections"'));
+  assert.ok(menu.indexOf('heading="Quick actions"') < menu.indexOf('heading="Projects"'));
+  assert.ok(menu.includes('portfolio.repo && <CommandItem') && menu.includes('openExternal(portfolio.repo)'));
+  assert.ok(menu.includes('portfolio.sections.blog && <CommandItem'));
+  assert.match(css, /\[data-selected="true"\]\s*\{[^}]*box-shadow: inset 2px 0 var\(--mark-interaction\)/);
+  assert.match(css, /\.dialog\s*\{[^}]*animation: none !important/);
+  assert.ok(!menu.includes('"/blueprint"'));
+});

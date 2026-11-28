@@ -314,3 +314,26 @@ test('closing motto retains its wording and two crimson accents', async ({ page 
   await expect(accents.last()).toHaveCSS('color', color);
   await audit(page, info, 'motto-accent');
 });
+
+
+test('MARK I command palette has prioritized commands and accessible selection', async ({ page }, info) => {
+  await mockCalendar(page);
+  await visit(page, '/', info);
+  const trigger = page.getByRole('button', { name: /Open command menu/ });
+  await trigger.click();
+  const dialog = page.getByRole('dialog', { name: 'Command Palette' });
+  await expect(dialog.getByRole('heading', { name: 'MARK I' })).toBeVisible();
+  const input = dialog.getByRole('combobox');
+  await expect(input).toBeFocused();
+  await expect(dialog.getByRole('option').first()).toHaveText('All projects');
+  await input.fill('portfolio source code');
+  await expect(dialog.getByRole('option', { name: 'Portfolio source code', exact: true })).toBeVisible();
+  await input.fill('no-matching-command-xyz');
+  await expect(dialog.getByText('No matching commands. Try a different search.')).toBeVisible();
+  await input.fill('all projects');
+  await expect(dialog.getByRole('option', { name: 'All projects', exact: true })).toBeVisible();
+  await audit(page, info, 'mark-command');
+  await input.press('Enter');
+  await expect(page).toHaveURL(/\/projects$/);
+  await expect(dialog).toBeHidden();
+});

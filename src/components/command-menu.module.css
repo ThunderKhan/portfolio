@@ -1,0 +1,113 @@
+/* MARK I command surface: workshop neutrals, reactor feedback, gold identity.
+   Keep the existing cmdk/Radix interaction and focus model. */
+.dialog {
+  border: 1px solid var(--mark-seam);
+  background: var(--mark-panel);
+  color: var(--mark-ink);
+  gap: 0;
+  animation: none !important;
+}
+.dialog [data-slot="command"] {
+  background: var(--mark-panel);
+  color: var(--mark-ink);
+  border-radius: 0;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 54px 16px 18px;
+  border-bottom: 1px solid var(--mark-seam);
+}
+.reactor {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  color: var(--mark-interaction);
+}
+.heading h3 {
+  font-family: var(--font-barlow), sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.1;
+  color: var(--mark-gold-ink);
+}
+.heading p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--mark-muted);
+  margin-top: 3px;
+}
+.dialog [data-slot="command-input-wrapper"] {
+  padding-inline: 18px;
+  border-color: var(--mark-seam);
+}
+.dialog [data-slot="command-input-wrapper"] svg {
+  color: var(--mark-interaction);
+  opacity: 1;
+}
+.dialog [data-slot="command-input"] {
+  min-width: 0;
+  color: var(--mark-ink);
+}
+.list {
+  padding: 8px;
+  max-height: min(380px, 48dvh);
+}
+.dialog [cmdk-group-heading] {
+  font-size: 12px;
+  color: var(--mark-muted);
+}
+.dialog [data-slot="command-item"] {
+  min-height: 40px;
+  padding: 9px 10px;
+  gap: 8px;
+  border-radius: 4px;
+  color: var(--mark-ink);
+  line-height: 1.45;
+}
+.dialog [data-slot="command-item"] > span:not([data-slot="command-shortcut"]) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dialog [data-slot="command-item"] svg { color: var(--mark-muted); }
+.dialog [data-slot="command-item"][data-selected="true"] {
+  background: color-mix(in srgb, var(--mark-interaction) 9%, var(--mark-panel));
+  box-shadow: inset 2px 0 var(--mark-interaction);
+  color: var(--mark-ink);
+}
+.dialog [data-slot="command-item"][data-selected="true"] svg {
+  color: var(--mark-interaction);
+}
+.dialog [data-slot="command-shortcut"] {
+  max-width: 36%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dialog [data-slot="command-separator"] { background: var(--mark-seam); }
+.footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--mark-seam);
+  color: var(--mark-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.footer kbd {
+  font-family: monospace;
+  color: var(--mark-ink);
+  font-size: inherit;
+}
+@media (max-width: 639px) {
+  .header { padding: 12px 52px 12px 14px; }
+  .dialog [data-slot="command-input-wrapper"] { padding-inline: 14px; }
+  .list { max-height: min(320px, 42dvh); }
+  .footer { gap: 6px 12px; padding-inline: 12px; }
+}
+@media (max-height: 420px) {
+  .list { max-height: 30dvh; }
+}

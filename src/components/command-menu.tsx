@@ -5,7 +5,6 @@ import { homeSections } from "@/data/homeSections";
 import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import {
-    LayoutDashboard,
     FileText,
     Moon,
     Sun,
@@ -41,8 +40,10 @@ import {
 } from "@/components/ui/command"
 import { projectsData } from "@/data/projectsData"
 import { handles, bookingLink, email, resume } from "@/data/links"
+import { portfolio } from "~/portfolio.config"
+import styles from "./command-menu.module.css"
 
-const itemClass = "rounded-lg py-3 cursor-pointer"
+const itemClass = "cursor-pointer"
 
 const sectionIcons = { Code, Briefcase, GitPullRequest, Trophy, FileText, BookOpen, GraduationCap, Award, Binary, Camera } as const;
 const SECTIONS = [...homeSections.map((section) => ({ ...section, icon: sectionIcons[section.icon] })), { id: "contact", label: "Socials", icon: Send, key: "O" }] as const
@@ -107,67 +108,31 @@ export function CommandMenu() {
                 </div>
             </button>
 
-            <CommandDialog open={open} onOpenChange={setOpen} onCloseAutoFocus={(event) => {
+            <CommandDialog className={styles.dialog} open={open} onOpenChange={setOpen} onCloseAutoFocus={(event) => {
                 if (triggerRef.current?.isConnected) {
                     event.preventDefault()
                     triggerRef.current.focus({ preventScroll: true })
                 }
             }}>
-                {/* Header Section */}
-                <div className="flex items-center gap-4 p-4 border-b border-zinc-100 dark:border-zinc-800">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 mark-muted">
-                        <LayoutDashboard className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Navigation Menu</h3>
-                        <p className="text-xs mark-muted">Jump to a section, project, profile or action</p>
+                <div className={styles.header}>
+                    <svg className={styles.reactor} viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+                        <circle cx="20" cy="20" r="17" stroke="currentColor" strokeWidth="1.2" />
+                        <circle cx="20" cy="20" r="12.5" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 3" />
+                        <path d="M20 11.5 27.4 24.3H12.6Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                        <circle cx="20" cy="20" r="3" fill="currentColor" />
+                    </svg>
+                    <div className={styles.heading}>
+                        <h3>MARK I</h3>
+                        <p>Command palette</p>
                     </div>
                 </div>
 
-                <CommandInput aria-label="Search commands" placeholder="Search sections, projects, profiles..." className="border-none focus:ring-0" />
+                <CommandInput aria-label="Search commands" placeholder="Find a project, page or action..." />
 
-                <CommandList className="p-2">
-                    <CommandEmpty>No results found.</CommandEmpty>
+                <CommandList className={styles.list}>
+                    <CommandEmpty>No matching commands. Try a different search.</CommandEmpty>
 
-                    <CommandGroup heading="Sections">
-                        {SECTIONS.map((s) => {
-                            const Icon = s.icon
-                            return (
-                                <CommandItem
-                                    key={s.id}
-                                    value={`section ${s.label}`}
-                                    onSelect={() => runCommand(() => { router.push(`/#${s.id}`) })}
-                                    className={itemClass}
-                                >
-                                    <Icon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                                    <span>{s.label}</span>
-                                </CommandItem>
-                            )
-                        })}
-                    </CommandGroup>
-
-                    <CommandSeparator className="my-2" />
-
-                    <CommandGroup heading="Projects">
-                        {projectsData.map((p) => (
-                            <CommandItem
-                                key={p.slug}
-                                value={`project ${p.title} ${p.tech.join(" ")}`}
-                                onSelect={() => runCommand(() => router.push(`/projects/${p.slug}`))}
-                                className={itemClass}
-                            >
-                                <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                                <span>{p.title}</span>
-                                <CommandShortcut className="font-mono text-[10px] mark-muted capitalize">
-                                    {p.status}
-                                </CommandShortcut>
-                            </CommandItem>
-                        ))}
-                    </CommandGroup>
-
-                    <CommandSeparator className="my-2" />
-
-                    <CommandGroup heading="Pages">
+                    <CommandGroup heading="Navigate">
                         <CommandItem value="page all projects" onSelect={() => runCommand(() => router.push("/projects"))} className={itemClass}>
                             <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>All projects</span>
@@ -180,10 +145,10 @@ export function CommandMenu() {
                             <GitPullRequest aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>OSS Contributions</span>
                         </CommandItem>
-                        <CommandItem value="page technical writing blogs articles" onSelect={() => runCommand(() => router.push("/blogs"))} className={itemClass}>
+                        {portfolio.sections.blog && <CommandItem value="page technical writing blogs articles" onSelect={() => runCommand(() => router.push("/blogs"))} className={itemClass}>
                             <FileText aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Technical writing archive</span>
-                        </CommandItem>
+                        </CommandItem>}
                         <CommandItem value="page certifications training credentials" onSelect={() => runCommand(() => router.push("/certifications"))} className={itemClass}>
                             <Award aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Certifications archive</span>
@@ -198,31 +163,9 @@ export function CommandMenu() {
                         </CommandItem>
                     </CommandGroup>
 
-                    <CommandSeparator className="my-2" />
+                    <CommandSeparator className="my-1" />
 
-                    <CommandGroup heading="Profiles">
-                        {PROFILES.filter(p => Boolean(p.handle)).map((p) => {
-                            const Icon = p.icon
-                            return (
-                                <CommandItem
-                                    key={p.label}
-                                    value={`profile ${p.label} ${p.handle}`}
-                                    onSelect={() => runCommand(() => openExternal(p.href))}
-                                    className={itemClass}
-                                >
-                                    <Icon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                                    <span>{p.label}</span>
-                                    <CommandShortcut className="font-mono text-[10px] mark-muted">
-                                        {p.handle}
-                                    </CommandShortcut>
-                                </CommandItem>
-                            )
-                        })}
-                    </CommandGroup>
-
-                    <CommandSeparator className="my-2" />
-
-                    <CommandGroup heading="Actions">
+                    <CommandGroup heading="Quick actions">
                         <CommandItem value="action copy email address" onSelect={() => runCommand(() => navigator.clipboard.writeText(email))} className={itemClass}>
                             <Copy aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
                             <span>Copy email</span>
@@ -245,40 +188,92 @@ export function CommandMenu() {
                         </CommandItem>
                     </CommandGroup>
 
-                    <CommandSeparator className="my-2" />
+                    <CommandSeparator className="my-1" />
 
-                    <CommandGroup heading="Theme">
+                    <CommandGroup heading="Sections">
+                        {SECTIONS.map((s) => {
+                            const Icon = s.icon
+                            return (
+                                <CommandItem
+                                    key={s.id}
+                                    value={`section ${s.label}`}
+                                    onSelect={() => runCommand(() => { router.push(`/#${s.id}`) })}
+                                    className={itemClass}
+                                >
+                                    <Icon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                                    <span>{s.label}</span>
+                                </CommandItem>
+                            )
+                        })}
+                    </CommandGroup>
+
+                    <CommandSeparator className="my-1" />
+
+                    <CommandGroup heading="Projects">
+                        {projectsData.map((p) => (
+                            <CommandItem
+                                key={p.slug}
+                                value={`project ${p.title} ${p.tech.join(" ")}`}
+                                onSelect={() => runCommand(() => router.push(`/projects/${p.slug}`))}
+                                className={itemClass}
+                            >
+                                <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                                <span>{p.title}</span>
+                                <CommandShortcut className="font-mono text-[10px] mark-muted capitalize">
+                                    {p.status}
+                                </CommandShortcut>
+                            </CommandItem>
+                        ))}
+                    </CommandGroup>
+
+                    <CommandSeparator className="my-1" />
+
+                    <CommandGroup heading="Profiles">
+                        {PROFILES.filter(p => Boolean(p.handle)).map((p) => {
+                            const Icon = p.icon
+                            return (
+                                <CommandItem
+                                    key={p.label}
+                                    value={`profile ${p.label} ${p.handle}`}
+                                    onSelect={() => runCommand(() => openExternal(p.href))}
+                                    className={itemClass}
+                                >
+                                    <Icon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                                    <span>{p.label}</span>
+                                    <CommandShortcut className="font-mono text-[10px] mark-muted">
+                                        {p.handle}
+                                    </CommandShortcut>
+                                </CommandItem>
+                            )
+                        })}
+                    </CommandGroup>
+
+                    <CommandSeparator className="my-1" />
+
+                    <CommandGroup heading="System">
                         <CommandItem value="theme light" onSelect={() => runCommand(() => setTheme("light"))} className={itemClass}>
                             <Sun aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Light Mode</span>
+                            <span>Light mode</span>
                         </CommandItem>
                         <CommandItem value="theme dark" onSelect={() => runCommand(() => setTheme("dark"))} className={itemClass}>
                             <Moon aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>Dark Mode</span>
+                            <span>Dark mode</span>
                         </CommandItem>
                         <CommandItem value="theme system auto" onSelect={() => runCommand(() => setTheme("system"))} className={itemClass}>
                             <Laptop aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
-                            <span>System</span>
+                            <span>System appearance</span>
                         </CommandItem>
+                        {portfolio.repo && <CommandItem value="system source code repository github portfolio architecture" onSelect={() => runCommand(() => openExternal(portfolio.repo))} className={itemClass}>
+                            <Code aria-hidden="true" className="mr-2 h-4 w-4 text-zinc-500" />
+                            <span>Portfolio source code</span>
+                        </CommandItem>}
                     </CommandGroup>
                 </CommandList>
 
-                {/* Footer */}
-                <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
-                    <div className="flex items-center gap-4 text-[10px] mark-muted">
-                        <div className="flex items-center gap-1">
-                            <span className="font-mono">Up / Down</span>
-                            <span>to navigate</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-mono">Enter</span>
-                            <span>to select</span>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-[10px] mark-muted">
-                        <span className="font-mono">esc</span>
-                        <span>to close</span>
-                    </div>
+                <div className={styles.footer}>
+                    <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+                    <span><kbd>Enter</kbd> Select</span>
+                    <span><kbd>Esc</kbd> Close</span>
                 </div>
             </CommandDialog>
         </>
